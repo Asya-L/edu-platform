@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ученики</title>
+<script>document.documentElement.dataset.page="students";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=60d1452f"></script><script src="assets/auth.js?v=60d1452f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9615d08f">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap narrow"><div class="kicker">Только для учителя</div><h1>Ученики</h1>
+<p class="lede">Все, кто создал аккаунт на сайте. Новые аккаунты получают роль «ученик». Роль можно поменять здесь.</p></div></section>
+<main class="wrap narrow">
+  <div class="note"><span class="lbl">Как пригласить ученика</span><p>Отправьте ему ссылку <b>asya-l.github.io/edu-platform</b>.
+  Он нажмёт «Создать аккаунт», подтвердит почту и сразу увидит свои материалы.</p></div>
+  <div id="list"><p>Загружаю…</p></div>
+</main>
+<script>
+(function(){
+var K = window.KABINET, list = document.getElementById('list');
+function row(p, me){
+  return '<div class="lesson-row"><div class="lesson-no" style="font-size:16px">'+(p.role==='teacher'?'У':'Уч')+'</div><div><h3>'+K.esc(p.email||'без почты')+'</h3>'+
+    '<p>с '+new Date(p.created_at).toLocaleDateString('ru-RU')+'</p></div><div>'+(me?'<span class="pill">это вы</span>':
+    '<label class="sr" for="r'+p.user_id+'" style="position:absolute;left:-9999px">Роль</label><select id="r'+p.user_id+'" data-id="'+p.user_id+'" style="font:inherit;padding:7px 10px;border-radius:10px;border:1.5px solid var(--edge)">'+
+    '<option value="student"'+(p.role==='student'?' selected':'')+'>ученик</option><option value="teacher"'+(p.role==='teacher'?' selected':'')+'>учитель</option></select>')+'</div></div>';
+}
+K.state.then(async function(st){
+  if (!st || st.role !== 'teacher') return;
+  var r = await K.sb.from('edu_profiles').select('user_id,email,role,created_at').order('created_at', {ascending: true});
+  if (r.error) { list.innerHTML = '<div class="warn"><p>Список не загрузился. Обновите страницу.</p></div>'; return; }
+  if (!r.data.length) { list.innerHTML = '<p>Пока никого нет.</p>'; return; }
+  list.innerHTML = '<div class="lessons">' + r.data.map(function(p){ return row(p, p.user_id === st.session.user.id); }).join('') + '</div>';
+  list.querySelectorAll('select').forEach(function(s){ s.addEventListener('change', async function(){
+    s.disabled = true; var u = await K.sb.from('edu_profiles').update({role: s.value}).eq('user_id', s.getAttribute('data-id'));
+    s.disabled = false; if (u.error) { alert('Не удалось сменить роль'); } }); });
+});
+})();
+</script>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

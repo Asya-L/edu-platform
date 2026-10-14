@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Урок 1. Аксиомы стереометрии</title>
+<script>document.documentElement.dataset.page="g1";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=60d1452f"></script><script src="assets/auth.js?v=60d1452f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Введение, п. 1–3 · первые три аксиомы и два следствия">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9615d08f">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry.html">Геометрия</a> · Урок 1</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · урок 1</div>
+  <h1>Аксиомы стереометрии</h1>
+  <p class="lede">Введение, п. 1–3 · первые три аксиомы и два следствия</p>
+  <div class="btns">
+    <a class="btn" href="s1.html">▶ Презентация</a>
+    <a class="btn lime" href="ws1.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Чем стереометрия отличается от планиметрии</h3>
+<p>В планиметрии все фигуры жили в одной плоскости — в тетрадном листе. Стереометрия изучает фигуры <b>в пространстве</b>: куб, шар, пирамида. Главное новое слово — <b>плоскость</b>. Это бесконечная, идеально ровная поверхность без толщины и без края.</p>
+<p>Три фигуры считаются <b>основными</b> — им не дают определения, их просто принимают: <b>точка</b>, <b>прямая</b>, <b>плоскость</b>. Всё остальное через них определяется.</p>
+<h3>Обозначения и как рисовать</h3>
+<ul><li>Точки — большие латинские буквы: <i>A</i>, <i>B</i>, <i>C</i>.</li><li>Прямые — маленькие латинские: <i>a</i>, <i>b</i>, или по двум точкам: прямая <i>AB</i>.</li><li>Плоскости — греческие буквы: <i>α</i> (альфа), <i>β</i> (бета), <i>γ</i> (гамма), или по трём точкам: плоскость <i>ABC</i>.</li><li>На чертеже плоскость изображают <b>параллелограммом</b> — это просто условность, кусочек бесконечной плоскости.</li><li>Невидимые линии (те, что «за» фигурой) рисуют <b>штрихом</b>.</li></ul>
+<div class="figrow"><figure><img src="assets/fig/ris05a_pryamaya_v_ploskosti.png" alt="Прямая &lt;i&gt;a&lt;/i&gt; лежит в плоскости &lt;i&gt;α&lt;/i&gt;"><figcaption>Прямая <i>a</i> лежит в плоскости <i>α</i></figcaption></figure><figure><img src="assets/fig/ris05b_peresekayut.png" alt="Прямая &lt;i&gt;a&lt;/i&gt; пересекает плоскость в точке &lt;i&gt;M&lt;/i&gt;"><figcaption>Прямая <i>a</i> пересекает плоскость в точке <i>M</i></figcaption></figure><figure><img src="assets/fig/ris05v_dve_ploskosti.png" alt="Две плоскости пересекаются по прямой"><figcaption>Две плоскости пересекаются по прямой</figcaption></figure></div>
+<p>Запись: <i>A</i> ∈ <i>α</i> — «точка <i>A</i> лежит в плоскости <i>α</i>»; <i>a</i> ⊂ <i>α</i> — «прямая <i>a</i> лежит в плоскости <i>α</i>»; <i>a</i> ∩ <i>α</i> = <i>M</i> — «прямая пересекает плоскость в точке <i>M</i>».</p>
+<h2>Три аксиомы</h2>
+<p><b>Аксиома</b> — утверждение, которое принимают без доказательства. Это фундамент: дальше из них выводится всё остальное. Аксиом планиметрии мы не отменяем — они продолжают действовать внутри каждой плоскости. Добавляются три новые.</p>
+<div class="def"><span class="lbl">Аксиома А1</span><p>Через любые <b>три точки, не лежащие на одной прямой</b>, проходит плоскость, и притом <b>только одна</b>.</p></div>
+<figure><img src="assets/fig/ax_a1.png" alt="Аксиома А1: три точки задают плоскость, и единственную"><figcaption>Аксиома А1: три точки задают плоскость, и единственную</figcaption></figure>
+<div class="def"><span class="lbl">Аксиома А2</span><p>Если <b>две точки прямой</b> лежат в плоскости, то <b>все точки прямой</b> лежат в этой плоскости.</p></div>
+<div class="def"><span class="lbl">Аксиома А3</span><p>Если две плоскости имеют <b>общую точку</b>, то они имеют <b>общую прямую</b>, на которой лежат все общие точки этих плоскостей.</p></div>
+<figure><img src="assets/fig/ris05v_dve_ploskosti.png" alt="Две плоскости с общей точкой пересекаются по прямой"><figcaption>Две плоскости с общей точкой пересекаются по прямой</figcaption></figure>
+<h2>Два следствия (теоремы 1 и 2)</h2>
+<p>Аксиома А1 говорит про три точки. Но задать плоскость можно и иначе — и это ровно два случая. Оба доказываются одинаково: <b>сводим к трём точкам</b>.</p>
+<div class="thm"><span class="lbl">Теорема 1</span><p>Через <b>прямую и не лежащую на ней точку</b> проходит плоскость, и притом только одна.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть даны прямая <i>a</i> и точка <i>M</i> ∉ <i>a</i>.</p><p><i>Существование.</i> Отметим на прямой <i>a</i> две любые точки <i>P</i> и <i>Q</i>. Точки <i>M</i>, <i>P</i>, <i>Q</i> не лежат на одной прямой (иначе <i>M</i> оказалась бы на <i>a</i>). По <b>А1</b> через них проходит плоскость <i>α</i>. В ней лежат точки <i>P</i> и <i>Q</i> прямой <i>a</i>, значит, по <b>А2</b> в <i>α</i> лежит вся прямая <i>a</i>. Плоскость, проходящая через <i>a</i> и <i>M</i>, найдена.</p><p><i>Единственность.</i> Любая плоскость, содержащая <i>a</i> и <i>M</i>, содержит три точки <i>M</i>, <i>P</i>, <i>Q</i>. А через них по <b>А1</b> проходит только одна плоскость. Значит, других нет. ∎</p></div>
+<div class="thm"><span class="lbl">Теорема 2</span><p>Через <b>две пересекающиеся прямые</b> проходит плоскость, и притом только одна.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть прямые <i>a</i> и <i>b</i> пересекаются в точке <i>M</i>. Возьмём на <i>a</i> точку <i>P</i> ≠ <i>M</i>, на <i>b</i> точку <i>Q</i> ≠ <i>M</i>. Точки <i>M</i>, <i>P</i>, <i>Q</i> не лежат на одной прямой. По <b>А1</b> через них проходит единственная плоскость <i>α</i>. В ней лежат по две точки каждой прямой, значит, по <b>А2</b> в <i>α</i> лежат обе прямые целиком.</p><p>Единственность — как в теореме 1: любая такая плоскость содержит <i>M</i>, <i>P</i>, <i>Q</i>, а плоскость через них одна. ∎</p></div>
+<div class="def"><span class="lbl">Итог: плоскость однозначно задают</span><ol><li>три точки, не лежащие на одной прямой;</li><li>прямая и точка вне её;</li><li>две пересекающиеся прямые;</li><li>две параллельные прямые (урок 2).</li></ol></div>
+<h2>Учимся читать чертёж</h2>
+<p>Задачи 1 и 2 из учебника — тренажёр чтения чертежа. Действуй по шагам:</p>
+<figure><img src="assets/fig/ris08_zadacha1.png" alt="Рис. 8 (с. 7) — тетраэдр &lt;i&gt;DABC&lt;/i&gt;: &lt;i&gt;E&lt;/i&gt; на &lt;i&gt;AB&lt;/i&gt;, &lt;i&gt;P&lt;/i&gt; на &lt;i&gt;DE&lt;/i&gt;, &lt;i&gt;M&lt;/i&gt; на &lt;i&gt;DB&lt;/i&gt;, &lt;i&gt;K&lt;/i&gt; на &lt;i&gt;DC&lt;/i&gt;"><figcaption>Рис. 8 (с. 7) — тетраэдр <i>DABC</i>: <i>E</i> на <i>AB</i>, <i>P</i> на <i>DE</i>, <i>M</i> на <i>DB</i>, <i>K</i> на <i>DC</i></figcaption></figure>
+<ol class="steps"><li>Назови все четыре грани тетраэдра: <i>ABC</i>, <i>ADB</i>, <i>DBC</i>, <i>ADC</i>. Это четыре плоскости, с которыми работаем.</li><li>Для каждой отмеченной точки определи, на каком ребре она лежит: <i>E</i> — на <i>AB</i>, <i>M</i> — на <i>DB</i>, <i>K</i> — на <i>DC</i>, <i>P</i> — на <i>DE</i>.</li><li>Точка на ребре лежит сразу в обеих гранях, которым принадлежит ребро.</li><li>Только после этого отвечай на пункты задачи — и к каждому ответу добавляй обоснование: «по А2» или «по А3».</li></ol>
+<figure><img src="assets/fig/ris09_zadacha2.png" alt="Рис. 9 (с. 8) — параллелепипед; &lt;i&gt;K&lt;/i&gt; на &lt;i&gt;DD&lt;/i&gt;₁, &lt;i&gt;M&lt;/i&gt; на &lt;i&gt;CC&lt;/i&gt;₁, прямая &lt;i&gt;KM&lt;/i&gt; лежит в грани &lt;i&gt;DCC&lt;/i&gt;₁"><figcaption>Рис. 9 (с. 8) — параллелепипед; <i>K</i> на <i>DD</i>₁, <i>M</i> на <i>CC</i>₁, прямая <i>KM</i> лежит в грани <i>DCC</i>₁</figcaption></figure>
+<h2>GeoGebra: попробуй сам</h2>
+<p>Открой <b>geogebra.org/3d</b> (регистрация не нужна) и вводи команды по одной в строку ввода. Модель можно крутить мышью или пальцем.</p>
+<h3>Опыт 1. Три точки задают плоскость</h3>
+<ul class="gglist"><li><span class="gg">A=(0,0,0)</span><br><span style="font-size:14px;color:var(--ink-soft)">первая точка</span></li><li><span class="gg">B=(4,1,0)</span><br><span style="font-size:14px;color:var(--ink-soft)">вторая точка</span></li><li><span class="gg">C=(1,3,2)</span><br><span style="font-size:14px;color:var(--ink-soft)">третья точка — не в плоскости стола</span></li><li><span class="gg">p1=Plane(A,B,C)</span><br><span style="font-size:14px;color:var(--ink-soft)">плоскость через три точки; покрутите сцену мышью</span></li><li><span class="gg">D=(2,2,3)</span><br><span style="font-size:14px;color:var(--ink-soft)">четвёртая точка — видно, что она не на плоскости</span></li></ul>
+<p>Перетащите точку <i>C</i> на прямую <i>AB</i> — плоскость «сорвётся» и начнёт вращаться. Это и есть иллюстрация оговорки «не лежащие на одной прямой».</p>
+<h3>Опыт 2. Две плоскости пересекаются по прямой</h3>
+<ul class="gglist"><li><span class="gg">a1=Plane((0,0,0),(5,0,0),(0,5,0))</span><br><span style="font-size:14px;color:var(--ink-soft)">первая плоскость</span></li><li><span class="gg">b1=Plane((0,0,0),(5,0,0),(0,2,4))</span><br><span style="font-size:14px;color:var(--ink-soft)">вторая плоскость</span></li><li><span class="gg">l=Intersect(a1,b1)</span><br><span style="font-size:14px;color:var(--ink-soft)">их пересечение — прямая, а не точка</span></li></ul>
+<h3>Опыт 3. Прямая, две точки которой в плоскости</h3>
+<ul class="gglist"><li><span class="gg">a1=Plane((0,0,0),(6,0,0),(0,6,0))</span><br><span style="font-size:14px;color:var(--ink-soft)">плоскость</span></li><li><span class="gg">P=(1,1,0)</span><br><span style="font-size:14px;color:var(--ink-soft)">точка в плоскости</span></li><li><span class="gg">Q=(4,2,0)</span><br><span style="font-size:14px;color:var(--ink-soft)">вторая точка в плоскости</span></li><li><span class="gg">l=Line(P,Q)</span><br><span style="font-size:14px;color:var(--ink-soft)">прямая целиком легла в плоскость — это аксиома А2</span></li></ul>
+<h2 id="practice">Задачи урока</h2>
+<p>Задачи № 1–15 из учебника Атанасяна. Решай с обоснованием: на каждый шаг — ссылка на аксиому, теорему или признак.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>По рисунку 8 назовите: а) плоскости, в которых лежат прямые PE, MK, DB, AB, EC; б) точки пересечения прямой DK с плоскостью ABC, прямой CE с плоскостью ADB; в) точки, лежащие в плоскостях ADB и DBC; г) прямые, по которым пересекаются плоскости ABC и DCB, ABD и CDA, PDC и ABC.</div><div class="task"><span class="task-no">№&nbsp;2</span>По рисунку 9 назовите: а) точки, лежащие в плоскостях DCC₁ и BQC; б) плоскости, в которых лежит прямая AA₁; в) точки пересечения прямой MK с плоскостью ABD, прямых DK и BP с плоскостью A₁B₁C₁; г) прямые, по которым пересекаются плоскости AA₁B₁ и ACD, PB₁C₁ и ABC; д) точки пересечения прямых MK и DC, B₁C₁ и BP, C₁M и DC.</div><div class="task"><span class="task-no">№&nbsp;3</span>Верно ли, что: а) любые три точки лежат в одной плоскости; б) любые четыре точки лежат в одной плоскости; в) любые четыре точки не лежат в одной плоскости; г) через любые три точки проходит плоскость, и притом только одна?</div><div class="task"><span class="task-no">№&nbsp;4</span>Точки A, B, C и D не лежат в одной плоскости. а) Могут ли какие-то три из них лежать на одной прямой? б) Могут ли прямые AB и CD пересекаться? Ответ обоснуйте.</div><div class="task"><span class="task-no">№&nbsp;5</span>Докажите, что через три данные точки, лежащие на прямой, проходит плоскость. Сколько существует таких плоскостей?</div><div class="task"><span class="task-no">№&nbsp;6</span>Три данные точки соединены попарно отрезками. Докажите, что все отрезки лежат в одной плоскости.</div><div class="task"><span class="task-no">№&nbsp;7</span>Две прямые пересекаются в точке M. Докажите, что все прямые, не проходящие через точку M и пересекающие данные прямые, лежат в одной плоскости. Лежат ли в одной плоскости все прямые, проходящие через точку M?</div><div class="task"><span class="task-no">№&nbsp;8</span>Верно ли утверждение: а) если две точки окружности лежат в плоскости, то и вся окружность лежит в этой плоскости; б) если три точки окружности лежат в плоскости, то и вся окружность лежит в этой плоскости?</div><div class="task"><span class="task-no">№&nbsp;9</span>Две смежные вершины и точка пересечения диагоналей параллелограмма лежат в плоскости α. Лежат ли две другие вершины параллелограмма в плоскости α? Ответ обоснуйте.</div><div class="task"><span class="task-no">№&nbsp;10</span>Верно ли, что прямая лежит в плоскости данного треугольника, если она: а) пересекает две стороны треугольника; б) проходит через одну из вершин треугольника?</div><div class="task"><span class="task-no">№&nbsp;11</span>Даны прямая и точка, не лежащая на этой прямой. Докажите, что все прямые, проходящие через данную точку и пересекающие данную прямую, лежат в одной плоскости.</div><div class="task"><span class="task-no">№&nbsp;12</span>Точки A, B, C, D не лежат в одной плоскости. Пересекаются ли плоскости, проходящие через точки A, B, C и A, B, D?</div><div class="task"><span class="task-no">№&nbsp;13</span>Могут ли две плоскости иметь: а) только одну общую точку; б) только две общие точки; в) только одну общую прямую?</div><div class="task"><span class="task-no">№&nbsp;14</span>Три прямые проходят через одну точку. Через каждые две из них проведена плоскость. Сколько всего проведено плоскостей?</div><div class="task"><span class="task-no">№&nbsp;15</span>Три прямые попарно пересекаются. Докажите, что они либо лежат в одной плоскости, либо имеют общую точку.</div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 5, 7, 11, 14 письменно с полным обоснованием (на каждый шаг — ссылка на аксиому или теорему). Устно: перечислить по памяти четыре способа задать плоскость.</p></div>
+<div class="pager">
+  <a href="geometry.html">← Все уроки</a>
+  <a href="g2.html">Урок 2 →</a>
+</div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

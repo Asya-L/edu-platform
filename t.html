@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кабинет учителя</title>
+<script>document.documentElement.dataset.page="t";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=60d1452f"></script><script src="assets/auth.js?v=60d1452f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9615d08f">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+</div></header>
+
+<div id="tview"><section class="hero"><div class="wrap narrow"><h1>Открываю…</h1></div></section></div>
+<script>
+(function(){
+var K = window.KABINET, cache = {}, keyP = null, cur = null;
+var STUDENT_URL = 'https://asya-l.github.io/edu-platform/';
+var TP = K.teacherPages, TF = ["files/ws1-teacher.pdf", "files/ws2-teacher.pdf", "files/ws3-teacher.pdf", "files/ws4-teacher.pdf", "files/ws5-teacher.pdf", "files/test-geo1-student.pdf", "files/test-geo1-teacher.pdf", "files/test-alg1-student.pdf", "files/test-alg1-teacher.pdf", "files/test-alg2-student.pdf", "files/test-alg2-teacher.pdf", "files/geo-solutions-1-33.pdf", "files/geo-drawings-1-33.png", "files/ege-lecture-1.pdf"], VER = '60d1452f';
+var view = document.getElementById('tview');
+function b64(s){ var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+function key(){
+  if (!keyP) keyP = K.sb.from('edu_secrets').select('value').eq('name','content_key').maybeSingle().then(function(r){
+    if (!r.data) throw new Error('nokey');
+    return crypto.subtle.importKey('raw', b64(r.data.value), 'AES-GCM', false, ['decrypt']); });
+  return keyP;
+}
+async function open(path){
+  var k = await key(); var res = await fetch(path + '?v=' + VER); if (!res.ok) throw new Error('nofile');
+  var buf = new Uint8Array(await res.arrayBuffer());
+  return crypto.subtle.decrypt({name: 'AES-GCM', iv: buf.slice(0, 12)}, k, buf.slice(12));
+}
+function fail(t){ view.innerHTML = '<section class="hero"><div class="wrap narrow"><h1>Нет доступа</h1><p class="lede">'+t+'</p></div></section>'; document.documentElement.classList.remove('auth-wait'); }
+function wire(name){
+  view.querySelectorAll('a[href]').forEach(function(a){
+    var h = a.getAttribute('href');
+    if (h.indexOf(STUDENT_URL) === 0) { h = h.slice(STUDENT_URL.length) || 'index.html'; a.setAttribute('href', h); a.removeAttribute('target'); }
+    if (h.charAt(0) === '#' && h.length > 1) { a.setAttribute('href', 't.html#' + name + '/' + h.slice(1)); return; }
+    var m = h.match(/^([\w-]+)\.html(?:#(.*))?$/);
+    if (m && TP.indexOf(m[1]) >= 0) { a.setAttribute('href', 't.html#' + m[1] + (m[2] ? '/' + m[2] : '')); return; }
+    if (TF.indexOf(h) >= 0) { a.addEventListener('click', function(ev){ ev.preventDefault(); var w = window.open('', '_blank');
+      open('t/' + h + '.bin').then(function(d){ var type = /\.png$/.test(h) ? 'image/png' : 'application/pdf';
+        var u = URL.createObjectURL(new Blob([d], {type: type})); if (w) w.location = u; else location.href = u; })
+      .catch(function(){ if (w) w.close(); alertBox('Файл не открылся. Обновите страницу и попробуйте ещё раз.'); }); }); }
+  });
+  view.querySelectorAll('script').forEach(function(s){ var n = document.createElement('script'); n.textContent = s.textContent; s.replaceWith(n); });
+}
+function alertBox(t){ var d = document.createElement('div'); d.className = 'warn'; d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;margin:0';
+  d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 4000); }
+async function route(){
+  var parts = (location.hash.slice(1) || 'index').split('/'); var name = parts[0], frag = parts.slice(1).join('/');
+  if (TP.indexOf(name) < 0) name = 'index';
+  if (name !== cur) {
+    try {
+      if (!cache[name]) cache[name] = JSON.parse(new TextDecoder().decode(await open('t/' + name + '.bin')));
+    } catch(e) { fail(e.message === 'nokey' ? 'Эта часть сайта открыта только учителю.' : 'Страница не загрузилась. Проверьте интернет и обновите страницу.'); return; }
+    var p = cache[name]; document.title = p.title; view.innerHTML = p.html; cur = name; wire(name);
+    K.renderNav(window.__kstate, name); window.scrollTo(0, 0);
+  }
+  document.documentElement.classList.remove('auth-wait');
+  if (frag) { var t = document.getElementById(frag); if (t) t.scrollIntoView(); }
+}
+K.state.then(function(st){ if (!st) return; window.__kstate = st;
+  if (st.role !== 'teacher') return; addEventListener('hashchange', route); route(); });
+})();
+</script>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

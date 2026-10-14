@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Вход · Кабинет математики</title>
+<script>document.documentElement.dataset.page="login";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=60d1452f"></script><script src="assets/auth.js?v=60d1452f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9615d08f">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap narrow">
+  <h1>Кабинет математики</h1>
+  <p class="lede">Войдите, чтобы открыть материалы. Если вы здесь впервые — создайте аккаунт по своей почте.</p>
+</div></section>
+<main class="wrap narrow">
+  <div class="sheet" style="max-width:460px;background-image:none">
+    <div id="authbox"></div>
+  </div>
+  <p class="muted" style="color:var(--ink-soft);font-size:14px">Почта нужна только для входа. Пароль не короче 6 символов.</p>
+</main>
+<script>
+(function(){
+var K = window.KABINET, sb = K && K.sb, mode = 'in', msg = '', info = '', busy = false;
+var params = new URLSearchParams(location.search); var next = params.get('next') || '';
+var box = document.getElementById('authbox');
+function esc(s){ return K.esc(s); }
+function field(id, label, type, ac, ph){ return '<p><label for="'+id+'" style="display:block;font-weight:800;font-size:13px;color:var(--ink-soft);margin-bottom:5px">'+label+'</label>'+
+  '<input id="'+id+'" type="'+type+'" autocomplete="'+ac+'" placeholder="'+ph+'" required style="width:100%;font:inherit;padding:11px 13px;border:1.5px solid var(--edge);border-radius:12px;background:#fff"'+(type==='password'?' minlength="6"':'')+'></p>'; }
+function render(){
+  if (!sb) { box.innerHTML = '<h2 style="margin:0 0 10px">Вход пока не настроен</h2><p>Материалы открыты без входа.</p><p><a class="btn" href="index.html">Перейти к материалам</a></p>'; return; }
+  var h = '';
+  if (mode === 'newpass') h += '<h2 style="margin:0 0 14px">Новый пароль</h2><form data-f="newpass">'+field('pw','Новый пароль','password','new-password','не короче 6 символов');
+  else if (mode === 'forgot') h += '<h2 style="margin:0 0 14px">Восстановление пароля</h2><form data-f="forgot">'+field('em','Почта','email','email','you@example.com');
+  else h += '<h2 style="margin:0 0 14px">'+(mode==='up'?'Создать аккаунт':'Вход')+'</h2><form data-f="'+mode+'">'+field('em','Почта','email','email','you@example.com')+
+    field('pw','Пароль','password', mode==='up'?'new-password':'current-password', mode==='up'?'придумайте пароль':'ваш пароль');
+  var label = {in:'Войти', up:'Создать аккаунт', forgot:'Прислать ссылку', newpass:'Сохранить пароль'}[mode];
+  h += '<div class="btns" style="margin-top:6px"><button class="btn" type="submit"'+(busy?' disabled':'')+' style="border:0;cursor:pointer">'+(busy?'Подождите…':label)+'</button></div></form>';
+  if (info) h += '<div class="note" style="margin-top:16px"><p>'+esc(info)+'</p></div>';
+  if (msg) h += '<div class="warn" role="alert" style="margin-top:16px"><p>'+esc(msg)+'</p></div>';
+  if (mode === 'in') h += '<p style="margin-top:18px">Нет аккаунта? <a href="#" data-m="up">Создать</a> · <a href="#" data-m="forgot">Забыли пароль?</a></p>';
+  if (mode === 'up' || mode === 'forgot') h += '<p style="margin-top:18px"><a href="#" data-m="in">← Назад ко входу</a></p>';
+  box.innerHTML = h;
+  box.querySelectorAll('[data-m]').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); mode = a.getAttribute('data-m'); msg = info = ''; render(); }); });
+  var f = box.querySelector('form'); if (f) f.addEventListener('submit', submit);
+  var em = box.querySelector('#em'); if (em) em.focus();
+}
+function ru(err){
+  var m = (err && err.message || '').toLowerCase();
+  if (m.indexOf('invalid login') >= 0) return 'Неверная почта или пароль.';
+  if (m.indexOf('not confirmed') >= 0) return 'Почта ещё не подтверждена: откройте письмо от Supabase и нажмите ссылку.';
+  if (m.indexOf('already registered') >= 0) return 'Такой аккаунт уже есть — войдите.';
+  if (m.indexOf('password') >= 0) return 'Пароль должен быть не короче 6 символов.';
+  if (m.indexOf('rate') >= 0) return 'Слишком много попыток. Подождите минуту.';
+  return 'Не получилось: ' + (err && err.message || 'нет связи с сервером') + '.';
+}
+async function submit(e){
+  e.preventDefault(); if (busy) return; busy = true; msg = info = ''; render();
+  var em = (document.getElementById('em')||{}).value || '', pw = (document.getElementById('pw')||{}).value || '';
+  try {
+    var base = location.origin + location.pathname;
+    if (mode === 'in') { var r = await sb.auth.signInWithPassword({email: em.trim(), password: pw}); if (r.error) throw r.error; go(); return; }
+    if (mode === 'up') { var r2 = await sb.auth.signUp({email: em.trim(), password: pw, options: {emailRedirectTo: base}}); if (r2.error) throw r2.error;
+      if (r2.data && r2.data.session) { go(); return; } info = 'Готово! Мы отправили письмо на ' + em.trim() + '. Откройте его и нажмите ссылку, затем войдите.'; mode = 'in'; }
+    if (mode === 'forgot') { var r3 = await sb.auth.resetPasswordForEmail(em.trim(), {redirectTo: base}); if (r3.error) throw r3.error;
+      info = 'Ссылка для нового пароля отправлена на ' + em.trim() + '.'; mode = 'in'; }
+    if (mode === 'newpass') { var r4 = await sb.auth.updateUser({password: pw}); if (r4.error) throw r4.error; go(); return; }
+  } catch(err) { msg = ru(err); }
+  busy = false; render();
+}
+async function go(){
+  var s = (await sb.auth.getSession()).data.session; var role = 'student';
+  try { var r = await sb.from('edu_profiles').select('role').eq('user_id', s.user.id).maybeSingle(); if (r.data) role = r.data.role; } catch(e){}
+  location.href = next && next.indexOf('login') < 0 ? next : (role === 'teacher' ? 't.html#index' : 'index.html');
+}
+if (sb) sb.auth.onAuthStateChange(function(ev){ if (ev === 'PASSWORD_RECOVERY') { mode = 'newpass'; msg = info = ''; render(); } });
+render();
+})();
+</script>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
