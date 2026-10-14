@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Как пользоваться сайтом</title>
-<script>document.documentElement.dataset.page="help";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=de8505f0"></script><script src="assets/auth.js?v=de8505f0"></script>
+<script>document.documentElement.dataset.page="help";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=140ba1bb"></script><script src="assets/auth.js?v=140ba1bb"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
-  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="on">Помощь</a></nav>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="on">Помощь</a></nav>
 </div></header>
 
 <section class="hero" style="padding-bottom:10px"><div class="wrap narrow"><div class="kicker">Для ученика</div>
@@ -36,6 +36,7 @@
 <h2 id="menu">2. Что где лежит</h2>
 <div class="tablewrap"><table><thead><tr><th>Раздел</th><th>Что там</th></tr></thead><tbody>
 <tr><td><b>Главная</b></td><td>Следующее занятие, твой прогресс, последнее домашнее задание и все разделы.</td></tr>
+<tr><td><b>Доска</b></td><td>Общая доска для занятий: рисуем вместе с учителем. Там же — доски с прошлых уроков.</td></tr>
 <tr><td><b>Домашка</b></td><td>Все задания от учителя, новые сверху. Здесь же сдаёшь работу фотографией и видишь ответ учителя.</td></tr>
 <tr><td><b>Геометрия</b></td><td>Пять уроков. В каждом: конспект с чертежами, презентация, рабочий лист, задачи из учебника и домашнее задание. Там же тест-самопроверка.</td></tr>
 <tr><td><b>Алгебра</b></td><td>Темы § 1–8 и презентации к ним.</td></tr>
@@ -60,11 +61,19 @@
 <p>На главной вверху — дата и время следующего занятия и кнопка <b>«Подключиться к занятию»</b>: она открывает звонок.
 Рядом — <b>«Мой прогресс»</b>: сколько тем уже освоено. Статусы тем ставит учитель после занятий.</p>
 
-<h2 id="quiz">5. Самопроверка</h2>
+<h2 id="board">5. Доска</h2>
+<p>В меню <b>«Доска»</b> — общий лист в клетку, на котором мы с учителем рисуем одновременно: ты видишь всё, что рисует учитель, и его курсор, а он — твоё.
+Инструменты наверху: ручка, отрезок, вектор, окружность, точка с буквой, текст с символами (², √, π, ∠, ⊥, ∥…), ластик и указка.
+Пунктир — для невидимых линий в стереометрии. Можно вставить фото из тетради (кнопка с картинкой или Ctrl+V) или чертёж из урока.</p>
+<ul><li>Колесо мыши двигает лист, <b>Ctrl + колесо</b> — масштаб, <b>Shift</b> при рисовании отрезка — ровный угол.</li>
+<li><b>Ctrl + Z</b> — отменить своё последнее действие.</li>
+<li>Доска сохраняется сама. В меню «Доски ▾» — все доски с прошлых занятий: их можно открыть и повторить.</li></ul>
+
+<h2 id="quiz">6. Самопроверка</h2>
 <p>Геометрия → <b>«Тест по главе I»</b>. Отвечай числом или словом, в вопросах с вариантами — выбери один. После «Проверить»
 сразу видно, где ошибка, и правильный ответ. Результат сохраняется, учитель видит его в журнале. Пройти тест можно несколько раз.</p>
 
-<h2 id="lesson">6. На уроке</h2>
+<h2 id="lesson">7. На уроке</h2>
 <ul>
 <li>Учитель показывает <b>презентацию</b> через демонстрацию экрана. Её можно открыть и у себя: Геометрия → урок → «Презентация».
 Листай стрелками на клавиатуре, свайпом на телефоне или кнопками внизу. Клавиша <b>F</b> — во весь экран.</li>
@@ -72,14 +81,14 @@
 <li><b>Задачи урока</b> — в конце конспекта. Решай с обоснованием: к каждому шагу — аксиома, теорема или признак.</li>
 </ul>
 
-<h2 id="phone">7. На телефоне</h2>
+<h2 id="phone">8. На телефоне</h2>
 <p>Сайт можно добавить на главный экран, чтобы он открывался как приложение:</p>
 <ul>
 <li><b>iPhone (Safari):</b> кнопка «Поделиться» → «На экран „Домой“».</li>
 <li><b>Android (Chrome):</b> меню ⋮ → «Добавить на главный экран».</li>
 </ul>
 
-<h2 id="problems">8. Если что-то не так</h2>
+<h2 id="problems">9. Если что-то не так</h2>
 <ul>
 <li><b>Забыл пароль</b> — на странице входа нажми «Забыли пароль?», на почту придёт ссылка для нового пароля.</li>
 <li><b>Страница выглядит странно или не обновилась</b> — обнови её: на компьютере Cmd + Shift + R (Mac) или Ctrl + F5 (Windows), на телефоне потяни страницу вниз.</li>

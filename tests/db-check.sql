@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-14).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-18).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -13,7 +13,7 @@ declare
   s_uid uuid := gen_random_uuid();   -- тестовый ученик
   o_uid uuid := gen_random_uuid();   -- другой тестовый ученик
   st_id uuid; ot_id uuid; l_mine uuid; l_other uuid;
-  n int; n2 int; n3 int; b boolean; v text; err text; j jsonb; obj_other text;
+  n int; n2 int; n3 int; b boolean; v text; err text; j jsonb; obj_other text; b_mine uuid; b_other uuid; nb uuid;
   r text := E'ИТОГ ПРОВЕРКИ (все изменения отменены)\n';
 
   -- строки отчёта собираются в r
@@ -46,14 +46,17 @@ begin
   update public.edu_students set next_at = now() + interval '2 days', call_url = 'https://example.invalid/call' where id = st_id;
   obj_other := o_uid::text || '/' || l_other::text || '/z.jpg';
   insert into storage.objects(bucket_id, name) values ('edu-hw', obj_other);
+  insert into public.edu_boards(student_id, title) values (st_id, 'ТЕСТ моя доска') returning id into b_mine;
+  insert into public.edu_boards(student_id, title) values (ot_id, 'ТЕСТ чужая доска') returning id into b_other;
 
   -- DB-01: учитель читает ключ
   perform set_config('request.jwt.claims', json_build_object('sub', t_uid, 'role', 'authenticated')::text, true);
   perform set_config('request.jwt.claim.sub', coalesce(t_uid::text, ''), true);
   execute 'set local role authenticated';
   select count(*) into n from public.edu_secrets where name = 'content_key';
+  select count(*) + n into n from public.edu_board_get(b_other);
   execute 'reset role';
-  r := r || case when n = 1 then 'PASS' else 'FAIL' end || ' DB-01 учитель видит ключ: строк ' || n || E'\n';
+  r := r || case when n = 2 then 'PASS' else 'FAIL' end || ' DB-01 учитель видит ключ и любую доску: строк ' || n || E'\n';
 
   -- дальше — от имени тестового ученика
   perform set_config('request.jwt.claims', json_build_object('sub', s_uid, 'role', 'authenticated')::text, true);
@@ -140,7 +143,41 @@ begin
   select count(*), max(i.name), bool_and(i.next_at > now()) into n, v, b from public.edu_my_info() i;
   r := r || case when n = 1 and v = 'ТЕСТ ученик' and b then 'PASS' else 'FAIL' end
          || ' DB-13 следующее занятие: строк ' || n || ', карточка «' || coalesce(v, '—') || '»' || E'\n';
+
+  -- DB-15: доски — ученик видит и открывает только свои
+  select count(*) into n from public.edu_my_boards();
+  select count(*) into n2 from public.edu_board_get(b_mine);
+  select count(*) into n3 from public.edu_board_get(b_other);
+  select count(*) + n3 into n3 from public.edu_boards;
+  r := r || case when n = 1 and n2 = 1 and n3 = 0 then 'PASS' else 'FAIL' end
+         || ' DB-15 доски: в списке ' || n || ', своя открывается ' || n2 || ', чужая/таблица напрямую ' || n3 || E'\n';
+
+  -- DB-16: сохранение — своё да, чужое нет; черновик создаётся только себе
+  b := public.edu_board_save(b_mine, '{"els":[{"id":"x","t":"pen"}]}'::jsonb);
+  v := public.edu_board_save(b_other, '{"els":[]}'::jsonb)::text;
+  nb := public.edu_board_new('ТЕСТ черновик');
+  select count(*) into n from public.edu_my_boards();
+  r := r || case when b and v = 'false' and nb is not null and n = 2 then 'PASS' else 'FAIL' end
+         || ' DB-16 сохранение доски: своя ' || b || ', чужая ' || v || ', черновик → досок ' || n || E'\n';
+
+  -- DB-17: картинки доски — только в папку своей доски
+  err := '';
+  begin insert into storage.objects(bucket_id, name) values ('edu-board', b_mine::text || '/p.jpg');
+  exception when others then err := err || 'своё не загрузилось; '; end;
+  begin insert into storage.objects(bucket_id, name) values ('edu-board', b_other::text || '/p.jpg'); err := err || 'в чужую доску загрузилось; ';
+  exception when others then null; end;
+  select count(*) into n from storage.objects where bucket_id = 'edu-board';
+  r := r || case when err = '' and n = 1 then 'PASS' else 'FAIL' end
+         || ' DB-17 картинки доски: ' || case when err = '' then 'только своя доска' else err end || ', видит ' || n || E'\n';
+
+  -- DB-18: живой канал доски — правило пускает только в свою доску
+  b := public.edu_can_board(b_mine::text); v := public.edu_can_board(b_other::text)::text;
   execute 'reset role';
+  select count(*) into n from pg_policies where schemaname = 'realtime' and policyname like 'edu-board:%';
+  r := r || case when b and v = 'false' and (n = 2 or to_regclass('realtime.messages') is null) then 'PASS' else 'FAIL' end
+         || ' DB-18 канал доски: своя ' || b || ', чужая ' || v || ', правил на канале ' || n || E'\n';
+  select count(*) into n from public.edu_boards where id = b_other and data = '{"els":[]}'::jsonb and title = 'ТЕСТ чужая доска';
+  r := r || case when n = 1 then '' else E'FAIL DB-16b чужая доска изменена\n' end;
   select student_done into b from public.edu_lessons where id = l_other;
   select student_done into v from public.edu_lessons where id = l_mine;
   r := r || case when not b and v = 'true' then 'PASS' else 'FAIL' end
@@ -168,10 +205,14 @@ begin
   exception when insufficient_privilege then null; end;
   begin perform public.edu_check_quiz('quiz-geo1', '{}'::jsonb); err := err || 'проверка теста доступна; ';
   exception when insufficient_privilege then null; end;
+  begin perform * from public.edu_board_get(b_mine); err := err || 'доска доступна; ';
+  exception when insufficient_privilege then null; end;
+  begin perform public.edu_board_save(b_mine, '{"els":[]}'::jsonb); err := err || 'сохранение доски доступно; ';
+  exception when insufficient_privilege then null; end;
   select (select count(*) from public.edu_secrets) + (select count(*) from public.edu_students)
        + (select count(*) from public.edu_lessons) + (select count(*) from public.edu_profiles)
        + (select count(*) from public.edu_quiz_keys) + (select count(*) from public.edu_quiz_results)
-       + (select count(*) from storage.objects where bucket_id = 'edu-hw') into n;
+       + (select count(*) from storage.objects where bucket_id in ('edu-hw', 'edu-board')) + (select count(*) from public.edu_boards) into n;
   execute 'reset role';
   r := r || case when err = '' and n = 0 then 'PASS' else 'FAIL' end
          || ' DB-08 гость: ' || case when err = '' then 'функции закрыты' else err end || ', видит строк ' || n || E'\n';

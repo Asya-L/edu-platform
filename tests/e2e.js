@@ -12,7 +12,7 @@ const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR
 const results = []; let errors = [];
 function rec(id, ok, note) { results.push({id, ok: !!ok, note: note || ''}); console.log((ok ? 'PASS ' : 'FAIL ') + id + (note ? ' — ' + note : '')); }
 const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2'];
-const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
+const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
 
 (async () => {
   const b = await chromium.launch();
@@ -51,7 +51,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   for (const u of ['t.html#g1', 'journal.html', 'students.html']) { await go(u); if (path() !== 'index.html') blocked.push(u + '→' + path()); }
   rec('ROLE-02', !blocked.length, blocked.join(', '));
   await go('index.html'); const sn = await navText();
-  rec('ROLE-04', sn === 'Главная|Домашка|Геометрия|Алгебра|ЕГЭ|Информатика|Справочник|Материалы|Помощь|Выйти', sn);
+  rec('ROLE-04', sn === 'Главная|Домашка|Доска|Геометрия|Алгебра|ЕГЭ|Информатика|Справочник|Материалы|Помощь|Выйти', sn);
   await go('homework.html'); rec('HW-04', ((await p.textContent('#hwBox')) || '').includes('Пока нет домашних заданий'));
 
   // ── UI-03 ученик, ширина 390 + UI-01 ссылки на публичных страницах
@@ -76,7 +76,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await logout(); await login('teacher@test.local');
   await go('g1.html'); rec('ROLE-01', path() === 't.html#g1', path());
   const tn = await navText();
-  rec('ROLE-03', tn === 'Главная|Геометрия|Алгебра|ЕГЭ|Информатика|Справочник|Материалы|Журнал|Ученики|Глазами ученика|Выйти', tn);
+  rec('ROLE-03', tn === 'Главная|Геометрия|Алгебра|ЕГЭ|Информатика|Справочник|Материалы|Журнал|Доска|Ученики|Глазами ученика|Выйти', tn);
   const encFail = [], tWide = [], tBroken = new Set();
   await p.setViewportSize({width: 390, height: 800});
   for (const n of TEACHER_PAGES) { await go('t.html#' + n, 900);
@@ -189,6 +189,63 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await logout(); await login('kid@test.local'); await go('homework.html', 1200); const c2s = (await p.textContent(hc2)) || '';
   rec('HW-07', logT2.includes('Ваш ответ: Молодец') && logT2.includes('за ДЗ 5') && c2s.includes('проверено · 5') && c2s.includes('Молодец, № 27 разберём'), c2s.slice(0, 60));
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
+
+  // ── Доска: учитель и ученик в двух окнах
+  const mk = async (email, id) => { const pg = await ctx.newPage(); pg.on('pageerror', e => errors.push('board ' + email + ' :: ' + e.message)); pg.on('dialog', d => d.accept());
+    await pg.addInitScript(([id, email]) => sessionStorage.setItem('mockSessionTab', JSON.stringify({user:{id, email}})), [id, email]); await pg.setViewportSize({width: 1280, height: 820}); return pg; };
+  const pT = await mk('teacher@test.local', 'u1'), pS = await mk('kid@test.local', 'u2');
+  const scr = async (pg, wx, wy) => { const v = await pg.evaluate(() => window.__board.view()); const b = await pg.locator('#bdCanvas').boundingBox(); return {x: b.x + (wx - v.x) * v.z, y: b.y + (wy - v.y) * v.z}; };
+  const E = pg => pg.evaluate(() => window.__board ? JSON.parse(JSON.stringify(window.__board.els())) : null);
+  const mdb = () => p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')));
+  await pT.goto(SITE + 'journal.html'); await pT.waitForTimeout(1000); await pT.click('#boardLink'); await pT.waitForTimeout(1500);
+  const bT = await pT.textContent('#bdTitle'); const nb = (await mdb()).edu_boards.length;
+  rec('BD-01', /^Занятие \d\d\.\d\d$/.test(bT) && nb === 1 && pT.url().includes('board.html?b='), bT + ', досок ' + nb);
+  await pS.goto(SITE + 'board.html'); await pS.waitForTimeout(1500);
+  const bS = await pS.textContent('#bdTitle'); const peerT = await pT.textContent('#bdPeer'), peerS = await pS.textContent('#bdPeer');
+  rec('BD-02', bS === bT && peerT.includes('Ученик на доске') && peerS.includes('Учитель на доске'), peerT + ' / ' + peerS);
+  const bx = await pT.locator('#bdCanvas').boundingBox(), sx = await pS.locator('#bdCanvas').boundingBox();
+  await pT.mouse.move(bx.x + 200, bx.y + 200); await pT.mouse.down(); for (let i = 1; i <= 12; i++) await pT.mouse.move(bx.x + 200 + i * 10, bx.y + 200 + i * 5); await pT.mouse.up();
+  await pS.waitForTimeout(500); const e3 = await E(pS); await pT.waitForTimeout(1200); const saved3 = (await mdb()).edu_boards[0].data.els.length;
+  rec('BD-03', e3.length === 1 && e3[0].t === 'pen' && saved3 === 1, `у ученика ${e3.length}, в базе ${saved3}`);
+  await pS.click('[data-tool=line]'); await pS.mouse.move(sx.x + 300, sx.y + 320); await pS.mouse.down(); await pS.mouse.move(sx.x + 380, sx.y + 321); await pS.mouse.move(sx.x + 460, sx.y + 320); await pS.mouse.up();
+  await pT.waitForTimeout(500); const e4 = await E(pT);
+  rec('BD-04', e4.length === 2 && e4[1].t === 'line' && e4[1].by === 'u2', e4.map(e => e.t).join(','));
+  await pT.click('[data-tool=pt]'); await pT.mouse.click(bx.x + 600, bx.y + 150); await pT.mouse.click(bx.x + 700, bx.y + 150); await pS.waitForTimeout(500);
+  const e5 = (await E(pS)).filter(e => e.t === 'pt').map(e => e.l).join('');
+  rec('BD-05', e5 === 'AB', e5);
+  await pT.click('[data-tool=text]'); await pT.mouse.click(bx.x + 600, bx.y + 420); await pT.waitForTimeout(100); await pT.keyboard.type('x'); await pT.click('#bdSyms button:text-is("²")');
+  await pT.keyboard.type(' + 1'); await pT.keyboard.press('Enter'); await pS.waitForTimeout(500);
+  const e6 = (await E(pS)).find(e => e.t === 'text');
+  rec('BD-06', e6 && e6.s === 'x² + 1', e6 && e6.s);
+  await pT.click('#bdUndo'); await pS.waitForTimeout(500); const e7 = await E(pS);
+  rec('BD-07', !e7.some(e => e.t === 'text') && e7.length === 4, e7.map(e => e.t).join(','));
+  const pen = (await E(pS)).find(e => e.t === 'pen'); const ep = await scr(pS, pen.pts[8], pen.pts[9]); await pS.click('[data-tool=eraser]'); await pS.mouse.click(ep.x, ep.y); await pT.waitForTimeout(500); const e8 = await E(pT);
+  rec('BD-08', !e8.some(e => e.t === 'pen') && e8.length === 3, e8.map(e => e.t).join(','));
+  const l0 = (await E(pT)).find(e => e.t === 'line'); const lp = await scr(pT, (l0.x1 + l0.x2) / 2, l0.y1); const z9 = (await pT.evaluate(() => window.__board.view())).z;
+  await pT.click('[data-tool=select]'); await pT.mouse.move(lp.x, lp.y); await pT.mouse.down(); await pT.mouse.move(lp.x, lp.y + 30); await pT.mouse.move(lp.x, lp.y + 60); await pT.mouse.up();
+  await pS.waitForTimeout(500); const ln = (await E(pS)).find(e => e.t === 'line'), ln0 = (await E(pT)).find(e => e.t === 'line');
+  rec('BD-09', ln && Math.abs(ln.y1 - ln0.y1) < 0.5 && Math.abs(ln0.y1 - (l0.y1 + 60 / z9)) < 1, `${l0.y1} → ${ln && ln.y1}`);
+  await pT.click('#bdFigBtn'); await pT.click('#bdFigs [data-fig="ws_cube.png"]'); await pS.waitForTimeout(600);
+  const e10 = (await E(pS)).find(e => e.t === 'img');
+  rec('BD-10', e10 && e10.src === 'fig:ws_cube.png' && e10.ww > 50, e10 && e10.src);
+  await pS.setInputFiles('#bdFile', {name: 'tetrad.png', mimeType: 'image/png', buffer: PNG}); await pS.waitForTimeout(1200);
+  const bid = (await mdb()).edu_boards[0].id; const e11 = (await E(pT)).filter(e => e.t === 'img' && e.src.startsWith('st:'));
+  const f11 = await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('mockfiles') || '{}')));
+  rec('BD-11', e11.length === 1 && e11[0].src.startsWith('st:' + bid + '/') && f11.some(k => k.startsWith(bid + '/')), e11.length + ' картинка у учителя');
+  await pT.waitForTimeout(3000); await pS.evaluate(() => localStorage.setItem('bdPollMs', '700')); await pS.reload(); await pS.waitForTimeout(1500);
+  const nT = (await E(pT)).length, nS = (await E(pS)).length;
+  rec('BD-12', nT === nS && nS === 5, `учитель ${nT}, ученик после перезагрузки ${nS}`);
+  const p3 = await mk('new@test.local', 'u3'); await p3.goto(SITE + 'board.html?b=' + bid); await p3.waitForTimeout(1200);
+  const e13 = (await p3.textContent('#bdEmpty')) || ''; await p3.close();
+  rec('BD-13', e13.includes('Нет доступа'), e13.slice(0, 40));
+  const [dl] = await Promise.all([pT.waitForEvent('download', {timeout: 5000}).catch(() => null), pT.click('#bdExport')]);
+  rec('BD-14', dl && dl.suggestedFilename().endsWith('.png'), dl && dl.suggestedFilename());
+  await pT.click('#bdPick'); await pT.fill('#bmTitle', 'Повторение'); await pT.selectOption('#bmLesson', {index: 1}); await pT.click('#bmNew'); await pT.waitForTimeout(800);
+  await pS.waitForTimeout(1600); const ban = (await pS.textContent('#bdBanner')) || ''; await pS.click('#bdBanner button >> nth=0'); await pS.waitForTimeout(800);
+  rec('BD-15', (await pT.textContent('#bdTitle')) === 'Повторение' && ban.includes('Повторение') && (await pS.textContent('#bdTitle')) === 'Повторение', ban.slice(0, 50));
+  await go('journal.html', 1200); const lg = (await p.textContent('#log')) || '';
+  rec('BD-16', lg.includes('доска: Повторение') && (await p.getAttribute('#boardLink', 'href')).startsWith('board.html?s='), 'ссылка из журнала');
+  await pT.close(); await pS.close();
 
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Нет")'); const after1 = await p.$$eval('#log .lesson', e => e.length);
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Да")'); await p.waitForTimeout(900);

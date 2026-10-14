@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Доска</title>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=140ba1bb"></script><script src="assets/auth.js?v=140ba1bb"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9615d08f">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="on">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+
+<style>
+body.board-page footer{display:none}
+body.board-page{overscroll-behavior:none}
+#bd{position:relative}
+.bd-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 14px;background:var(--paper);border-bottom:1px solid var(--edge)}
+.bd-grp{display:flex;align-items:center;gap:2px;padding:0 6px;border-right:1px solid var(--edge)}
+.bd-grp:last-child{border-right:0}
+.bd-b{display:inline-grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:transparent;color:var(--ink);cursor:pointer;padding:0}
+.bd-b:hover{background:#F1EEF6} .bd-b.on{background:var(--ink);color:#fff} .bd-b:disabled{opacity:.35;cursor:default}
+.bd-sw{width:22px;height:22px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--edge);cursor:pointer;padding:0;margin:0 2px}
+.bd-sw.on{box-shadow:0 0 0 2.5px var(--ink)}
+.bd-w{width:32px;height:32px;border:0;border-radius:9px;background:transparent;cursor:pointer;display:inline-grid;place-items:center}
+.bd-w i{display:block;background:var(--ink);border-radius:9px;width:16px} .bd-w.on{background:#F1EEF6;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.bd-t{font:800 13.5px var(--f-body);border:0;border-radius:999px;padding:8px 12px;background:var(--lav);color:var(--lav-d);cursor:pointer;white-space:nowrap}
+.bd-t.dark{background:var(--ink);color:#fff} .bd-t.ghost{background:transparent;color:var(--ink-soft)}
+.bd-z{font:800 13px var(--f-body);min-width:52px;text-align:center;border:0;background:transparent;cursor:pointer;color:var(--ink)}
+.bd-title{font:900 17px var(--f-head);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bd-right{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.bd-peer{display:inline-flex;align-items:center;gap:6px} .bd-peer i{width:9px;height:9px;border-radius:50%;background:#C9C3D6;display:inline-block}
+.bd-peer.on i{background:#2E9E6A;box-shadow:0 0 0 3px rgba(46,158,106,.2)} .bd-peer.on{color:var(--mint-d)}
+.bd-stage{position:relative;overflow:hidden;background:#fff;touch-action:none;user-select:none;-webkit-user-select:none}
+.bd-stage canvas{display:block}
+.bd-stage[data-tool=pen],.bd-stage[data-tool=line],.bd-stage[data-tool=arrow],.bd-stage[data-tool=circ],.bd-stage[data-tool=rect],.bd-stage[data-tool=pt]{cursor:crosshair}
+.bd-stage[data-tool=text]{cursor:text} .bd-stage[data-tool=hand],.bd-stage.pan{cursor:grab} .bd-stage.panning{cursor:grabbing}
+.bd-stage[data-tool=eraser]{cursor:cell} .bd-stage[data-tool=laser]{cursor:crosshair}
+body.board-open{overflow:hidden} body.board-open .top{display:none}
+.bd-home{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--lav);color:var(--lav-d);font:900 19px var(--f-head);text-decoration:none}
+.bd-cur{position:absolute;left:0;top:0;pointer-events:none;z-index:3;transition:transform .06s linear}
+.bd-cur svg{display:block} .bd-cur span{position:absolute;left:14px;top:14px;font:800 11.5px var(--f-body);color:#fff;border-radius:999px;padding:2px 8px;white-space:nowrap}
+#bdText{position:absolute;z-index:5;min-width:120px;border:1.5px dashed var(--lav-d);background:rgba(255,255,255,.92);border-radius:6px;padding:2px 4px;resize:none;outline:none;overflow:hidden;line-height:1.25;font-family:var(--f-body)}
+.bd-syms{position:absolute;z-index:6;display:flex;flex-wrap:wrap;gap:3px;max-width:420px;background:var(--paper);border:1.5px solid var(--edge);border-radius:12px;padding:6px;box-shadow:var(--sh-sm)}
+.bd-syms button{min-width:28px;height:28px;border:0;border-radius:7px;background:#F4F1F8;font:700 15px var(--f-body);cursor:pointer;color:var(--ink)}
+.bd-syms button:hover{background:var(--lav)}
+.bd-pop{position:absolute;z-index:20;background:var(--paper);border:1.5px solid var(--edge);border-radius:16px;box-shadow:0 18px 40px rgba(43,36,64,.18);padding:16px}
+.bd-menu{left:14px;top:56px;width:min(380px,calc(100vw - 28px));max-height:70vh;overflow:auto}
+.bd-menu h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin:12px 0 6px} .bd-menu h3:first-child{margin-top:0}
+.bd-list button{display:flex;width:100%;justify-content:space-between;gap:10px;text-align:left;border:0;background:transparent;border-radius:10px;padding:8px 10px;font:700 14px var(--f-body);cursor:pointer;color:var(--ink)}
+.bd-list button:hover{background:#F4F1F8} .bd-list button.on{background:var(--lav);color:var(--lav-d)} .bd-list small{color:var(--ink-soft);font-weight:600;white-space:nowrap}
+.bd-pop label{display:block;font-size:12.5px;font-weight:800;color:var(--ink-soft);margin:8px 0 4px}
+.bd-pop input,.bd-pop select{width:100%;font:inherit;border:1.5px solid var(--edge);border-radius:10px;padding:7px 10px;background:#fff;color:var(--ink)}
+.bd-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.bd-figs{left:50%;top:56px;transform:translateX(-50%);width:min(860px,calc(100vw - 28px));max-height:76vh;overflow:auto}
+.bd-figs .g{font:900 14px var(--f-head);margin:14px 0 8px} .bd-figs .g:first-of-type{margin-top:4px}
+.bd-figs .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.bd-figs .grid button{border:1.5px solid var(--edge);border-radius:12px;background:#fff;padding:6px;cursor:pointer;text-align:left;font:600 11.5px/1.3 var(--f-body);color:var(--ink-soft)}
+.bd-figs .grid button:hover{border-color:var(--lav-d)} .bd-figs img{width:100%;height:84px;object-fit:contain;display:block;margin-bottom:4px}
+.bd-empty{max-width:560px;margin:60px auto;padding:0 16px;text-align:center}
+.bd-banner{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:8;background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 16px;font-weight:700;font-size:14px;display:flex;gap:10px;align-items:center;box-shadow:var(--sh-sm)}
+.bd-banner button{border:0;border-radius:999px;padding:6px 12px;font:800 13px var(--f-body);cursor:pointer;background:var(--butter);color:var(--ink)}
+.bd-toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;z-index:40}
+.bd-hint{position:absolute;right:12px;bottom:10px;font-size:12px;color:var(--ink-soft);background:rgba(255,255,255,.85);border-radius:8px;padding:3px 8px;pointer-events:none}
+[hidden]{display:none!important}
+</style>
+<div id="bd">
+  <div class="bd-bar" id="bdBar" hidden>
+    <div class="bd-grp"><a class="bd-home" href="index.html" title="На главную" aria-label="На главную">Σ</a><button type="button" class="bd-t" id="bdPick">Доски ▾</button><span class="bd-title" id="bdTitle"></span></div>
+    <div class="bd-grp" role="toolbar" aria-label="Инструменты"><button type="button" class="bd-b" data-tool="select" title="Выделить и двигать (V)" aria-label="Выделить и двигать"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l11 7-5 1.5L9 17z"/></svg></button><button type="button" class="bd-b" data-tool="hand" title="Двигать лист (H · пробел)" aria-label="Двигать лист"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V5.5a1.5 1.5 0 013 0V9m0-4.5a1.5 1.5 0 013 0V9m0-3a1.5 1.5 0 013 0v5c0 3.5-2.5 6-6 6-2.3 0-3.6-1-4.8-2.6L3.6 11a1.4 1.4 0 012.2-1.8L7 10.5"/></svg></button><button type="button" class="bd-b" data-tool="pen" title="Ручка (P)" aria-label="Ручка"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l1-4L14 3l3 3L7 16zM12 5l3 3"/></svg></button><button type="button" class="bd-b" data-tool="line" title="Отрезок · Shift — ровный угол (L)" aria-label="Отрезок · Shift — ровный угол"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16L16 4"/><circle cx="4" cy="16" r="1.6"/><circle cx="16" cy="4" r="1.6"/></svg></button><button type="button" class="bd-b" data-tool="arrow" title="Вектор (A)" aria-label="Вектор"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16L16 4M9 4h7v7"/></svg></button><button type="button" class="bd-b" data-tool="circ" title="Окружность от центра (C)" aria-label="Окружность от центра"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/></svg></button><button type="button" class="bd-b" data-tool="rect" title="Прямоугольник (R)" aria-label="Прямоугольник"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="13" height="10" rx="1"/></svg></button><button type="button" class="bd-b" data-tool="pt" title="Точка с буквой (O)" aria-label="Точка с буквой"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="2.2" fill="currentColor"/><path d="M11 8l2.5-5L16 8m-4.2-1.6h3.4"/></svg></button><button type="button" class="bd-b" data-tool="text" title="Текст и формулы (T)" aria-label="Текст и формулы"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5V3.5h12V5M10 3.5V17M7.5 17h5"/></svg></button><button type="button" class="bd-b" data-tool="eraser" title="Ластик (E)" aria-label="Ластик"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 17h9M3.5 12.5l7-7.5 6 5.5-6.5 6.5H8z"/></svg></button><button type="button" class="bd-b" data-tool="laser" title="Указка (K)" aria-label="Указка"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="6" r="2.5" fill="currentColor"/><path d="M3 17c3-1 5-4 8-8" stroke-dasharray="2 2.5"/></svg></button></div>
+    <div class="bd-grp" aria-label="Цвет"><button type="button" class="bd-sw" data-color="#2B2440" style="background:#2B2440" title="Цвет" aria-label="Цвет #2B2440"></button><button type="button" class="bd-sw" data-color="#3E6FD8" style="background:#3E6FD8" title="Цвет" aria-label="Цвет #3E6FD8"></button><button type="button" class="bd-sw" data-color="#D9534F" style="background:#D9534F" title="Цвет" aria-label="Цвет #D9534F"></button><button type="button" class="bd-sw" data-color="#2E9E6A" style="background:#2E9E6A" title="Цвет" aria-label="Цвет #2E9E6A"></button><button type="button" class="bd-sw" data-color="#7B61D9" style="background:#7B61D9" title="Цвет" aria-label="Цвет #7B61D9"></button><button type="button" class="bd-sw" data-color="#E8963A" style="background:#E8963A" title="Цвет" aria-label="Цвет #E8963A"></button></div>
+    <div class="bd-grp" aria-label="Толщина">
+      <button type="button" class="bd-w" data-w="2" title="Тонко"><i style="height:2px"></i></button>
+      <button type="button" class="bd-w" data-w="4" title="Средне"><i style="height:4px"></i></button>
+      <button type="button" class="bd-w" data-w="8" title="Толсто"><i style="height:7px"></i></button>
+      <button type="button" class="bd-b" id="bdDash" title="Пунктир — невидимые линии (D)" aria-label="Пунктир"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 10h3M8.5 10h3M14 10h3"/></svg></button>
+    </div>
+    <div class="bd-grp">
+      <button type="button" class="bd-b" id="bdUndo" title="Отменить (Ctrl+Z)" aria-label="Отменить"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5L3 9l4 4M3 9h9a4.5 4.5 0 010 9H9"/></svg></button>
+      <button type="button" class="bd-b" id="bdRedo" title="Вернуть (Ctrl+Shift+Z)" aria-label="Вернуть"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 5l4 4-4 4M17 9H8a4.5 4.5 0 000 9h3"/></svg></button>
+      <label class="bd-b" title="Вставить картинку или фото (можно Ctrl+V)" aria-label="Вставить картинку" style="cursor:pointer"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="1.5"/><circle cx="7.5" cy="8.5" r="1.4"/><path d="M3.5 14.5l4-3.5 3 2.5 2.5-2 3.5 3"/></svg><input type="file" accept="image/*" id="bdFile" hidden></label>
+      <button type="button" class="bd-b" id="bdFigBtn" title="Чертёж из урока" aria-label="Чертёж из урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l6 4v6l-6 4-6-4V7z M4 7l6 4 6-4M10 11v6"/></svg></button>
+      <button type="button" class="bd-b" id="bdBg" title="Клетка / чистый лист (G)" aria-label="Фон"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg></button>
+    </div>
+    <div class="bd-grp">
+      <button type="button" class="bd-b" id="bdZout" title="Отдалить (Ctrl −)" aria-label="Отдалить"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4 4M6.5 9h5"/></svg></button>
+      <button type="button" class="bd-z" id="bdZ" title="100%">100%</button>
+      <button type="button" class="bd-b" id="bdZin" title="Приблизить (Ctrl +)" aria-label="Приблизить"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4 4M6.5 9h5M9 6.5v5"/></svg></button>
+      <button type="button" class="bd-b" id="bdFit" title="Показать всё (F)" aria-label="Показать всё"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg></button>
+    </div>
+    <div class="bd-grp">
+      <button type="button" class="bd-b" id="bdShow" title="Показать ученику мою часть доски" aria-label="Показать ученику мою часть" hidden><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 10s3-5.5 7.5-5.5S17.5 10 17.5 10 14.5 15.5 10 15.5 2.5 10 2.5 10z"/><circle cx="10" cy="10" r="2.3"/></svg></button>
+      <button type="button" class="bd-b" id="bdExport" title="Скачать картинкой" aria-label="Скачать картинкой"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m-4-4l4 4 4-4M4 15v2h12v-2"/></svg></button>
+      <button type="button" class="bd-b" id="bdClear" title="Очистить доску" aria-label="Очистить доску"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h12M8 6V4h4v2M5.5 6l1 11h7l1-11"/></svg></button>
+    </div>
+    <div class="bd-right"><span class="bd-peer" id="bdPeer"><i></i><span></span></span><span id="bdSave"></span></div>
+  </div>
+  <div class="bd-stage" id="bdStage" hidden>
+    <canvas id="bdCanvas"></canvas>
+    <div id="bdCursors"></div>
+    <textarea id="bdText" hidden spellcheck="false" aria-label="Текст на доске"></textarea>
+    <div class="bd-syms" id="bdSyms" hidden><button type="button" tabindex="-1">²</button><button type="button" tabindex="-1">³</button><button type="button" tabindex="-1">√</button><button type="button" tabindex="-1">π</button><button type="button" tabindex="-1">°</button><button type="button" tabindex="-1">∠</button><button type="button" tabindex="-1">△</button><button type="button" tabindex="-1">⊥</button><button type="button" tabindex="-1">∥</button><button type="button" tabindex="-1">≠</button><button type="button" tabindex="-1">≈</button><button type="button" tabindex="-1">≤</button><button type="button" tabindex="-1">≥</button><button type="button" tabindex="-1">±</button><button type="button" tabindex="-1">·</button><button type="button" tabindex="-1">∈</button><button type="button" tabindex="-1">∉</button><button type="button" tabindex="-1">⊂</button><button type="button" tabindex="-1">∩</button><button type="button" tabindex="-1">∪</button><button type="button" tabindex="-1">⇒</button><button type="button" tabindex="-1">⇔</button><button type="button" tabindex="-1">α</button><button type="button" tabindex="-1">β</button><button type="button" tabindex="-1">γ</button><button type="button" tabindex="-1">φ</button><button type="button" tabindex="-1">Δ</button><button type="button" tabindex="-1">∞</button><button type="button" tabindex="-1">½</button><button type="button" tabindex="-1">⅓</button><button type="button" tabindex="-1">¼</button></div>
+    <div class="bd-banner" id="bdBanner" hidden></div>
+    <div class="bd-hint" id="bdHint">Колесо — двигать лист · Ctrl + колесо — масштаб · Shift — ровный угол</div>
+  </div>
+  <div class="bd-pop bd-menu" id="bdMenu" hidden></div>
+  <div class="bd-pop bd-figs" id="bdFigs" hidden></div>
+  <div class="bd-empty" id="bdEmpty"><p>Загружаю доску…</p></div>
+  <div class="bd-toast" id="bdToast" hidden></div>
+</div>
+<script>
+(function(){
+var FIGS = [{"g": "Заготовки для построений", "items": [{"f": "ws_cube.png", "c": "Куб"}, {"f": "ws_tet.png", "c": "Тетраэдр"}, {"f": "ws_tet_mid.png", "c": "Тетраэдр с серединами рёбер"}]}, {"g": "Урок 1 · Аксиомы стереометрии", "items": [{"f": "ris05a_pryamaya_v_ploskosti.png", "c": "Прямая a лежит в плоскости α"}, {"f": "ris05b_peresekayut.png", "c": "Прямая a пересекает плоскость в точке M"}, {"f": "ris05v_dve_ploskosti.png", "c": "Две плоскости пересекаются по прямой"}, {"f": "ax_a1.png", "c": "Аксиома А1: три точки задают плоскость, и единственную"}, {"f": "ris08_zadacha1.png", "c": "Рис. 8 (с. 7) — тетраэдр DABC: E на AB, P на DE, M на DB, K на DC"}, {"f": "ris09_zadacha2.png", "c": "Рис. 9 (с. 8) — параллелепипед; K на DD₁, M на CC₁, прямая KM лежит в грани DCC₁"}]}, {"g": "Урок 2 · Параллельность прямых, прямой и плоскости", "items": [{"f": "ris05a_pryamaya_v_ploskosti.png", "c": "а) прямая лежит в плоскости"}, {"f": "ris05b_peresekayut.png", "c": "б) пересекаются в одной точке"}, {"f": "ris15_priznak_par_pr_pl.png", "c": "в) не имеют общих точек — параллельны"}, {"f": "ris17_zadacha17.png", "c": "Рис. 17: M, N, Q, P — середины DB, DC, AC, AB"}]}, {"g": "Урок 3 · Скрещивающиеся прямые. Угол между прямыми", "items": [{"f": "ris19_estakada.png", "c": "Рис. 19: дорога по эстакаде и дорога под ней — модель скрещивающихся прямых"}, {"f": "ris21_tri_sluchaya.png", "c": "Три случая: пересекаются · параллельны · скрещиваются"}, {"f": "ris20_priznak_skresh.png", "c": "Рис. 20: AB ⊂ α, прямая CD пересекает α в точке C ∉ AB"}, {"f": "ris22_ploskost_cherez_skresh.png", "c": "Рис. 22: плоскость α через AB, параллельная CD"}, {"f": "ris24_sonapravlennye.png", "c": "Рис. 24: сонаправленные и несонаправленные лучи"}, {"f": "ris27_ugol_skresh.png", "c": "Рис. 27: перенос обеих прямых в одну точку"}, {"f": "ris27b_ugol_kluch.png", "c": "Ключевой приём: перенос прямой параллельно самой себе"}]}, {"g": "Урок 4 · Параллельность плоскостей", "items": [{"f": "ris28a_peresek.png", "c": "а) плоскости пересекаются по прямой"}, {"f": "ris28b_parallelny.png", "c": "б) плоскости параллельны"}, {"f": "ris29_priznak_par_ploskostey.png", "c": "Рис. 29: a ∥ a₁, b ∥ b₁, прямые a и b пересекаются в M"}, {"f": "ris30_svoystvo1.png", "c": "Рис. 30: плоскость γ режет α ∥ β по прямым a и b"}, {"f": "ris31_svoystvo2.png", "c": "Рис. 31: AB ∥ CD, обе плоскости параллельны ⟹ AB = CD"}]}, {"g": "Урок 5 · Тетраэдр, параллелепипед и сечения", "items": [{"f": "ris34_tetraedr.png", "c": "Рис. 34: тетраэдр DABC"}, {"f": "ris35_tetraedr_lkef.png", "c": "Рис. 35: тетраэдр LKEF, другой ракурс"}, {"f": "ris36a_param_postroenie.png", "c": "Рис. 36, а: как получается параллелепипед"}, {"f": "ris36b_parallelepiped.png", "c": "Рис. 36, б: стандартное изображение и диагонали"}, {"f": "ris37a_grani.png", "c": "Рис. 37, а"}, {"f": "ris37b_diagonali.png", "c": "Рис. 37, б: точка O — общая середина диагоналей"}, {"f": "ris38_secheniya_tetraedra.png", "c": "Рис. 38: сечения тетраэдра — треугольник и четырёхугольник"}, {"f": "ris39a_treugolnik.png", "c": "Рис. 39, а: треугольник и четырёхугольник"}, {"f": "ris39b_pyatiugolnik.png", "c": "Рис. 39, б: пятиугольник"}, {"f": "ris39v_shestiugolnik.png", "c": "Рис. 39, в: шестиугольник"}, {"f": "ris40a_zadacha1.png", "c": "а) условие"}, {"f": "ris40b_zadacha1.png", "c": "б) NP и BC пересекаются в E"}, {"f": "ris40v_zadacha1.png", "c": "в) случай NP ∥ BC"}, {"f": "ris41a_zadacha2.png", "c": "а) условие"}, {"f": "ris41b_zadacha2.png", "c": "б) сечение PQR"}]}];
+var K = window.KABINET, sb = null, isT = false, me = {uid: '', role: '', name: ''};
+var board = null, students = [], lessons = [], boards = [], els = [], bg = 'grid';
+var view = {x: -40, y: -40, z: 1}, tool = 'pen', color = '#2B2440', width = 2, dashed = false;
+var sel = null, cur = null, act = null, undoS = [], redoS = [], drafts = {}, cursors = {}, lasers = [], snapMark = null;
+var ch = null, live = false, joinedAt = 0, saveT = null, saving = false, dirty = false, pollT = null, lastUpd = '', newT = null;
+var imgs = {}, toSign = {}, signT = null, spaceDown = false, editing = null, lastCur = 0, lastDraft = 0;
+function $(id){ return document.getElementById(id); }
+var cv = $('bdCanvas'), cx = cv.getContext('2d'), stage = $('bdStage'), dpr = 1;
+function nid(){ return (me.uid || 'x').slice(0, 4) + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function toast(t){ var e = $('bdToast'); e.textContent = t; e.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function(){ e.hidden = true; }, 2600); }
+function esc(s){ return K.esc(s); }
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function fmtD(t){ if (!t) return ''; var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2); }
+function fmtDate(s){ if (!s) return ''; var p = s.split('-'); return p[2] + '.' + p[1]; }
+function store(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+function load(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+
+/* ── размеры и отрисовка ── */
+function layout(){
+  var top = stage.getBoundingClientRect().top; var h = Math.max(340, innerHeight - Math.max(0, top));
+  stage.style.height = h + 'px'; dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(stage.clientWidth * dpr); cv.height = Math.round(h * dpr);
+  cv.style.width = stage.clientWidth + 'px'; cv.style.height = h + 'px'; draw();
+}
+var queued = false; function draw(){ if (!queued) { queued = true; requestAnimationFrame(render); } }
+function W(){ return cv.width / dpr / view.z; } function H(){ return cv.height / dpr / view.z; }
+function render(){
+  queued = false; cx.setTransform(1, 0, 0, 1, 0, 0); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
+  var k = dpr * view.z; cx.setTransform(k, 0, 0, k, -view.x * k, -view.y * k);
+  drawBg(cx, view.x, view.y, W(), H(), view.z);
+  els.forEach(function(e){ drawEl(cx, e); });
+  Object.keys(drafts).forEach(function(k){ if (drafts[k]) drawEl(cx, drafts[k]); });
+  if (cur) drawEl(cx, cur);
+  drawSel(); drawSnap(); drawLasers(); placeCursors();
+  $('bdZ').textContent = Math.round(view.z * 100) + '%';
+  if (lasers.length) draw();
+}
+function drawBg(c, x0, y0, w, h, z){
+  if (bg !== 'grid') return; var s = 24; if (s * z < 7) s *= 5;
+  c.lineWidth = 1 / z; c.strokeStyle = '#D9E4F2'; c.beginPath();
+  for (var x = Math.floor(x0 / s) * s; x < x0 + w; x += s) { c.moveTo(x, y0); c.lineTo(x, y0 + h); }
+  for (var y = Math.floor(y0 / s) * s; y < y0 + h; y += s) { c.moveTo(x0, y); c.lineTo(x0 + w, y); }
+  c.stroke();
+}
+function setStroke(c, e){ c.strokeStyle = e.c || '#2B2440'; c.fillStyle = e.c || '#2B2440'; c.lineWidth = e.w || 2; c.lineCap = 'round'; c.lineJoin = 'round';
+  c.setLineDash(e.d ? [Math.max(4, e.w * 3), Math.max(4, e.w * 2.6)] : []); }
+var FONT = "'Manrope','Segoe UI',system-ui,sans-serif";
+function drawEl(c, e){
+  c.save(); setStroke(c, e);
+  if (e.t === 'pen') { var p = e.pts; c.beginPath(); c.moveTo(p[0], p[1]);
+    if (p.length <= 4) c.lineTo(p[p.length - 2] + .01, p[p.length - 1]);
+    for (var i = 2; i < p.length - 2; i += 2) { var mx = (p[i] + p[i + 2]) / 2, my = (p[i + 1] + p[i + 3]) / 2; c.quadraticCurveTo(p[i], p[i + 1], mx, my); }
+    if (p.length > 4) c.lineTo(p[p.length - 2], p[p.length - 1]); c.stroke(); }
+  else if (e.t === 'line') { c.beginPath(); c.moveTo(e.x1, e.y1); c.lineTo(e.x2, e.y2); c.stroke();
+    if (e.a) { var ang = Math.atan2(e.y2 - e.y1, e.x2 - e.x1), L = 10 + e.w * 2.5; c.setLineDash([]); c.beginPath();
+      c.moveTo(e.x2, e.y2); c.lineTo(e.x2 - L * Math.cos(ang - .42), e.y2 - L * Math.sin(ang - .42));
+      c.moveTo(e.x2, e.y2); c.lineTo(e.x2 - L * Math.cos(ang + .42), e.y2 - L * Math.sin(ang + .42)); c.stroke(); } }
+  else if (e.t === 'circ') { c.beginPath(); c.arc(e.cx, e.cy, Math.max(.5, e.r), 0, Math.PI * 2); c.stroke(); }
+  else if (e.t === 'rect') { c.strokeRect(e.x, e.y, e.ww, e.hh); }
+  else if (e.t === 'pt') { c.setLineDash([]); c.beginPath(); c.arc(e.x, e.y, 3.6, 0, Math.PI * 2); c.fill();
+    if (e.l) { c.font = 'italic 600 21px "Times New Roman",Georgia,serif'; c.textBaseline = 'bottom'; c.fillText(e.l, e.x + 6, e.y - 3); } }
+  else if (e.t === 'text') { c.font = '600 ' + e.fs + 'px ' + FONT; c.textBaseline = 'top';
+    String(e.s).split('\n').forEach(function(line, i){ c.fillText(line, e.x, e.y + i * e.fs * 1.25); }); }
+  else if (e.t === 'img') { var o = imgFor(e.src);
+    if (o.ok) c.drawImage(o.img, e.x, e.y, e.ww, e.hh);
+    else { c.setLineDash([6, 5]); c.lineWidth = 1.5; c.strokeStyle = '#B7AFC9'; c.strokeRect(e.x, e.y, e.ww, e.hh);
+      c.fillStyle = '#9A92AD'; c.font = '600 14px ' + FONT; c.textBaseline = 'top'; c.fillText(o.err ? 'картинка недоступна' : 'загрузка…', e.x + 8, e.y + 8); } }
+  c.restore();
+}
+function textSize(e){ cx.save(); cx.font = '600 ' + e.fs + 'px ' + FONT; var ls = String(e.s).split('\n');
+  var w = Math.max.apply(null, ls.map(function(l){ return cx.measureText(l).width; })); cx.restore(); return {w: Math.max(w, 10), h: ls.length * e.fs * 1.25}; }
+function bbox(e){
+  if (e.t === 'pen') { var a = [1e9, 1e9, -1e9, -1e9]; for (var i = 0; i < e.pts.length; i += 2) { a[0] = Math.min(a[0], e.pts[i]); a[1] = Math.min(a[1], e.pts[i + 1]); a[2] = Math.max(a[2], e.pts[i]); a[3] = Math.max(a[3], e.pts[i + 1]); } return a; }
+  if (e.t === 'line') return [Math.min(e.x1, e.x2), Math.min(e.y1, e.y2), Math.max(e.x1, e.x2), Math.max(e.y1, e.y2)];
+  if (e.t === 'circ') return [e.cx - e.r, e.cy - e.r, e.cx + e.r, e.cy + e.r];
+  if (e.t === 'rect' || e.t === 'img') return [Math.min(e.x, e.x + e.ww), Math.min(e.y, e.y + e.hh), Math.max(e.x, e.x + e.ww), Math.max(e.y, e.y + e.hh)];
+  if (e.t === 'pt') return [e.x - 5, e.y - 26, e.x + 24, e.y + 5];
+  if (e.t === 'text') { var s = textSize(e); return [e.x, e.y, e.x + s.w, e.y + s.h]; }
+  return [0, 0, 0, 0];
+}
+function drawSel(){
+  var e = sel && find(sel); if (!e) return; var b = bbox(e), p = 6 / view.z;
+  cx.save(); cx.setLineDash([5 / view.z, 4 / view.z]); cx.lineWidth = 1.5 / view.z; cx.strokeStyle = '#7B61D9';
+  cx.strokeRect(b[0] - p, b[1] - p, b[2] - b[0] + 2 * p, b[3] - b[1] + 2 * p);
+  if (e.t === 'img') { cx.setLineDash([]); cx.fillStyle = '#7B61D9'; var hs = 9 / view.z; cx.fillRect(b[2] + p - hs / 2, b[3] + p - hs / 2, hs, hs); }
+  cx.restore();
+}
+function drawSnap(){ if (!snapMark) return; cx.save(); cx.strokeStyle = '#7B61D9'; cx.lineWidth = 2 / view.z; cx.beginPath(); cx.arc(snapMark.x, snapMark.y, 7 / view.z, 0, Math.PI * 2); cx.stroke(); cx.restore(); }
+function drawLasers(){
+  var now = Date.now(); lasers = lasers.filter(function(p){ return now - p.t < 1100; }); if (!lasers.length) return;
+  cx.save(); cx.lineCap = 'round';
+  for (var i = 1; i < lasers.length; i++) { var a = lasers[i - 1], b = lasers[i]; if (a.by !== b.by || b.t - a.t > 120) continue;
+    var al = 1 - (now - b.t) / 1100; cx.strokeStyle = 'rgba(230,57,70,' + al.toFixed(2) + ')'; cx.lineWidth = 5 / view.z;
+    cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke(); }
+  var last = lasers[lasers.length - 1]; cx.fillStyle = '#E63946'; cx.beginPath(); cx.arc(last.x, last.y, 5 / view.z, 0, Math.PI * 2); cx.fill(); cx.restore();
+}
+function placeCursors(){
+  var box = $('bdCursors'), now = Date.now();
+  Object.keys(cursors).forEach(function(k){ var c = cursors[k], el = document.getElementById('cur-' + k);
+    if (now - c.t > 5000) { if (el) el.remove(); delete cursors[k]; return; }
+    if (!el) { el = document.createElement('div'); el.className = 'bd-cur'; el.id = 'cur-' + k; var col = c.r === 'teacher' ? '#7B61D9' : '#2E9E6A';
+      el.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 2l12 5-5 2-2 5z" fill="' + col + '" stroke="#fff" stroke-width="1.5"/></svg><span style="background:' + col + '">' + esc(c.n) + '</span>';
+      box.appendChild(el); }
+    el.style.transform = 'translate(' + ((c.x - view.x) * view.z) + 'px,' + ((c.y - view.y) * view.z) + 'px)'; });
+}
+setInterval(placeCursors, 1500);
+
+/* ── картинки ── */
+function imgFor(src){
+  if (imgs[src]) return imgs[src]; var o = imgs[src] = {img: new Image(), ok: false};
+  o.img.onload = function(){ o.ok = true; draw(); }; o.img.onerror = function(){ o.err = true; draw(); };
+  if (src.indexOf('fig:') === 0) o.img.src = 'assets/fig/' + src.slice(4);
+  else if (src.indexOf('st:') === 0) { o.img.crossOrigin = 'anonymous'; toSign[src.slice(3)] = o; clearTimeout(signT); signT = setTimeout(sign, 30); }
+  return o;
+}
+async function sign(){
+  var paths = Object.keys(toSign); if (!paths.length) return; var map = toSign; toSign = {};
+  var r = await sb.storage.from('edu-board').createSignedUrls(paths, 6 * 3600);
+  (r.data || []).forEach(function(x){ var o = map[x.path]; if (!o) return; if (x.signedUrl) o.img.src = x.signedUrl; else { o.err = true; draw(); } });
+}
+function shrink(file){ return new Promise(function(ok){ var im = new Image(), u = URL.createObjectURL(file);
+  im.onload = function(){ var m = 1600, w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, m / Math.max(w, h)), c = document.createElement('canvas');
+    c.width = Math.round(w * k); c.height = Math.round(h * k); var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+    g.drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); c.toBlob(function(b){ ok({blob: b || file, w: c.width, h: c.height}); }, 'image/jpeg', .86); };
+  im.onerror = function(){ URL.revokeObjectURL(u); ok(null); }; im.src = u; }); }
+function centerWorld(){ return {x: view.x + W() / 2, y: view.y + H() / 2}; }
+function placeImg(src, w, h, at){ var m = 520 / Math.max(w, h), k = Math.min(1, m) / 1, ww = Math.round(w * Math.min(1, 520 / w)), hh = Math.round(h * ww / w);
+  var p = at || centerWorld(); var e = {id: nid(), t: 'img', src: src, x: Math.round(p.x - ww / 2), y: Math.round(p.y - hh / 2), ww: ww, hh: hh};
+  commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]}); setTool('select'); sel = e.id; draw(); }
+async function addFile(file, at){
+  if (!file || !/^image\//.test(file.type)) return; toast('Загружаю картинку…');
+  var s = await shrink(file); if (!s) { toast('Эту картинку не получилось открыть. Попробуйте JPG или PNG.'); return; }
+  var path = board.id + '/' + nid() + '.jpg';
+  var up = await sb.storage.from('edu-board').upload(path, s.blob, {contentType: 'image/jpeg', upsert: false});
+  if (up.error) { toast('Картинка не загрузилась. Проверьте интернет.'); console.error(up.error); return; }
+  var o = imgs['st:' + path] = {img: new Image(), ok: false}; o.img.onload = function(){ o.ok = true; draw(); }; o.img.src = URL.createObjectURL(s.blob);
+  placeImg('st:' + path, s.w, s.h, at); toast('Картинка на доске');
+}
+
+/* ── операции, отмена, сохранение ── */
+function find(id){ for (var i = 0; i < els.length; i++) if (els[i].id === id) return els[i]; return null; }
+function apply(op, remote){
+  if (op.k === 'add') op.els.forEach(function(e){ if (!find(e.id)) els.push(e); if (remote) delete drafts[e.by || '']; });
+  else if (op.k === 'del') { els = els.filter(function(e){ return op.ids.indexOf(e.id) < 0; }); if (op.ids.indexOf(sel) >= 0) sel = null; }
+  else if (op.k === 'upd') op.els.forEach(function(e){ for (var i = 0; i < els.length; i++) if (els[i].id === e.id) els[i] = e; });
+  else if (op.k === 'clear') { els = []; sel = null; }
+  else if (op.k === 'set') { els = op.els; }
+  else if (op.k === 'bg') bg = op.bg;
+  draw(); scheduleSave(remote ? 2500 : 800);
+}
+function commit(op, inv){ apply(op, false); send('op', op); undoS.push({op: op, inv: inv}); if (undoS.length > 200) undoS.shift(); redoS = []; btns(); }
+function undo(){ var u = undoS.pop(); if (!u) return; apply(u.inv, false); send('op', u.inv); redoS.push(u); btns(); }
+function redo(){ var u = redoS.pop(); if (!u) return; apply(u.op, false); send('op', u.op); undoS.push(u); btns(); }
+function btns(){ $('bdUndo').disabled = !undoS.length; $('bdRedo').disabled = !redoS.length; }
+function scheduleSave(ms){ dirty = true; status(); clearTimeout(saveT); saveT = setTimeout(save, ms); }
+async function save(){
+  if (!board) return; if (saving) { scheduleSave(600); return; } saving = true; var snap = {els: els, bg: bg};
+  var r = await sb.rpc('edu_board_save', {p_board: board.id, p_data: snap}); saving = false;
+  if (r.error || r.data === false) { status('err'); console.error(r.error); clearTimeout(saveT); saveT = setTimeout(save, 5000); return; }
+  dirty = false; status();
+}
+function status(s){ var e = $('bdSave'); e.textContent = s === 'err' ? 'Не сохранилось — пробую ещё раз' : dirty ? 'Сохраняю…' : 'Сохранено'; e.style.color = s === 'err' ? 'var(--peach-d)' : ''; }
+window.addEventListener('beforeunload', function(ev){ if (dirty) { save(); ev.preventDefault(); ev.returnValue = ''; } });
+
+/* ── живая связь ── */
+function send(ev, payload){ if (ch && live) ch.send({type: 'broadcast', event: ev, payload: payload}); }
+async function connect(){
+  if (ch) { try { sb.removeChannel(ch); } catch(e){} ch = null; } live = false; peers();
+  try { var s = (await sb.auth.getSession()).data.session; if (s && sb.realtime && sb.realtime.setAuth) sb.realtime.setAuth(s.access_token); } catch(e){}
+  var my = ch = sb.channel('board:' + board.id, {config: {private: true, broadcast: {self: false}, presence: {key: me.uid}}});
+  my.on('broadcast', {event: 'op'}, function(m){ if (my === ch) apply(m.payload, true); })
+    .on('broadcast', {event: 'draft'}, function(m){ drafts[m.payload.by] = m.payload.el; draw(); })
+    .on('broadcast', {event: 'cur'}, function(m){ var p = m.payload; cursors[p.by] = {x: p.x, y: p.y, n: p.n, r: p.r, t: Date.now()}; placeCursors(); })
+    .on('broadcast', {event: 'laser'}, function(m){ m.payload.pts.forEach(function(p){ lasers.push({x: p[0], y: p[1], t: Date.now(), by: m.payload.by}); }); draw(); })
+    .on('broadcast', {event: 'view'}, function(m){ if (!isT) { view = m.payload; draw(); toast('Учитель показал свою часть доски'); } })
+    .on('broadcast', {event: 'hello'}, function(){ var s = JSON.stringify({els: els, bg: bg}); if (els.length && s.length < 200000) send('state', {els: els, bg: bg}); })
+    .on('broadcast', {event: 'state'}, function(m){ if (Date.now() - joinedAt < 6000 && !undoS.length) { els = m.payload.els; bg = m.payload.bg; draw(); } })
+    .on('presence', {event: 'sync'}, peers)
+    .subscribe(function(st){
+      if (my !== ch) return;
+      if (st === 'SUBSCRIBED') { live = true; joinedAt = Date.now(); my.track({r: me.role, n: me.name}); send('hello', {}); stopPoll(); peers(); }
+      else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT' || st === 'CLOSED') { live = false; peers(); startPoll(); }
+    });
+}
+function peers(){
+  var e = $('bdPeer'), on = false, who = isT ? 'Ученик' : 'Учитель';
+  if (ch && live && ch.presenceState) { var ps = ch.presenceState(); Object.keys(ps).forEach(function(k){ if (k !== me.uid && (ps[k] || []).some(function(x){ return x.r !== me.role; })) on = true; }); }
+  e.className = 'bd-peer' + (on ? ' on' : ''); e.querySelector('span').textContent = !live ? 'без живой связи' : on ? who + ' на доске' : who + ' не подключён';
+}
+function startPoll(){ if (pollT) return; pollT = setInterval(async function(){ if (dirty || !board) return;
+  var r = await sb.rpc('edu_board_get', {p_board: board.id}); var b = r.data && r.data[0]; if (!b || b.updated_at === lastUpd) return;
+  lastUpd = b.updated_at; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; draw(); }, 3000); }
+function stopPoll(){ clearInterval(pollT); pollT = null; }
+
+/* ── геометрия: попадание, привязка ── */
+function W2(ev){ var r = cv.getBoundingClientRect(); return {x: view.x + (ev.clientX - r.left) / view.z, y: view.y + (ev.clientY - r.top) / view.z}; }
+function dSeg(p, x1, y1, x2, y2){ var dx = x2 - x1, dy = y2 - y1, l = dx * dx + dy * dy, t = l ? Math.max(0, Math.min(1, ((p.x - x1) * dx + (p.y - y1) * dy) / l)) : 0;
+  return Math.hypot(p.x - x1 - t * dx, p.y - y1 - t * dy); }
+function hit(e, p){
+  var tol = 6 / view.z + (e.w || 2) / 2;
+  if (e.t === 'pen') { for (var i = 0; i < e.pts.length - 2; i += 2) if (dSeg(p, e.pts[i], e.pts[i + 1], e.pts[i + 2], e.pts[i + 3]) < tol) return true;
+    return e.pts.length === 2 && Math.hypot(p.x - e.pts[0], p.y - e.pts[1]) < tol; }
+  if (e.t === 'line') return dSeg(p, e.x1, e.y1, e.x2, e.y2) < tol;
+  if (e.t === 'circ') return Math.abs(Math.hypot(p.x - e.cx, p.y - e.cy) - e.r) < tol;
+  if (e.t === 'rect') { var b = bbox(e); return dSeg(p, b[0], b[1], b[2], b[1]) < tol || dSeg(p, b[2], b[1], b[2], b[3]) < tol || dSeg(p, b[2], b[3], b[0], b[3]) < tol || dSeg(p, b[0], b[3], b[0], b[1]) < tol; }
+  var bb = bbox(e); return p.x >= bb[0] - 4 && p.x <= bb[2] + 4 && p.y >= bb[1] - 4 && p.y <= bb[3] + 4;
+}
+function topHit(p){ for (var i = els.length - 1; i >= 0; i--) if (hit(els[i], p)) return els[i]; return null; }
+function anchors(e){ if (e.t === 'pt') return [[e.x, e.y]]; if (e.t === 'line') return [[e.x1, e.y1], [e.x2, e.y2]]; if (e.t === 'circ') return [[e.cx, e.cy]];
+  if (e.t === 'rect') return [[e.x, e.y], [e.x + e.ww, e.y], [e.x, e.y + e.hh], [e.x + e.ww, e.y + e.hh]]; return []; }
+function snap(p, skip){
+  var best = null, bd = 10 / view.z;
+  els.forEach(function(e){ if (e.id === skip) return; anchors(e).forEach(function(a){ var d = Math.hypot(a[0] - p.x, a[1] - p.y); if (d < bd) { bd = d; best = {x: a[0], y: a[1]}; } }); });
+  if (!best && bg === 'grid') { var g = {x: Math.round(p.x / 24) * 24, y: Math.round(p.y / 24) * 24}; if (Math.hypot(g.x - p.x, g.y - p.y) < 5 / view.z) best = g; }
+  snapMark = best; return best || p;
+}
+function angleSnap(a, p){ var ang = Math.atan2(p.y - a.y, p.x - a.x), st = Math.PI / 12, r = Math.hypot(p.x - a.x, p.y - a.y); ang = Math.round(ang / st) * st;
+  return {x: a.x + r * Math.cos(ang), y: a.y + r * Math.sin(ang)}; }
+function move(e, dx, dy){ var n = clone(e);
+  if (n.t === 'pen') for (var i = 0; i < n.pts.length; i += 2) { n.pts[i] = r1(n.pts[i] + dx); n.pts[i + 1] = r1(n.pts[i + 1] + dy); }
+  else if (n.t === 'line') { n.x1 += dx; n.y1 += dy; n.x2 += dx; n.y2 += dy; }
+  else if (n.t === 'circ') { n.cx += dx; n.cy += dy; } else { n.x += dx; n.y += dy; } return n; }
+function r1(v){ return Math.round(v * 10) / 10; }
+function nextLetter(){ var used = {}; els.forEach(function(e){ if (e.t === 'pt' && e.l) used[e.l] = 1; });
+  var A = 'ABCDEFGHKLMNOPQRSTUVWXYZ'.split(''); for (var i = 0; i < A.length; i++) if (!used[A[i]]) return A[i];
+  for (var j = 1; j < 10; j++) for (i = 0; i < A.length; i++) if (!used[A[i] + j]) return A[i] + j; return ''; }
+
+/* ── мышь ── */
+function pt2(p){ return {x: r1(p.x), y: r1(p.y)}; }
+cv.addEventListener('pointerdown', function(ev){
+  if (!board) return; closePops(); if (editing) { commitText(); return; }
+  var p = W2(ev); cv.setPointerCapture(ev.pointerId);
+  if (ev.button === 1 || spaceDown || tool === 'hand') { act = {k: 'pan', sx: ev.clientX, sy: ev.clientY, vx: view.x, vy: view.y}; stage.classList.add('panning'); return; }
+  if (ev.button !== 0) return;
+  var base = {by: me.uid, c: color, w: width, d: dashed};
+  if (tool === 'pen') { cur = Object.assign({id: nid(), t: 'pen', pts: [r1(p.x), r1(p.y)]}, base); act = {k: 'draw'}; }
+  else if (tool === 'line' || tool === 'arrow') { var s = pt2(snap(p)); cur = Object.assign({id: nid(), t: 'line', x1: s.x, y1: s.y, x2: s.x, y2: s.y, a: tool === 'arrow' ? 1 : 0}, base); act = {k: 'draw'}; }
+  else if (tool === 'circ') { var c0 = pt2(snap(p)); cur = Object.assign({id: nid(), t: 'circ', cx: c0.x, cy: c0.y, r: 0}, base); act = {k: 'draw'}; }
+  else if (tool === 'rect') { var q = pt2(snap(p)); cur = Object.assign({id: nid(), t: 'rect', x: q.x, y: q.y, ww: 0, hh: 0}, base); act = {k: 'draw'}; }
+  else if (tool === 'pt') { var s2 = pt2(snap(p)); var e = {id: nid(), t: 'pt', x: s2.x, y: s2.y, l: nextLetter(), c: color, by: me.uid}; snapMark = null;
+    commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]}); }
+  else if (tool === 'text') { ev.preventDefault(); var h = topHit(p); if (h && h.t === 'text') openText(h); else openText(null, p); }
+  else if (tool === 'eraser') { act = {k: 'erase', gone: []}; eraseAt(p); }
+  else if (tool === 'laser') { act = {k: 'laser', buf: []}; laserAt(p); }
+  else if (tool === 'select') {
+    var hs = sel && find(sel);
+    if (hs && hs.t === 'img') { var b = bbox(hs), pd = 6 / view.z; if (Math.abs(p.x - (b[2] + pd)) < 10 / view.z && Math.abs(p.y - (b[3] + pd)) < 10 / view.z) { act = {k: 'resize', orig: clone(hs), p: p}; return; } }
+    var t = topHit(p); sel = t ? t.id : null; if (t) act = {k: 'move', orig: clone(t), p: p, moved: false}; draw();
+  }
+  draw();
+});
+window.addEventListener('pointermove', function(ev){
+  if (!board || stage.hidden) return; var p = W2(ev), now = Date.now();
+  if (now - lastCur > 60 && ev.target === cv) { lastCur = now; send('cur', {by: me.uid, x: r1(p.x), y: r1(p.y), n: me.name, r: me.role}); }
+  if (!act) { if (['line', 'arrow', 'circ', 'rect', 'pt'].indexOf(tool) >= 0 && ev.target === cv) { snap(p); draw(); } return; }
+  if (act.k === 'pan') { view.x = act.vx - (ev.clientX - act.sx) / view.z; view.y = act.vy - (ev.clientY - act.sy) / view.z; draw(); return; }
+  if (act.k === 'draw' && cur) {
+    if (cur.t === 'pen') { var n = cur.pts.length; if (Math.hypot(p.x - cur.pts[n - 2], p.y - cur.pts[n - 1]) > 1.5 / view.z) cur.pts.push(r1(p.x), r1(p.y)); }
+    else if (cur.t === 'line') { var e2 = snap(p, cur.id); if (ev.shiftKey) { e2 = angleSnap({x: cur.x1, y: cur.y1}, p); snapMark = null; } cur.x2 = r1(e2.x); cur.y2 = r1(e2.y); }
+    else if (cur.t === 'circ') { var e3 = snap(p, cur.id); cur.r = r1(Math.hypot(e3.x - cur.cx, e3.y - cur.cy)); }
+    else if (cur.t === 'rect') { var e4 = snap(p, cur.id); cur.ww = r1(e4.x - cur.x); cur.hh = r1(ev.shiftKey ? Math.sign(e4.y - cur.y || 1) * Math.abs(cur.ww) : e4.y - cur.y); }
+    if (now - lastDraft > 50) { lastDraft = now; send('draft', {by: me.uid, el: cur}); }
+    draw(); return; }
+  if (act.k === 'erase') { eraseAt(p); return; }
+  if (act.k === 'laser') { laserAt(p); return; }
+  if (act.k === 'move') { var dx = r1(p.x - act.p.x), dy = r1(p.y - act.p.y); if (Math.abs(dx) + Math.abs(dy) > 0) act.moved = true;
+    var mv = move(act.orig, dx, dy); for (var i = 0; i < els.length; i++) if (els[i].id === mv.id) els[i] = mv;
+    if (now - lastDraft > 50) { lastDraft = now; send('op', {k: 'upd', els: [mv]}); } draw(); return; }
+  if (act.k === 'resize') { var o = act.orig, k = Math.max(.05, (p.x - o.x) / o.ww); var rs = clone(o); rs.ww = r1(o.ww * k); rs.hh = r1(o.hh * k);
+    for (var j = 0; j < els.length; j++) if (els[j].id === rs.id) els[j] = rs; draw(); }
+});
+window.addEventListener('pointerup', function(){
+  if (!act) return; var a = act; act = null; stage.classList.remove('panning'); snapMark = null;
+  if (a.k === 'draw' && cur) { var c = cur; cur = null; var ok = c.t === 'pen' ? c.pts.length >= 2 : c.t === 'line' ? Math.hypot(c.x2 - c.x1, c.y2 - c.y1) > 3 : c.t === 'circ' ? c.r > 3 : Math.abs(c.ww) > 3 && Math.abs(c.hh) > 3;
+    if (c.t === 'pen' && c.pts.length === 2) c.pts.push(c.pts[0] + .1, c.pts[1]);
+    if (ok) commit({k: 'add', els: [c]}, {k: 'del', ids: [c.id]}); else { send('draft', {by: me.uid, el: null}); draw(); } }
+  else if (a.k === 'erase' && a.gone.length) { undoS.push({op: {k: 'del', ids: a.gone.map(function(e){ return e.id; })}, inv: {k: 'add', els: a.gone}}); redoS = []; btns(); }
+  else if (a.k === 'laser' && a.buf.length) { send('laser', {by: me.uid, pts: a.buf}); }
+  else if ((a.k === 'move' && a.moved) || a.k === 'resize') { var now = find(a.orig.id); if (now) { var op = {k: 'upd', els: [clone(now)]}; apply(op, false); send('op', op); undoS.push({op: op, inv: {k: 'upd', els: [a.orig]}}); redoS = []; btns(); } }
+  draw();
+});
+function eraseAt(p){ var h = topHit(p); if (!h) return; act.gone.push(clone(h)); var op = {k: 'del', ids: [h.id]}; apply(op, false); send('op', op); }
+function laserAt(p){ lasers.push({x: p.x, y: p.y, t: Date.now(), by: me.uid}); act.buf.push([r1(p.x), r1(p.y)]);
+  if (act.buf.length > 4) { send('laser', {by: me.uid, pts: act.buf}); act.buf = []; } draw(); }
+cv.addEventListener('dblclick', function(ev){ var h = topHit(W2(ev)); if (!h) return; if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); });
+stage.addEventListener('wheel', function(ev){
+  ev.preventDefault(); if (ev.ctrlKey || ev.metaKey) { var r = cv.getBoundingClientRect(); zoomAt(view.z * Math.exp(-ev.deltaY * .0025), ev.clientX - r.left, ev.clientY - r.top); }
+  else { view.x += (ev.shiftKey ? ev.deltaY : ev.deltaX) / view.z; view.y += (ev.shiftKey ? 0 : ev.deltaY) / view.z; draw(); }
+}, {passive: false});
+function zoomAt(z, sx, sy){ z = Math.max(.15, Math.min(5, z)); var wx = view.x + sx / view.z, wy = view.y + sy / view.z; view.z = z; view.x = wx - sx / z; view.y = wy - sy / z; draw(); }
+function zoomBy(f){ zoomAt(view.z * f, cv.clientWidth / 2, cv.clientHeight / 2); }
+function fit(){ if (!els.length) { view = {x: -40, y: -40, z: 1}; draw(); return; } var b = [1e9, 1e9, -1e9, -1e9];
+  els.forEach(function(e){ var q = bbox(e); b[0] = Math.min(b[0], q[0]); b[1] = Math.min(b[1], q[1]); b[2] = Math.max(b[2], q[2]); b[3] = Math.max(b[3], q[3]); });
+  var cw = cv.clientWidth, chh = cv.clientHeight, z = Math.max(.15, Math.min(1.6, Math.min((cw - 80) / (b[2] - b[0] || 1), (chh - 80) / (b[3] - b[1] || 1))));
+  view.z = z; view.x = (b[0] + b[2]) / 2 - cw / 2 / z; view.y = (b[1] + b[3]) / 2 - chh / 2 / z; draw(); }
+
+/* ── текст ── */
+function openText(e, p, label){
+  var ta = $('bdText'); editing = {e: e, p: p, label: !!label};
+  var fs = e && e.t === 'text' ? e.fs : (width >= 8 ? 32 : width >= 4 ? 24 : 20);
+  var x = e ? (label ? e.x + 6 : e.x) : p.x, y = e ? (label ? e.y - 26 : e.y) : p.y;
+  ta.value = e ? (label ? e.l || '' : e.s) : ''; ta.style.left = ((x - view.x) * view.z - 5) + 'px'; ta.style.top = ((y - view.y) * view.z - 3) + 'px';
+  ta.style.fontSize = (label ? 21 : fs) * view.z + 'px'; ta.style.color = e ? e.c : color; ta.style.fontStyle = label ? 'italic' : 'normal';
+  ta.rows = Math.max(1, ta.value.split('\n').length); ta.hidden = false; editing.fs = fs;
+  var sy = $('bdSyms'); sy.hidden = label; sy.style.left = ta.style.left; sy.style.top = ((y - view.y) * view.z + (label ? 21 : fs) * view.z * 1.4 * ta.rows + 10) + 'px';
+  ta.focus(); ta.select(); autosize();
+}
+function autosize(){ var ta = $('bdText'); ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; ta.style.width = 'auto'; ta.style.width = Math.max(120, ta.scrollWidth + 12) + 'px';
+  var sy = $('bdSyms'); sy.style.top = (parseFloat(ta.style.top) + ta.offsetHeight + 8) + 'px'; }
+$('bdText').addEventListener('input', autosize);
+$('bdText').addEventListener('keydown', function(ev){
+  if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); commitText(); } else if (ev.key === 'Escape') { ev.preventDefault(); closeText(); } ev.stopPropagation(); });
+$('bdText').addEventListener('blur', function(){ setTimeout(function(){ if (editing && document.activeElement !== $('bdText')) commitText(); }, 150); });
+$('bdSyms').addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+$('bdSyms').addEventListener('click', function(ev){ var b = ev.target.closest('button'); if (!b) return; var ta = $('bdText'), s = ta.selectionStart, e = ta.selectionEnd;
+  ta.value = ta.value.slice(0, s) + b.textContent + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = s + b.textContent.length; ta.focus(); autosize(); });
+function closeText(){ editing = null; $('bdText').hidden = true; $('bdSyms').hidden = true; }
+function commitText(){
+  if (!editing) return; var v = $('bdText').value.replace(/\s+$/, ''), ed = editing; closeText();
+  if (ed.label) { var n = clone(ed.e); n.l = v.trim().slice(0, 6); commit({k: 'upd', els: [n]}, {k: 'upd', els: [ed.e]}); return; }
+  if (ed.e) { if (!v) { commit({k: 'del', ids: [ed.e.id]}, {k: 'add', els: [ed.e]}); return; } if (v === ed.e.s) return;
+    var u = clone(ed.e); u.s = v; commit({k: 'upd', els: [u]}, {k: 'upd', els: [ed.e]}); return; }
+  if (!v) return; var e = {id: nid(), t: 'text', x: r1(ed.p.x), y: r1(ed.p.y), s: v, fs: ed.fs, c: color, by: me.uid};
+  commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]});
+}
+
+/* ── панель ── */
+function setTool(t){ tool = t; stage.dataset.tool = t; document.querySelectorAll('[data-tool]').forEach(function(b){ b.classList.toggle('on', b.dataset.tool === t); });
+  if (t !== 'select') sel = null; snapMark = null; draw(); }
+document.querySelectorAll('[data-tool]').forEach(function(b){ b.addEventListener('click', function(){ setTool(b.dataset.tool); }); });
+document.querySelectorAll('[data-color]').forEach(function(b){ b.addEventListener('click', function(){ color = b.dataset.color;
+  document.querySelectorAll('[data-color]').forEach(function(x){ x.classList.toggle('on', x === b); });
+  var e = sel && find(sel); if (e && e.t !== 'img') { var n = clone(e); n.c = color; commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); }
+  if (['select', 'hand', 'eraser', 'laser'].indexOf(tool) >= 0 && !sel) setTool('pen'); }); });
+document.querySelectorAll('[data-w]').forEach(function(b){ b.addEventListener('click', function(){ width = +b.dataset.w;
+  document.querySelectorAll('[data-w]').forEach(function(x){ x.classList.toggle('on', x === b); });
+  var e = sel && find(sel); if (e && e.w) { var n = clone(e); n.w = width; commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); } }); });
+function setDash(v){ dashed = v; $('bdDash').classList.toggle('on', v); var e = sel && find(sel);
+  if (e && ['line', 'circ', 'rect', 'pen'].indexOf(e.t) >= 0) { var n = clone(e); n.d = v; commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); } }
+$('bdDash').addEventListener('click', function(){ setDash(!dashed); });
+$('bdUndo').addEventListener('click', undo); $('bdRedo').addEventListener('click', redo);
+$('bdZin').addEventListener('click', function(){ zoomBy(1.25); }); $('bdZout').addEventListener('click', function(){ zoomBy(.8); });
+$('bdZ').addEventListener('click', function(){ zoomAt(1, cv.clientWidth / 2, cv.clientHeight / 2); }); $('bdFit').addEventListener('click', fit);
+$('bdBg').addEventListener('click', function(){ var prev = bg; commit({k: 'bg', bg: bg === 'grid' ? 'plain' : 'grid'}, {k: 'bg', bg: prev}); });
+$('bdFile').addEventListener('change', function(ev){ var f = ev.target.files[0]; ev.target.value = ''; addFile(f); });
+$('bdShow').addEventListener('click', function(){ send('view', {x: view.x, y: view.y, z: view.z}); toast(live ? 'Ученик теперь видит ту же часть доски' : 'Нет живой связи с учеником'); });
+$('bdClear').addEventListener('click', function(){ if (!els.length) return; if (!confirmBox('Очистить доску? Это можно отменить кнопкой «Отменить».')) return;
+  var prev = clone(els); commit({k: 'clear'}, {k: 'set', els: prev}); });
+function confirmBox(t){ return window.confirm(t); }
+$('bdExport').addEventListener('click', exportPng);
+stage.addEventListener('dragover', function(ev){ ev.preventDefault(); });
+stage.addEventListener('drop', function(ev){ ev.preventDefault(); var f = ev.dataTransfer.files[0]; if (f) addFile(f, W2(ev)); });
+window.addEventListener('paste', function(ev){ if (!board || editing) return; var it = [].slice.call((ev.clipboardData || {}).items || []).find(function(i){ return i.type.indexOf('image/') === 0; });
+  if (it) { ev.preventDefault(); addFile(it.getAsFile()); } });
+window.addEventListener('keydown', function(ev){
+  if (!board || /INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '')) return;
+  var k = ev.key.toLowerCase(), mod = ev.ctrlKey || ev.metaKey;
+  if (mod && k === 'z') { ev.preventDefault(); ev.shiftKey ? redo() : undo(); return; } if (mod && k === 'y') { ev.preventDefault(); redo(); return; }
+  if (mod && (k === '=' || k === '+')) { ev.preventDefault(); zoomBy(1.25); return; } if (mod && k === '-') { ev.preventDefault(); zoomBy(.8); return; }
+  if (mod) return;
+  if (k === ' ') { spaceDown = true; stage.classList.add('pan'); ev.preventDefault(); return; }
+  if ((k === 'delete' || k === 'backspace') && sel) { var e = find(sel); if (e) commit({k: 'del', ids: [e.id]}, {k: 'add', els: [clone(e)]}); sel = null; ev.preventDefault(); return; }
+  if (k === 'escape') { sel = null; closePops(); draw(); return; }
+  var map = {v: 'select', h: 'hand', p: 'pen', l: 'line', a: 'arrow', c: 'circ', r: 'rect', o: 'pt', t: 'text', e: 'eraser', k: 'laser'};
+  if (map[k]) { setTool(map[k]); return; } if (k === 'd') setDash(!dashed); if (k === 'f') fit(); if (k === 'g') $('bdBg').click();
+});
+window.addEventListener('keyup', function(ev){ if (ev.key === ' ') { spaceDown = false; stage.classList.remove('pan'); } });
+window.addEventListener('resize', layout);
+
+/* ── экспорт ── */
+function exportPng(){
+  var b = [1e9, 1e9, -1e9, -1e9]; els.forEach(function(e){ var q = bbox(e); b[0] = Math.min(b[0], q[0]); b[1] = Math.min(b[1], q[1]); b[2] = Math.max(b[2], q[2]); b[3] = Math.max(b[3], q[3]); });
+  if (!els.length) b = [view.x, view.y, view.x + W(), view.y + H()];
+  var pad = 30, w = b[2] - b[0] + pad * 2, h = b[3] - b[1] + pad * 2, s = Math.min(2, 4000 / Math.max(w, h)), c = document.createElement('canvas');
+  c.width = Math.round(w * s); c.height = Math.round(h * s); var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+  g.setTransform(s, 0, 0, s, -(b[0] - pad) * s, -(b[1] - pad) * s); drawBg(g, b[0] - pad, b[1] - pad, w, h, s); els.forEach(function(e){ drawEl(g, e); });
+  try { c.toBlob(function(bl){ var a = document.createElement('a'); a.href = URL.createObjectURL(bl); var d = new Date(); a.download = 'doska-' + ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear() + '.png';
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 2000); }, 'image/png'); }
+  catch (e) { toast('Не получилось сохранить картинку'); }
+}
+
+/* ── доски: список, создание, открытие ── */
+function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; }
+$('bdPick').addEventListener('click', function(ev){ ev.stopPropagation(); var m = $('bdMenu'); if (!m.hidden) { m.hidden = true; return; } closePops(); renderMenu(); m.hidden = false; });
+$('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdFigs'); if (!f.hidden) { f.hidden = true; return; } closePops(); renderFigs(); f.hidden = false; });
+document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn')) closePops(); });
+function renderFigs(){
+  var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
+  f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
+    FIGS.map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){
+      return '<button type="button" data-fig="' + esc(it.f) + '"><img loading="lazy" src="assets/fig/' + esc(it.f) + '" alt="">' + esc(it.c || '') + '</button>'; }).join('') + '</div>'; }).join('');
+  f.addEventListener('click', function(ev){ if (ev.target.closest('[data-x]')) { closePops(); return; } var b = ev.target.closest('[data-fig]'); if (!b) return;
+    var im = b.querySelector('img'); closePops(); placeImg('fig:' + b.dataset.fig, im.naturalWidth || 600, im.naturalHeight || 400); });
+}
+function renderMenu(){
+  var m = $('bdMenu'), h = '';
+  if (isT) {
+    h += '<h3>Ученик</h3><select id="bmStudent">' + students.map(function(s){ return '<option value="' + s.id + '"' + (board && s.id === board.student_id ? ' selected' : '') + '>' + esc(s.name) + '</option>'; }).join('') + '</select>';
+    h += '<h3>Доски ученика</h3><div class="bd-list">' + (boards.length ? boards.map(function(b){ return '<button type="button" data-open="' + b.id + '" class="' + (board && b.id === board.id ? 'on' : '') + '"><span>' + esc(b.title) + '</span><small>' + (b.lesson_id ? 'занятие ' : '') + fmtD(b.created_at) + '</small></button>'; }).join('') : '<p class="muted" style="margin:4px 10px">Досок пока нет.</p>') + '</div>';
+    h += '<h3>Новая доска</h3><label for="bmTitle">Название</label><input id="bmTitle" value="Занятие ' + fmtD(new Date()) + '">' +
+      '<label for="bmLesson">Привязать к занятию</label><select id="bmLesson"><option value="">не привязывать</option>' + lessons.map(function(l){ return '<option value="' + l.id + '">' + fmtDate(l.date) + (l.topic_text || l.topic ? ' · ' + esc(l.topic_text || l.topic) : '') + '</option>'; }).join('') + '</select>' +
+      '<div class="bd-row"><button type="button" class="bd-t dark" id="bmNew">Создать доску</button></div>';
+    h += '<div class="bd-row"><a class="bd-t ghost" href="journal.html">Открыть журнал →</a></div>';
+    if (board) h += '<h3>Эта доска</h3><label for="bmRen">Название</label><input id="bmRen" value="' + esc(board.title) + '"><div class="bd-row"><button type="button" class="bd-t" id="bmSave">Сохранить название</button><button type="button" class="bd-t ghost" id="bmDel">Удалить доску</button></div>';
+  } else {
+    h += '<h3>Мои доски</h3><div class="bd-list">' + boards.map(function(b){ return '<button type="button" data-open="' + b.id + '" class="' + (board && b.id === board.id ? 'on' : '') + '"><span>' + esc(b.title) + '</span><small>' + (b.lesson_date ? 'занятие ' + fmtDate(b.lesson_date) : fmtD(b.created_at)) + '</small></button>'; }).join('') + '</div>' +
+      '<div class="bd-row"><button type="button" class="bd-t" id="bmDraft">+ Свой черновик</button></div>';
+  }
+  m.innerHTML = h;
+  m.querySelectorAll('[data-open]').forEach(function(b){ b.addEventListener('click', function(){ closePops(); openBoard(b.dataset.open); }); });
+  if (isT) {
+    $('bmStudent').addEventListener('change', async function(){ closePops(); await forStudent(this.value, true); });
+    $('bmNew').addEventListener('click', async function(){ var id = await createBoard(board ? board.student_id : $('bmStudent').value, $('bmTitle').value.trim(), $('bmLesson').value || null); closePops(); if (id) openBoard(id); });
+    if (board) { $('bmSave').addEventListener('click', async function(){ var t = $('bmRen').value.trim() || 'Доска'; var r = await sb.from('edu_boards').update({title: t}).eq('id', board.id); if (r.error) { toast('Не сохранилось'); return; }
+        board.title = t; $('bdTitle').textContent = t; var bb = boards.find(function(x){ return x.id === board.id; }); if (bb) bb.title = t; closePops(); toast('Название сохранено'); });
+      $('bmDel').addEventListener('click', async function(){ if (!confirmBox('Удалить доску «' + board.title + '»? Это нельзя отменить.')) return;
+        var imgsList = els.filter(function(e){ return e.t === 'img' && e.src.indexOf('st:') === 0; }).map(function(e){ return e.src.slice(3); });
+        var r = await sb.from('edu_boards').delete().eq('id', board.id); if (r.error) { toast('Не удалилось'); return; }
+        if (imgsList.length) await sb.storage.from('edu-board').remove(imgsList); var sid = board.student_id; board = null; dirty = false; closePops(); toast('Доска удалена'); forStudent(sid, false); }); }
+  } else $('bmDraft').addEventListener('click', async function(){ var r = await sb.rpc('edu_board_new', {p_title: 'Черновик ' + fmtD(new Date())}); if (r.error) { toast('Не получилось создать'); return; } closePops(); await loadMine(); openBoard(r.data); });
+}
+async function createBoard(sid, title, lesson){
+  var r = await sb.from('edu_boards').insert({student_id: sid, title: title || 'Занятие ' + fmtD(new Date()), lesson_id: lesson || null}).select().single();
+  if (r.error) { toast('Не получилось создать доску'); return null; } boards.unshift(r.data); return r.data.id;
+}
+async function forStudent(sid, auto){
+  var r = await sb.from('edu_boards').select('id,title,lesson_id,created_at,student_id').eq('student_id', sid).order('created_at', {ascending: false});
+  boards = r.data || []; var l = await sb.from('edu_lessons').select('id,date,topic,topic_text').eq('student_id', sid).order('date', {ascending: false}).limit(30);
+  lessons = l.data || []; lessons.forEach(function(x){ x.topic_text = x.topic_text || TOPIC_NAME(x.topic); });
+  if (boards.length) return openBoard(boards[0].id);
+  var today = lessons.find(function(x){ var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return x.date === d.toISOString().slice(0, 10); });
+  var id = await createBoard(sid, 'Занятие ' + fmtD(new Date()), today ? today.id : null); if (id) openBoard(id);
+}
+function TOPIC_NAME(k){ return k ? ({g1: 'Урок 1', g2: 'Урок 2', g3: 'Урок 3', g4: 'Урок 4', g5: 'Урок 5'}[k] || k) : ''; }
+async function loadMine(){ var r = await sb.rpc('edu_my_boards'); boards = r.data || []; return boards; }
+async function openBoard(id){
+  if (board && dirty) await save();
+  var r = await sb.rpc('edu_board_get', {p_board: id}); var b = r.data && r.data[0];
+  if (!b) { showEmpty('<h2>Нет доступа к этой доске</h2><p class="muted">Доска открывается только учителю и ученику, для которого она создана.</p>'); return; }
+  board = {id: b.id, student_id: b.student_id, title: b.title}; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; lastUpd = b.updated_at;
+  undoS = []; redoS = []; sel = null; drafts = {}; cursors = {}; $('bdCursors').innerHTML = ''; btns(); dirty = false; status();
+  document.body.classList.add('board-open'); $('bdTitle').textContent = b.title; $('bdEmpty').hidden = true; $('bdBar').hidden = false; stage.hidden = false; $('bdShow').hidden = !isT;
+  var u = new URL(location.href); u.searchParams.set('b', b.id); u.searchParams.delete('s'); history.replaceState(null, '', u);
+  layout(); if (els.length) fit(); else { view = {x: -40, y: -40, z: 1}; draw(); }
+  connect();
+}
+function showEmpty(h){ document.body.classList.remove('board-open'); $('bdEmpty').innerHTML = h; $('bdEmpty').hidden = false; $('bdBar').hidden = true; stage.hidden = true; }
+async function checkNew(){
+  if (isT || !board) return; var list = await loadMine(); var nb = list[0];
+  if (nb && nb.id !== board.id && new Date(nb.created_at) > new Date(Date.now() - 6 * 3600e3) && !checkNew.seen[nb.id]) {
+    var bn = $('bdBanner'); bn.innerHTML = 'Учитель открыл новую доску «' + esc(nb.title) + '»<button type="button">Перейти</button><button type="button" style="background:transparent;color:#fff">✕</button>'; bn.hidden = false;
+    bn.querySelectorAll('button')[0].onclick = function(){ bn.hidden = true; openBoard(nb.id); }; bn.querySelectorAll('button')[1].onclick = function(){ bn.hidden = true; checkNew.seen[nb.id] = 1; }; }
+}
+checkNew.seen = {};
+window.__board = {els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }};   // для автотестов
+
+K.state.then(async function(st){
+  if (!st || !st.session || !K.sb) return; sb = K.sb; document.body.classList.add('board-page');
+  me.uid = st.session.user.id; isT = st.role === 'teacher' && !st.asStudent; me.role = isT ? 'teacher' : 'student'; me.name = isT ? 'Учитель' : 'Ученик';
+  setTool('pen'); document.querySelector('[data-color]').classList.add('on'); document.querySelector('[data-w="2"]').classList.add('on');
+  var q = new URLSearchParams(location.search), b = q.get('b'), s = q.get('s');
+  if (isT) {
+    var r = await sb.from('edu_students').select('id,name').order('created_at'); students = r.data || [];
+    if (b) { await openBoard(b); if (board) forStudentList(board.student_id); }
+    else if (s) await forStudent(s, true);
+    else if (!students.length) showEmpty('<h2>Сначала добавьте ученика</h2><p class="muted">Доска создаётся для ученика из журнала.</p><p><a class="btn" href="journal.html">Открыть журнал →</a></p>');
+    else showEmpty('<h2>Доска с учеником</h2><p class="muted">Выберите, с кем занимаетесь, — откроется его последняя доска или новая на сегодня.</p><div class="bd-list" style="max-width:360px;margin:16px auto;text-align:left">' +
+      students.map(function(x){ return '<button type="button" data-s="' + x.id + '"><span>' + esc(x.name) + '</span><small>открыть →</small></button>'; }).join('') + '</div>'), document.querySelectorAll('[data-s]').forEach(function(x){ x.onclick = function(){ forStudent(x.dataset.s, true); }; });
+  } else {
+    var list = await loadMine();
+    if (b) await openBoard(b); else if (list.length) await openBoard(list[0].id);
+    else { var info = await sb.rpc('edu_my_info');
+      showEmpty(info.data && info.data.length ? '<h2>Доски пока нет</h2><p class="muted">Учитель откроет доску на занятии — она появится здесь. А пока можно завести свой черновик.</p><p><button type="button" class="btn" id="bdFirst">Свой черновик</button></p>'
+        : '<h2>Доска появится после привязки</h2><p class="muted">Учитель ещё не привязал твой аккаунт к журналу. Напиши ему — и здесь появится общая доска для занятий.</p>');
+      var fb = $('bdFirst'); if (fb) fb.onclick = async function(){ var r2 = await sb.rpc('edu_board_new', {p_title: 'Черновик ' + fmtD(new Date())}); if (!r2.error) { await loadMine(); openBoard(r2.data); } }; }
+    var ms = +(load('bdPollMs') || 20000); newT = setInterval(checkNew, ms);
+  }
+});
+async function forStudentList(sid){ var r = await sb.from('edu_boards').select('id,title,lesson_id,created_at,student_id').eq('student_id', sid).order('created_at', {ascending: false}); boards = r.data || [];
+  var l = await sb.from('edu_lessons').select('id,date,topic,topic_text').eq('student_id', sid).order('date', {ascending: false}).limit(30); lessons = l.data || []; }
+})();
+</script>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
