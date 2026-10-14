@@ -3,7 +3,7 @@
 'use strict';
 var CFG = window.APP_CONFIG || {};
 var READY = !!(CFG.supabaseUrl && CFG.supabaseKey && window.supabase);
-var TEACHER_PAGES = ["index", "math", "geometry", "algebra", "ege-math", "ege-inf", "library", "journal", "g1", "g2", "g3", "g4", "g5", "ws1", "ws2", "ws3", "ws4", "ws5", "test-geo1", "test-alg1", "test-alg2"];
+var TEACHER_PAGES = ["index", "math", "geometry", "algebra", "ege-math", "ege-inf", "library", "g1", "g2", "g3", "g4", "g5", "ws1", "ws2", "ws3", "ws4", "ws5", "test-geo1", "test-alg1", "test-alg2"];
 var root = document.documentElement;
 var page = root.dataset.page || '';
 var K = window.KABINET = {ready: READY, teacherPages: TEACHER_PAGES};
@@ -19,8 +19,8 @@ K.esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, funct
 
 var NAV_T = [['t.html#index','Главная','index'],['t.html#geometry','Геометрия','geometry'],['t.html#algebra','Алгебра','algebra'],
   ['t.html#ege-math','ЕГЭ','ege-math'],['t.html#ege-inf','Информатика','ege-inf'],['reference.html','Справочник','reference'],
-  ['t.html#library','Материалы','library'],['t.html#journal','Журнал','journal'],['students.html','Ученики','students']];
-var NAV_S = [['index.html','Главная','index'],['geometry.html','Геометрия','geometry'],['algebra.html','Алгебра','algebra'],
+  ['t.html#library','Материалы','library'],['journal.html','Журнал','journal'],['students.html','Ученики','students']];
+var NAV_S = [['index.html','Главная','index'],['homework.html','Домашка','homework'],['geometry.html','Геометрия','geometry'],['algebra.html','Алгебра','algebra'],
   ['ege-math.html','ЕГЭ','ege-math'],['reference.html','Справочник','reference'],['library.html','Материалы','library']];
 
 K.renderNav = function(state, current){
@@ -62,7 +62,7 @@ K.state = (async function(){
   if (page === 'login') { location.replace(role === 'teacher' ? 't.html#index' : 'index.html'); return null; }
   if (role === 'teacher' && !st.asStudent && TEACHER_PAGES.indexOf(page) >= 0) {
     location.replace('t.html#' + page + (location.hash ? '/' + location.hash.slice(1) : '')); return null; }
-  if (role !== 'teacher' && (page === 't' || page === 'students')) { location.replace('index.html'); return null; }
+  if (role !== 'teacher' && (page === 't' || page === 'students' || page === 'journal')) { location.replace('index.html'); return null; }
   document.addEventListener('DOMContentLoaded', function(){ K.renderNav(st); });
   if (document.readyState !== 'loading') K.renderNav(st);
   if (page !== 't') reveal();

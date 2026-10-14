@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Журнал занятий</title>
+<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=e03758e7"></script><script src="assets/auth.js?v=e03758e7"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=9615d08f">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+</div></header>
+
+<style>
+#jr .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px}
+#jr .grid>*{min-width:0}
+#jr .panel{background:var(--paper);border:1.5px solid var(--edge);border-radius:var(--r);padding:20px;box-shadow:var(--sh-sm)}
+#jr .row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px} #jr .row>*{min-width:0}
+#jr .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px} #jr .row3>*{min-width:0}
+#jr .stack>*+*{margin-top:12px}
+#jr label{display:block;font-size:12.5px;font-weight:800;color:var(--ink-soft);margin:0 0 5px}
+#jr input,#jr select,#jr textarea{width:100%;font:inherit;color:var(--ink);border:1.5px solid var(--edge);border-radius:12px;background:#fff;padding:9px 11px}
+#jr textarea{resize:vertical;min-height:64px}
+#jr button{font:800 14px var(--f-body);cursor:pointer;border:0;border-radius:999px;padding:9px 16px;background:var(--lav);color:var(--lav-d)}
+#jr button.primary{background:var(--ink);color:#fff} #jr button.ghost{background:transparent;color:var(--ink-soft);padding:6px 10px}
+#jr button.danger{background:var(--peach);color:var(--peach-d)} #jr button:disabled{opacity:.6;cursor:default}
+#jr .tabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#jr .tab{background:var(--paper);color:var(--ink);border:1.5px solid var(--edge)} #jr .tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+#jr .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+#jr .stat{border-radius:var(--r);padding:14px 16px} #jr .stat b{display:block;font:900 26px var(--f-head);font-variant-numeric:tabular-nums}
+#jr .stat span{font-size:13px;font-weight:700}
+#jr .s1{background:var(--lav);color:var(--lav-d)} #jr .s2{background:var(--mint);color:var(--mint-d)} #jr .s3{background:var(--butter);color:var(--butter-d)} #jr .s4{background:var(--sky);color:var(--sky-d)}
+#jr .head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+#jr .head h2{margin:0}
+#jr .muted{color:var(--ink-soft);font-size:13.5px}
+#jr .lesson{border-top:1px dashed var(--edge);padding:14px 0;display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:start}
+#jr .lesson:first-child{border-top:0} #jr .lesson>*{min-width:0}
+#jr .date{font:800 14px var(--f-head);font-variant-numeric:tabular-nums}
+#jr .chip{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;margin:4px 6px 0 0}
+#jr .c-done{background:var(--mint);color:var(--mint-d)} #jr .c-part{background:var(--butter);color:var(--butter-d)} #jr .c-no{background:var(--peach);color:var(--peach-d)}
+#jr .c-set{background:var(--sky);color:var(--sky-d)} #jr .c-none{background:#F1EEF6;color:var(--ink-soft)} #jr .c-mark{background:var(--lav);color:var(--lav-d)}
+#jr .c-kid{background:var(--rose);color:var(--rose-d)}
+#jr .acts{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+#jr .prog h3{margin:16px 0 8px;font-size:13px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em} #jr .prog h3:first-of-type{margin-top:0}
+#jr .topics{display:flex;flex-wrap:wrap;gap:6px}
+#jr .topic{border-radius:12px;padding:7px 11px;font-size:13px;font-weight:700;text-align:left;line-height:1.3}
+#jr .t-todo{background:#F4F1F8;color:var(--ink-soft)} #jr .t-work{background:var(--butter);color:var(--butter-d)} #jr .t-done{background:var(--mint);color:var(--mint-d)}
+#jr .confirm{display:flex;gap:6px;align-items:center;font-size:13px;font-weight:700;color:var(--peach-d)}
+#jr .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px;z-index:60}
+@media (max-width:820px){#jr .grid,#jr .row,#jr .row3{grid-template-columns:1fr}#jr .stats{grid-template-columns:repeat(2,1fr)}#jr .lesson{grid-template-columns:1fr}#jr .acts{justify-content:flex-start}}
+</style>
+<section class="hero" style="padding-bottom:10px"><div class="wrap"><div class="kicker">Только для учителя</div><h1>Журнал занятий</h1>
+<p class="lede">Карточки учеников, занятия, домашние задания и прогресс по темам. Домашнее задание, записанное здесь,
+сразу появляется у ученика — если его аккаунт привязан к карточке.</p></div></section>
+<main class="wrap" id="jr">
+  <div class="tabs" id="tabs"></div>
+  <div id="status" class="panel" style="margin-top:18px"><p>Загружаю журнал…</p></div>
+
+  <section id="studentForm" class="panel" hidden style="margin-top:18px">
+    <h2 id="sfTitle" style="margin:0 0 14px">Новый ученик</h2>
+    <form id="sForm" class="stack">
+      <div class="row3">
+        <div><label for="sName">Имя</label><input id="sName" required placeholder="Например, Миша"></div>
+        <div><label for="sGrade">Класс</label><input id="sGrade" placeholder="10"></div>
+        <div><label for="sGoal">Цель</label><input id="sGoal" placeholder="ЕГЭ профиль, догнать программу"></div>
+      </div>
+      <div class="row">
+        <div><label for="sBooks">Учебники</label><input id="sBooks" placeholder="Алимов, Атанасян"></div>
+        <div><label for="sUser">Аккаунт ученика на сайте</label><select id="sUser"></select></div>
+      </div>
+      <div><label for="sNotes">Заметки (видите только вы)</label><textarea id="sNotes" placeholder="Сильные и слабые места, как лучше объяснять"></textarea></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="primary" type="submit" id="sSave">Сохранить</button><button type="button" class="ghost" id="sCancel">Отмена</button></div>
+    </form>
+  </section>
+
+  <section id="view" hidden>
+    <div class="panel" style="margin-top:18px">
+      <div class="head"><div><h2 id="cName" style="font-size:28px"></h2><div class="muted" id="cMeta"></div></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" id="editStudent">Изменить карточку</button><span id="delBox"></span></div></div>
+      <p id="cNotes" style="margin:0;white-space:pre-wrap"></p>
+      <p id="cLink" class="muted" style="margin:10px 0 0"></p>
+    </div>
+    <div class="stats">
+      <div class="stat s1"><b id="stLessons">0</b><span>занятий</span></div>
+      <div class="stat s2"><b id="stHw">—</b><span>ДЗ выполнено</span></div>
+      <div class="stat s3"><b id="stMark">—</b><span>средняя отметка</span></div>
+      <div class="stat s4"><b id="stLast">—</b><span>последнее занятие</span></div>
+    </div>
+    <div class="grid">
+      <div class="panel">
+        <div class="head"><h2 id="fTitle">Новое занятие</h2><button type="button" class="ghost" id="fCancel" hidden>Отменить правку</button></div>
+        <form id="lForm" class="stack">
+          <div class="row"><div><label for="lDate">Дата</label><input id="lDate" type="date" required></div>
+            <div><label for="lTopic">Тема</label><select id="lTopic"></select></div></div>
+          <div id="lOtherBox" hidden><label for="lOther">Своя тема</label><input id="lOther" placeholder="Например, повторение: подобие треугольников"></div>
+          <div><label for="lHw">Домашнее задание (увидит ученик)</label><textarea id="lHw" placeholder="№ 18, 23, 27; рабочий лист к уроку 2" style="min-height:52px"></textarea></div>
+          <div class="row">
+            <div><label for="lHwStatus">ДЗ с прошлого урока</label><select id="lHwStatus"><option value="none">не задавалось</option><option value="set">задано</option>
+              <option value="done">сделано</option><option value="part">сделано частично</option><option value="no">не сделано</option></select></div>
+            <div><label for="lMark">Отметка за урок</label><select id="lMark"><option value="">без отметки</option><option>5</option><option>4</option><option>3</option><option>2</option></select></div>
+          </div>
+          <div><label for="lNotes">Как прошло (видите только вы)</label><textarea id="lNotes" placeholder="Что получилось, где ошибки, что повторить"></textarea></div>
+          <button class="primary" type="submit" id="lSave">Записать занятие</button>
+        </form>
+      </div>
+      <div class="panel prog"><div class="head"><h2>Прогресс по темам</h2></div>
+        <p class="muted" style="margin:-6px 0 12px">Нажмите на тему, чтобы сменить статус: не начато → в работе → освоено.</p><div id="progress"></div></div>
+    </div>
+    <div class="panel" style="margin-top:18px"><div class="head"><h2>Журнал</h2><span class="muted" id="logCount"></span></div><div id="log"></div></div>
+  </section>
+  <div id="toast" class="toast" hidden></div>
+</main>
+<script>
+(function(){
+
+var CATALOG = [
+  ['Геометрия · глава I', [
+    ['g1','Урок 1 · Аксиомы стереометрии'],['g2','Урок 2 · Параллельность прямых и плоскостей'],
+    ['g3','Урок 3 · Скрещивающиеся прямые'],['g4','Урок 4 · Параллельность плоскостей'],
+    ['g5','Урок 5 · Тетраэдр, параллелепипед, сечения'],['test-geo1','Проверочная · геометрия гл. I']]],
+  ['Алгебра · Алимов', [
+    ['a1','§ 1 Целые и рациональные числа'],['a2','§ 2 Действительные числа'],['a3','§ 3 Бесконечно убывающая прогрессия'],
+    ['a4','§ 4 Корень натуральной степени'],['a5','§ 5 Степень с рациональным показателем'],['test-alg1','Проверочная · алгебра гл. I'],
+    ['a6','§ 6 Степенная функция'],['a7','§ 7 Взаимно обратные функции'],['a8','§ 8 Равносильные уравнения'],['test-alg2','Проверочная · алгебра гл. II']]],
+  ['ЕГЭ · профиль', ['Планиметрия','Векторы','Стереометрия','Вероятность','Сложные события','Простейшие уравнения','Вычисления',
+    'Производная','Прикладная задача','Текстовая задача','Графики функций','Наибольшее и наименьшее','Уравнения','Стереометрия',
+    'Неравенства','Финансовая математика','Планиметрия','Параметр','Числа'].map(function(t,i){ return ['e'+(i+1),'№ '+(i+1)+' · '+t]; })]
+];
+var TOPIC = {}; CATALOG.forEach(function(g){ g[1].forEach(function(t){ TOPIC[t[0]] = t[1]; }); });
+function topicHref(key, teacher){
+  if (/^g[1-5]$/.test(key) || /^test-/.test(key)) return teacher ? 't.html#' + key : (/^test-/.test(key) ? '' : key + '.html');
+  if (/^a\d$/.test(key)) return teacher ? 't.html#algebra' : 'algebra.html';
+  if (key === 'e14') return 'ege-14.html';
+  if (/^e\d+$/.test(key)) return teacher ? 't.html#ege-math' : 'ege-math.html';
+  return '';
+}
+function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
+
+var K = window.KABINET, sb, students = [], lessons = [], progress = {}, profiles = [], current = null, editing = null, editingStudent = false, confirmId = null, pend = null, pTimer = null;
+var HW = {none:['не задавалось','c-none'],set:['ДЗ задано','c-set'],done:['ДЗ сделано','c-done'],part:['ДЗ частично','c-part'],no:['ДЗ не сделано','c-no']};
+var NEXT = {todo:'work', work:'done', done:'todo'};
+function $(id){ return document.getElementById(id); }
+function el(t, c, x){ var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+function toast(t){ var e = $('toast'); e.textContent = t; e.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(function(){ e.hidden = true; }, 2400); }
+function today(){ var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
+function remember(id){ try { localStorage.setItem('jr.current', id); } catch(e){} }
+function recall(){ try { return localStorage.getItem('jr.current'); } catch(e){ return null; } }
+function fail(e){ toast('Не получилось сохранить. Проверьте интернет и попробуйте ещё раз.'); console.error(e); }
+
+(function(){ var s = $('lTopic'); CATALOG.forEach(function(g){ var og = document.createElement('optgroup'); og.label = g[0];
+  g[1].forEach(function(t){ var o = el('option', null, t[1]); o.value = t[0]; og.appendChild(o); }); s.appendChild(og); });
+  var o = el('option', null, 'Другая тема…'); o.value = 'other'; s.appendChild(o);
+  s.addEventListener('change', function(){ $('lOtherBox').hidden = s.value !== 'other'; }); })();
+$('lDate').value = today();
+
+async function load(){
+  var r1 = await sb.from('edu_students').select('*').order('created_at');
+  var r2 = await sb.from('edu_lessons').select('*').order('date', {ascending: false}).order('created_at', {ascending: false}).limit(2000);
+  var r3 = await sb.from('edu_progress').select('*');
+  var r4 = await sb.from('edu_profiles').select('user_id,email,role').order('created_at');
+  if (r1.error || r2.error) { $('status').innerHTML = '<p>Журнал не загрузился. Обновите страницу.</p>'; return; }
+  students = r1.data; lessons = r2.data; progress = {}; (r3.data || []).forEach(function(p){ progress[p.student_id] = p.topics || {}; });
+  profiles = (r4.data || []).filter(function(p){ return p.role === 'student'; });
+  if (!current || !students.some(function(s){ return s.id === current; })) { var sv = recall(); current = students.some(function(s){ return s.id === sv; }) ? sv : (students[0] && students[0].id); }
+  render();
+}
+
+function render(){
+  var t = $('tabs'); t.innerHTML = '';
+  students.forEach(function(s){ var b = el('button', 'tab' + (s.id === current ? ' on' : ''), s.name); b.type = 'button';
+    b.addEventListener('click', function(){ current = s.id; remember(s.id); confirmId = null; resetForm(); render(); }); t.appendChild(b); });
+  var add = el('button', 'primary', '+ Ученик'); add.type = 'button'; add.addEventListener('click', function(){ openStudent(null); }); t.appendChild(add);
+  if (!$('studentForm').hidden) return;
+  if (!students.length) { $('view').hidden = true; $('status').hidden = false;
+    $('status').innerHTML = '<h2 style="margin:0 0 8px">Добавьте первого ученика</h2><p class="muted">Кнопка «+ Ученик». В карточке можно сразу привязать аккаунт, под которым ученик входит на сайт, — тогда он будет видеть домашние задания.</p>'; return; }
+  $('status').hidden = true; $('view').hidden = false;
+  var st = students.find(function(s){ return s.id === current; });
+  $('cName').textContent = st.name;
+  $('cMeta').textContent = [st.grade ? st.grade + ' класс' : '', st.goal || '', st.books ? 'учебники: ' + st.books : ''].filter(Boolean).join(' · ');
+  $('cNotes').textContent = st.notes || '';
+  var acc = profiles.find(function(p){ return p.user_id === st.user_id; });
+  $('cLink').innerHTML = acc ? 'Аккаунт на сайте: <b>' + K.esc(acc.email) + '</b> — ученик видит свои домашние задания.' :
+    'Аккаунт на сайте не привязан — ученик пока не видит домашние задания. Нажмите «Изменить карточку».';
+  var db = $('delBox'); db.innerHTML = '';
+  if (confirmId === 'student') { var c = el('span', 'confirm', 'Удалить ученика и все записи?'); var y = el('button', 'danger', 'Удалить'); y.type = 'button';
+    y.addEventListener('click', delStudent); var n = el('button', 'ghost', 'Нет'); n.type = 'button'; n.addEventListener('click', function(){ confirmId = null; render(); });
+    c.appendChild(y); c.appendChild(n); db.appendChild(c); }
+  else { var d = el('button', 'ghost', 'Удалить'); d.type = 'button'; d.addEventListener('click', function(){ confirmId = 'student'; render(); }); db.appendChild(d); }
+  var mine = lessons.filter(function(l){ return l.student_id === current; });
+  $('stLessons').textContent = mine.length;
+  var hw = mine.filter(function(l){ return ['done','part','no'].indexOf(l.hw_status) >= 0; });
+  var done = hw.reduce(function(a, l){ return a + (l.hw_status === 'done' ? 1 : l.hw_status === 'part' ? .5 : 0); }, 0);
+  $('stHw').textContent = hw.length ? Math.round(done / hw.length * 100) + '%' : '—';
+  var marks = mine.map(function(l){ return +l.mark; }).filter(function(m){ return m > 0; });
+  $('stMark').textContent = marks.length ? (marks.reduce(function(a, b){ return a + b; }, 0) / marks.length).toFixed(1).replace('.', ',') : '—';
+  $('stLast').textContent = mine.length ? fmtDate(mine[0].date) : '—';
+  renderLog(mine); renderProgress();
+}
+
+function renderLog(mine){
+  var log = $('log'); log.innerHTML = ''; $('logCount').textContent = mine.length ? mine.length + ' записей' : '';
+  if (!mine.length) { log.appendChild(el('p', 'muted', 'Здесь появятся занятия. Заполните форму «Новое занятие» — дата уже стоит сегодняшняя.')); return; }
+  mine.forEach(function(l){
+    var row = el('div', 'lesson'); row.appendChild(el('div', 'date', fmtDate(l.date)));
+    var mid = el('div'), h = el('div'); h.style.fontWeight = '800';
+    var title = l.topic ? TOPIC[l.topic] : (l.topic_text || 'Без темы'); var href = l.topic ? topicHref(l.topic, true) : '';
+    if (href) { var a = el('a', null, title); a.href = href; h.appendChild(a); } else h.textContent = title;
+    mid.appendChild(h);
+    if (l.homework) mid.appendChild(el('div', 'muted', 'ДЗ: ' + l.homework));
+    var chips = el('div'), hs = HW[l.hw_status] || HW.none; chips.appendChild(el('span', 'chip ' + hs[1], hs[0]));
+    if (l.mark) chips.appendChild(el('span', 'chip c-mark', 'отметка ' + l.mark));
+    if (l.homework && l.student_done) chips.appendChild(el('span', 'chip c-kid', 'ученик отметил: сделал ✓'));
+    mid.appendChild(chips);
+    if (l.notes) { var n = el('p', null, l.notes); n.style.cssText = 'margin:8px 0 0;white-space:pre-wrap;font-size:14px'; mid.appendChild(n); }
+    row.appendChild(mid);
+    var acts = el('div', 'acts');
+    if (confirmId === l.id) { var c = el('span', 'confirm', 'Удалить запись?'); var y = el('button', 'danger', 'Да'); y.type = 'button';
+      y.addEventListener('click', function(){ delLesson(l.id); }); var nn = el('button', 'ghost', 'Нет'); nn.type = 'button';
+      nn.addEventListener('click', function(){ confirmId = null; render(); }); c.appendChild(y); c.appendChild(nn); acts.appendChild(c); }
+    else { var e = el('button', null, 'Изменить'); e.type = 'button'; e.addEventListener('click', function(){ startEdit(l); });
+      var d = el('button', 'ghost', 'Удалить'); d.type = 'button'; d.addEventListener('click', function(){ confirmId = l.id; render(); });
+      acts.appendChild(e); acts.appendChild(d); }
+    row.appendChild(acts); log.appendChild(row);
+  });
+}
+
+function renderProgress(){
+  var box = $('progress'); box.innerHTML = ''; var map = progress[current] || {};
+  CATALOG.forEach(function(g){ box.appendChild(el('h3', null, g[0])); var w = el('div', 'topics');
+    g[1].forEach(function(t){ var s = map[t[0]] || 'todo'; var b = el('button', 'topic t-' + s, t[1]); b.type = 'button';
+      b.title = {todo:'не начато', work:'в работе', done:'освоено'}[s]; b.setAttribute('aria-label', t[1] + ': ' + b.title);
+      b.addEventListener('click', function(){ cycle(t[0]); }); w.appendChild(b); }); box.appendChild(w); });
+}
+
+function cycle(key){
+  var id = current; var base = Object.assign({}, progress[id] || {}); base[key] = NEXT[base[key] || 'todo'];
+  if (base[key] === 'todo') delete base[key]; progress[id] = base; renderProgress();
+  clearTimeout(pTimer); pTimer = setTimeout(async function(){
+    var r = await sb.from('edu_progress').upsert({student_id: id, topics: base, updated_at: new Date().toISOString()});
+    if (r.error) fail(r.error); }, 600);
+}
+
+function resetForm(){ $('lForm').reset(); $('lDate').value = today(); $('lOtherBox').hidden = true; $('fTitle').textContent = 'Новое занятие';
+  $('lSave').textContent = 'Записать занятие'; $('fCancel').hidden = true; editing = null; }
+function startEdit(l){ editing = l.id; $('fTitle').textContent = 'Правка занятия'; $('lSave').textContent = 'Сохранить изменения'; $('fCancel').hidden = false;
+  $('lDate').value = l.date || today(); $('lTopic').value = l.topic || 'other'; $('lOtherBox').hidden = !!l.topic; $('lOther').value = l.topic_text || '';
+  $('lHw').value = l.homework || ''; $('lHwStatus').value = l.hw_status || 'none'; $('lMark').value = l.mark || ''; $('lNotes').value = l.notes || '';
+  $('lForm').scrollIntoView({behavior: 'smooth', block: 'start'}); }
+$('fCancel').addEventListener('click', resetForm);
+
+$('lForm').addEventListener('submit', async function(ev){ ev.preventDefault(); if (!current) return;
+  var topic = $('lTopic').value;
+  var data = {student_id: current, date: $('lDate').value, topic: topic === 'other' ? null : topic, topic_text: topic === 'other' ? $('lOther').value.trim() : null,
+    homework: $('lHw').value.trim() || null, hw_status: $('lHwStatus').value, mark: $('lMark').value || null, notes: $('lNotes').value.trim() || null,
+    updated_at: new Date().toISOString()};
+  var b = $('lSave'); b.disabled = true;
+  var r = editing ? await sb.from('edu_lessons').update(data).eq('id', editing) : await sb.from('edu_lessons').insert(data);
+  b.disabled = false; if (r.error) { fail(r.error); return; }
+  toast(editing ? 'Изменения сохранены' : (data.homework ? 'Занятие записано, ДЗ отправлено ученику' : 'Занятие записано'));
+  resetForm(); if (topic !== 'other' && !(progress[current] || {})[topic]) cycle(topic);
+  setTimeout(load, 800); });
+
+async function delLesson(id){ confirmId = null; var r = await sb.from('edu_lessons').delete().eq('id', id); if (r.error) { fail(r.error); return; } toast('Запись удалена'); load(); }
+async function delStudent(){ confirmId = null; var r = await sb.from('edu_students').delete().eq('id', current); if (r.error) { fail(r.error); return; } current = null; toast('Ученик удалён'); load(); }
+
+function openStudent(st){ editingStudent = !!st; $('studentForm').hidden = false; $('view').hidden = true; $('status').hidden = true;
+  $('sfTitle').textContent = st ? 'Карточка ученика' : 'Новый ученик';
+  $('sName').value = st ? st.name || '' : ''; $('sGrade').value = st ? st.grade || '' : ''; $('sGoal').value = st ? st.goal || '' : '';
+  $('sBooks').value = st ? st.books || '' : 'Алимов, Атанасян'; $('sNotes').value = st ? st.notes || '' : '';
+  var taken = students.filter(function(s){ return s.user_id && (!st || s.id !== st.id); }).map(function(s){ return s.user_id; });
+  var sel = $('sUser'); sel.innerHTML = '<option value="">не привязан</option>' + profiles.filter(function(p){ return taken.indexOf(p.user_id) < 0; })
+    .map(function(p){ return '<option value="' + p.user_id + '">' + K.esc(p.email) + '</option>'; }).join('');
+  sel.value = st && st.user_id ? st.user_id : ''; $('sName').focus(); }
+$('editStudent').addEventListener('click', function(){ openStudent(students.find(function(s){ return s.id === current; })); });
+$('sCancel').addEventListener('click', function(){ $('studentForm').hidden = true; render(); });
+$('sForm').addEventListener('submit', async function(ev){ ev.preventDefault();
+  var data = {name: $('sName').value.trim(), grade: $('sGrade').value.trim() || null, goal: $('sGoal').value.trim() || null,
+    books: $('sBooks').value.trim() || null, notes: $('sNotes').value.trim() || null, user_id: $('sUser').value || null, updated_at: new Date().toISOString()};
+  if (!data.name) return; var b = $('sSave'); b.disabled = true;
+  var r = editingStudent ? await sb.from('edu_students').update(data).eq('id', current).select().single() : await sb.from('edu_students').insert(data).select().single();
+  b.disabled = false; if (r.error) { fail(r.error); return; }
+  current = r.data.id; remember(current); $('studentForm').hidden = true; toast(editingStudent ? 'Карточка сохранена' : 'Ученик добавлен'); load(); });
+
+K.state.then(function(st){ if (!st || st.role !== 'teacher') return; sb = K.sb; load(); });
+})();
+</script>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

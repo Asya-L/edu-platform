@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Кабинет математики</title>
-<script>document.documentElement.dataset.page="index";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=60d1452f"></script><script src="assets/auth.js?v=60d1452f"></script>
+<script>document.documentElement.dataset.page="index";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=e03758e7"></script><script src="assets/auth.js?v=e03758e7"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
-  <nav class="nav"><a href="index.html" class="on">Главная</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+  <nav class="nav"><a href="index.html" class="on">Главная</a><a href="homework.html" class="">Домашка</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
 </div></header>
 
 <section class="hero"><div class="wrap">
@@ -26,6 +26,57 @@
   </div>
 </div></section>
 <main class="wrap">
+  
+<div id="hwBox" hidden></div>
+<script>
+(function(){
+
+var CATALOG = [
+  ['Геометрия · глава I', [
+    ['g1','Урок 1 · Аксиомы стереометрии'],['g2','Урок 2 · Параллельность прямых и плоскостей'],
+    ['g3','Урок 3 · Скрещивающиеся прямые'],['g4','Урок 4 · Параллельность плоскостей'],
+    ['g5','Урок 5 · Тетраэдр, параллелепипед, сечения'],['test-geo1','Проверочная · геометрия гл. I']]],
+  ['Алгебра · Алимов', [
+    ['a1','§ 1 Целые и рациональные числа'],['a2','§ 2 Действительные числа'],['a3','§ 3 Бесконечно убывающая прогрессия'],
+    ['a4','§ 4 Корень натуральной степени'],['a5','§ 5 Степень с рациональным показателем'],['test-alg1','Проверочная · алгебра гл. I'],
+    ['a6','§ 6 Степенная функция'],['a7','§ 7 Взаимно обратные функции'],['a8','§ 8 Равносильные уравнения'],['test-alg2','Проверочная · алгебра гл. II']]],
+  ['ЕГЭ · профиль', ['Планиметрия','Векторы','Стереометрия','Вероятность','Сложные события','Простейшие уравнения','Вычисления',
+    'Производная','Прикладная задача','Текстовая задача','Графики функций','Наибольшее и наименьшее','Уравнения','Стереометрия',
+    'Неравенства','Финансовая математика','Планиметрия','Параметр','Числа'].map(function(t,i){ return ['e'+(i+1),'№ '+(i+1)+' · '+t]; })]
+];
+var TOPIC = {}; CATALOG.forEach(function(g){ g[1].forEach(function(t){ TOPIC[t[0]] = t[1]; }); });
+function topicHref(key, teacher){
+  if (/^g[1-5]$/.test(key) || /^test-/.test(key)) return teacher ? 't.html#' + key : (/^test-/.test(key) ? '' : key + '.html');
+  if (/^a\d$/.test(key)) return teacher ? 't.html#algebra' : 'algebra.html';
+  if (key === 'e14') return 'ege-14.html';
+  if (/^e\d+$/.test(key)) return teacher ? 't.html#ege-math' : 'ege-math.html';
+  return '';
+}
+function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
+
+var K = window.KABINET, box = document.getElementById('hwBox'), FULL = box.getAttribute('data-full') === '1';
+function card(l, i){
+  var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
+  return '<div class="task" style="' + (l.student_done ? 'opacity:.75' : '') + '"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline">' +
+    '<b>' + fmtDate(l.date) + (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' +
+    '<label style="display:flex;gap:8px;align-items:center;font-weight:700;font-size:14px;cursor:pointer"><input type="checkbox" data-id="' + l.id + '"' +
+    (l.student_done ? ' checked' : '') + ' style="width:18px;height:18px"> сделал(а)</label></div>' +
+    '<p style="margin:8px 0 0;white-space:pre-wrap">' + K.esc(l.homework) + '</p></div>';
+}
+K.state.then(async function(st){
+  if (!st || !st.session || !K.sb) return;
+  var r = await K.sb.rpc('edu_my_homework'); if (r.error || !r.data) return;
+  var items = FULL ? r.data : r.data.slice(0, 1);
+  if (!items.length) { if (FULL) { box.hidden = false; box.innerHTML = '<div class="note"><p>Пока нет домашних заданий. Они появятся здесь после урока.</p></div>'; } return; }
+  box.hidden = false;
+  box.innerHTML = (FULL ? '' : '<h2>Домашнее задание</h2>') + items.map(card).join('') +
+    (FULL ? '' : '<p><a href="homework.html">Все домашние задания →</a></p>');
+  box.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.addEventListener('change', async function(){
+    c.disabled = true; var u = await K.sb.rpc('edu_set_done', {p_lesson: c.getAttribute('data-id'), p_done: c.checked}); c.disabled = false;
+    if (u.error) { c.checked = !c.checked; return; } c.closest('.task').style.opacity = c.checked ? '.75' : '1'; }); });
+});
+})();
+</script>
   <h2>Разделы</h2>
   <div class="cards">
     <a class="card violet" href="geometry.html"><div class="tag">Атанасян · 10 класс</div><h3>Геометрия</h3>
