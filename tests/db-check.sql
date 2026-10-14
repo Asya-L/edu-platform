@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-08).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-14).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -13,7 +13,7 @@ declare
   s_uid uuid := gen_random_uuid();   -- тестовый ученик
   o_uid uuid := gen_random_uuid();   -- другой тестовый ученик
   st_id uuid; ot_id uuid; l_mine uuid; l_other uuid;
-  n int; n2 int; n3 int; b boolean; v text; err text;
+  n int; n2 int; n3 int; b boolean; v text; err text; j jsonb; obj_other text;
   r text := E'ИТОГ ПРОВЕРКИ (все изменения отменены)\n';
 
   -- строки отчёта собираются в r
@@ -43,6 +43,9 @@ begin
   insert into public.edu_lessons(student_id, homework, notes)
     values (ot_id, 'ТЕСТ: чужое ДЗ', 'ТЕСТ: чужая заметка') returning id into l_other;
   insert into public.edu_progress(student_id) values (st_id), (ot_id);
+  update public.edu_students set next_at = now() + interval '2 days', call_url = 'https://example.invalid/call' where id = st_id;
+  obj_other := o_uid::text || '/' || l_other::text || '/z.jpg';
+  insert into storage.objects(bucket_id, name) values ('edu-hw', obj_other);
 
   -- DB-01: учитель читает ключ
   perform set_config('request.jwt.claims', json_build_object('sub', t_uid, 'role', 'authenticated')::text, true);
@@ -94,11 +97,61 @@ begin
   -- DB-06: «сделал» — своему занятию можно, чужому нельзя
   perform public.edu_set_done(l_other, true);
   perform public.edu_set_done(l_mine, true);
+
+  -- DB-09: сдача ДЗ — своё можно, чужое нельзя, чужие фото подставить нельзя
+  b := public.edu_submit(l_mine, 'ТЕСТ: мой комментарий', jsonb_build_array(s_uid::text || '/' || l_mine::text || '/a.jpg'));
+  v := public.edu_submit(l_other, 'взлом', '[]'::jsonb)::text;
+  err := 'чужие фото приняты';
+  begin perform public.edu_submit(l_mine, 'x', jsonb_build_array(obj_other));
+  exception when others then err := 'чужие фото отклонены'; end;
+  select count(*) into n from public.edu_my_homework() h where h.id = l_mine and jsonb_array_length(h.photos) = 1 and h.student_comment like 'ТЕСТ%';
+  r := r || case when b and v = 'false' and err = 'чужие фото отклонены' and n = 1 then 'PASS' else 'FAIL' end
+         || ' DB-09 сдача ДЗ: своё ' || b || ', чужое ' || v || ', ' || err || ', видна в «Домашке» ' || n || E'\n';
+
+  -- DB-10: хранилище фото — только в свою папку и к своему занятию, видно только своё
+  err := '';
+  begin insert into storage.objects(bucket_id, name) values ('edu-hw', s_uid::text || '/' || l_mine::text || '/a.jpg');
+  exception when others then err := err || 'своё не загрузилось; '; end;
+  begin insert into storage.objects(bucket_id, name) values ('edu-hw', o_uid::text || '/' || l_other::text || '/b.jpg'); err := err || 'в чужую папку загрузилось; ';
+  exception when others then null; end;
+  begin insert into storage.objects(bucket_id, name) values ('edu-hw', s_uid::text || '/' || l_other::text || '/c.jpg'); err := err || 'к чужому занятию загрузилось; ';
+  exception when others then null; end;
+  select count(*) into n from storage.objects where bucket_id = 'edu-hw';
+  begin delete from storage.objects where name = obj_other; exception when others then null; end;
+  r := r || case when err = '' and n = 1 then 'PASS' else 'FAIL' end
+         || ' DB-10 фото: ' || case when err = '' then 'загрузка только своего' else err end || ', видит файлов ' || n || E'\n';
+
+  -- DB-11: ключи и результаты самопроверки ученику закрыты
+  select count(*) into n from public.edu_quiz_keys;
+  select count(*) into n2 from public.edu_quiz_results;
+  err := 'запись прошла';
+  begin insert into public.edu_quiz_results(student_id, quiz, score, total) values (st_id, 'quiz-geo1', 10, 10);
+  exception when others then err := 'запись запрещена'; end;
+  r := r || case when n = 0 and n2 = 0 and err = 'запись запрещена' then 'PASS' else 'FAIL' end
+         || ' DB-11 самопроверка: видит ключей ' || n || ', результатов ' || n2 || ', ' || err || E'\n';
+
+  -- DB-12: проверка на сервере сохраняет попытку ученика
+  j := public.edu_check_quiz('quiz-geo1', '{}'::jsonb);
+  select count(*) into n from public.edu_my_quiz_results();
+  r := r || case when (j->>'saved')::boolean and (j->>'total')::int > 0 and (j->>'score')::int = 0 and n = 1 then 'PASS' else 'FAIL' end
+         || ' DB-12 проверка теста: ' || (j->>'score') || ' из ' || (j->>'total') || ', сохранено ' || (j->>'saved') || ', попыток видно ' || n || E'\n';
+
+  -- DB-13: ученик видит только свою карточку: занятие, ссылку, прогресс
+  select count(*), max(i.name), bool_and(i.next_at > now()) into n, v, b from public.edu_my_info() i;
+  r := r || case when n = 1 and v = 'ТЕСТ ученик' and b then 'PASS' else 'FAIL' end
+         || ' DB-13 следующее занятие: строк ' || n || ', карточка «' || coalesce(v, '—') || '»' || E'\n';
   execute 'reset role';
   select student_done into b from public.edu_lessons where id = l_other;
   select student_done into v from public.edu_lessons where id = l_mine;
   r := r || case when not b and v = 'true' then 'PASS' else 'FAIL' end
          || ' DB-06 отметка «сделал»: чужое изменилось? ' || b || ', своё отмечено? ' || v || E'\n';
+
+  -- DB-14: от имени учителя видны сдача, фото и попытка ученика; чужое фото цело
+  select count(*) into n from storage.objects where name = obj_other;
+  select count(*) into n2 from public.edu_quiz_results where student_id = st_id;
+  select count(*) into n3 from public.edu_lessons where id = l_other and submitted_at is null and student_comment is null;
+  r := r || case when n = 1 and n2 = 1 and n3 = 1 then 'PASS' else 'FAIL' end
+         || ' DB-14 целостность: чужое фото на месте ' || n || ', попытка у своего ученика ' || n2 || ', чужое ДЗ не тронуто ' || n3 || E'\n';
 
   -- DB-08: гость (без входа) вызывает функции ДЗ и читает таблицы
   perform set_config('request.jwt.claims', '', true);
@@ -109,8 +162,16 @@ begin
   exception when insufficient_privilege then null; end;
   begin perform public.edu_set_done(l_mine, false); err := err || 'отметка доступна; ';
   exception when insufficient_privilege then null; end;
+  begin perform public.edu_submit(l_mine, 'x', '[]'::jsonb); err := err || 'сдача доступна; ';
+  exception when insufficient_privilege then null; end;
+  begin perform * from public.edu_my_info(); err := err || 'карточка доступна; ';
+  exception when insufficient_privilege then null; end;
+  begin perform public.edu_check_quiz('quiz-geo1', '{}'::jsonb); err := err || 'проверка теста доступна; ';
+  exception when insufficient_privilege then null; end;
   select (select count(*) from public.edu_secrets) + (select count(*) from public.edu_students)
-       + (select count(*) from public.edu_lessons) + (select count(*) from public.edu_profiles) into n;
+       + (select count(*) from public.edu_lessons) + (select count(*) from public.edu_profiles)
+       + (select count(*) from public.edu_quiz_keys) + (select count(*) from public.edu_quiz_results)
+       + (select count(*) from storage.objects where bucket_id = 'edu-hw') into n;
   execute 'reset role';
   r := r || case when err = '' and n = 0 then 'PASS' else 'FAIL' end
          || ' DB-08 гость: ' || case when err = '' then 'функции закрыты' else err end || ', видит строк ' || n || E'\n';

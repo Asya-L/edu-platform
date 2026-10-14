@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Как пользоваться сайтом</title>
-<script>document.documentElement.dataset.page="help";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=57ca190e"></script><script src="assets/auth.js?v=57ca190e"></script>
+<script>document.documentElement.dataset.page="help";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=de8505f0"></script><script src="assets/auth.js?v=de8505f0"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -35,9 +35,9 @@
 
 <h2 id="menu">2. Что где лежит</h2>
 <div class="tablewrap"><table><thead><tr><th>Раздел</th><th>Что там</th></tr></thead><tbody>
-<tr><td><b>Главная</b></td><td>Последнее домашнее задание и все разделы.</td></tr>
-<tr><td><b>Домашка</b></td><td>Все задания от учителя, новые сверху. Тема кликается и ведёт на урок.</td></tr>
-<tr><td><b>Геометрия</b></td><td>Пять уроков. В каждом: конспект с чертежами, презентация, рабочий лист, задачи из учебника и домашнее задание.</td></tr>
+<tr><td><b>Главная</b></td><td>Следующее занятие, твой прогресс, последнее домашнее задание и все разделы.</td></tr>
+<tr><td><b>Домашка</b></td><td>Все задания от учителя, новые сверху. Здесь же сдаёшь работу фотографией и видишь ответ учителя.</td></tr>
+<tr><td><b>Геометрия</b></td><td>Пять уроков. В каждом: конспект с чертежами, презентация, рабочий лист, задачи из учебника и домашнее задание. Там же тест-самопроверка.</td></tr>
 <tr><td><b>Алгебра</b></td><td>Темы § 1–8 и презентации к ним.</td></tr>
 <tr><td><b>ЕГЭ</b></td><td>Из чего состоит экзамен и тренировка задания 14 — ответы открываются кнопкой «Проверить ответ».</td></tr>
 <tr><td><b>Информатика</b></td><td>Подготовка к ЕГЭ по информатике: темы и номера заданий. Материалы будут появляться по мере занятий.</td></tr>
@@ -49,11 +49,22 @@
 <ol class="steps">
 <li>Открой <b>«Домашка»</b> в меню (последнее задание видно и на главной).</li>
 <li>Сделай задание в тетради.</li>
-<li>Поставь галочку <b>«сделал(а)»</b> — учитель увидит отметку у себя в журнале.</li>
+<li>Нажми <b>«+ Фото»</b> и сфотографируй решение — можно несколько страниц. Если есть вопрос, напиши его в комментарии.</li>
+<li>Нажми <b>«Сдать»</b>. Задание станет «сдано», учитель увидит фото у себя.</li>
+<li>Когда учитель проверит, под заданием появится его ответ и отметка — статус сменится на «проверено».</li>
 </ol>
+<p>Ошибся или забыл страницу — нажми <b>«Изменить сдачу»</b>, добавь или убери фото и сохрани.</p>
 <p>Если заданий нет, а учитель его давал — значит, твой аккаунт ещё не привязан. Напиши учителю.</p>
 
-<h2 id="lesson">4. На уроке</h2>
+<h2 id="next">4. Следующее занятие и прогресс</h2>
+<p>На главной вверху — дата и время следующего занятия и кнопка <b>«Подключиться к занятию»</b>: она открывает звонок.
+Рядом — <b>«Мой прогресс»</b>: сколько тем уже освоено. Статусы тем ставит учитель после занятий.</p>
+
+<h2 id="quiz">5. Самопроверка</h2>
+<p>Геометрия → <b>«Тест по главе I»</b>. Отвечай числом или словом, в вопросах с вариантами — выбери один. После «Проверить»
+сразу видно, где ошибка, и правильный ответ. Результат сохраняется, учитель видит его в журнале. Пройти тест можно несколько раз.</p>
+
+<h2 id="lesson">6. На уроке</h2>
 <ul>
 <li>Учитель показывает <b>презентацию</b> через демонстрацию экрана. Её можно открыть и у себя: Геометрия → урок → «Презентация».
 Листай стрелками на клавиатуре, свайпом на телефоне или кнопками внизу. Клавиша <b>F</b> — во весь экран.</li>
@@ -61,14 +72,14 @@
 <li><b>Задачи урока</b> — в конце конспекта. Решай с обоснованием: к каждому шагу — аксиома, теорема или признак.</li>
 </ul>
 
-<h2 id="phone">5. На телефоне</h2>
+<h2 id="phone">7. На телефоне</h2>
 <p>Сайт можно добавить на главный экран, чтобы он открывался как приложение:</p>
 <ul>
 <li><b>iPhone (Safari):</b> кнопка «Поделиться» → «На экран „Домой“».</li>
 <li><b>Android (Chrome):</b> меню ⋮ → «Добавить на главный экран».</li>
 </ul>
 
-<h2 id="problems">6. Если что-то не так</h2>
+<h2 id="problems">8. Если что-то не так</h2>
 <ul>
 <li><b>Забыл пароль</b> — на странице входа нажми «Забыли пароль?», на почту придёт ссылка для нового пароля.</li>
 <li><b>Страница выглядит странно или не обновилась</b> — обнови её: на компьютере Cmd + Shift + R (Mac) или Ctrl + F5 (Windows), на телефоне потяни страницу вниз.</li>

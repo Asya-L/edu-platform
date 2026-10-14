@@ -41,6 +41,17 @@ for f in os.listdir(f'{root}/files'):
             notes.append(f)
 res.append({'id': 'SEC-03', 'ok': not notes, 'note': ', '.join(notes)})
 
+# SEC-04: на страницах самопроверки нет ключей ответов, файлов с ключами в сайте нет
+qk = []
+for f in os.listdir(root):
+    if f.startswith('quiz-') and f.endswith('.html'):
+        s = open(f'{root}/{f}', encoding='utf-8').read()
+        if re.search(r'edu_quiz_keys|data-key|"key"\s*:|\bkey\s*:', s):
+            qk.append(f)
+    if f.endswith('.sql') or 'quiz_keys' in f:
+        qk.append(f)
+res.append({'id': 'SEC-04', 'ok': not qk, 'note': ', '.join(qk)})
+
 for r in res:
     print(('PASS ' if r['ok'] else 'FAIL ') + r['id'] + (' — ' + r['note'] if r['note'] else ''))
 json.dump(res, open(os.path.join(os.path.dirname(__file__), 'static_results.json'), 'w'), ensure_ascii=False, indent=1)

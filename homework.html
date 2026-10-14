@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Домашнее задание</title>
-<script>document.documentElement.dataset.page="homework";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=57ca190e"></script><script src="assets/auth.js?v=57ca190e"></script>
+<script>document.documentElement.dataset.page="homework";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=de8505f0"></script><script src="assets/auth.js?v=de8505f0"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -16,8 +16,46 @@
   <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="on">Домашка</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
 </div></header>
 
+<style>
+.hw-card{background:var(--paper);border:1.5px solid var(--edge);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh-sm);margin:0 0 14px}
+.hw-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.hw-chip{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.hw-c-todo{background:var(--rose);color:var(--rose-d)} .hw-c-sent{background:var(--sky);color:var(--sky-d)} .hw-c-ok{background:var(--mint);color:var(--mint-d)}
+.hw-text{margin:8px 0 0;white-space:pre-wrap}
+.hw-sub{margin-top:12px;border-top:1px dashed var(--edge);padding-top:12px}
+.hw-photos{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0}
+.hw-ph{position:relative;width:86px;height:86px;border-radius:12px;overflow:hidden;border:1.5px solid var(--edge);background:#F4F1F8;display:block}
+.hw-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.hw-ph .x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(43,36,64,.75);color:#fff;font-weight:900;cursor:pointer;line-height:24px;padding:0}
+.hw-fb{background:var(--mint);color:var(--ink);border-radius:14px;padding:12px 14px;margin-top:12px}
+.hw-fb b{color:var(--mint-d)}
+.hw-form textarea{width:100%;font:inherit;border:1.5px solid var(--edge);border-radius:12px;padding:9px 11px;min-height:60px;resize:vertical;background:#fff;color:var(--ink)}
+.hw-form .file{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;cursor:pointer;border-radius:999px;padding:9px 16px;background:var(--lav);color:var(--lav-d)}
+.hw-form .file input{position:absolute;opacity:0;width:1px;height:1px}
+.hw-btn{font:800 14px var(--f-body);cursor:pointer;border:0;border-radius:999px;padding:9px 16px;background:var(--ink);color:#fff}
+.hw-btn.ghost{background:transparent;color:var(--ink-soft);padding:9px 10px} .hw-btn.soft{background:var(--lav);color:var(--lav-d)}
+.hw-btn:disabled{opacity:.6;cursor:default}
+.hw-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.hw-msg{font-size:13.5px;font-weight:700;color:var(--ink-soft)} .hw-msg.err{color:var(--peach-d)}
+.me-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 8px;align-items:start}
+.me-grid[hidden],.me-chips[hidden],.hw-res[hidden]{display:none}
+.me-grid>*{min-width:0}
+.me-card{border-radius:var(--r);padding:18px 20px}
+.me-next{background:var(--butter)} .me-next .big{font:900 24px/1.2 var(--f-head);margin:6px 0 4px;text-transform:none}
+.me-prog{background:var(--paper);border:1.5px solid var(--edge);box-shadow:var(--sh-sm)}
+.me-lbl{font-size:11.5px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.me-bar{height:10px;border-radius:999px;background:#F1EEF6;overflow:hidden;display:flex;margin:6px 0 2px}
+.me-bar i{display:block;height:100%} .me-bar .d{background:var(--mint-d)} .me-bar .w{background:#E9C46A}
+.me-g{margin-top:12px} .me-g .t{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:800}
+.me-g .t span{color:var(--ink-soft);font-weight:700;font-size:13px;white-space:nowrap}
+.me-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.me-chips span{border-radius:10px;padding:5px 9px;font-size:12.5px;font-weight:700}
+.me-chips .todo{background:#F4F1F8;color:var(--ink-soft)} .me-chips .work{background:var(--butter);color:var(--butter-d)} .me-chips .done{background:var(--mint);color:var(--mint-d)}
+.me-prog details{margin-top:12px} .me-prog summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--lav-d)}
+@media (max-width:760px){.me-grid{grid-template-columns:1fr}}
+</style>
 <section class="hero" style="padding-bottom:10px"><div class="wrap narrow"><div class="kicker">Задания от учителя</div><h1>Домашнее задание</h1>
-<p class="lede">Все задания по датам, новые сверху. Когда сделаешь — поставь галочку, учитель это увидит.</p></div></section>
+<p class="lede">Все задания по датам, новые сверху. Сделай в тетради, сфотографируй и нажми «Сдать» — учитель проверит и ответит здесь же.</p></div></section>
 <main class="wrap narrow">
 <div id="hwBox" data-full="1" hidden></div>
 <script>
@@ -45,27 +83,114 @@ function topicHref(key, teacher){
   return '';
 }
 function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
+var QUIZ = {"quiz-geo1": "Самопроверка · Глава I"};
 
 var K = window.KABINET, box = document.getElementById('hwBox'), FULL = box.getAttribute('data-full') === '1';
-function card(l, i){
-  var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
-  return '<div class="task" style="' + (l.student_done ? 'opacity:.75' : '') + '"><div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline">' +
-    '<b>' + fmtDate(l.date) + (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' +
-    '<label style="display:flex;gap:8px;align-items:center;font-weight:700;font-size:14px;cursor:pointer"><input type="checkbox" data-id="' + l.id + '"' +
-    (l.student_done ? ' checked' : '') + ' style="width:18px;height:18px"> сделал(а)</label></div>' +
-    '<p style="margin:8px 0 0;white-space:pre-wrap">' + K.esc(l.homework) + '</p></div>';
+var BUCKET = 'edu-hw', uid = null, items = [], urls = {}, edit = {}, busy = {};
+function fmtTs(t){ if (!t) return ''; var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2); }
+function chip(l){
+  if (l.feedback || l.hw_mark) return '<span class="hw-chip hw-c-ok">проверено' + (l.hw_mark ? ' · ' + K.esc(l.hw_mark) : '') + '</span>';
+  if (l.submitted_at) return '<span class="hw-chip hw-c-sent">сдано ' + fmtTs(l.submitted_at) + '</span>';
+  return '<span class="hw-chip hw-c-todo">не сдано</span>';
 }
-K.state.then(async function(st){
-  if (!st || !st.session || !K.sb) return;
-  var r = await K.sb.rpc('edu_my_homework'); if (r.error || !r.data) return;
-  var items = FULL ? r.data : r.data.slice(0, 1);
-  if (!items.length) { if (FULL) { box.hidden = false; box.innerHTML = '<div class="note"><p>Пока нет домашних заданий. Они появятся здесь после урока.</p></div>'; } return; }
-  box.hidden = false;
-  box.innerHTML = (FULL ? '' : '<h2>Домашнее задание</h2>') + items.map(card).join('') +
+function thumbs(paths, removable){
+  return '<div class="hw-photos">' + paths.map(function(p, i){
+    var u = urls[p]; var img = u ? '<img src="' + K.esc(u) + '" alt="фото ' + (i + 1) + '" loading="lazy">' : '';
+    return removable ? '<span class="hw-ph">' + img + '<button type="button" class="x" data-rm="' + i + '" aria-label="Убрать фото">×</button></span>'
+      : '<a class="hw-ph" href="' + K.esc(u || '#') + '" target="_blank" rel="noopener">' + img + '</a>';
+  }).join('') + '</div>';
+}
+function card(l){
+  var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
+  var h = '<div class="hw-card" id="hw-' + l.id + '" data-id="' + l.id + '"><div class="hw-top"><b>' + fmtDate(l.date) +
+    (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' + chip(l) + '</div>' +
+    '<p class="hw-text">' + K.esc(l.homework) + '</p>';
+  if (l.feedback || l.hw_mark) h += '<div class="hw-fb"><b>Учитель' + (l.hw_mark ? ' · отметка ' + K.esc(l.hw_mark) : '') + '</b>' +
+    (l.feedback ? '<p style="margin:6px 0 0;white-space:pre-wrap">' + K.esc(l.feedback) + '</p>' : '') + '</div>';
+  var e = edit[l.id];
+  if (e) {
+    h += '<form class="hw-sub hw-form" data-form="' + l.id + '"><div class="me-lbl">Сдать работу</div>' +
+      '<p class="hw-msg" style="margin:4px 0 0">Сфотографируй решение в тетради — можно несколько страниц (до 10 фото).</p>' +
+      thumbs(e.keep.concat(e.add.map(function(a){ return a.preview; })), true) +
+      '<div class="hw-row"><label class="file">+ Фото<input type="file" accept="image/*" multiple data-file></label></div>' +
+      '<div style="margin-top:10px"><textarea data-comment placeholder="Комментарий учителю (необязательно): что не получилось, вопросы">' + K.esc(e.comment) + '</textarea></div>' +
+      '<div class="hw-row"><button class="hw-btn" type="submit"' + (busy[l.id] ? ' disabled' : '') + '>' + (l.submitted_at ? 'Сохранить' : 'Сдать') + '</button>' +
+      (l.submitted_at ? '<button class="hw-btn ghost" type="button" data-cancel>Отмена</button>' : '') +
+      '<span class="hw-msg" data-msg></span></div></form>';
+  } else {
+    h += '<div class="hw-sub"><div class="me-lbl">Моя работа · сдано ' + fmtTs(l.submitted_at) + '</div>' +
+      ((l.photos || []).length ? thumbs(l.photos, false) : '') +
+      (l.student_comment ? '<p style="margin:8px 0 0;white-space:pre-wrap;font-size:14.5px">' + K.esc(l.student_comment) + '</p>' : '') +
+      ((l.photos || []).length || l.student_comment ? '' : '<p class="hw-msg" style="margin:6px 0 0">Отмечено как сделанное, без фото.</p>') +
+      '<div class="hw-row"><button class="hw-btn soft" type="button" data-edit="' + l.id + '">Изменить сдачу</button></div></div>';
+  }
+  return h + '</div>';
+}
+function startEdit(l){ edit[l.id] = {keep: (l.photos || []).slice(), add: [], removed: [], comment: l.student_comment || ''}; }
+function render(){
+  var list = FULL ? items : items.slice(0, 1);
+  box.innerHTML = (FULL ? '' : '<h2>Домашнее задание</h2>') + list.map(card).join('') +
     (FULL ? '' : '<p><a href="homework.html">Все домашние задания →</a></p>');
-  box.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.addEventListener('change', async function(){
-    c.disabled = true; var u = await K.sb.rpc('edu_set_done', {p_lesson: c.getAttribute('data-id'), p_done: c.checked}); c.disabled = false;
-    if (u.error) { c.checked = !c.checked; return; } c.closest('.task').style.opacity = c.checked ? '.75' : '1'; }); });
+}
+async function sign(paths){
+  var need = paths.filter(function(p){ return !urls[p]; }); if (!need.length) return;
+  var r = await K.sb.storage.from(BUCKET).createSignedUrls(need, 3600);
+  (r.data || []).forEach(function(x){ if (x.signedUrl) urls[x.path] = x.signedUrl; });
+}
+function shrink(file){ return new Promise(function(ok){
+  var img = new Image(), u = URL.createObjectURL(file);
+  img.onload = function(){ var m = 1600, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, m / Math.max(w, h));
+    var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(u);
+    c.toBlob(function(b){ ok(b || file); }, 'image/jpeg', .82); };
+  img.onerror = function(){ URL.revokeObjectURL(u); ok(file); }; img.src = u; }); }
+async function load(){
+  var r = await K.sb.rpc('edu_my_homework'); if (r.error || !r.data) return;
+  items = r.data; items.forEach(function(l){ l.photos = Array.isArray(l.photos) ? l.photos : []; if (!l.submitted_at && !edit[l.id]) startEdit(l); });
+  if (!items.length) { if (FULL) { box.hidden = false; box.innerHTML = '<div class="note"><p>Пока нет домашних заданий. Они появятся здесь после урока.</p></div>'; } return; }
+  box.hidden = false; render();
+  await sign([].concat.apply([], items.map(function(l){ return l.photos; }))); render();
+  if (location.hash && FULL) { var t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
+}
+box.addEventListener('click', function(ev){
+  var b = ev.target.closest('button'); if (!b) return; var cardEl = b.closest('[data-id]'); var id = cardEl && cardEl.getAttribute('data-id');
+  var l = items.find(function(x){ return x.id === id; }); if (!l) return;
+  if (b.hasAttribute('data-edit')) { startEdit(l); render(); }
+  else if (b.hasAttribute('data-cancel')) { delete edit[id]; render(); }
+  else if (b.hasAttribute('data-rm')) { var e = edit[id], i = +b.getAttribute('data-rm');
+    if (i < e.keep.length) e.removed.push(e.keep.splice(i, 1)[0]); else { var a = e.add.splice(i - e.keep.length, 1)[0]; URL.revokeObjectURL(a.preview); }
+    e.comment = cardEl.querySelector('[data-comment]').value; render(); }
+});
+box.addEventListener('change', function(ev){
+  var f = ev.target; if (!f.hasAttribute('data-file')) return; var id = f.closest('[data-id]').getAttribute('data-id'), e = edit[id];
+  e.comment = f.closest('form').querySelector('[data-comment]').value;
+  Array.prototype.slice.call(f.files).forEach(function(file){ if (e.keep.length + e.add.length < 10) { var p = URL.createObjectURL(file); urls[p] = p; e.add.push({file: file, preview: p}); } });
+  render();
+});
+box.addEventListener('submit', async function(ev){
+  ev.preventDefault(); var form = ev.target, id = form.getAttribute('data-form'), e = edit[id]; if (!e || busy[id]) return;
+  e.comment = form.querySelector('[data-comment]').value; busy[id] = true;
+  var msg = function(t, err){ var m = box.querySelector('[data-form="' + id + '"] [data-msg]'); if (m) { m.textContent = t; m.className = 'hw-msg' + (err ? ' err' : ''); } };
+  render(); var paths = [];
+  try {
+    for (var i = 0; i < e.add.length; i++) {
+      msg('Загружаю фото ' + (i + 1) + ' из ' + e.add.length + '…');
+      var blob = await shrink(e.add[i].file), path = uid + '/' + id + '/' + Date.now() + '-' + i + '.jpg';
+      var up = await K.sb.storage.from(BUCKET).upload(path, blob, {contentType: blob.type || 'image/jpeg', upsert: false});
+      if (up.error) throw up.error; paths.push(path); urls[path] = e.add[i].preview;
+    }
+    msg('Сохраняю…');
+    var r = await K.sb.rpc('edu_submit', {p_lesson: id, p_comment: e.comment.trim(), p_photos: e.keep.concat(paths)});
+    if (r.error || r.data === false) throw (r.error || new Error('not saved'));
+    if (e.removed.length) await K.sb.storage.from(BUCKET).remove(e.removed);
+    delete edit[id]; busy[id] = false; await load();
+  } catch (err) {
+    busy[id] = false; if (paths.length) await K.sb.storage.from(BUCKET).remove(paths);
+    render(); msg('Не получилось отправить. Проверь интернет; если фото не грузится — сделай снимок обычной камерой (JPG).', true); console.error(err);
+  }
+});
+K.state.then(function(st){
+  if (!st || !st.session || !K.sb) return; uid = st.session.user.id; load();
 });
 })();
 </script></main>

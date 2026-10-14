@@ -27,7 +27,7 @@ K.renderNav = function(state, current){
   var nav = document.querySelector('.top .nav'); if (!nav) return;
   var cur = current || page;
   var group = {g1:'geometry',g2:'geometry',g3:'geometry',g4:'geometry',g5:'geometry',ws1:'geometry',ws2:'geometry',ws3:'geometry',ws4:'geometry',ws5:'geometry',
-    'test-geo1':'geometry','test-alg1':'algebra','test-alg2':'algebra','ege-14':'ege-math',math:'index'}[cur] || cur;
+    'test-geo1':'geometry','quiz-geo1':'geometry','test-alg1':'algebra','test-alg2':'algebra','ege-14':'ege-math',math:'index'}[cur] || cur;
   var teacherView = state.role === 'teacher' && !state.asStudent;
   var items = teacherView ? NAV_T : NAV_S;
   var h = items.map(function(i){ return '<a href="'+i[0]+'" class="'+(i[2]===group?'on':'')+'">'+i[1]+'</a>'; }).join('');

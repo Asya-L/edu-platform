@@ -5,12 +5,14 @@ const { chromium } = require('playwright');
 const KEY = process.env.CONTENT_KEY; const SITE = process.env.SITE || 'http://127.0.0.1:8765/';
 if (!KEY) { console.error('нужен CONTENT_KEY'); process.exit(2); }
 
-const MOCK = require('./mock.js')(KEY);
+const QK = process.env.QUIZ_KEYS ? JSON.parse(require('fs').readFileSync(process.env.QUIZ_KEYS, 'utf8')) : {};
+const MOCK = require('./mock.js')(KEY, QK);
+const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR4nGP4z8CAFWEXHbQSACj/P8Fu7N9hAAAAAElFTkSuQmCC', 'base64');
 
 const results = []; let errors = [];
 function rec(id, ok, note) { results.push({id, ok: !!ok, note: note || ''}); console.log((ok ? 'PASS ' : 'FAIL ') + id + (note ? ' — ' + note : '')); }
 const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2'];
-const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
+const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
 
 (async () => {
   const b = await chromium.launch();
@@ -137,22 +139,65 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const p4 = await p.$$eval('#progress .t-work', e => e.map(x => x.textContent).join('|'));
   rec('JR-06', p4.includes('Урок 4'), p4);
 
+  // JR-09: следующее занятие и ссылка на звонок в карточке ученика
+  const next = new Date(Date.now() + 2 * 864e5); next.setHours(18, 0, 0, 0);
+  const nextLocal = new Date(next.getTime() - next.getTimezoneOffset() * 6e4).toISOString().slice(0, 16);
+  await p.fill('#nAt', nextLocal); await p.fill('#nUrl', 'https://example.test/call/abc'); await p.click('#nSave'); await p.waitForTimeout(600);
+  const stRow = await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_students[0]);
+  rec('JR-09', stRow.call_url === 'https://example.test/call/abc' && Math.abs(new Date(stRow.next_at) - next) < 6e4, stRow.next_at);
+
   // ── HW ученик
   await logout(); await login('kid@test.local');
-  await go('index.html', 900); const home = (await p.textContent('#hwBox')) || '';
-  await go('homework.html', 900); const hwAll = (await p.textContent('#hwBox')) || ''; const html = await p.content();
+  await go('index.html', 1200); const home = (await p.textContent('#hwBox')) || ''; const me = (await p.textContent('#meBox')) || '';
+  const callHref = await p.getAttribute('#meBox a.btn', 'href').catch(() => null);
+  rec('ST-01', me.includes('Следующее занятие') && me.includes('18:00') && me.includes('послезавтра') && callHref === 'https://example.test/call/abc', me.slice(0, 90));
+  rec('ST-02', me.includes('Мой прогресс') && me.includes('в работе 3') && me.includes('0 из 35 тем освоено'), (me.match(/\d+ из \d+ тем освоено/) || [''])[0]);
+  await go('homework.html', 1200); const hwAll = (await p.textContent('#hwBox')) || ''; const html = await p.content();
   rec('HW-01', home.includes('Рабочий лист 3') && hwAll.includes('№ 18, 23, 27, 30') && hwAll.includes('Урок 2'), 'на главной последнее, в «Домашке» оба');
-  rec('HW-02', !html.includes('СЕКРЕТНАЯ-ЗАМЕТКА') && !html.includes('отметка'), 'заметок и отметок нет');
-  await p.check('#hwBox input[type=checkbox] >> nth=1'); await p.waitForTimeout(500);
-  await logout(); await login('teacher@test.local'); await go('journal.html', 900);
-  rec('HW-03', ((await p.textContent('#log')) || '').includes('ученик отметил'));
+  const raw = await p.evaluate(async () => (await window.KABINET.sb.rpc('edu_my_homework')).data);
+  rec('HW-02', !html.includes('СЕКРЕТНАЯ-ЗАМЕТКА') && raw.every(x => !('notes' in x) && !('mark' in x)), 'заметок и отметок за урок в ответе нет');
+  // HW-03: сдача с двумя фото и комментарием (вторая карточка — ДЗ к уроку 2)
+  const hc2 = '#hwBox .hw-card >> nth=1';
+  await p.setInputFiles(hc2 + ' >> input[type=file]', [{name: 'a.png', mimeType: 'image/png', buffer: PNG}, {name: 'b.png', mimeType: 'image/png', buffer: PNG}]);
+  await p.waitForTimeout(300); const previews = await p.$$eval('#hwBox .hw-card:nth-child(2) .hw-ph', e => e.length);
+  await p.fill(hc2 + ' >> textarea', 'Не понял № 27'); await p.click(hc2 + ' >> button[type=submit]'); await p.waitForTimeout(1500);
+  const card2 = (await p.textContent(hc2)) || ''; const thumbs2 = await p.$$eval('#hwBox .hw-card:nth-child(2) .hw-ph img', e => e.length);
+  const f1 = await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('mockfiles') || '{}')));
+  rec('HW-03', previews === 2 && card2.includes('сдано') && card2.includes('Не понял № 27') && thumbs2 === 2 && f1.length === 2 && f1.every(k => k.startsWith('u2/')), `превью ${previews}, фото ${thumbs2}, файлов ${f1.length}`);
+  // HW-05: правка сдачи — убрать одно фото
+  await p.click(hc2 + ' >> button:has-text("Изменить сдачу")'); await p.click(hc2 + ' >> .hw-ph .x >> nth=0'); await p.click(hc2 + ' >> button[type=submit]'); await p.waitForTimeout(1200);
+  const thumbs3 = await p.$$eval('#hwBox .hw-card:nth-child(2) .hw-ph img', e => e.length); const f2 = await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('mockfiles') || '{}')).length);
+  rec('HW-05', thumbs3 === 1 && f2 === 1, `фото ${thumbs3}, файлов ${f2}`);
+  // QZ-01/02: самопроверка
+  await go('quiz-geo1.html', 1000); const keys = QK['quiz-geo1'] || [];
+  for (let i = 0; i < keys.length; i++) { const k = keys[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
+    if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${i === 0 ? 'a' : k}"]`); else await p.fill(sel + ' input[type=text]', i === 1 ? 'ни одной' : k); }
+  await p.click('#qzGo'); await p.waitForTimeout(800);
+  const sc = (await p.textContent('#qzScore')) || ''; const bad1 = (await p.textContent('[data-q="1"] .qz-res')) || '';
+  rec('QZ-01', sc.startsWith(`${keys.length - 1} из ${keys.length}`) && sc.includes('сохранён'), sc.slice(0, 60));
+  rec('QZ-02', bad1.includes('Неверно') && bad1.includes('скрещиваются') && ((await p.textContent('#qzHist')) || '').includes('Попыток: 1'), bad1);
+
+  // ── учитель видит сдачу и тест, отвечает
+  await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
+  const logT = (await p.textContent('#log')) || ''; const imgT = await p.$$eval('#log .ph img', e => e.filter(i => i.src.startsWith('data:')).length);
+  rec('HW-06', logT.includes('сдано') && logT.includes('1 фото') && logT.includes('Ученик: Не понял № 27') && imgT === 1, `фото у учителя ${imgT}`);
+  const qzT = (await p.textContent('#quiz')) || '';
+  rec('QZ-03', qzT.includes('Самопроверка · Глава I') && qzT.includes(`${keys.length - 1} из ${keys.length}`) && qzT.includes('Ошибки в вопросах № 1'), qzT.slice(0, 80));
+  await p.click('#log .lesson >> nth=1 >> button:has-text("Ответить на ДЗ")'); await p.fill('#log .fbform textarea', 'Молодец, № 27 разберём');
+  await p.selectOption('#log .fbform select', '5'); await p.click('#log .fbform button.primary'); await p.waitForTimeout(700);
+  const logT2 = (await p.textContent('#log')) || '';
+  await logout(); await login('kid@test.local'); await go('homework.html', 1200); const c2s = (await p.textContent(hc2)) || '';
+  rec('HW-07', logT2.includes('Ваш ответ: Молодец') && logT2.includes('за ДЗ 5') && c2s.includes('проверено · 5') && c2s.includes('Молодец, № 27 разберём'), c2s.slice(0, 60));
+  await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
+
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Нет")'); const after1 = await p.$$eval('#log .lesson', e => e.length);
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Да")'); await p.waitForTimeout(900);
   const after2 = await p.$$eval('#log .lesson', e => e.length);
   rec('JR-05', after1 === 2 && after2 === 1, after1 + ' → ' + after2);
   await p.click('#delBox button'); await p.click('#delBox button.danger'); await p.waitForTimeout(900);
+  const leftFiles = await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('mockfiles') || '{}')).length);
   rec('JR-08', ((await p.textContent('#status')) || '').includes('Добавьте первого ученика') &&
-    (await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_lessons.length)) === 0);
+    (await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_lessons.length)) === 0 && leftFiles === 0, 'файлов осталось ' + leftFiles);
 
   rec('UI-02', !errors.length, errors.slice(0, 5).join(' | '));
   require('fs').writeFileSync(__dirname + '/results.json', JSON.stringify(results, null, 1));
