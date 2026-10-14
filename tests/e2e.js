@@ -10,7 +10,7 @@ const MOCK = require('./mock.js')(KEY);
 const results = []; let errors = [];
 function rec(id, ok, note) { results.push({id, ok: !!ok, note: note || ''}); console.log((ok ? 'PASS ' : 'FAIL ') + id + (note ? ' — ' + note : '')); }
 const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2'];
-const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
+const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
 
 (async () => {
   const b = await chromium.launch();
@@ -49,7 +49,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ref
   for (const u of ['t.html#g1', 'journal.html', 'students.html']) { await go(u); if (path() !== 'index.html') blocked.push(u + '→' + path()); }
   rec('ROLE-02', !blocked.length, blocked.join(', '));
   await go('index.html'); const sn = await navText();
-  rec('ROLE-04', sn === 'Главная|Домашка|Геометрия|Алгебра|ЕГЭ|Справочник|Материалы|Помощь|Выйти', sn);
+  rec('ROLE-04', sn === 'Главная|Домашка|Геометрия|Алгебра|ЕГЭ|Информатика|Справочник|Материалы|Помощь|Выйти', sn);
   await go('homework.html'); rec('HW-04', ((await p.textContent('#hwBox')) || '').includes('Пока нет домашних заданий'));
 
   // ── UI-03 ученик, ширина 390 + UI-01 ссылки на публичных страницах

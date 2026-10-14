@@ -21,7 +21,7 @@ var NAV_T = [['t.html#index','Главная','index'],['t.html#geometry','Ге�
   ['t.html#ege-math','ЕГЭ','ege-math'],['t.html#ege-inf','Информатика','ege-inf'],['reference.html','Справочник','reference'],
   ['t.html#library','Материалы','library'],['journal.html','Журнал','journal'],['students.html','Ученики','students']];
 var NAV_S = [['index.html','Главная','index'],['homework.html','Домашка','homework'],['geometry.html','Геометрия','geometry'],['algebra.html','Алгебра','algebra'],
-  ['ege-math.html','ЕГЭ','ege-math'],['reference.html','Справочник','reference'],['library.html','Материалы','library'],['help.html','Помощь','help']];
+  ['ege-math.html','ЕГЭ','ege-math'],['ege-inf.html','Информатика','ege-inf'],['reference.html','Справочник','reference'],['library.html','Материалы','library'],['help.html','Помощь','help']];
 
 K.renderNav = function(state, current){
   var nav = document.querySelector('.top .nav'); if (!nav) return;
