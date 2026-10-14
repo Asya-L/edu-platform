@@ -1,0 +1,192 @@
+[
+ {
+  "id": "AUTH-01",
+  "ok": true,
+  "note": "login.html?next=g1.html"
+ },
+ {
+  "id": "AUTH-02",
+  "ok": true,
+  "note": "Войти"
+ },
+ {
+  "id": "AUTH-03",
+  "ok": true,
+  "note": "Создать аккаунт / Восстановление пароля"
+ },
+ {
+  "id": "AUTH-09",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "AUTH-04",
+  "ok": true,
+  "note": "t.html#index"
+ },
+ {
+  "id": "AUTH-07",
+  "ok": true,
+  "note": "учитель на login.html → t.html#index"
+ },
+ {
+  "id": "AUTH-08",
+  "ok": true,
+  "note": "login.html"
+ },
+ {
+  "id": "AUTH-05",
+  "ok": true,
+  "note": "index.html"
+ },
+ {
+  "id": "AUTH-06",
+  "ok": true,
+  "note": "reference.html"
+ },
+ {
+  "id": "ROLE-02",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "ROLE-04",
+  "ok": true,
+  "note": "Главная|Домашка|Геометрия|Алгебра|ЕГЭ|Справочник|Материалы|Помощь|Выйти"
+ },
+ {
+  "id": "HW-04",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "UI-03 (ученик)",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "UI-01 (публичные)",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "UI-04",
+  "ok": true,
+  "note": "2 / 17 3 / 17 2 / 17 g1.html"
+ },
+ {
+  "id": "ROLE-01",
+  "ok": true,
+  "note": "t.html#g1"
+ },
+ {
+  "id": "ROLE-03",
+  "ok": true,
+  "note": "Главная|Геометрия|Алгебра|ЕГЭ|Информатика|Справочник|Материалы|Журнал|Ученики|Глазами ученика|Выйти"
+ },
+ {
+  "id": "ENC-01",
+  "ok": true,
+  "note": "20 страниц"
+ },
+ {
+  "id": "UI-03 (учитель)",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "UI-01 (учительские)",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "ENC-02",
+  "ok": true,
+  "note": "t.html#g1 t.html#g2/practice scrolled=true"
+ },
+ {
+  "id": "ENC-03",
+  "ok": true,
+  "note": "blob:http://127.0.0. w=2600"
+ },
+ {
+  "id": "ENC-04",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "UI-05",
+  "ok": true,
+  "note": "none/block"
+ },
+ {
+  "id": "ROLE-06",
+  "ok": true,
+  "note": "строк 3, роль u3 → teacher"
+ },
+ {
+  "id": "ROLE-05",
+  "ok": true,
+  "note": "index.html → g1.html → t.html#index"
+ },
+ {
+  "id": "JR-01",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "JR-02",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "JR-03",
+  "ok": true,
+  "note": "прогресс: Урок 2 · Параллельность прямых и плоскостей"
+ },
+ {
+  "id": "JR-04",
+  "ok": true,
+  "note": "было: № 18, 23, 27"
+ },
+ {
+  "id": "JR-07",
+  "ok": true,
+  "note": "2 100% 4,5 14.10.2026"
+ },
+ {
+  "id": "JR-06",
+  "ok": true,
+  "note": "Урок 2 · Параллельность прямых и плоскостей|Урок 3 · Скрещивающиеся прямые|Урок 4 · Параллельность плоскостей"
+ },
+ {
+  "id": "HW-01",
+  "ok": true,
+  "note": "на главной последнее, в «Домашке» оба"
+ },
+ {
+  "id": "HW-02",
+  "ok": true,
+  "note": "заметок и отметок нет"
+ },
+ {
+  "id": "HW-03",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "JR-05",
+  "ok": true,
+  "note": "2 → 1"
+ },
+ {
+  "id": "JR-08",
+  "ok": true,
+  "note": ""
+ },
+ {
+  "id": "UI-02",
+  "ok": true,
+  "note": ""
+ }
+]

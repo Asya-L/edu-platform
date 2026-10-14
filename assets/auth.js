@@ -21,7 +21,7 @@ var NAV_T = [['t.html#index','Главная','index'],['t.html#geometry','Ге�
   ['t.html#ege-math','ЕГЭ','ege-math'],['t.html#ege-inf','Информатика','ege-inf'],['reference.html','Справочник','reference'],
   ['t.html#library','Материалы','library'],['journal.html','Журнал','journal'],['students.html','Ученики','students']];
 var NAV_S = [['index.html','Главная','index'],['homework.html','Домашка','homework'],['geometry.html','Геометрия','geometry'],['algebra.html','Алгебра','algebra'],
-  ['ege-math.html','ЕГЭ','ege-math'],['reference.html','Справочник','reference'],['library.html','Материалы','library']];
+  ['ege-math.html','ЕГЭ','ege-math'],['reference.html','Справочник','reference'],['library.html','Материалы','library'],['help.html','Помощь','help']];
 
 K.renderNav = function(state, current){
   var nav = document.querySelector('.top .nav'); if (!nav) return;
@@ -51,8 +51,8 @@ K.state = (async function(){
   if (!READY) { reveal(); return {session: null, role: 'guest'}; }
   var res = await sb.auth.getSession(); var session = res.data && res.data.session;
   if (!session) {
-    if (page !== 'login') { location.replace('login.html?next=' + encodeURIComponent(here())); return null; }
-    var clear = function(){ var n = document.querySelector('.top .nav'); if (n) n.innerHTML = ''; };
+    if (page !== 'login' && page !== 'help') { location.replace('login.html?next=' + encodeURIComponent(here())); return null; }
+    var clear = function(){ var n = document.querySelector('.top .nav'); if (n) n.innerHTML = page === 'help' ? '<a href="login.html">Войти</a>' : ''; };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ clear(); reveal(); }); else { clear(); reveal(); }
     return {session: null, role: 'guest'};
   }

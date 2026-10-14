@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Вход · Кабинет математики</title>
-<script>document.documentElement.dataset.page="login";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=e03758e7"></script><script src="assets/auth.js?v=e03758e7"></script>
+<script>document.documentElement.dataset.page="login";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=2f68335e"></script><script src="assets/auth.js?v=2f68335e"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
-  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a></nav>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
 </div></header>
 
 <section class="hero"><div class="wrap narrow">
@@ -28,7 +28,7 @@
 </main>
 <script>
 (function(){
-var K = window.KABINET, sb = K && K.sb, mode = 'in', msg = '', info = '', busy = false;
+var K = window.KABINET, sb = K && K.sb, mode = 'in', msg = '', info = '', busy = false, lastEmail = '';
 var params = new URLSearchParams(location.search); var next = params.get('next') || '';
 var box = document.getElementById('authbox');
 function esc(s){ return K.esc(s); }
@@ -45,12 +45,12 @@ function render(){
   h += '<div class="btns" style="margin-top:6px"><button class="btn" type="submit"'+(busy?' disabled':'')+' style="border:0;cursor:pointer">'+(busy?'Подождите…':label)+'</button></div></form>';
   if (info) h += '<div class="note" style="margin-top:16px"><p>'+esc(info)+'</p></div>';
   if (msg) h += '<div class="warn" role="alert" style="margin-top:16px"><p>'+esc(msg)+'</p></div>';
-  if (mode === 'in') h += '<p style="margin-top:18px">Нет аккаунта? <a href="#" data-m="up">Создать</a> · <a href="#" data-m="forgot">Забыли пароль?</a></p>';
+  if (mode === 'in') h += '<p style="margin-top:18px">Нет аккаунта? <a href="#" data-m="up">Создать</a> · <a href="#" data-m="forgot">Забыли пароль?</a></p><p><a href="help.html">Как пользоваться сайтом</a></p>';
   if (mode === 'up' || mode === 'forgot') h += '<p style="margin-top:18px"><a href="#" data-m="in">← Назад ко входу</a></p>';
   box.innerHTML = h;
   box.querySelectorAll('[data-m]').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); mode = a.getAttribute('data-m'); msg = info = ''; render(); }); });
   var f = box.querySelector('form'); if (f) f.addEventListener('submit', submit);
-  var em = box.querySelector('#em'); if (em) em.focus();
+  var em = box.querySelector('#em'); if (em) { em.value = lastEmail; if (!lastEmail) em.focus(); else { var pw = box.querySelector('#pw'); if (pw) pw.focus(); } }
 }
 function ru(err){
   var m = (err && err.message || '').toLowerCase();
@@ -62,8 +62,9 @@ function ru(err){
   return 'Не получилось: ' + (err && err.message || 'нет связи с сервером') + '.';
 }
 async function submit(e){
-  e.preventDefault(); if (busy) return; busy = true; msg = info = ''; render();
+  e.preventDefault(); if (busy) return;
   var em = (document.getElementById('em')||{}).value || '', pw = (document.getElementById('pw')||{}).value || '';
+  lastEmail = em; busy = true; msg = info = ''; render();
   try {
     var base = location.origin + location.pathname;
     if (mode === 'in') { var r = await sb.auth.signInWithPassword({email: em.trim(), password: pw}); if (r.error) throw r.error; go(); return; }
