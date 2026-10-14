@@ -114,6 +114,9 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ref
   const asS = path(); await go('g1.html'); const stay = path(); const nn = await navText();
   await p.click('.top .nav [data-k="teacher"]'); await p.waitForTimeout(800);
   rec('ROLE-05', asS === 'index.html' && stay === 'g1.html' && nn.includes('Режим учителя') && path() === 't.html#index', [asS, stay, path()].join(' → '));
+  // ROLE-07: учитель в режиме «Глазами ученика» открывает учительскую страницу → снова режим учителя, «Информатика» в меню
+  await p.click('.top .nav [data-k="student"]'); await p.waitForTimeout(800); await go('t.html#index', 1200); const tn7 = await navText();
+  rec('ROLE-07', tn7.includes('Информатика') && !tn7.includes('Режим учителя') && !(await p.evaluate(() => sessionStorage.getItem('asStudent'))), tn7);
 
   // ── 4. Журнал
   await go('journal.html', 900); rec('JR-01', ((await p.textContent('#status')) || '').includes('Добавьте первого ученика'));

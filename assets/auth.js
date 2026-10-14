@@ -59,6 +59,7 @@ K.state = (async function(){
   var role = 'student';
   try { var r = await sb.from('edu_profiles').select('role').eq('user_id', session.user.id).maybeSingle(); if (r.data && r.data.role) role = r.data.role; } catch(e){}
   var st = {session: session, role: role, email: session.user.email, asStudent: role === 'teacher' && flag()};
+  if (role === 'teacher' && page === 't' && st.asStudent) { setFlag(false); st.asStudent = false; }  // учительская страница — всегда режим учителя
   if (page === 'login') { location.replace(role === 'teacher' ? 't.html#index' : 'index.html'); return null; }
   if (role === 'teacher' && !st.asStudent && TEACHER_PAGES.indexOf(page) >= 0) {
     location.replace('t.html#' + page + (location.hash ? '/' + location.hash.slice(1) : '')); return null; }
