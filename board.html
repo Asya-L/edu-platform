@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=140ba1bb"></script><script src="assets/auth.js?v=140ba1bb"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=0470dba2"></script><script src="assets/auth.js?v=0470dba2"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -121,7 +121,7 @@ var board = null, students = [], lessons = [], boards = [], els = [], bg = 'grid
 var view = {x: -40, y: -40, z: 1}, tool = 'pen', color = '#2B2440', width = 2, dashed = false;
 var sel = null, cur = null, act = null, undoS = [], redoS = [], drafts = {}, cursors = {}, lasers = [], snapMark = null;
 var ch = null, live = false, joinedAt = 0, saveT = null, saving = false, dirty = false, pollT = null, lastUpd = '', newT = null;
-var imgs = {}, toSign = {}, signT = null, spaceDown = false, editing = null, lastCur = 0, lastDraft = 0;
+var tries = 0, retryT = null, imgs = {}, toSign = {}, signT = null, spaceDown = false, editing = null, lastCur = 0, lastDraft = 0;
 function $(id){ return document.getElementById(id); }
 var cv = $('bdCanvas'), cx = cv.getContext('2d'), stage = $('bdStage'), dpr = 1;
 function nid(){ return (me.uid || 'x').slice(0, 4) + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
@@ -283,7 +283,7 @@ window.addEventListener('beforeunload', function(ev){ if (dirty) { save(); ev.pr
 /* ── живая связь ── */
 function send(ev, payload){ if (ch && live) ch.send({type: 'broadcast', event: ev, payload: payload}); }
 async function connect(){
-  if (ch) { try { sb.removeChannel(ch); } catch(e){} ch = null; } live = false; peers();
+  clearTimeout(retryT); if (ch) { try { sb.removeChannel(ch); } catch(e){} ch = null; } live = false; peers();
   try { var s = (await sb.auth.getSession()).data.session; if (s && sb.realtime && sb.realtime.setAuth) sb.realtime.setAuth(s.access_token); } catch(e){}
   var my = ch = sb.channel('board:' + board.id, {config: {private: true, broadcast: {self: false}, presence: {key: me.uid}}});
   my.on('broadcast', {event: 'op'}, function(m){ if (my === ch) apply(m.payload, true); })
@@ -296,8 +296,9 @@ async function connect(){
     .on('presence', {event: 'sync'}, peers)
     .subscribe(function(st){
       if (my !== ch) return;
-      if (st === 'SUBSCRIBED') { live = true; joinedAt = Date.now(); my.track({r: me.role, n: me.name}); send('hello', {}); stopPoll(); peers(); }
-      else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT' || st === 'CLOSED') { live = false; peers(); startPoll(); }
+      if (st === 'SUBSCRIBED') { live = true; tries = 0; joinedAt = Date.now(); my.track({r: me.role, n: me.name}); send('hello', {}); stopPoll(); peers(); }
+      else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT' || st === 'CLOSED') { live = false; peers(); startPoll();
+        var id = board && board.id; clearTimeout(retryT); retryT = setTimeout(function(){ if (board && board.id === id && !live) connect(); }, Math.min(30000, 2000 * Math.pow(2, tries++))); }
     });
 }
 function peers(){

@@ -92,7 +92,8 @@ module.exports = function(KEY, QUIZKEYS){
       on(type, filter, cb) { handlers.push({type, ev: filter && filter.event, cb}); return c; },
       subscribe(cb) { const u = me(), D = db(), id = name.split(':')[1], b = D.edu_boards.find(x => x.id === id), s = u && D.edu_students.find(x => x.user_id === u.id);
         const ok = u && b && (u.role === 'teacher' || (s && b.student_id === s.id));
-        if (!ok || get('mockNoRealtime', false)) { setTimeout(() => cb('CHANNEL_ERROR'), 50); return c; }
+        const fails = get('mockRtFails', 0); if (fails > 0) put('mockRtFails', fails - 1);
+        if (!ok || get('mockNoRealtime', false) || fails > 0) { setTimeout(() => cb('CHANNEL_ERROR'), 50); return c; }
         bc = new BroadcastChannel('rt:' + name);
         bc.onmessage = m => { const d = m.data;
           if (d.type === 'broadcast') fire('broadcast', d.event, d.payload);

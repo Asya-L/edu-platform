@@ -245,6 +245,9 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('BD-15', (await pT.textContent('#bdTitle')) === 'Повторение' && ban.includes('Повторение') && (await pS.textContent('#bdTitle')) === 'Повторение', ban.slice(0, 50));
   await go('journal.html', 1200); const lg = (await p.textContent('#log')) || '';
   rec('BD-16', lg.includes('доска: Повторение') && (await p.getAttribute('#boardLink', 'href')).startsWith('board.html?s='), 'ссылка из журнала');
+  await pS.evaluate(() => localStorage.setItem('mockRtFails', '1')); await pS.reload(); await pS.waitForTimeout(800); const off = await pS.textContent('#bdPeer');
+  await pS.waitForTimeout(2600); const on = await pS.textContent('#bdPeer');
+  rec('BD-17', off.includes('без живой связи') && on.includes('Учитель на доске'), off + ' → ' + on);
   await pT.close(); await pS.close();
 
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Нет")'); const after1 = await p.$$eval('#log .lesson', e => e.length);
