@@ -1,0 +1,39 @@
+# Каждый день делает лёгкий запрос к базе Supabase, чтобы бесплатный проект не ставился на паузу
+# (Supabase усыпляет проекты без запросов 7 дней). Раз в месяц отмечает активность в репозитории,
+# чтобы GitHub не отключил это расписание (он отключает его через 60 дней без изменений).
+name: База не засыпает
+on:
+  schedule:
+    - cron: '17 4 * * *'      # каждый день в 06:17 по Калининграду
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Запрос к базе
+        env:
+          URL: https://apcbezewzpptvgwqglen.supabase.co
+          KEY: sb_publishable_GziZnwfq7VbYHlY1IBTqTw_nq__R64d
+        run: |
+          for i in 1 2 3; do
+            code=$(curl -s -o /tmp/r -w '%{http_code}' "$URL/rest/v1/edu_students?select=id&limit=1" -H "apikey: $KEY")
+            echo "Ответ базы: HTTP $code"
+            if [ "$code" = "200" ]; then exit 0; fi
+            sleep 30
+          done
+          echo "::error::База не отвечает. Откройте supabase.com → проект → Resume project, если он на паузе."
+          exit 1
+      - name: Раз в месяц — отметка активности, чтобы расписание не отключилось
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%d)" != "01" ]; then echo "Не первое число — пропускаю"; exit 0; fi
+          gh api -X PUT "repos/${{ github.repository }}/actions/workflows/keepalive.yml/enable" && echo "Расписание подтверждено"
+          git init -q k && cd k
+          git config user.name "keepalive-bot" && git config user.email "keepalive-bot@users.noreply.github.com"
+          date -u +"%Y-%m-%d %H:%M UTC" > last-run.txt && git add last-run.txt && git commit -qm "Отметка активности"
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:keepalive && echo "Отметка в ветке keepalive"
