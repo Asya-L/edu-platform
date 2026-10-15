@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-19).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-22).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -13,7 +13,7 @@ declare
   s_uid uuid := gen_random_uuid();   -- тестовый ученик
   o_uid uuid := gen_random_uuid();   -- другой тестовый ученик
   st_id uuid; ot_id uuid; l_mine uuid; l_other uuid;
-  n int; n2 int; n3 int; b boolean; v text; err text; j jsonb; obj_other text; b_mine uuid; b_other uuid; nb uuid;
+  n int; n2 int; n3 int; b boolean; v text; err text; j jsonb; obj_other text; b_mine uuid; b_other uuid; nb uuid; nk int;
   r text := E'ИТОГ ПРОВЕРКИ (все изменения отменены)\n';
 
   -- строки отчёта собираются в r
@@ -49,6 +49,8 @@ begin
   update public.edu_lessons set quiz = 'quiz-geo1' where id in (l_mine, l_other);
   insert into public.edu_boards(student_id, title) values (st_id, 'ТЕСТ моя доска') returning id into b_mine;
   insert into public.edu_boards(student_id, title) values (ot_id, 'ТЕСТ чужая доска') returning id into b_other;
+  insert into public.edu_bank(id, num, answer, solution) values ('test-bank', 5, '-2.5', 'ТЕСТ решение') on conflict (id) do update set answer = '-2.5', num = 5;
+  insert into public.edu_bank_attempts(student_id, task, num, answer, ok) values (ot_id, 'test-bank', 5, '1', false);
 
   -- DB-01: учитель читает ключ
   perform set_config('request.jwt.claims', json_build_object('sub', t_uid, 'role', 'authenticated')::text, true);
@@ -151,6 +153,29 @@ begin
   r := r || case when b and v = 'false' and n = 1 then 'PASS' else 'FAIL' end
          || ' DB-19 тест как ДЗ: своё засчитано ' || b || ', чужое ' || v || ', в «Домашке» попыток 2 — ' || n || E'\n';
 
+  -- DB-20: банк ЕГЭ — ключи и чужие попытки ученику закрыты, решение только после своей попытки
+  select count(*) into n from public.edu_bank;
+  select count(*) into n2 from public.edu_bank_attempts;
+  err := '';
+  begin perform public.edu_bank_solution('test-bank'); err := err || 'решение до попытки; ';
+  exception when others then null; end;
+  begin insert into public.edu_bank_attempts(student_id, task, num, ok) values (st_id, 'test-bank', 5, true); err := err || 'запись попытки напрямую; ';
+  exception when insufficient_privilege then null; end;
+  r := r || case when n = 0 and n2 = 0 and err = '' then 'PASS' else 'FAIL' end
+         || ' DB-20 банк закрыт: ключей видно ' || n || ', попыток видно ' || n2 || ', ' || case when err = '' then 'решение закрыто' else err end || E'
+';
+
+  -- DB-21: проверка ответа банка на сервере (запятая и знак «−»), решение после попытки, статистика своя
+  j := public.edu_bank_check('test-bank', '2,5'); b := not (j->>'ok')::boolean and (j->>'saved')::boolean and (j->>'tries')::int = 1;
+  v := public.edu_bank_solution('test-bank') ->> 'answer';
+  j := public.edu_bank_check('test-bank', '−2,5'); b := b and (j->>'ok')::boolean and (j->>'tries')::int = 2;
+  j := public.edu_bank_check('test-bank', ' -2.50 '); b := b and (j->>'ok')::boolean;
+  select count(*) into n from public.edu_bank_my_stats() m where m.task = 'test-bank' and m.tries = 3 and m.solved and not m.first_ok and m.revealed;
+  select count(*) into n2 from public.edu_bank_my_stats();
+  r := r || case when b and v = '-2.5' and n = 1 and n2 = 1 then 'PASS' else 'FAIL' end
+         || ' DB-21 проверка банка: ответы засчитаны ' || b || ', решение ' || coalesce(v, '—') || ', статистика ' || n || '/' || n2 || E'
+';
+
   -- DB-13: ученик видит только свою карточку: занятие, ссылку, прогресс
   select count(*), max(i.name), bool_and(i.next_at > now()) into n, v, b from public.edu_my_info() i;
   r := r || case when n = 1 and v = 'ТЕСТ ученик' and b then 'PASS' else 'FAIL' end
@@ -199,6 +224,8 @@ begin
   select count(*) into n from storage.objects where name = obj_other;
   select count(*) into n2 from public.edu_quiz_results where student_id = st_id;
   select count(*) into n3 from public.edu_lessons where id = l_other and submitted_at is null and student_comment is null;
+  select count(*) into nk from public.edu_bank_attempts where student_id = st_id;
+  r := r || case when nk = 4 then 'PASS' else 'FAIL' end || ' DB-22 попытки банка у ученика записаны: ' || nk || ' (3 ответа + просмотр решения)' || E'\n';
   r := r || case when n = 1 and n2 = 4 and n3 = 1 then 'PASS' else 'FAIL' end
          || ' DB-14 целостность: чужое фото на месте ' || n || ', попытка у своего ученика ' || n2 || ', чужое ДЗ не тронуто ' || n3 || E'\n';
 
@@ -217,6 +244,12 @@ begin
   exception when insufficient_privilege then null; end;
   begin perform public.edu_check_quiz('quiz-geo1', '{}'::jsonb); err := err || 'проверка теста доступна; ';
   exception when insufficient_privilege then null; end;
+  begin perform public.edu_bank_check('test-bank', '1'); err := err || 'проверка банка доступна; ';
+  exception when insufficient_privilege then null; end;
+  begin perform public.edu_bank_solution('test-bank'); err := err || 'решение банка доступно; ';
+  exception when insufficient_privilege then null; end;
+  begin perform * from public.edu_bank_my_stats(); err := err || 'статистика банка доступна; ';
+  exception when insufficient_privilege then null; end;
   begin perform * from public.edu_board_get(b_mine); err := err || 'доска доступна; ';
   exception when insufficient_privilege then null; end;
   begin perform public.edu_board_save(b_mine, '{"els":[]}'::jsonb); err := err || 'сохранение доски доступно; ';
@@ -224,7 +257,8 @@ begin
   select (select count(*) from public.edu_secrets) + (select count(*) from public.edu_students)
        + (select count(*) from public.edu_lessons) + (select count(*) from public.edu_profiles)
        + (select count(*) from public.edu_quiz_keys) + (select count(*) from public.edu_quiz_results)
-       + (select count(*) from storage.objects where bucket_id in ('edu-hw', 'edu-board')) + (select count(*) from public.edu_boards) into n;
+       + (select count(*) from storage.objects where bucket_id in ('edu-hw', 'edu-board')) + (select count(*) from public.edu_boards)
+       + (select count(*) from public.edu_bank) + (select count(*) from public.edu_bank_attempts) into n;
   execute 'reset role';
   r := r || case when err = '' and n = 0 then 'PASS' else 'FAIL' end
          || ' DB-08 гость: ' || case when err = '' then 'функции закрыты' else err end || ', видит строк ' || n || E'\n';

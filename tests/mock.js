@@ -1,15 +1,15 @@
 // Имитация Supabase для локальных тестов: вход, таблицы журнала, функции ДЗ и самопроверки, хранилище фото.
-// QUIZKEYS — ключи ответов (передаются при запуске из файла вне репозитория).
-module.exports = function(KEY, QUIZKEYS){
+// QUIZKEYS, BANK — ключи ответов (передаются при запуске из файлов вне репозитория).
+module.exports = function(KEY, QUIZKEYS, BANK){
   return `(() => {
-  const KEY = ${JSON.stringify(KEY)}, QK = ${JSON.stringify(QUIZKEYS || {})};
+  const KEY = ${JSON.stringify(KEY)}, QK = ${JSON.stringify(QUIZKEYS || {})}, BK = ${JSON.stringify(BANK || {})};
   const get = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v } catch(e) { return d } };
   const put = (k, v) => localStorage.setItem(k, JSON.stringify(v));
   const USERS = {'teacher@test.local': {id:'u1', pw:'test-pass-1', role:'teacher'}, 'kid@test.local': {id:'u2', pw:'test-pass-2', role:'student'}, 'new@test.local': {id:'u3', pw:'test-pass-3', role:'student'}};
   const db = () => { const D = get('mockdb', {edu_students:[], edu_lessons:[], edu_progress:[], edu_profiles:[
     {user_id:'u1',email:'teacher@test.local',role:'teacher',created_at:'2026-10-01'},
     {user_id:'u2',email:'kid@test.local',role:'student',created_at:'2026-10-02'},
-    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; return D; };
+    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; return D; };
   const sess = () => { try { const t = sessionStorage.getItem('mockSessionTab'); if (t) return JSON.parse(t); } catch(e) {} return get('mockSession', null); };
   const me = () => { const s = sess(); if (!s) return null; const p = db().edu_profiles.find(x => x.user_id === s.user.id); return {id: s.user.id, role: p ? p.role : 'student'}; };
   let n = 0; const uid = () => 'id' + Date.now() + '_' + (n++);
@@ -24,13 +24,14 @@ module.exports = function(KEY, QUIZKEYS){
         if (st.op === 'update') { if (!teacher) return {data:null}; D.edu_profiles = D.edu_profiles.map(r => match(r) ? Object.assign({}, r, st.data) : r); put('mockdb', D); return {data:null}; }
         rows = rows.filter(match); return {data: st.single ? (rows[0] || null) : rows}; }
       if (!teacher) return {data: st.single ? null : []};
+      if (t === 'edu_bank') return {data: Object.keys(BK).map(id => Object.assign({id}, BK[id]))};
       if (st.op === 'insert') { const row = Object.assign({id: uid(), created_at: new Date().toISOString()}, t === 'edu_lessons' ? {student_done:false, hw_status:'none', photos:[]} : t === 'edu_boards' ? {data:{els:[]}, title:'Доска', updated_at: new Date().toISOString()} : {}, st.data); D[t].push(row); put('mockdb', D); return {data: st.single ? row : [row]}; }
       if (st.op === 'upsert') { D[t] = D[t].filter(r => r.student_id !== st.data.student_id); D[t].push(st.data); put('mockdb', D); return {data:null}; }
       if (st.op === 'update') { let out = null; D[t] = D[t].map(r => match(r) ? (out = Object.assign({}, r, st.data)) : r); put('mockdb', D); return {data: st.single ? out : null}; }
       if (st.op === 'delete') { D[t] = D[t].filter(r => !match(r)); if (t === 'edu_students') { const ok = l => D.edu_students.some(s => s.id === l.student_id);
-        D.edu_lessons = D.edu_lessons.filter(ok); D.edu_progress = D.edu_progress.filter(ok); D.edu_quiz_results = D.edu_quiz_results.filter(ok); D.edu_boards = D.edu_boards.filter(ok); } put('mockdb', D); return {data:null}; }
+        D.edu_lessons = D.edu_lessons.filter(ok); D.edu_progress = D.edu_progress.filter(ok); D.edu_quiz_results = D.edu_quiz_results.filter(ok); D.edu_boards = D.edu_boards.filter(ok); D.edu_bank_attempts = D.edu_bank_attempts.filter(ok); } put('mockdb', D); return {data:null}; }
       let rows = D[t].filter(match); if (t === 'edu_lessons') rows.sort(byDate);
-      if (t === 'edu_quiz_results' || t === 'edu_boards') rows.sort((a, b) => a.created_at < b.created_at ? 1 : -1);
+      if (t === 'edu_quiz_results' || t === 'edu_boards' || t === 'edu_bank_attempts') rows.sort((a, b) => a.created_at < b.created_at ? 1 : -1);
       return {data: st.single ? (rows[0] || null) : rows}; };
     const b = { select(){ return b }, order(){ return b }, limit(){ return b }, eq(k, v){ st.f.push([k, v]); return b },
       insert(d){ st.op='insert'; st.data=d; return b }, update(d){ st.op='update'; st.data=d; return b }, upsert(d){ st.op='upsert'; st.data=d; return b },
@@ -67,6 +68,22 @@ module.exports = function(KEY, QUIZKEYS){
         wrong: items.filter(x => !x.ok).map(x => x.q), created_at: new Date().toISOString()}); put('mockdb', D); }
       return R({score, total: items.length, items, saved: !!s, homework: !!lid, first}); }
     if (name === 'edu_my_quiz_results') return R(s ? D.edu_quiz_results.filter(r => r.student_id === s.id).map(r => ({quiz:r.quiz, score:r.score, total:r.total, created_at:r.created_at})) : []);
+    if (name === 'edu_bank_check') { const k = BK[args.p_task]; if (!k) return Promise.resolve({data:null, error:{message:'unknown task'}});
+      const g = norm(String(args.p_answer || '').slice(0, 40)).replace(/−/g, '-'), a = norm(k.answer);
+      const ok = g !== '' && (a === g || (!isNaN(Number(g)) && g !== '' && Number(a) === Number(g))); let tries = 0;
+      if (s && g !== '') { D.edu_bank_attempts.push({id: uid(), student_id: s.id, task: args.p_task, num: k.num, answer: args.p_answer, ok, revealed: false, created_at: new Date().toISOString()}); put('mockdb', D);
+        tries = D.edu_bank_attempts.filter(x => x.student_id === s.id && x.task === args.p_task && !x.revealed).length; }
+      return R({ok, saved: !!(s && g !== ''), tries}); }
+    if (name === 'edu_bank_solution') { const k = BK[args.p_task]; if (!k) return Promise.resolve({data:null, error:{message:'unknown task'}});
+      if (u.role !== 'teacher' && s) { const mine = D.edu_bank_attempts.filter(x => x.student_id === s.id && x.task === args.p_task);
+        if (!mine.length) return Promise.resolve({data:null, error:{message:'сначала ответь сам'}});
+        if (!mine.some(x => x.revealed)) { D.edu_bank_attempts.push({id: uid(), student_id: s.id, task: args.p_task, num: k.num, answer: null, ok: false, revealed: true, created_at: new Date().toISOString()}); put('mockdb', D); } }
+      return R({answer: k.answer, solution: k.solution}); }
+    if (name === 'edu_bank_my_stats') { if (!s) return R([]); const by = {};
+      D.edu_bank_attempts.filter(x => x.student_id === s.id).sort((a, b) => a.created_at < b.created_at ? -1 : 1).forEach(x => {
+        const t = by[x.task] || (by[x.task] = {task: x.task, num: x.num, tries: 0, solved: false, first_ok: null, revealed: false});
+        if (x.revealed) { t.revealed = true; return; } t.tries++; if (t.first_ok === null) t.first_ok = x.ok; if (x.ok) t.solved = true; });
+      return R(Object.values(by).map(t => Object.assign(t, {first_ok: !!t.first_ok}))); }
     const can = id => { const b = D.edu_boards.find(x => x.id === id); return !!b && (u.role === 'teacher' || (s && b.student_id === s.id)); };
     if (name === 'edu_my_boards') return R(s ? D.edu_boards.filter(b => b.student_id === s.id).sort((a, b) => a.created_at < b.created_at ? 1 : -1)
       .map(b => { const l = D.edu_lessons.find(x => x.id === b.lesson_id); return {id:b.id, title:b.title, lesson_id:b.lesson_id || null, lesson_date: l ? l.date : null, created_at:b.created_at, updated_at:b.updated_at}; }) : []);

@@ -6,13 +6,14 @@ const KEY = process.env.CONTENT_KEY; const SITE = process.env.SITE || 'http://12
 if (!KEY) { console.error('нужен CONTENT_KEY'); process.exit(2); }
 
 const QK = process.env.QUIZ_KEYS ? JSON.parse(require('fs').readFileSync(process.env.QUIZ_KEYS, 'utf8')) : {};
-const MOCK = require('./mock.js')(KEY, QK);
+const BK = (l => Array.isArray(l) ? Object.fromEntries(l.map(t => [t.id, {num: t.num, answer: t.answer, solution: t.solution}])) : l)(process.env.BANK_KEYS ? JSON.parse(require('fs').readFileSync(process.env.BANK_KEYS, 'utf8')) : {});
+const MOCK = require('./mock.js')(KEY, QK, BK);
 const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR4nGP4z8CAFWEXHbQSACj/P8Fu7N9hAAAAAElFTkSuQmCC', 'base64');
 
 const results = []; let errors = [];
 function rec(id, ok, note) { results.push({id, ok: !!ok, note: note || ''}); console.log((ok ? 'PASS ' : 'FAIL ') + id + (note ? ' — ' + note : '')); }
 const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2'];
-const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
+const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','ege-bank','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
 
 (async () => {
   const b = await chromium.launch();
@@ -177,12 +178,47 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('QZ-01', sc.startsWith(`${keys.length - 1} из ${keys.length}`) && sc.includes('сохранён'), sc.slice(0, 60));
   rec('QZ-02', bad1.includes('Неверно') && bad1.includes('скрещиваются') && ((await p.textContent('#qzHist')) || '').includes('Попыток: 1'), bad1);
 
+  // BK-01…05: банк заданий ЕГЭ (ученик)
+  const bkIds = Object.keys(BK); const neg = bkIds.find(id => BK[id].answer.startsWith('-') && BK[id].answer.includes('.') && BK[id].num === 2) || bkIds.find(id => BK[id].answer.startsWith('-'));
+  await go('ege-bank.html#n=8', 1200);
+  const bk1 = await p.evaluate(() => ({tabs: document.querySelectorAll('#bkTabs .bk-tab').length, tasks: document.querySelectorAll('#bkList .bk-task').length,
+    h: (document.querySelector('#bkList h2') || {}).textContent, imgs: [...document.querySelectorAll('#bkList img.bk-fig')].filter(i => i.complete && i.naturalWidth > 0).length,
+    solDis: document.querySelector('#bkList .bk-task .bk-btn.soft').disabled}));
+  rec('BK-01', bk1.tabs === 13 && bk1.tasks === 10 && (bk1.h || '').startsWith('№ 8') && bk1.imgs >= 6 && bk1.solDis, JSON.stringify(bk1));
+  const nN = String(BK[neg].num); await p.click(`#bkTabs [data-n="${nN}"]`); await p.waitForTimeout(300);
+  const tc = `[data-task="${neg}"]`; await p.fill(tc + ' input', '12345'); await p.click(tc + ' button[type=submit]'); await p.waitForTimeout(500);
+  const m1 = (await p.textContent(tc + ' .bk-msg')) || ''; const cls1 = await p.getAttribute(tc, 'class');
+  await p.click(tc + ' .bk-btn.soft'); await p.waitForTimeout(500); const sol1 = (await p.textContent(tc + ' .bk-sol')) || '';
+  rec('BK-02', m1.includes('Неверно') && cls1.includes('bad') && sol1.includes('Ответ: ' + BK[neg].answer.replace('.', ',').replace('-', '−')) && sol1.length > 30, m1 + ' | ' + sol1.slice(0, 50));
+  await p.fill(tc + ' input', BK[neg].answer.replace('-', '−').replace('.', ',')); await p.click(tc + ' button[type=submit]'); await p.waitForTimeout(500);
+  const m2 = (await p.textContent(tc + ' .bk-msg')) || ''; const sum1 = (await p.textContent('#bkSum')) || '';
+  const bar = await p.$eval(`#bkTabs [data-n="${nN}"] .bk-bar i`, e => e.style.width);
+  rec('BK-03', m2.includes('Верно') && sum1.includes('Решено 1 из 120') && bar === '10%', m2 + ' | ' + sum1 + ' | ' + bar);
+  const ok1 = bkIds.find(id => BK[id].num === 1); await p.click('#bkTabs [data-n="1"]'); await p.waitForTimeout(200);
+  await p.fill(`[data-task="${ok1}"] input`, BK[ok1].answer.replace('.', ',')); await p.press(`[data-task="${ok1}"] input`, 'Enter'); await p.waitForTimeout(500);
+  await p.click('#bkVar'); await p.waitForTimeout(300);
+  const v1 = await p.$$eval('#bkList .bk-task', e => e.map(x => x.getAttribute('data-task')));
+  const nums = v1.map(id => +id.slice(1, 3)).join(','); await p.click('#bkNewVar'); await p.waitForTimeout(300);
+  const v2 = await p.$$eval('#bkList .bk-task', e => e.map(x => x.getAttribute('data-task')));
+  rec('BK-04', v1.length === 12 && nums === '1,2,3,4,5,6,7,8,9,10,11,12' && v2.length === 12 && !v1.includes(ok1) && !v1.includes(neg), nums);
+  await go('help.html', 200); await go('ege-bank.html#n=' + nN, 1200);
+  const chips = (await p.textContent(tc + ' .bk-h')) || ''; await go('ege-bank.html#n=1', 1000); const chips1 = (await p.textContent(`[data-task="${ok1}"] .bk-h`)) || '';
+  const st5 = await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_bank_attempts.map(a => [a.task, a.ok, a.revealed]));
+  rec('BK-05', chips.includes('решено') && !chips.includes('с первой') && chips.includes('решение открыто') && chips1.includes('решено с первой попытки') && st5.length === 4, chips + ' | ' + chips1 + ' | ' + JSON.stringify(st5));
+
   // ── учитель видит сдачу и тест, отвечает
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
   const logT = (await p.textContent('#log')) || ''; const imgT = await p.$$eval('#log .ph img', e => e.filter(i => i.src.startsWith('data:')).length);
   rec('HW-06', logT.includes('сдано') && logT.includes('1 фото') && logT.includes('Ученик: Не понял № 27') && imgT === 1, `фото у учителя ${imgT}`);
   const qzT = (await p.textContent('#quiz')) || '';
   rec('QZ-03', qzT.includes('Самопроверка · Глава I') && qzT.includes(`${keys.length - 1} из ${keys.length}`) && qzT.includes('Ошибки в вопросах № 1'), qzT.slice(0, 80));
+  const bkT = (await p.textContent('#bank')) || ''; const cells = await p.$$eval('#bank .bk', e => e.map(x => x.className + ':' + x.textContent));
+  rec('BK-06', bkT.includes('Решено 2 из 2') && bkT.includes('с первой попытки 1') && bkT.includes('решение открывал в 1') && cells.length === 12 && cells.filter(c => c.includes('c-')).length === 2, bkT.slice(0, 90));
+  await go('ege-bank.html#n=3', 1200); const t7 = await p.evaluate(() => ({sum: document.getElementById('bkSum').textContent, ans: [...document.querySelectorAll('#bkList .bk-task')].filter(x => x.textContent.includes('Ответ: ')).length,
+    sol: !document.querySelector('#bkList .bk-btn.soft').disabled}));
+  await p.click('#bkList .bk-task >> nth=0 >> .bk-btn.soft'); await p.waitForTimeout(300); const tsol = (await p.textContent('#bkList .bk-task >> nth=0 >> .bk-sol')) || '';
+  rec('BK-07', t7.sum.includes('Режим учителя') && t7.ans === 10 && t7.sol && tsol.includes('Решение.'), JSON.stringify(t7));
+  await go('journal.html', 1200);
   await p.click('#log .lesson >> nth=1 >> button:has-text("Ответить на ДЗ")'); await p.fill('#log .fbform textarea', 'Молодец, № 27 разберём');
   await p.selectOption('#log .fbform select', '5'); await p.click('#log .fbform button.primary'); await p.waitForTimeout(700);
   const logT2 = (await p.textContent('#log')) || '';

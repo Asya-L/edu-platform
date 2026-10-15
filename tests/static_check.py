@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SEC-01..03: в открытых файлах сайта нет учительского содержимого. Запуск: python3 tests/static_check.py <папка сайта> [ключ]"""
+"""SEC-01..05: в открытых файлах сайта нет учительского содержимого. Запуск: python3 tests/static_check.py <папка сайта> [ключ]"""
 import os, re, sys, zipfile, json
 
 root = sys.argv[1]
@@ -51,6 +51,28 @@ for f in os.listdir(root):
     if f.endswith('.sql') or 'quiz_keys' in f:
         qk.append(f)
 res.append({'id': 'SEC-04', 'ok': not qk, 'note': ', '.join(qk)})
+
+# SEC-05: в банке заданий ЕГЭ открыты только условия — ответов и решений нет ни в одном файле сайта
+bk = []
+s = open(f'{root}/ege-bank.html', encoding='utf-8').read()
+if re.search(r'"(answer|solution|sol|a)"\s*:', s):
+    bk.append('ege-bank.html: поле ответа')
+bank = os.environ.get('BANK_KEYS')
+if bank:
+    B = json.load(open(bank, encoding='utf-8')); B = B.values() if isinstance(B, dict) else B
+    sols = [re.sub(r'<[^>]+>', '', x['solution'])[:45] for x in B]
+    for d, _, fs in os.walk(root):
+        if '/.git' in d:
+            continue
+        for f in fs:
+            if f.endswith(('.html', '.js', '.json', '.md', '.txt', '.svg')):
+                t = re.sub(r'<[^>]+>', '', open(os.path.join(d, f), encoding='utf-8', errors='ignore').read())
+                hit = [x for x in sols if x in t]
+                if hit:
+                    bk.append(f'{f}: решение «{hit[0][:25]}…»')
+else:
+    bk.append('нет BANK_KEYS — проверка решений не выполнена')
+res.append({'id': 'SEC-05', 'ok': not bk, 'note': '; '.join(bk[:5])})
 
 for r in res:
     print(('PASS ' if r['ok'] else 'FAIL ') + r['id'] + (' — ' + r['note'] if r['note'] else ''))

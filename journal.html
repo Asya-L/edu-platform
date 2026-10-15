@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Журнал занятий</title>
-<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=63a8e2e3"></script><script src="assets/auth.js?v=63a8e2e3"></script>
+<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=97e7caed"></script><script src="assets/auth.js?v=97e7caed"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -63,6 +63,9 @@
 #jr .qz{border-top:1px dashed var(--edge);padding:10px 0;display:grid;grid-template-columns:92px 1fr auto;gap:12px;align-items:baseline}
 #jr .qz:first-child{border-top:0}
 @media (max-width:820px){#jr .next,#jr .qz{grid-template-columns:1fr}}
+#jr .bankgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:10px}
+#jr .bk{border-radius:14px;padding:9px 11px;display:flex;flex-direction:column;gap:1px;font-size:13px;border:1px solid var(--edge)}
+#jr .bk b{font:900 14px var(--f-head)} #jr .bk .v{font:900 18px var(--f-head);margin-top:3px} #jr .bk.none{opacity:.6}
 @media (max-width:820px){#jr .grid,#jr .row,#jr .row3{grid-template-columns:1fr}#jr .stats{grid-template-columns:repeat(2,1fr)}#jr .lesson{grid-template-columns:1fr}#jr .acts{justify-content:flex-start}}
 </style>
 <section class="hero" style="padding-bottom:10px"><div class="wrap"><div class="kicker">Только для учителя</div><h1>Журнал занятий</h1>
@@ -131,6 +134,7 @@
     </div>
     <div class="panel" style="margin-top:18px"><div class="head"><h2>Журнал</h2><span class="muted" id="logCount"></span></div><div id="log"></div></div>
     <div class="panel" style="margin-top:18px"><div class="head"><h2>Самопроверка</h2><a href="quiz-geo1.html" class="muted">открыть тест →</a></div><div id="quiz"></div></div>
+    <div class="panel" style="margin-top:18px"><div class="head"><h2>Банк заданий ЕГЭ</h2><a href="ege-bank.html" class="muted">открыть банк →</a></div><div id="bank"></div></div>
   </section>
   <div id="toast" class="toast" hidden></div>
 </main>
@@ -161,7 +165,7 @@ function topicHref(key, teacher){
 function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
 var QUIZ = {"quiz-geo1": "Самопроверка · Глава I"};
 
-var K = window.KABINET, sb, students = [], lessons = [], progress = {}, profiles = [], quizRes = [], boardsAll = [], urls = {}, fbOpen = {}, current = null, editing = null, editingStudent = false, confirmId = null, pend = null, pTimer = null;
+var K = window.KABINET, sb, students = [], lessons = [], progress = {}, profiles = [], quizRes = [], bankRes = [], boardsAll = [], urls = {}, fbOpen = {}, current = null, editing = null, editingStudent = false, confirmId = null, pend = null, pTimer = null;
 var HW = {none:['не задавалось','c-none'],set:['ДЗ задано','c-set'],done:['ДЗ сделано','c-done'],part:['ДЗ частично','c-part'],no:['ДЗ не сделано','c-no']};
 var NEXT = {todo:'work', work:'done', done:'todo'};
 function $(id){ return document.getElementById(id); }
@@ -187,6 +191,8 @@ async function load(){
   var r3 = await sb.from('edu_progress').select('*');
   var r4 = await sb.from('edu_profiles').select('user_id,email,role').order('created_at');
   var r5 = await sb.from('edu_quiz_results').select('*').order('created_at', {ascending: false}).limit(500);
+  var r7 = await sb.from('edu_bank_attempts').select('student_id,task,num,ok,revealed,created_at').order('created_at', {ascending: false}).limit(5000);
+  bankRes = r7.error ? [] : (r7.data || []);
   var r6 = await sb.from('edu_boards').select('id,title,lesson_id,student_id,created_at').order('created_at', {ascending: false}).limit(1000);
   if (r1.error || r2.error) { $('status').innerHTML = '<p>Журнал не загрузился. Обновите страницу.</p>'; return; }
   students = r1.data; lessons = r2.data; progress = {}; (r3.data || []).forEach(function(p){ progress[p.student_id] = p.topics || {}; });
@@ -225,7 +231,7 @@ function render(){
   $('stMark').textContent = marks.length ? (marks.reduce(function(a, b){ return a + b; }, 0) / marks.length).toFixed(1).replace('.', ',') : '—';
   $('stLast').textContent = mine.length ? fmtDate(mine[0].date) : '—';
   if (document.activeElement !== $('nAt') && document.activeElement !== $('nUrl')) { $('nAt').value = localDT(st.next_at); $('nUrl').value = st.call_url || ''; }
-  renderLog(mine); renderProgress(); renderQuiz();
+  renderLog(mine); renderProgress(); renderQuiz(); renderBank();
   signAll(mine);
 }
 
@@ -236,6 +242,26 @@ async function signAll(mine){
   var r = await sb.storage.from('edu-hw').createSignedUrls(need, 3600);
   (r.data || []).forEach(function(x){ if (x.signedUrl) urls[x.path] = x.signedUrl; });
   document.querySelectorAll('#log [data-path]').forEach(function(a){ var u = urls[a.getAttribute('data-path')]; if (u) { a.href = u; a.innerHTML = '<img alt="" loading="lazy" src="' + K.esc(u) + '">'; } });
+}
+var BANK_T = {1:'Планиметрия',2:'Векторы',3:'Стереометрия',4:'Вероятность',5:'Сложные события',6:'Уравнения',7:'Вычисления',8:'Производная',9:'Прикладная',10:'Текстовая',11:'Графики',12:'Наиб./наим.'};
+function renderBank(){
+  var box = $('bank'); box.innerHTML = ''; var mine = bankRes.filter(function(a){ return a.student_id === current; });
+  if (!mine.length) { box.appendChild(el('p', 'muted', 'Ученик ещё не решал задания из банка. Попытки появятся здесь автоматически.')); return; }
+  var by = {}; mine.slice().reverse().forEach(function(a){ var t = by[a.task] || (by[a.task] = {num: a.num, tries: 0, ok: false, first: null, rev: false});
+    if (a.revealed) { t.rev = true; return; } t.tries++; if (t.first === null) t.first = a.ok && !t.rev; if (a.ok) t.ok = true; });
+  var tasks = Object.keys(by), solved = tasks.filter(function(k){ return by[k].ok; }).length, first = tasks.filter(function(k){ return by[k].first; }).length;
+  var rev = tasks.filter(function(k){ return by[k].rev; }).length;
+  box.appendChild(el('p', 'muted', 'Решено ' + solved + ' из ' + tasks.length + ' начатых заданий · с первой попытки ' + first + (rev ? ' · решение открывал в ' + rev : '') +
+    ' · последняя попытка ' + fmtTs(mine[0].created_at)));
+  var g = el('div', 'bankgrid');
+  for (var n = 1; n <= 12; n++) { var ks = tasks.filter(function(k){ return by[k].num === n; }); var c = el('div', 'bk');
+    c.appendChild(el('b', null, '№ ' + n)); c.appendChild(el('span', 'muted', BANK_T[n]));
+    if (!ks.length) { c.appendChild(el('span', 'v', '—')); c.className = 'bk none'; }
+    else { var s = ks.filter(function(k){ return by[k].ok; }).length, f = ks.filter(function(k){ return by[k].first; }).length, r = f / ks.length;
+      c.appendChild(el('span', 'v', s + ' / ' + ks.length)); c.appendChild(el('span', 'muted', 'с 1-й попытки ' + f));
+      c.className = 'bk ' + (r >= .8 ? 'c-done' : r >= .5 ? 'c-part' : 'c-no'); }
+    g.appendChild(c); }
+  box.appendChild(g);
 }
 function renderQuiz(){
   var box = $('quiz'); box.innerHTML = ''; var mine = quizRes.filter(function(q){ return q.student_id === current; });
