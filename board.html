@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=97e7caed"></script><script src="assets/auth.js?v=97e7caed"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=df8f259a"></script><script src="assets/auth.js?v=df8f259a"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -71,12 +71,23 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
 .bd-banner button{border:0;border-radius:999px;padding:6px 12px;font:800 13px var(--f-body);cursor:pointer;background:var(--butter);color:var(--ink)}
 .bd-toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;z-index:40}
 .bd-hint{position:absolute;right:12px;bottom:10px;font-size:12px;color:var(--ink-soft);background:rgba(255,255,255,.85);border-radius:8px;padding:3px 8px;pointer-events:none}
+.bd-math{position:absolute;z-index:7;width:min(420px,calc(100% - 20px));background:var(--paper);border:1.5px solid var(--lav-d);border-radius:14px;padding:10px;box-shadow:0 14px 34px rgba(43,36,64,.2)}
+.bd-math input{width:100%;font:600 17px var(--f-body);border:1.5px solid var(--edge);border-radius:10px;padding:8px 10px;color:var(--ink);background:#fff}
+.bd-math canvas{display:block;width:100%;height:auto;min-height:60px;margin:8px 0;background:#FBFAFE;border-radius:10px}
+.bd-mbtns{display:flex;flex-wrap:wrap;gap:3px} .bd-mbtns button{min-width:30px;height:30px;border:0;border-radius:7px;background:#F4F1F8;font:700 14px "Times New Roman",Georgia,serif;cursor:pointer;color:var(--ink);padding:0 6px}
+.bd-mbtns button:hover{background:var(--lav)} .bd-math select{font:inherit;border:1.5px solid var(--edge);border-radius:10px;padding:6px 8px;background:#fff}
+.bd-mhint{font-size:12px;color:var(--ink-soft);margin:8px 0 0;line-height:1.4}
+.bd-tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:12px}
+.bd-tpl{border:1.5px solid var(--edge);border-radius:14px;padding:10px;background:#fff}
+.bd-tpl canvas{display:block;width:100%;height:150px;background:#FBFAFE;border-radius:10px;margin-bottom:6px}
+.bd-tpl h4{margin:4px 0 6px;font:900 15px var(--f-head)} .bd-tpl .tf{display:flex;gap:6px;align-items:center;font:700 13.5px var(--f-body);margin:4px 0}
+.bd-tpl .tf input[type=number]{width:64px;padding:5px 7px} .bd-tpl .tf input[type=checkbox]{width:auto} .bd-tpl .tf select{width:auto;flex:1} .bd-tpl .bd-t{margin-top:8px}
 [hidden]{display:none!important}
 </style>
 <div id="bd">
   <div class="bd-bar" id="bdBar" hidden>
     <div class="bd-grp"><a class="bd-home" href="index.html" title="На главную" aria-label="На главную">Σ</a><button type="button" class="bd-t" id="bdPick">Доски ▾</button><span class="bd-title" id="bdTitle"></span></div>
-    <div class="bd-grp" role="toolbar" aria-label="Инструменты"><button type="button" class="bd-b" data-tool="select" title="Выделить и двигать (V)" aria-label="Выделить и двигать"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l11 7-5 1.5L9 17z"/></svg></button><button type="button" class="bd-b" data-tool="hand" title="Двигать лист (H · пробел)" aria-label="Двигать лист"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V5.5a1.5 1.5 0 013 0V9m0-4.5a1.5 1.5 0 013 0V9m0-3a1.5 1.5 0 013 0v5c0 3.5-2.5 6-6 6-2.3 0-3.6-1-4.8-2.6L3.6 11a1.4 1.4 0 012.2-1.8L7 10.5"/></svg></button><button type="button" class="bd-b" data-tool="pen" title="Ручка (P)" aria-label="Ручка"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l1-4L14 3l3 3L7 16zM12 5l3 3"/></svg></button><button type="button" class="bd-b" data-tool="line" title="Отрезок · Shift — ровный угол (L)" aria-label="Отрезок · Shift — ровный угол"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16L16 4"/><circle cx="4" cy="16" r="1.6"/><circle cx="16" cy="4" r="1.6"/></svg></button><button type="button" class="bd-b" data-tool="arrow" title="Вектор (A)" aria-label="Вектор"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16L16 4M9 4h7v7"/></svg></button><button type="button" class="bd-b" data-tool="circ" title="Окружность от центра (C)" aria-label="Окружность от центра"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/></svg></button><button type="button" class="bd-b" data-tool="rect" title="Прямоугольник (R)" aria-label="Прямоугольник"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="13" height="10" rx="1"/></svg></button><button type="button" class="bd-b" data-tool="pt" title="Точка с буквой (O)" aria-label="Точка с буквой"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="2.2" fill="currentColor"/><path d="M11 8l2.5-5L16 8m-4.2-1.6h3.4"/></svg></button><button type="button" class="bd-b" data-tool="text" title="Текст и формулы (T)" aria-label="Текст и формулы"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5V3.5h12V5M10 3.5V17M7.5 17h5"/></svg></button><button type="button" class="bd-b" data-tool="eraser" title="Ластик (E)" aria-label="Ластик"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 17h9M3.5 12.5l7-7.5 6 5.5-6.5 6.5H8z"/></svg></button><button type="button" class="bd-b" data-tool="laser" title="Указка (K)" aria-label="Указка"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="6" r="2.5" fill="currentColor"/><path d="M3 17c3-1 5-4 8-8" stroke-dasharray="2 2.5"/></svg></button></div>
+    <div class="bd-grp" role="toolbar" aria-label="Инструменты"><button type="button" class="bd-b" data-tool="select" title="Выделить и двигать (V)" aria-label="Выделить и двигать"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l11 7-5 1.5L9 17z"/></svg></button><button type="button" class="bd-b" data-tool="hand" title="Двигать лист (H · пробел)" aria-label="Двигать лист"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V5.5a1.5 1.5 0 013 0V9m0-4.5a1.5 1.5 0 013 0V9m0-3a1.5 1.5 0 013 0v5c0 3.5-2.5 6-6 6-2.3 0-3.6-1-4.8-2.6L3.6 11a1.4 1.4 0 012.2-1.8L7 10.5"/></svg></button><button type="button" class="bd-b" data-tool="pen" title="Ручка (P)" aria-label="Ручка"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l1-4L14 3l3 3L7 16zM12 5l3 3"/></svg></button><button type="button" class="bd-b" data-tool="line" title="Отрезок · Shift — ровный угол (L)" aria-label="Отрезок · Shift — ровный угол"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16L16 4"/><circle cx="4" cy="16" r="1.6"/><circle cx="16" cy="4" r="1.6"/></svg></button><button type="button" class="bd-b" data-tool="arrow" title="Вектор (A)" aria-label="Вектор"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16L16 4M9 4h7v7"/></svg></button><button type="button" class="bd-b" data-tool="circ" title="Окружность от центра (C)" aria-label="Окружность от центра"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/></svg></button><button type="button" class="bd-b" data-tool="rect" title="Прямоугольник (R)" aria-label="Прямоугольник"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="13" height="10" rx="1"/></svg></button><button type="button" class="bd-b" data-tool="pt" title="Точка с буквой (O)" aria-label="Точка с буквой"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="2.2" fill="currentColor"/><path d="M11 8l2.5-5L16 8m-4.2-1.6h3.4"/></svg></button><button type="button" class="bd-b" data-tool="text" title="Текст (T)" aria-label="Текст"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5V3.5h12V5M10 3.5V17M7.5 17h5"/></svg></button><button type="button" class="bd-b" data-tool="math" title="Формула: дроби, корни, степени (M)" aria-label="Формула: дроби, корни, степени"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 11.5l1.8-1 2.2 5.5L10 4h7.5"/><path d="M11.5 8.5l4 5m0-5l-4 5"/></svg></button><button type="button" class="bd-b" data-tool="eraser" title="Ластик (E)" aria-label="Ластик"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 17h9M3.5 12.5l7-7.5 6 5.5-6.5 6.5H8z"/></svg></button><button type="button" class="bd-b" data-tool="laser" title="Указка (K)" aria-label="Указка"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="6" r="2.5" fill="currentColor"/><path d="M3 17c3-1 5-4 8-8" stroke-dasharray="2 2.5"/></svg></button></div>
     <div class="bd-grp" aria-label="Цвет"><button type="button" class="bd-sw" data-color="#2B2440" style="background:#2B2440" title="Цвет" aria-label="Цвет #2B2440"></button><button type="button" class="bd-sw" data-color="#3E6FD8" style="background:#3E6FD8" title="Цвет" aria-label="Цвет #3E6FD8"></button><button type="button" class="bd-sw" data-color="#D9534F" style="background:#D9534F" title="Цвет" aria-label="Цвет #D9534F"></button><button type="button" class="bd-sw" data-color="#2E9E6A" style="background:#2E9E6A" title="Цвет" aria-label="Цвет #2E9E6A"></button><button type="button" class="bd-sw" data-color="#7B61D9" style="background:#7B61D9" title="Цвет" aria-label="Цвет #7B61D9"></button><button type="button" class="bd-sw" data-color="#E8963A" style="background:#E8963A" title="Цвет" aria-label="Цвет #E8963A"></button></div>
     <div class="bd-grp" aria-label="Толщина">
       <button type="button" class="bd-w" data-w="2" title="Тонко"><i style="height:2px"></i></button>
@@ -91,6 +102,7 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
       <button type="button" class="bd-b" id="bdSlBtn" title="Слайды урока" aria-label="Слайды урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="15" height="10" rx="1.5"/><path d="M10 14v3M7 17h6M8.5 7.5l3 1.8-3 1.8z"/></svg></button>
       <button type="button" class="bd-b" id="bdSlNext" title="Следующий слайд" aria-label="Следующий слайд" hidden><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="10" height="8" rx="1.2"/><path d="M14 9h4m-2-2l2 2-2 2"/></svg></button>
       <button type="button" class="bd-b" id="bdFigBtn" title="Чертёж из урока" aria-label="Чертёж из урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l6 4v6l-6 4-6-4V7z M4 7l6 4 6-4M10 11v6"/></svg></button>
+      <button type="button" class="bd-b" id="bdTplBtn" title="Шаблоны: координатная плоскость, числовая прямая, тригонометрический круг" aria-label="Шаблоны"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h14M3 17V3M3 3l-1.5 2.2M3 3l1.5 2.2M17 17l-2.2-1.5M17 17l-2.2 1.5"/><path d="M5 14c2.5-7 6-9 10-9" stroke-dasharray="0"/></svg></button>
       <button type="button" class="bd-b" id="bdBg" title="Клетка / чистый лист (G)" aria-label="Фон"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg></button>
     </div>
     <div class="bd-grp">
@@ -111,12 +123,21 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
     <div id="bdCursors"></div>
     <textarea id="bdText" hidden spellcheck="false" aria-label="Текст на доске"></textarea>
     <div class="bd-syms" id="bdSyms" hidden><button type="button" tabindex="-1">²</button><button type="button" tabindex="-1">³</button><button type="button" tabindex="-1">√</button><button type="button" tabindex="-1">π</button><button type="button" tabindex="-1">°</button><button type="button" tabindex="-1">∠</button><button type="button" tabindex="-1">△</button><button type="button" tabindex="-1">⊥</button><button type="button" tabindex="-1">∥</button><button type="button" tabindex="-1">≠</button><button type="button" tabindex="-1">≈</button><button type="button" tabindex="-1">≤</button><button type="button" tabindex="-1">≥</button><button type="button" tabindex="-1">±</button><button type="button" tabindex="-1">·</button><button type="button" tabindex="-1">∈</button><button type="button" tabindex="-1">∉</button><button type="button" tabindex="-1">⊂</button><button type="button" tabindex="-1">∩</button><button type="button" tabindex="-1">∪</button><button type="button" tabindex="-1">⇒</button><button type="button" tabindex="-1">⇔</button><button type="button" tabindex="-1">α</button><button type="button" tabindex="-1">β</button><button type="button" tabindex="-1">γ</button><button type="button" tabindex="-1">φ</button><button type="button" tabindex="-1">Δ</button><button type="button" tabindex="-1">∞</button><button type="button" tabindex="-1">½</button><button type="button" tabindex="-1">⅓</button><button type="button" tabindex="-1">¼</button></div>
+    <div class="bd-math" id="bdMath" hidden>
+      <input id="bdMathIn" type="text" spellcheck="false" autocomplete="off" aria-label="Формула" placeholder="например: (x+1)/(x−1),  sqrt(2),  x^2 + y^2 = r^2">
+      <canvas id="bdMathPv" width="800" height="120" aria-label="Как будет выглядеть"></canvas>
+      <div class="bd-mbtns"><button type="button" tabindex="-1" data-ins="(‸)/()" title="Дробь">a/b</button><button type="button" tabindex="-1" data-ins="sqrt(‸)" title="Корень">√x</button><button type="button" tabindex="-1" data-ins="root(‸)()" title="Корень n-й степени">ⁿ√x</button><button type="button" tabindex="-1" data-ins="^2‸" title="Квадрат">x²</button><button type="button" tabindex="-1" data-ins="^(‸)" title="Степень">xⁿ</button><button type="button" tabindex="-1" data-ins="_(‸)" title="Индекс">x₁</button><button type="button" tabindex="-1" data-ins="|‸|" title="Модуль">|x|</button><button type="button" tabindex="-1" data-ins="(‸)" title="Скобки">( )</button><button type="button" tabindex="-1" data-ins="log_(‸)()" title="Логарифм">logₐ</button><button type="button" tabindex="-1" data-ins="sin ‸" title="Синус">sin</button><button type="button" tabindex="-1" data-ins="cos ‸" title="Косинус">cos</button><button type="button" tabindex="-1" data-ins="tg ‸" title="Тангенс">tg</button><button type="button" tabindex="-1" data-ins="π‸" title="π">π</button><button type="button" tabindex="-1" data-ins="°‸" title="°">°</button><button type="button" tabindex="-1" data-ins="≤‸" title="≤">≤</button><button type="button" tabindex="-1" data-ins="≥‸" title="≥">≥</button><button type="button" tabindex="-1" data-ins="≠‸" title="≠">≠</button><button type="button" tabindex="-1" data-ins="±‸" title="±">±</button><button type="button" tabindex="-1" data-ins="·‸" title="·">·</button><button type="button" tabindex="-1" data-ins="∞‸" title="∞">∞</button><button type="button" tabindex="-1" data-ins="α‸" title="α">α</button><button type="button" tabindex="-1" data-ins="β‸" title="β">β</button><button type="button" tabindex="-1" data-ins="φ‸" title="φ">φ</button><button type="button" tabindex="-1" data-ins="∠‸" title="∠">∠</button><button type="button" tabindex="-1" data-ins="⊥‸" title="⊥">⊥</button><button type="button" tabindex="-1" data-ins="∥‸" title="∥">∥</button><button type="button" tabindex="-1" data-ins="∈‸" title="∈">∈</button><button type="button" tabindex="-1" data-ins="∪‸" title="∪">∪</button><button type="button" tabindex="-1" data-ins="∩‸" title="∩">∩</button><button type="button" tabindex="-1" data-ins="⇒‸" title="⇒">⇒</button></div>
+      <div class="bd-row"><select id="bdMathSz" aria-label="Размер"><option value="22">Мелко</option><option value="30" selected>Средне</option><option value="44">Крупно</option></select>
+        <button type="button" class="bd-t dark" id="bdMathOk">Готово</button><button type="button" class="bd-t ghost" id="bdMathX">Отмена</button></div>
+      <p class="bd-mhint">Пишите как в калькуляторе: дробь <b>a/b</b> или <b>(x+1)/(x−1)</b>, корень <b>sqrt(x)</b>, степень <b>x^2</b>, индекс <b>a_1</b>, <b>pi</b> → π, <b>&lt;=</b> → ≤. Enter — готово.</p>
+    </div>
     <div class="bd-banner" id="bdBanner" hidden></div>
     <div class="bd-hint" id="bdHint">Колесо — двигать лист · Ctrl + колесо — масштаб · Shift — ровный угол</div>
   </div>
   <div class="bd-pop bd-menu" id="bdMenu" hidden></div>
   <div class="bd-pop bd-figs" id="bdFigs" hidden></div>
   <div class="bd-pop bd-figs" id="bdSl" hidden></div>
+  <div class="bd-pop bd-figs" id="bdTpl" hidden></div>
   <div class="bd-empty" id="bdEmpty"><p>Загружаю доску…</p></div>
   <div class="bd-toast" id="bdToast" hidden></div>
 </div>
@@ -139,6 +160,191 @@ function fmtD(t){ if (!t) return ''; var d = new Date(t); return ('0' + d.getDat
 function fmtDate(s){ if (!s) return ''; var p = s.split('-'); return p[2] + '.' + p[1]; }
 function store(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
 function load(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+
+var SERIF_LBL = '"Times New Roman",Georgia,serif';
+
+/* ── формулы ── */
+var MF = (function(){
+  var SERIF = '"Times New Roman","STIX Two Text",Georgia,serif', mc = document.createElement('canvas').getContext('2d');
+  var WORDS = {alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', Delta: 'Δ', epsilon: 'ε', lambda: 'λ', pi: 'π', phi: 'φ', varphi: 'φ', omega: 'ω', Omega: 'Ω',
+    sigma: 'σ', Sigma: 'Σ', theta: 'θ', rho: 'ρ', infty: '∞', inf: '∞', deg: '°', angle: '∠', perp: '⊥', approx: '≈', cdot: '·', times: '×', pm: '±'};
+  var FN = ['arcsin', 'arccos', 'arctg', 'arcctg', 'sin', 'cos', 'tg', 'ctg', 'tan', 'cot', 'log', 'lg', 'ln', 'lim', 'max', 'min', 'exp'];
+  var OPS2 = {'<=': '≤', '>=': '≥', '!=': '≠', '+-': '±', '->': '→', '=>': '⇒', '~~': '≈'};
+  function word(w, out){
+    var j = 0;
+    while (j < w.length) { var hit = null;
+      for (var L = w.length - j; L >= 2; L--) { var s = w.substr(j, L); if (s === 'sqrt' || s === 'root' || WORDS[s] || FN.indexOf(s) >= 0) { hit = s; break; } }
+      if (hit) { out.push(hit === 'sqrt' || hit === 'root' ? {k: 'cmd', v: hit} : FN.indexOf(hit) >= 0 ? {k: 'fn', v: hit} : {k: 'sym', v: WORDS[hit]}); j += hit.length; }
+      else { out.push({k: 'var', v: w[j]}); j++; } }
+  }
+  function tok(s){
+    var out = [], i = 0;
+    while (i < s.length) { var ch = s[i], rest = s.slice(i), m;
+      if (/\s/.test(ch)) { i++; continue; }
+      if (rest.indexOf('<=>') === 0) { out.push({k: 'op', v: '⇔'}); i += 3; continue; }
+      if (OPS2[rest.slice(0, 2)]) { out.push({k: 'op', v: OPS2[rest.slice(0, 2)]}); i += 2; continue; }
+      if ((m = /^[0-9]+([.,][0-9]+)?/.exec(rest))) { out.push({k: 'num', v: m[0].replace('.', ',')}); i += m[0].length; continue; }
+      if ((m = /^[A-Za-z]+/.exec(rest))) { if (m[0] === 'in' || m[0] === 'notin') out.push({k: 'op', v: m[0] === 'in' ? '∈' : '∉'}); else word(m[0], out); i += m[0].length; continue; }
+      if (ch === ';' || ch === ',') { out.push({k: 'pu', v: ch}); i++; continue; }
+      if ('()[]{}|'.indexOf(ch) >= 0) { out.push({k: 'br', v: ch}); i++; continue; }
+      if (ch === '/' || ch === '^' || ch === '_') { out.push({k: ch}); i++; continue; }
+      if (ch === '√') { out.push({k: 'cmd', v: 'sqrt'}); i++; continue; }
+      if (ch === '*') { out.push({k: 'op', v: '·'}); i++; continue; }
+      if (ch === '-' || ch === '−') { out.push({k: 'op', v: '−'}); i++; continue; }
+      if ('+=<>±·×:≤≥≠≈→⇒⇔∈∉⊂∪∩'.indexOf(ch) >= 0) { out.push({k: 'op', v: ch}); i++; continue; }
+      out.push({k: 'ch', v: ch}); i++; }
+    return out;
+  }
+  function parse(s){
+    var T = tok(String(s || '')), p = 0;
+    function strip(n){ return n && n.t === 'grp' && ((n.o === '(' && n.c === ')') || n.o === '') ? n.b : n; }
+    function expr(stop){ var items = [];
+      while (p < T.length) { var t = T[p];
+        if (t.k === 'br' && stop && (t.v === stop || (stop !== '|' && ')]}'.indexOf(t.v) >= 0))) break;
+        items.push(item()); }
+      return {t: 'row', ch: items}; }
+    function item(){ var a = scripted(); while (T[p] && T[p].k === '/') { p++; a = {t: 'frac', n: strip(a), d: strip(scripted())}; } return a; }
+    function arg(){ if (T[p] && T[p].k === 'op' && (T[p].v === '−' || T[p].v === '+')) { var o = T[p++]; return {t: 'row', ch: [{t: 'txt', s: o.v}, strip(primary())]}; } return strip(primary()); }
+    function scripted(){ var b = primary(), sub = null, sup = null;
+      for (var k = 0; k < 2; k++) { if (T[p] && T[p].k === '_' && !sub) { p++; sub = arg(); } else if (T[p] && T[p].k === '^' && !sup) { p++; sup = arg(); } }
+      return sub || sup ? {t: 'scr', b: b, sub: sub, sup: sup} : b; }
+    function primary(){
+      var t = T[p++]; if (!t) return {t: 'row', ch: []};
+      if (t.k === 'num') return {t: 'txt', s: t.v};
+      if (t.k === 'var') return {t: 'txt', s: t.v, it: 1};
+      if (t.k === 'sym') return {t: 'txt', s: t.v};
+      if (t.k === 'fn') return {t: 'txt', s: t.v, fn: 1};
+      if (t.k === 'op') return {t: 'op', s: t.v};
+      if (t.k === 'pu') return {t: 'pu', s: t.v};
+      if (t.k === 'cmd') { if (t.v === 'sqrt') return {t: 'sqrt', b: arg()}; var ix = strip(primary()); return {t: 'sqrt', idx: ix, b: strip(primary())}; }
+      if (t.k === 'br' && '([{|'.indexOf(t.v) >= 0) { var close = {'(': ')', '[': ']', '{': '}', '|': '|'}[t.v], r = expr(close), ok = T[p] && T[p].k === 'br' && T[p].v === close;
+        if (ok) p++; return {t: 'grp', o: t.v === '{' ? '' : t.v, c: t.v === '{' ? '' : ok ? close : '', b: r}; }
+      return {t: 'txt', s: t.v || t.k};
+    }
+    return expr(null);
+  }
+  function fnt(sz, it){ return (it ? 'italic ' : '') + '400 ' + sz.toFixed(2) + 'px ' + SERIF; }
+  function txt(s, sz, it){ mc.font = fnt(sz, it); var w = mc.measureText(s).width + (it ? sz * .05 : 0);
+    return {w: w, a: sz * .7, d: sz * .22, draw: function(c, x, y){ c.font = fnt(sz, it); c.fillText(s, x, y); }}; }
+  function br(c, ch, x, top, w, h, sz){
+    c.save(); c.lineWidth = Math.max(1, sz * .055); c.setLineDash([]); c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath();
+    var xl = x + w * .3, xr = x + w * .7;
+    if (ch === '(') { c.moveTo(xr, top); c.quadraticCurveTo(xr - w * 1.05, top + h / 2, xr, top + h); }
+    else if (ch === ')') { c.moveTo(xl, top); c.quadraticCurveTo(xl + w * 1.05, top + h / 2, xl, top + h); }
+    else if (ch === '[') { c.moveTo(xr, top); c.lineTo(xl, top); c.lineTo(xl, top + h); c.lineTo(xr, top + h); }
+    else if (ch === ']') { c.moveTo(xl, top); c.lineTo(xr, top); c.lineTo(xr, top + h); c.lineTo(xl, top + h); }
+    else if (ch === '|') { c.moveTo(x + w / 2, top); c.lineTo(x + w / 2, top + h); }
+    c.stroke(); c.restore();
+  }
+  function lay(n, sz, lvl){
+    if (n.t === 'txt') return txt(n.s, sz, n.it);
+    if (n.t === 'pu') { var q = txt(n.s, sz); return {w: q.w + sz * .22, a: q.a, d: q.d, draw: q.draw}; }
+    if (n.t === 'op') { var o = txt(n.s, sz), sp = sz * .22; return {w: o.w + 2 * sp, a: o.a, d: o.d, draw: function(c, x, y){ o.draw(c, x + sp, y); }}; }
+    if (n.t === 'row') {
+      var bs = [];
+      n.ch.forEach(function(k, i){ var unary = k.t === 'op' && /[−+±]/.test(k.s) && (i === 0 || n.ch[i - 1].t === 'op'); bs.push(unary ? txt(k.s, sz) : lay(k, sz, lvl));
+        var isFn = (k.t === 'txt' && k.fn) || (k.t === 'scr' && k.b.t === 'txt' && k.b.fn), nx = n.ch[i + 1];
+        if (isFn && nx && nx.t !== 'grp' && nx.t !== 'op') bs.push({w: sz * .16, a: 0, d: 0, draw: function(){}}); });
+      if (!bs.length) return {w: sz * .55, a: sz * .62, d: sz * .05, draw: function(c, x, y){ c.save(); c.globalAlpha = .35; c.lineWidth = Math.max(1, sz * .04); c.setLineDash([sz * .08, sz * .08]); c.strokeRect(x + sz * .06, y - sz * .6, sz * .43, sz * .62); c.restore(); }};
+      var w = 0, a = 0, d = 0; bs.forEach(function(b){ w += b.w; a = Math.max(a, b.a); d = Math.max(d, b.d); });
+      return {w: w, a: a, d: d, draw: function(c, x, y){ var xx = x; bs.forEach(function(b){ b.draw(c, xx, y); xx += b.w; }); }};
+    }
+    if (n.t === 'grp') { var inner = lay(n.b, sz, lvl), h = inner.a + inner.d;
+      if (h <= sz * 1.12) { var ob = n.o ? txt(n.o, sz) : null, cb = n.c ? txt(n.c, sz) : null;
+        return {w: (ob ? ob.w : 0) + inner.w + (cb ? cb.w : 0), a: Math.max(inner.a, sz * .7), d: Math.max(inner.d, sz * .22), draw: function(c, x, y){
+          var xx = x; if (ob) { ob.draw(c, xx, y); xx += ob.w; } inner.draw(c, xx, y); xx += inner.w; if (cb) cb.draw(c, xx, y); }}; }
+      var bw = sz * .34, A = inner.a + sz * .06, D = inner.d + sz * .06;
+      return {w: (n.o ? bw : 0) + inner.w + (n.c ? bw : 0), a: A, d: D, draw: function(c, x, y){
+        if (n.o) br(c, n.o, x, y - A, bw, A + D, sz); inner.draw(c, x + (n.o ? bw : 0), y); if (n.c) br(c, n.c, x + (n.o ? bw : 0) + inner.w, y - A, bw, A + D, sz); }};
+    }
+    if (n.t === 'frac') { var s2 = lvl > 0 ? Math.max(sz * .82, 9) : sz, nb = lay(n.n, s2, lvl + 1), db = lay(n.d, s2, lvl + 1);
+      var ax = sz * .26, g = sz * .13, lw = Math.max(1, sz * .055), fw = Math.max(nb.w, db.w) + sz * .24, m = sz * .08;
+      return {w: fw + 2 * m, a: ax + g + nb.d + nb.a, d: g + db.a + db.d - ax, draw: function(c, x, y){ var bar = y - ax;
+        c.fillRect(x + m, bar - lw / 2, fw, lw); nb.draw(c, x + m + (fw - nb.w) / 2, bar - g - nb.d); db.draw(c, x + m + (fw - db.w) / 2, bar + g + db.a); }};
+    }
+    if (n.t === 'sqrt') { var bb = lay(n.b, sz, lvl), pad = sz * .12, rw = sz * .58, lw2 = Math.max(1, sz * .055), ib = n.idx ? lay(n.idx, sz * .55, lvl + 1) : null;
+      var off = ib ? Math.max(0, ib.w - rw * .45) : 0, A2 = bb.a + pad + lw2, D2 = bb.d + sz * .02;
+      return {w: off + rw + bb.w + sz * .12, a: A2 + lw2, d: D2, draw: function(c, x, y){ var x0 = x + off, top = y - A2, mid = y + D2 - (A2 + D2) * .42;
+        c.save(); c.lineWidth = lw2; c.lineJoin = 'round'; c.lineCap = 'round'; c.setLineDash([]); c.beginPath();
+        c.moveTo(x0 + rw * .02, mid + sz * .04); c.lineTo(x0 + rw * .24, mid - sz * .05); c.lineTo(x0 + rw * .55, y + D2); c.lineTo(x0 + rw, top); c.lineTo(x0 + rw + bb.w + sz * .1, top);
+        c.stroke(); c.restore(); if (ib) ib.draw(c, x0 + rw * .42 - ib.w, mid - sz * .2); bb.draw(c, x0 + rw + sz * .04, y); }};
+    }
+    if (n.t === 'scr') { var base = lay(n.b, sz, lvl), ss = Math.max(sz * .68, 8), up = n.sup ? lay(n.sup, ss, lvl + 1) : null, dn = n.sub ? lay(n.sub, ss, lvl + 1) : null;
+      var tall = base.a > sz * .9, sh = up ? Math.max(sz * .4, tall ? base.a - up.a * .45 : 0, up.d + sz * .25) : 0, sb = dn ? Math.max(sz * .2, tall ? base.d : 0, dn.a - sz * .45) : 0;
+      var gap = sz * .03;
+      return {w: base.w + gap + Math.max(up ? up.w : 0, dn ? dn.w : 0) + sz * .04, a: Math.max(base.a, up ? sh + up.a : 0), d: Math.max(base.d, dn ? sb + dn.d : 0), draw: function(c, x, y){
+        base.draw(c, x, y); if (up) up.draw(c, x + base.w + gap, y - sh); if (dn) dn.draw(c, x + base.w + gap, y + sb); }};
+    }
+    return txt('?', sz);
+  }
+  var cache = {}, n = 0;
+  function box(s, sz){ var k = sz + '|' + s; if (cache[k]) return cache[k]; if (++n > 600) { cache = {}; n = 0; }
+    var b; try { b = lay(parse(s), sz, 0); } catch (e) { b = txt(String(s), sz); } return (cache[k] = b); }
+  function draw(c, s, sz, x, top, color){ var b = box(s, sz); c.save(); c.setLineDash([]); c.fillStyle = c.strokeStyle = color || '#2B2440'; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; b.draw(c, x, top + b.a); c.restore(); return b; }
+  function size(s, sz){ var b = box(s, sz); return {w: b.w, h: b.a + b.d, a: b.a}; }
+  return {parse: parse, size: size, draw: draw};
+})();
+
+/* ── шаблоны: координатная плоскость, числовая прямая, тригонометрический круг ── */
+function radLabel(deg){ var g = function(a, b){ return b ? g(b, a % b) : a; }, q = 180 / g(deg, 180), p = deg / g(deg, 180);
+  if (deg === 0) return '0'; var s = (p === 1 ? '' : p) + 'π'; return q === 1 ? s : (p === 1 ? 'π/' + q : '(' + s + ')/' + q); }
+var UNIT_ANG = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+function arrowHead(c, x, y, ang, L){ c.beginPath(); c.moveTo(x, y); c.lineTo(x - L * Math.cos(ang - .4), y - L * Math.sin(ang - .4)); c.lineTo(x - L * Math.cos(ang + .4), y - L * Math.sin(ang + .4)); c.closePath(); c.fill(); }
+function tplGeom(e){
+  var o = e.o || {};
+  if (e.kind === 'coord') { var ux = e.ww / (o.x1 - o.x0), uy = e.hh / (o.y1 - o.y0);
+    return {ux: ux, uy: uy, X: function(v){ return e.x + (v - o.x0) * ux; }, Y: function(v){ return e.y + (o.y1 - v) * uy; }}; }
+  if (e.kind === 'numline') { var u = e.ww / (o.b - o.a + 1); return {u: u, X: function(v){ return e.x + (v - o.a + .5) * u; }, Y: e.y + e.hh * .42}; }
+  var R = e.ww * .34; return {R: R, cx: e.x + e.ww / 2, cy: e.y + e.hh / 2};
+}
+function drawTpl(c, e){
+  var o = e.o || {}, G = tplGeom(e), ink = '#2B2440', sf = SERIF_LBL;
+  c.save(); c.setLineDash([]); c.lineCap = 'butt'; c.fillStyle = ink; c.strokeStyle = ink; c.textBaseline = 'alphabetic';
+  if (e.kind === 'coord') {
+    var u = Math.min(G.ux, G.uy), fs = Math.max(11, Math.min(20, u * .42)), stepN = u < 22 ? (u < 12 ? 5 : 2) : 1;
+    c.strokeStyle = '#C9D7EA'; c.lineWidth = 1; c.beginPath();
+    for (var i = o.x0; i <= o.x1; i++) { c.moveTo(G.X(i), e.y); c.lineTo(G.X(i), e.y + e.hh); }
+    for (var j = o.y0; j <= o.y1; j++) { c.moveTo(e.x, G.Y(j)); c.lineTo(e.x + e.ww, G.Y(j)); } c.stroke();
+    c.strokeStyle = ink; c.lineWidth = 1.6; var ox = G.X(0), oy = G.Y(0), L = Math.max(8, Math.min(13, u * .3));
+    c.beginPath(); c.moveTo(e.x, oy); c.lineTo(e.x + e.ww + L * .3, oy); c.moveTo(ox, e.y + e.hh); c.lineTo(ox, e.y - L * .3); c.stroke();
+    arrowHead(c, e.x + e.ww + L, oy, 0, L); arrowHead(c, ox, e.y - L, -Math.PI / 2, L);
+    c.font = 'italic 400 ' + (fs * 1.15) + 'px ' + sf; c.fillText('x', e.x + e.ww + L * .2, oy + fs * 1.25); c.fillText('y', ox + fs * .45, e.y - L * .2);
+    c.font = '400 ' + fs + 'px ' + sf; c.textAlign = 'right'; c.fillText('0', ox - fs * .25, oy + fs * 1.05); c.lineWidth = 1.4;
+    for (var a = o.x0; a <= o.x1; a++) { if (!a) continue; c.beginPath(); c.moveTo(G.X(a), oy - 3); c.lineTo(G.X(a), oy + 3); c.stroke();
+      if ((o.n && a % stepN === 0 && a < o.x1) || a === 1) { c.textAlign = 'center'; c.fillText(a < 0 ? '−' + (-a) : String(a), G.X(a), oy + fs * 1.05); } }
+    for (var b = o.y0; b <= o.y1; b++) { if (!b) continue; c.beginPath(); c.moveTo(ox - 3, G.Y(b)); c.lineTo(ox + 3, G.Y(b)); c.stroke();
+      if ((o.n && b % stepN === 0 && b < o.y1) || b === 1) { c.textAlign = 'right'; c.fillText(b < 0 ? '−' + (-b) : String(b), ox - fs * .3, G.Y(b) + fs * .35); } }
+  } else if (e.kind === 'numline') {
+    var fs2 = Math.max(12, Math.min(20, G.u * .45)), L2 = 12, every = Math.max(1, Math.ceil(fs2 * 1.6 / G.u)); c.lineWidth = 1.8;
+    c.beginPath(); c.moveTo(e.x, G.Y); c.lineTo(e.x + e.ww - 2, G.Y); c.stroke(); arrowHead(c, e.x + e.ww + L2 * .4, G.Y, 0, L2);
+    c.font = '400 ' + fs2 + 'px ' + sf; c.textAlign = 'center'; c.lineWidth = 1.5;
+    for (var v = o.a; v <= o.b; v++) { c.beginPath(); c.moveTo(G.X(v), G.Y - 6); c.lineTo(G.X(v), G.Y + 6); c.stroke();
+      if ((v - o.a) % every === 0 || v === 0) c.fillText(v < 0 ? '−' + (-v) : String(v), G.X(v), G.Y + 6 + fs2 * 1.05); }
+    c.font = 'italic 400 ' + (fs2 * 1.15) + 'px ' + sf; c.fillText('x', e.x + e.ww, G.Y - 10);
+  } else {
+    var R = G.R, cx0 = G.cx, cy0 = G.cy, ext = e.ww * .46, fs3 = Math.max(11, Math.min(22, e.ww * .036)), L3 = Math.max(9, e.ww * .022);
+    c.lineWidth = 1.5; c.beginPath(); c.moveTo(cx0 - ext, cy0); c.lineTo(cx0 + ext, cy0); c.moveTo(cx0, cy0 + ext); c.lineTo(cx0, cy0 - ext); c.stroke();
+    arrowHead(c, cx0 + ext + L3 * .6, cy0, 0, L3); arrowHead(c, cx0, cy0 - ext - L3 * .6, -Math.PI / 2, L3);
+    c.font = 'italic 400 ' + (fs3 * 1.15) + 'px ' + sf; c.fillText('x', cx0 + ext - fs3 * .2, cy0 + fs3 * 1.4); c.fillText('y', cx0 - fs3 * 1.1, cy0 - ext + fs3 * .2);
+    c.lineWidth = 2; c.strokeStyle = '#3E6FD8'; c.beginPath(); c.arc(cx0, cy0, R, 0, Math.PI * 2); c.stroke();
+    c.font = '400 ' + fs3 + 'px ' + sf; c.textAlign = 'right'; c.fillText('0', cx0 - fs3 * .3, cy0 + fs3 * 1.1);
+    UNIT_ANG.forEach(function(d){ var t = d * Math.PI / 180, px = cx0 + R * Math.cos(t), py = cy0 - R * Math.sin(t);
+      c.fillStyle = ink; c.beginPath(); c.arc(px, py, Math.max(2.5, e.ww * .006), 0, Math.PI * 2); c.fill();
+      if (o.m === 'none') return; var lw = o.m === 'rad' ? MF.size(radLabel(d), fs3) : {w: fs3 * (String(d).length * .5 + .4), h: fs3};
+      var lr = R + fs3 * .55 + .5 * (Math.abs(Math.cos(t)) * lw.w + Math.abs(Math.sin(t)) * lw.h), lx = cx0 + lr * Math.cos(t), ly = cy0 - lr * Math.sin(t);
+      if (d % 180 === 0) ly -= lw.h * .55; else if (d % 90 === 0) lx += lw.w * .5 + fs3 * .35;
+      if (o.m === 'deg') { c.textAlign = 'center'; c.fillText(d + '°', lx, ly + fs3 * .35); }
+      else { var sz = MF.size(radLabel(d), fs3); MF.draw(c, radLabel(d), fs3, lx - sz.w / 2, ly - sz.h / 2, ink); } });
+  }
+  c.restore();
+}
+function tplAnchors(e){
+  var o = e.o || {}, G = tplGeom(e), out = [];
+  if (e.kind === 'coord') { for (var i = o.x0; i <= o.x1; i++) for (var j = o.y0; j <= o.y1; j++) out.push([G.X(i), G.Y(j)]); }
+  else if (e.kind === 'numline') { for (var v = o.a; v <= o.b; v++) out.push([G.X(v), G.Y]); }
+  else { out.push([G.cx, G.cy]); UNIT_ANG.forEach(function(d){ var t = d * Math.PI / 180; out.push([G.cx + G.R * Math.cos(t), G.cy - G.R * Math.sin(t)]); }); }
+  return out;
+}
 
 /* ── размеры и отрисовка ── */
 function layout(){
@@ -186,6 +392,8 @@ function drawEl(c, e){
     if (e.l) { c.font = 'italic 600 21px "Times New Roman",Georgia,serif'; c.textBaseline = 'bottom'; c.fillText(e.l, e.x + 6, e.y - 3); } }
   else if (e.t === 'text') { c.font = '600 ' + e.fs + 'px ' + FONT; c.textBaseline = 'top';
     String(e.s).split('\n').forEach(function(line, i){ c.fillText(line, e.x, e.y + i * e.fs * 1.25); }); }
+  else if (e.t === 'math') { MF.draw(c, e.s, e.fs, e.x, e.y, e.c); }
+  else if (e.t === 'tpl') { drawTpl(c, e); }
   else if (e.t === 'img') { var o = imgFor(e.src);
     if (o.ok) c.drawImage(o.img, e.x, e.y, e.ww, e.hh);
     else { c.setLineDash([6, 5]); c.lineWidth = 1.5; c.strokeStyle = '#B7AFC9'; c.strokeRect(e.x, e.y, e.ww, e.hh);
@@ -198,7 +406,8 @@ function bbox(e){
   if (e.t === 'pen') { var a = [1e9, 1e9, -1e9, -1e9]; for (var i = 0; i < e.pts.length; i += 2) { a[0] = Math.min(a[0], e.pts[i]); a[1] = Math.min(a[1], e.pts[i + 1]); a[2] = Math.max(a[2], e.pts[i]); a[3] = Math.max(a[3], e.pts[i + 1]); } return a; }
   if (e.t === 'line') return [Math.min(e.x1, e.x2), Math.min(e.y1, e.y2), Math.max(e.x1, e.x2), Math.max(e.y1, e.y2)];
   if (e.t === 'circ') return [e.cx - e.r, e.cy - e.r, e.cx + e.r, e.cy + e.r];
-  if (e.t === 'rect' || e.t === 'img') return [Math.min(e.x, e.x + e.ww), Math.min(e.y, e.y + e.hh), Math.max(e.x, e.x + e.ww), Math.max(e.y, e.y + e.hh)];
+  if (e.t === 'math') { var ms = MF.size(e.s, e.fs); return [e.x, e.y, e.x + Math.max(ms.w, 10), e.y + ms.h]; }
+  if (e.t === 'rect' || e.t === 'img' || e.t === 'tpl') return [Math.min(e.x, e.x + e.ww), Math.min(e.y, e.y + e.hh), Math.max(e.x, e.x + e.ww), Math.max(e.y, e.y + e.hh)];
   if (e.t === 'pt') return [e.x - 5, e.y - 26, e.x + 24, e.y + 5];
   if (e.t === 'text') { var s = textSize(e); return [e.x, e.y, e.x + s.w, e.y + s.h]; }
   return [0, 0, 0, 0];
@@ -207,7 +416,7 @@ function drawSel(){
   var e = sel && find(sel); if (!e) return; var b = bbox(e), p = 6 / view.z;
   cx.save(); cx.setLineDash([5 / view.z, 4 / view.z]); cx.lineWidth = 1.5 / view.z; cx.strokeStyle = '#7B61D9';
   cx.strokeRect(b[0] - p, b[1] - p, b[2] - b[0] + 2 * p, b[3] - b[1] + 2 * p);
-  if (e.t === 'img') { cx.setLineDash([]); cx.fillStyle = '#7B61D9'; var hs = 9 / view.z; cx.fillRect(b[2] + p - hs / 2, b[3] + p - hs / 2, hs, hs); }
+  if (e.t === 'img' || e.t === 'tpl') { cx.setLineDash([]); cx.fillStyle = '#7B61D9'; var hs = 9 / view.z; cx.fillRect(b[2] + p - hs / 2, b[3] + p - hs / 2, hs, hs); }
   cx.restore();
 }
 function drawSnap(){ if (!snapMark) return; cx.save(); cx.strokeStyle = '#7B61D9'; cx.lineWidth = 2 / view.z; cx.beginPath(); cx.arc(snapMark.x, snapMark.y, 7 / view.z, 0, Math.PI * 2); cx.stroke(); cx.restore(); }
@@ -332,9 +541,9 @@ function hit(e, p){
   if (e.t === 'rect') { var b = bbox(e); return dSeg(p, b[0], b[1], b[2], b[1]) < tol || dSeg(p, b[2], b[1], b[2], b[3]) < tol || dSeg(p, b[2], b[3], b[0], b[3]) < tol || dSeg(p, b[0], b[3], b[0], b[1]) < tol; }
   var bb = bbox(e); return p.x >= bb[0] - 4 && p.x <= bb[2] + 4 && p.y >= bb[1] - 4 && p.y <= bb[3] + 4;
 }
-function topHit(p){ for (var i = els.length - 1; i >= 0; i--) if (hit(els[i], p)) return els[i]; return null; }
+function topHit(p, noTpl){ for (var i = els.length - 1; i >= 0; i--) if (!(noTpl && els[i].t === 'tpl') && hit(els[i], p)) return els[i]; return null; }
 function anchors(e){ if (e.t === 'pt') return [[e.x, e.y]]; if (e.t === 'line') return [[e.x1, e.y1], [e.x2, e.y2]]; if (e.t === 'circ') return [[e.cx, e.cy]];
-  if (e.t === 'rect') return [[e.x, e.y], [e.x + e.ww, e.y], [e.x, e.y + e.hh], [e.x + e.ww, e.y + e.hh]]; return []; }
+  if (e.t === 'rect') return [[e.x, e.y], [e.x + e.ww, e.y], [e.x, e.y + e.hh], [e.x + e.ww, e.y + e.hh]]; if (e.t === 'tpl') return tplAnchors(e); return []; }
 function snap(p, skip){
   var best = null, bd = 10 / view.z;
   els.forEach(function(e){ if (e.id === skip) return; anchors(e).forEach(function(a){ var d = Math.hypot(a[0] - p.x, a[1] - p.y); if (d < bd) { bd = d; best = {x: a[0], y: a[1]}; } }); });
@@ -355,7 +564,7 @@ function nextLetter(){ var used = {}; els.forEach(function(e){ if (e.t === 'pt' 
 /* ── мышь ── */
 function pt2(p){ return {x: r1(p.x), y: r1(p.y)}; }
 cv.addEventListener('pointerdown', function(ev){
-  if (!board) return; closePops(); if (editing) { commitText(); return; }
+  if (!board) return; closePops(); if (editing) { commitText(); return; } if (mathEd) { commitMath(); return; }
   var p = W2(ev); cv.setPointerCapture(ev.pointerId);
   if (ev.button === 1 || spaceDown || tool === 'hand') { act = {k: 'pan', sx: ev.clientX, sy: ev.clientY, vx: view.x, vy: view.y}; stage.classList.add('panning'); return; }
   if (ev.button !== 0) return;
@@ -367,11 +576,12 @@ cv.addEventListener('pointerdown', function(ev){
   else if (tool === 'pt') { var s2 = pt2(snap(p)); var e = {id: nid(), t: 'pt', x: s2.x, y: s2.y, l: nextLetter(), c: color, by: me.uid}; snapMark = null;
     commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]}); }
   else if (tool === 'text') { ev.preventDefault(); var h = topHit(p); if (h && h.t === 'text') openText(h); else openText(null, p); }
+  else if (tool === 'math') { ev.preventDefault(); var hm = topHit(p, true); openMath(hm && hm.t === 'math' ? hm : null, p); }
   else if (tool === 'eraser') { act = {k: 'erase', gone: []}; eraseAt(p); }
   else if (tool === 'laser') { act = {k: 'laser', buf: []}; laserAt(p); }
   else if (tool === 'select') {
     var hs = sel && find(sel);
-    if (hs && hs.t === 'img') { var b = bbox(hs), pd = 6 / view.z; if (Math.abs(p.x - (b[2] + pd)) < 10 / view.z && Math.abs(p.y - (b[3] + pd)) < 10 / view.z) { act = {k: 'resize', orig: clone(hs), p: p}; return; } }
+    if (hs && (hs.t === 'img' || hs.t === 'tpl')) { var b = bbox(hs), pd = 6 / view.z; if (Math.abs(p.x - (b[2] + pd)) < 10 / view.z && Math.abs(p.y - (b[3] + pd)) < 10 / view.z) { act = {k: 'resize', orig: clone(hs), p: p}; return; } }
     var t = topHit(p); sel = t ? t.id : null; if (t) act = {k: 'move', orig: clone(t), p: p, moved: false}; draw();
   }
   draw();
@@ -406,10 +616,10 @@ window.addEventListener('pointerup', function(){
   else if ((a.k === 'move' && a.moved) || a.k === 'resize') { var now = find(a.orig.id); if (now) { var op = {k: 'upd', els: [clone(now)]}; apply(op, false); send('op', op); undoS.push({op: op, inv: {k: 'upd', els: [a.orig]}}); redoS = []; btns(); } }
   draw();
 });
-function eraseAt(p){ var h = topHit(p); if (!h) return; act.gone.push(clone(h)); var op = {k: 'del', ids: [h.id]}; apply(op, false); send('op', op); }
+function eraseAt(p){ var h = topHit(p, true); if (!h) return; act.gone.push(clone(h)); var op = {k: 'del', ids: [h.id]}; apply(op, false); send('op', op); }
 function laserAt(p){ lasers.push({x: p.x, y: p.y, t: Date.now(), by: me.uid}); act.buf.push([r1(p.x), r1(p.y)]);
   if (act.buf.length > 4) { send('laser', {by: me.uid, pts: act.buf}); act.buf = []; } draw(); }
-cv.addEventListener('dblclick', function(ev){ var h = topHit(W2(ev)); if (!h) return; if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); });
+cv.addEventListener('dblclick', function(ev){ var h = topHit(W2(ev), true); if (!h) return; if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); else if (h.t === 'math') openMath(h); });
 stage.addEventListener('wheel', function(ev){
   ev.preventDefault(); if (ev.ctrlKey || ev.metaKey) { var r = cv.getBoundingClientRect(); zoomAt(view.z * Math.exp(-ev.deltaY * .0025), ev.clientX - r.left, ev.clientY - r.top); }
   else { view.x += (ev.shiftKey ? ev.deltaY : ev.deltaX) / view.z; view.y += (ev.shiftKey ? 0 : ev.deltaY) / view.z; draw(); }
@@ -451,13 +661,92 @@ function commitText(){
   commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]});
 }
 
+/* ── формулы: редактор ── */
+var mathEd = null;
+function openMath(e, p){
+  if (editing) commitText(); var box = $('bdMath'), inp = $('bdMathIn'), x = e ? e.x : p.x, y = e ? e.y : p.y;
+  mathEd = {e: e, p: e ? null : {x: r1(x), y: r1(y)}}; inp.value = e ? e.s : ''; $('bdMathSz').value = String(e ? e.fs : (width >= 8 ? 44 : width >= 4 ? 30 : 30));
+  if (!$('bdMathSz').value) $('bdMathSz').value = '30';
+  box.hidden = false; var sx = (x - view.x) * view.z, sy = (y - view.y) * view.z + (e ? MF.size(e.s, e.fs).h * view.z + 8 : 8);
+  box.style.left = Math.max(8, Math.min(stage.clientWidth - box.offsetWidth - 8, sx)) + 'px';
+  box.style.top = Math.max(8, Math.min(stage.clientHeight - box.offsetHeight - 8, sy)) + 'px';
+  mathPreview(); inp.focus(); inp.select();
+}
+function mathPreview(){
+  var c = $('bdMathPv'), g = c.getContext('2d'), s = $('bdMathIn').value, sz = +$('bdMathSz').value || 30, k = 2;
+  var m = MF.size(s || ' ', sz), w = c.clientWidth || 380, fit = Math.min(1, (w - 24) / Math.max(m.w, 1)), h = Math.max(60, m.h * fit + 24);
+  c.width = Math.round(w * k); c.height = Math.round(h * k); c.style.height = h + 'px'; g.setTransform(k, 0, 0, k, 0, 0); g.clearRect(0, 0, w, h);
+  if (!s.trim()) { g.fillStyle = '#9A92AD'; g.font = '600 13px ' + FONT; g.fillText('Здесь появится формула', 12, h / 2 + 4); return; }
+  g.save(); g.translate(12, (h - m.h * fit) / 2); g.scale(fit, fit); MF.draw(g, s, sz, 0, 0, mathEd && mathEd.e ? mathEd.e.c : color); g.restore();
+}
+function closeMath(){ mathEd = null; $('bdMath').hidden = true; }
+function commitMath(){
+  if (!mathEd) return; var v = $('bdMathIn').value.trim(), fs = +$('bdMathSz').value || 30, ed = mathEd; closeMath();
+  if (ed.e) { if (!v) { commit({k: 'del', ids: [ed.e.id]}, {k: 'add', els: [ed.e]}); return; } if (v === ed.e.s && fs === ed.e.fs) return;
+    var u = clone(ed.e); u.s = v; u.fs = fs; commit({k: 'upd', els: [u]}, {k: 'upd', els: [ed.e]}); return; }
+  if (!v) return; var e = {id: nid(), t: 'math', x: ed.p.x, y: ed.p.y, s: v, fs: fs, c: color, by: me.uid};
+  commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]});
+}
+$('bdMathIn').addEventListener('input', mathPreview); $('bdMathSz').addEventListener('change', function(){ mathPreview(); $('bdMathIn').focus(); });
+$('bdMathIn').addEventListener('keydown', function(ev){ if (ev.key === 'Enter') { ev.preventDefault(); commitMath(); } else if (ev.key === 'Escape') { ev.preventDefault(); closeMath(); } ev.stopPropagation(); });
+$('bdMathOk').addEventListener('click', commitMath); $('bdMathX').addEventListener('click', closeMath);
+$('bdMath').addEventListener('pointerdown', function(ev){ ev.stopPropagation(); });
+$('bdMath').querySelector('.bd-mbtns').addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+$('bdMath').querySelector('.bd-mbtns').addEventListener('click', function(ev){ var b = ev.target.closest('[data-ins]'); if (!b) return;
+  var inp = $('bdMathIn'), s = inp.selectionStart, e = inp.selectionEnd, picked = inp.value.slice(s, e), spec = b.dataset.ins, at = spec.indexOf('‸');
+  var ins = spec.replace('‸', picked); inp.value = inp.value.slice(0, s) + ins + inp.value.slice(e);
+  var caret = s + at + picked.length; inp.selectionStart = inp.selectionEnd = caret; inp.focus(); mathPreview(); });
+
+/* ── шаблоны ── */
+function tplPreview(cnv, el){ var w = cnv.clientWidth || 220, h = cnv.clientHeight || 150, k = 2; cnv.width = w * k; cnv.height = h * k;
+  var g = cnv.getContext('2d'); g.setTransform(k, 0, 0, k, 0, 0); g.clearRect(0, 0, w, h);
+  var s = Math.min((w - 30) / el.ww, (h - 30) / el.hh); g.translate((w - el.ww * s) / 2, (h - el.hh * s) / 2); g.scale(s, s); drawTpl(g, Object.assign({}, el, {x: 0, y: 0})); }
+function intv(id, d){ var v = parseInt($(id).value, 10); return isNaN(v) ? d : v; }
+function tplEl(kind){
+  if (kind === 'coord') { var x0 = intv('tcX0', -6), x1 = intv('tcX1', 6), y0 = intv('tcY0', -5), y1 = intv('tcY1', 5);
+    if (!(x0 < 0 && x1 > 0 && y0 < 0 && y1 > 0)) return {err: 'Начало координат должно быть внутри: x и y — от отрицательного числа до положительного'};
+    var span = Math.max(x1 - x0, y1 - y0); if (span > 40) return {err: 'Слишком большой диапазон: не больше 40 клеток по каждой оси'};
+    var u = span <= 14 ? 48 : span <= 28 ? 24 : 12; return {t: 'tpl', kind: 'coord', ww: (x1 - x0) * u, hh: (y1 - y0) * u, o: {x0: x0, x1: x1, y0: y0, y1: y1, n: $('tcN').checked ? 1 : 0}}; }
+  if (kind === 'numline') { var a = intv('tnA', -5), b = intv('tnB', 5); if (b <= a) return {err: '«До» должно быть больше, чем «от»'};
+    if (b - a > 40) return {err: 'Слишком длинная прямая: не больше 40 делений'}; var un = b - a <= 16 ? 48 : 24;
+    return {t: 'tpl', kind: 'numline', ww: (b - a + 1) * un, hh: 72, o: {a: a, b: b}}; }
+  return {t: 'tpl', kind: 'unit', ww: 480, hh: 480, o: {m: $('tuM').value}};
+}
+function renderTpl(){
+  var f = $('bdTpl'); if (!f.dataset.done) { f.dataset.done = 1;
+    f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Шаблоны</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
+      '<p class="muted" style="margin:6px 0 0;font-size:13px">Шаблон встаёт по центру экрана. Точки и отрезки сами примагничиваются к узлам сетки и отметкам. Размер — уголок справа внизу, удалить — Delete.</p><div class="bd-tpls">' +
+      '<div class="bd-tpl"><canvas data-pv="coord"></canvas><h4>Координатная плоскость</h4>' +
+        '<div class="tf">x от <input type="number" id="tcX0" value="-6"> до <input type="number" id="tcX1" value="6"></div>' +
+        '<div class="tf">y от <input type="number" id="tcY0" value="-5"> до <input type="number" id="tcY1" value="5"></div>' +
+        '<label class="tf"><input type="checkbox" id="tcN"> числа на осях</label><button type="button" class="bd-t dark" data-tpl="coord">Вставить</button></div>' +
+      '<div class="bd-tpl"><canvas data-pv="numline"></canvas><h4>Числовая прямая</h4>' +
+        '<div class="tf">от <input type="number" id="tnA" value="-5"> до <input type="number" id="tnB" value="5"></div><button type="button" class="bd-t dark" data-tpl="numline">Вставить</button></div>' +
+      '<div class="bd-tpl"><canvas data-pv="unit"></canvas><h4>Тригонометрический круг</h4>' +
+        '<div class="tf">Подписи <select id="tuM"><option value="rad">радианы</option><option value="deg">градусы</option><option value="none">без подписей</option></select></div>' +
+        '<button type="button" class="bd-t dark" data-tpl="unit">Вставить</button></div></div>';
+    f.addEventListener('input', function(){ previews(); }); f.addEventListener('change', function(){ previews(); });
+    f.addEventListener('click', function(ev){ ev.stopPropagation(); if (ev.target.closest('[data-x]')) { closePops(); return; } var b = ev.target.closest('[data-tpl]'); if (b) insertTpl(b.dataset.tpl); });
+  }
+  previews();
+}
+function previews(){ document.querySelectorAll('#bdTpl [data-pv]').forEach(function(cnv){ var el = tplEl(cnv.dataset.pv); var g = cnv.getContext('2d');
+  if (el.err) { cnv.width = cnv.width; g.fillStyle = '#C0563B'; g.font = '600 12px ' + FONT; g.fillText('проверьте числа', 10, 20); return; } tplPreview(cnv, el); }); }
+function insertTpl(kind){
+  var el = tplEl(kind); if (el.err) { toast(el.err); return; }
+  var c = centerWorld(); el.id = nid(); el.by = me.uid; el.x = Math.round((c.x - el.ww / 2) / 24) * 24; el.y = Math.round((c.y - el.hh / 2) / 24) * 24;
+  closePops(); commit({k: 'add', els: [el]}, {k: 'del', ids: [el.id]}); setTool('select'); sel = el.id;
+  if (el.ww * view.z > cv.clientWidth - 40 || el.hh * view.z > cv.clientHeight - 40) showArea(el.x - 30, el.y - 30, el.ww + 60, el.hh + 60); draw();
+}
+$('bdTplBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdTpl'); if (!f.hidden) { f.hidden = true; return; } closePops(); f.hidden = false; renderTpl(); });
+
 /* ── панель ── */
 function setTool(t){ tool = t; stage.dataset.tool = t; document.querySelectorAll('[data-tool]').forEach(function(b){ b.classList.toggle('on', b.dataset.tool === t); });
   if (t !== 'select') sel = null; snapMark = null; draw(); }
 document.querySelectorAll('[data-tool]').forEach(function(b){ b.addEventListener('click', function(){ setTool(b.dataset.tool); }); });
 document.querySelectorAll('[data-color]').forEach(function(b){ b.addEventListener('click', function(){ color = b.dataset.color;
   document.querySelectorAll('[data-color]').forEach(function(x){ x.classList.toggle('on', x === b); });
-  var e = sel && find(sel); if (e && e.t !== 'img') { var n = clone(e); n.c = color; commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); }
+  var e = sel && find(sel); if (e && e.t !== 'img' && e.t !== 'tpl') { var n = clone(e); n.c = color; commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); }
   if (['select', 'hand', 'eraser', 'laser'].indexOf(tool) >= 0 && !sel) setTool('pen'); }); });
 document.querySelectorAll('[data-w]').forEach(function(b){ b.addEventListener('click', function(){ width = +b.dataset.w;
   document.querySelectorAll('[data-w]').forEach(function(x){ x.classList.toggle('on', x === b); });
@@ -488,7 +777,7 @@ window.addEventListener('keydown', function(ev){
   if (k === ' ') { spaceDown = true; stage.classList.add('pan'); ev.preventDefault(); return; }
   if ((k === 'delete' || k === 'backspace') && sel) { var e = find(sel); if (e) commit({k: 'del', ids: [e.id]}, {k: 'add', els: [clone(e)]}); sel = null; ev.preventDefault(); return; }
   if (k === 'escape') { sel = null; closePops(); draw(); return; }
-  var map = {v: 'select', h: 'hand', p: 'pen', l: 'line', a: 'arrow', c: 'circ', r: 'rect', o: 'pt', t: 'text', e: 'eraser', k: 'laser'};
+  var map = {v: 'select', h: 'hand', p: 'pen', l: 'line', a: 'arrow', c: 'circ', r: 'rect', o: 'pt', t: 'text', m: 'math', e: 'eraser', k: 'laser'};
   if (k === 'n' && lastSlide) { $('bdSlNext').click(); return; }
   if (map[k]) { setTool(map[k]); return; } if (k === 'd') setDash(!dashed); if (k === 'f') fit(); if (k === 'g') $('bdBg').click();
 });
@@ -508,10 +797,10 @@ function exportPng(){
 }
 
 /* ── доски: список, создание, открытие ── */
-function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; $('bdSl').hidden = true; }
+function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; $('bdSl').hidden = true; $('bdTpl').hidden = true; }
 $('bdPick').addEventListener('click', function(ev){ ev.stopPropagation(); var m = $('bdMenu'); if (!m.hidden) { m.hidden = true; return; } closePops(); renderMenu(); m.hidden = false; });
 $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdFigs'); if (!f.hidden) { f.hidden = true; return; } closePops(); renderFigs(); f.hidden = false; });
-document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn')) closePops(); });
+document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
@@ -615,7 +904,7 @@ async function checkNew(){
     bn.querySelectorAll('button')[0].onclick = function(){ bn.hidden = true; openBoard(nb.id); }; bn.querySelectorAll('button')[1].onclick = function(){ bn.hidden = true; checkNew.seen[nb.id] = 1; }; }
 }
 checkNew.seen = {};
-window.__board = {els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }, imgOk: function(src){ return !!(imgs[src] && imgs[src].ok); }};   // для автотестов
+window.__board = {els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }, mf: MF, tplAnchors: tplAnchors, imgOk: function(src){ return !!(imgs[src] && imgs[src].ok); }};   // для автотестов
 
 K.state.then(async function(st){
   if (!st || !st.session || !K.sb) return; sb = K.sb; document.body.classList.add('board-page');

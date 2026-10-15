@@ -316,6 +316,44 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await pS.evaluate(() => localStorage.setItem('mockRtFails', '1')); await pS.reload(); await pS.waitForTimeout(800); const off = await pS.textContent('#bdPeer');
   await pS.waitForTimeout(2600); const on = await pS.textContent('#bdPeer');
   rec('BD-17', off.includes('без живой связи') && on.includes('Учитель на доске'), off + ' → ' + on);
+  // BD-21…27: шаблоны и формулы
+  await pT.evaluate(() => { const v = window.__board.view(); v.x += 4000; v.y += 4000; });
+  await pT.click('#bdTplBtn'); await pT.fill('#tcX0', '-4'); await pT.fill('#tcX1', '4'); await pT.fill('#tcY0', '-3'); await pT.fill('#tcY1', '3'); await pT.check('#tcN');
+  await pT.click('[data-tpl=coord]'); await pS.waitForTimeout(700);
+  let cp = (await E(pS)).find(e => e.t === 'tpl' && e.kind === 'coord');
+  rec('BD-21', cp && cp.o.x0 === -4 && cp.o.x1 === 4 && cp.o.y1 === 3 && cp.o.n === 1 && cp.ww === 384 && cp.hh === 288 && cp.x % 24 === 0, cp && JSON.stringify(cp.o) + ' ' + cp.ww + '×' + cp.hh);
+  const zz = (await pT.evaluate(() => window.__board.view())).z, hd = await scr(pT, cp.x + cp.ww + 6 / zz, cp.y + cp.hh + 6 / zz);
+  await pT.mouse.move(hd.x, hd.y); await pT.mouse.down(); await pT.mouse.move(hd.x + 40, hd.y); await pT.mouse.move(hd.x + 96 * zz, hd.y + 3); await pT.mouse.up(); await pS.waitForTimeout(600);
+  cp = (await E(pS)).find(e => e.t === 'tpl' && e.kind === 'coord');
+  rec('BD-27', cp && Math.abs(cp.ww - (384 + 96 + 6 / zz)) < 1.5 && Math.abs(cp.hh / cp.ww - 0.75) < 0.01, cp && cp.ww + '×' + cp.hh + ' при масштабе ' + zz.toFixed(2));
+  const L = {x: cp.x + (2 - cp.o.x0) * cp.ww / 8, y: cp.y + (cp.o.y1 - 1) * cp.hh / 6};
+  await pT.click('[data-tool=pt]'); const q22 = await scr(pT, L.x + 3, L.y - 3); await pT.mouse.click(q22.x, q22.y); await pS.waitForTimeout(500);
+  const pts22 = (await E(pS)).filter(e => e.t === 'pt'), p22 = pts22[pts22.length - 1];
+  rec('BD-22', p22 && Math.abs(p22.x - L.x) < .11 && Math.abs(p22.y - L.y) < .11, p22 && `точка ${p22.x}; ${p22.y}, узел (2; 1) = ${L.x.toFixed(1)}; ${L.y.toFixed(1)}`);
+  await pT.evaluate(() => { const v = window.__board.view(); v.x += 3000; });
+  await pT.click('#bdTplBtn'); await pT.selectOption('#tuM', 'deg'); await pT.click('[data-tpl=unit]'); await pT.waitForTimeout(400);
+  const uc = (await E(pT)).find(e => e.t === 'tpl' && e.kind === 'unit'); const in1 = await scr(pT, uc.x + uc.ww * .6, uc.y + uc.hh * .62);
+  await pT.click('[data-tool=eraser]'); await pT.mouse.move(in1.x, in1.y); await pT.mouse.down(); await pT.mouse.move(in1.x + 25, in1.y + 6); await pT.mouse.up(); await pT.waitForTimeout(200);
+  const still = (await E(pT)).some(e => e.id === uc.id);
+  await pT.click('[data-tool=select]'); await pT.mouse.click(in1.x, in1.y); await pT.keyboard.press('Delete'); await pS.waitForTimeout(500); const gone = !(await E(pS)).some(e => e.id === uc.id);
+  await pT.click('#bdUndo'); await pS.waitForTimeout(500); const back23 = (await E(pS)).some(e => e.id === uc.id);
+  rec('BD-23', uc && uc.o.m === 'deg' && uc.ww === 480 && still && gone && back23, `ластик не стёр шаблон ${still}, Delete ${gone}, отмена вернула ${back23}`);
+  await pT.evaluate(() => { const v = window.__board.view(); v.y += 3000; }); const cb = await pT.locator('#bdCanvas').boundingBox();
+  await pT.click('[data-tool=math]'); await pT.mouse.click(cb.x + 150, cb.y + 150); await pT.waitForTimeout(150);
+  await pT.click('#bdMath [title="Дробь"]'); await pT.keyboard.type('x+1'); await pT.keyboard.press('ArrowRight'); await pT.keyboard.press('ArrowRight'); await pT.keyboard.press('ArrowRight');
+  await pT.keyboard.type('x-1'); const pv = await pT.evaluate(() => { const c = document.getElementById('bdMathPv'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; });
+  await pT.keyboard.press('Enter'); await pS.waitForTimeout(600);
+  const fm = (await E(pS)).find(e => e.t === 'math'); const fh = fm && await pS.evaluate(s => window.__board.mf.size(s, 30), fm.s), lh = await pS.evaluate(() => window.__board.mf.size('x+1', 30));
+  rec('BD-24', fm && fm.s === '(x+1)/(x-1)' && fm.fs === 30 && fh.h > lh.h * 1.8 && pv > 200, fm && fm.s + ', высота ' + (fh && fh.h.toFixed(0)) + ' против ' + lh.h.toFixed(0));
+  const fp = await scr(pT, fm.x + 12, fm.y + 12); await pT.click('[data-tool=select]'); await pT.mouse.dblclick(fp.x, fp.y); await pT.waitForTimeout(200);
+  const was = await pT.inputValue('#bdMathIn'); await pT.fill('#bdMathIn', 'sqrt(x^2+1) <= 3'); await pT.selectOption('#bdMathSz', '44'); await pT.click('#bdMathOk'); await pS.waitForTimeout(600);
+  const fm2 = (await E(pS)).find(e => e.t === 'math'); await pT.click('#bdUndo'); await pS.waitForTimeout(500); const fm3 = (await E(pS)).find(e => e.t === 'math');
+  rec('BD-25', was === '(x+1)/(x-1)' && fm2.s === 'sqrt(x^2+1) <= 3' && fm2.fs === 44 && fm2.id === fm.id && fm3.s === '(x+1)/(x-1)', `правка: ${fm2.s} (${fm2.fs}px), отмена → ${fm3.s}`);
+  const m26 = await pT.evaluate(() => { const M = window.__board.mf, S = s => M.size(s, 30); let bad = [];
+    ['((', ')/^_', 'sqrt', '1/', '^^', '|||', 'root(3)', '', 'x^', '/', 'a_', '}{', '√', 'sin^2', 'log_(', 'в + 1'].forEach(s => { try { const z = S(s); if (!(z.w >= 0 && z.h > 0)) bad.push(s); } catch (e) { bad.push(s + ':' + e.message); } });
+    return {bad, frac: S('a/b').h > S('ab').h * 1.5, root: S('sqrt(x)').w > S('x').w * 1.5, pow: S('x^2').h > S('x').h, nested: S('1/(1+1/x)').h > S('1/x').h * 1.3,
+      parens: S('((a)/(b))').h > S('(a)').h * 1.5, rad: S('(3pi)/4').h > S('3pi').h * 1.5, plain: S('2x + 3 = 7').h < 45}; });
+  rec('BD-26', !m26.bad.length && m26.frac && m26.root && m26.pow && m26.nested && m26.parens && m26.rad && m26.plain, JSON.stringify(m26));
   await pT.close(); await pS.close();
 
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Нет")'); const after1 = await p.$$eval('#log .lesson', e => e.length);
