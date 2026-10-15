@@ -190,6 +190,25 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('HW-07', logT2.includes('Ваш ответ: Молодец') && logT2.includes('за ДЗ 5') && c2s.includes('проверено · 5') && c2s.includes('Молодец, № 27 разберём'), c2s.slice(0, 60));
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
 
+  // HW-08…10: тест самопроверки как домашнее задание
+  await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSave'); await p.waitForTimeout(1400);
+  const lq = (await p.textContent('#log')) || '';
+  rec('HW-08', lq.includes('Тест в ДЗ: Самопроверка · Глава I — ещё не пройден'), 'журнал: тест задан');
+  await logout(); await login('kid@test.local'); await go('homework.html', 1200);
+  const hq1 = (await p.textContent('#hwBox .hw-card >> nth=0')) || ''; await p.click('#hwBox .hw-card >> nth=0 >> a:has-text("Пройти тест")'); await p.waitForTimeout(1200);
+  const hwNote = (await p.textContent('#qzHw')) || '';
+  for (let i = 0; i < keys.length; i++) { const k = keys[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
+    if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${i < 2 ? (k === 'a' ? 'b' : 'a') : k}"]`); else await p.fill(sel + ' input[type=text]', i < 2 ? '999' : k); }
+  await p.click('#qzGo'); await p.waitForTimeout(800); const hs1 = (await p.textContent('#qzScore')) || '';
+  await p.click('#qzAgain'); for (let i = 0; i < keys.length; i++) { const k = keys[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
+    if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
+  await p.click('#qzGo'); await p.waitForTimeout(800); const hs2 = (await p.textContent('#qzScore')) || '';
+  rec('HW-09', hq1.includes('тест не пройден') && hwNote.includes('первой попытки') && hs1.includes('Засчитано как домашнее задание') && hs2.includes('тренировочная попытка'), hs1.slice(0, 40) + ' / ' + hs2.slice(0, 30));
+  await go('homework.html', 1200); const hq2 = (await p.textContent('#hwBox .hw-card >> nth=0')) || '';
+  await logout(); await login('teacher@test.local'); await go('journal.html', 1200); const lq2 = (await p.textContent('#log')) || '';
+  rec('HW-10', hq2.includes(`Засчитана первая попытка: ${keys.length - 2} из ${keys.length}`) && hq2.includes(`лучшая ${keys.length} из ${keys.length}`) && hq2.includes('сдано')
+    && lq2.includes(`тест ${keys.length - 2} из ${keys.length} · лучшая ${keys.length} · попыток 2`), 'ученик и журнал видят первую и лучшую');
+
   // ── Доска: учитель и ученик в двух окнах
   const mk = async (email, id) => { const pg = await ctx.newPage(); pg.on('pageerror', e => errors.push('board ' + email + ' :: ' + e.message)); pg.on('dialog', d => d.accept());
     await pg.addInitScript(([id, email]) => sessionStorage.setItem('mockSessionTab', JSON.stringify({user:{id, email}})), [id, email]); await pg.setViewportSize({width: 1280, height: 820}); return pg; };
@@ -266,7 +285,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Нет")'); const after1 = await p.$$eval('#log .lesson', e => e.length);
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Да")'); await p.waitForTimeout(900);
   const after2 = await p.$$eval('#log .lesson', e => e.length);
-  rec('JR-05', after1 === 2 && after2 === 1, after1 + ' → ' + after2);
+  rec('JR-05', after1 === 3 && after2 === 2, after1 + ' → ' + after2);
   await p.click('#delBox button'); await p.click('#delBox button.danger'); await p.waitForTimeout(900);
   const leftFiles = await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('mockfiles') || '{}')).length);
   rec('JR-08', ((await p.textContent('#status')) || '').includes('Добавьте первого ученика') &&

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Домашнее задание</title>
-<script>document.documentElement.dataset.page="homework";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=2d8f60ec"></script><script src="assets/auth.js?v=2d8f60ec"></script>
+<script>document.documentElement.dataset.page="homework";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=63a8e2e3"></script><script src="assets/auth.js?v=63a8e2e3"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -91,6 +91,7 @@ function fmtTs(t){ if (!t) return ''; var d = new Date(t); return ('0' + d.getDa
 function chip(l){
   if (l.feedback || l.hw_mark) return '<span class="hw-chip hw-c-ok">проверено' + (l.hw_mark ? ' · ' + K.esc(l.hw_mark) : '') + '</span>';
   if (l.submitted_at) return '<span class="hw-chip hw-c-sent">сдано ' + fmtTs(l.submitted_at) + '</span>';
+  if (l.quiz && !l.homework) return '<span class="hw-chip hw-c-todo">тест не пройден</span>';
   return '<span class="hw-chip hw-c-todo">не сдано</span>';
 }
 function thumbs(paths, removable){
@@ -104,11 +105,20 @@ function card(l){
   var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
   var h = '<div class="hw-card" id="hw-' + l.id + '" data-id="' + l.id + '"><div class="hw-top"><b>' + fmtDate(l.date) +
     (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' + chip(l) + '</div>' +
-    '<p class="hw-text">' + K.esc(l.homework) + '</p>';
+    (l.homework ? '<p class="hw-text">' + K.esc(l.homework) + '</p>' : '');
+  if (l.quiz) {
+    var qt = QUIZ[l.quiz] || 'Тест', qh = l.quiz + '.html?hw=' + l.id;
+    h += '<div class="hw-sub"><div class="me-lbl">Тест в домашке</div><p style="margin:4px 0 8px;font-weight:700">' + K.esc(qt) + '</p>' +
+      (l.quiz_first ? '<p class="hw-msg" style="margin:0 0 8px">Засчитана первая попытка: <b>' + K.esc(l.quiz_first.replace('/', ' из ')) + '</b>' +
+        (l.quiz_tries > 1 ? ' · лучшая ' + K.esc(l.quiz_best.replace('/', ' из ')) + ' · попыток ' + l.quiz_tries : '') + '</p>' +
+        '<a class="hw-btn soft" style="text-decoration:none;display:inline-block" href="' + qh + '">Пройти ещё раз (тренировка)</a>'
+      : '<a class="hw-btn" style="text-decoration:none;display:inline-block" href="' + qh + '">Пройти тест →</a><p class="hw-msg" style="margin:8px 0 0">Учитель увидит результат первой попытки.</p>') + '</div>';
+  }
   if (l.feedback || l.hw_mark) h += '<div class="hw-fb"><b>Учитель' + (l.hw_mark ? ' · отметка ' + K.esc(l.hw_mark) : '') + '</b>' +
     (l.feedback ? '<p style="margin:6px 0 0;white-space:pre-wrap">' + K.esc(l.feedback) + '</p>' : '') + '</div>';
   var e = edit[l.id];
-  if (e) {
+  if (!l.homework) {}
+  else if (e) {
     h += '<form class="hw-sub hw-form" data-form="' + l.id + '"><div class="me-lbl">Сдать работу</div>' +
       '<p class="hw-msg" style="margin:4px 0 0">Сфотографируй решение в тетради — можно несколько страниц (до 10 фото).</p>' +
       thumbs(e.keep.concat(e.add.map(function(a){ return a.preview; })), true) +
@@ -121,8 +131,8 @@ function card(l){
     h += '<div class="hw-sub"><div class="me-lbl">Моя работа · сдано ' + fmtTs(l.submitted_at) + '</div>' +
       ((l.photos || []).length ? thumbs(l.photos, false) : '') +
       (l.student_comment ? '<p style="margin:8px 0 0;white-space:pre-wrap;font-size:14.5px">' + K.esc(l.student_comment) + '</p>' : '') +
-      ((l.photos || []).length || l.student_comment ? '' : '<p class="hw-msg" style="margin:6px 0 0">Отмечено как сделанное, без фото.</p>') +
-      '<div class="hw-row"><button class="hw-btn soft" type="button" data-edit="' + l.id + '">Изменить сдачу</button></div></div>';
+      ((l.photos || []).length || l.student_comment ? '' : '<p class="hw-msg" style="margin:6px 0 0">' + (l.quiz_first ? 'Тест сдан. Задачи из тетради — нажми «Добавить фото».' : 'Отмечено как сделанное, без фото.') + '</p>') +
+      '<div class="hw-row"><button class="hw-btn soft" type="button" data-edit="' + l.id + '">' + ((l.photos || []).length || l.student_comment || !l.quiz_first ? 'Изменить сдачу' : 'Добавить фото') + '</button></div></div>';
   }
   return h + '</div>';
 }

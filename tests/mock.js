@@ -41,9 +41,12 @@ module.exports = function(KEY, QUIZKEYS){
   const norm = s => String(s == null ? '' : s).trim().toLowerCase().replace(/ /g, '').replace(/,/g, '.').replace(/ё/g, 'е').replace(/°/g, '');
   function rpc(name, args) { const D = db(), u = me(); if (!u) return Promise.resolve({data:null, error:{message:'not allowed'}});
     const s = D.edu_students.find(x => x.user_id === u.id); const R = data => Promise.resolve({data, error:null});
-    if (name === 'edu_my_homework') return R(s ? D.edu_lessons.filter(l => l.student_id === s.id && l.homework).sort(byDate)
+    const qs = (lid, best) => { const a = D.edu_quiz_results.filter(r => r.lesson_id === lid).sort((x, y) => x.created_at < y.created_at ? -1 : 1); if (!a.length) return null;
+      const r = best ? a.reduce((m, q) => q.score > m.score ? q : m, a[0]) : a[0]; return r.score + '/' + r.total; };
+    if (name === 'edu_my_homework') return R(s ? D.edu_lessons.filter(l => l.student_id === s.id && (l.homework || l.quiz)).sort(byDate)
       .map(l => ({id:l.id, date:l.date, topic:l.topic, topic_text:l.topic_text, homework:l.homework, student_done:l.student_done,
-        student_comment:l.student_comment || null, photos:l.photos || [], submitted_at:l.submitted_at || null, feedback:l.feedback || null, hw_mark:l.hw_mark || null, feedback_at:l.feedback_at || null})) : []);
+        student_comment:l.student_comment || null, photos:l.photos || [], submitted_at:l.submitted_at || null, feedback:l.feedback || null, hw_mark:l.hw_mark || null, feedback_at:l.feedback_at || null,
+        quiz:l.quiz || null, quiz_first: qs(l.id, false), quiz_best: qs(l.id, true), quiz_tries: D.edu_quiz_results.filter(r => r.lesson_id === l.id).length})) : []);
     if (name === 'edu_set_done') { D.edu_lessons.forEach(l => { if (s && l.id === args.p_lesson && l.student_id === s.id) l.student_done = args.p_done; }); put('mockdb', D); return R(null); }
     if (name === 'edu_submit') { const pref = u.id + '/' + args.p_lesson + '/';
       if ((args.p_photos || []).some(p => !p.startsWith(pref))) return Promise.resolve({data:null, error:{message:'photos'}});
@@ -57,9 +60,12 @@ module.exports = function(KEY, QUIZKEYS){
         const ok = g !== '' && k.split('|').some(a => norm(a) === g || (!isNaN(parseFloat(norm(a))) && !isNaN(Number(g)) && Number(norm(a)) === Number(g)));
         return {q: i + 1, ok, answer: k.split('|')[0]}; });
       const score = items.filter(x => x.ok).length;
-      if (s) { D.edu_quiz_results.push({id: uid(), student_id: s.id, quiz: args.p_quiz, score, total: items.length, answers: args.p_answers,
+      let lid = null, first = false;
+      if (s && args.p_lesson) { const l = D.edu_lessons.find(x => x.id === args.p_lesson && x.student_id === s.id && x.quiz === args.p_quiz); if (l) { lid = l.id; first = !D.edu_quiz_results.some(r => r.lesson_id === lid);
+        if (first) { l.student_done = true; l.submitted_at = l.submitted_at || new Date().toISOString(); } } }
+      if (s) { D.edu_quiz_results.push({id: uid(), student_id: s.id, quiz: args.p_quiz, score, total: items.length, answers: args.p_answers, lesson_id: lid,
         wrong: items.filter(x => !x.ok).map(x => x.q), created_at: new Date().toISOString()}); put('mockdb', D); }
-      return R({score, total: items.length, items, saved: !!s}); }
+      return R({score, total: items.length, items, saved: !!s, homework: !!lid, first}); }
     if (name === 'edu_my_quiz_results') return R(s ? D.edu_quiz_results.filter(r => r.student_id === s.id).map(r => ({quiz:r.quiz, score:r.score, total:r.total, created_at:r.created_at})) : []);
     const can = id => { const b = D.edu_boards.find(x => x.id === id); return !!b && (u.role === 'teacher' || (s && b.student_id === s.id)); };
     if (name === 'edu_my_boards') return R(s ? D.edu_boards.filter(b => b.student_id === s.id).sort((a, b) => a.created_at < b.created_at ? 1 : -1)

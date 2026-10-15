@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-18).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-19).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -46,6 +46,7 @@ begin
   update public.edu_students set next_at = now() + interval '2 days', call_url = 'https://example.invalid/call' where id = st_id;
   obj_other := o_uid::text || '/' || l_other::text || '/z.jpg';
   insert into storage.objects(bucket_id, name) values ('edu-hw', obj_other);
+  update public.edu_lessons set quiz = 'quiz-geo1' where id in (l_mine, l_other);
   insert into public.edu_boards(student_id, title) values (st_id, 'ТЕСТ моя доска') returning id into b_mine;
   insert into public.edu_boards(student_id, title) values (ot_id, 'ТЕСТ чужая доска') returning id into b_other;
 
@@ -139,6 +140,17 @@ begin
   r := r || case when (j->>'saved')::boolean and (j->>'total')::int > 0 and (j->>'score')::int = 0 and n = 1 then 'PASS' else 'FAIL' end
          || ' DB-12 проверка теста: ' || (j->>'score') || ' из ' || (j->>'total') || ', сохранено ' || (j->>'saved') || ', попыток видно ' || n || E'\n';
 
+  -- DB-19: тест как ДЗ — своё задание засчитывается (первая попытка), чужое нельзя
+  j := public.edu_check_quiz('quiz-geo1', '{}'::jsonb, l_mine);
+  b := (j->>'homework')::boolean and (j->>'first')::boolean;
+  j := public.edu_check_quiz('quiz-geo1', '{}'::jsonb, l_mine);
+  b := b and (j->>'homework')::boolean and not (j->>'first')::boolean;
+  j := public.edu_check_quiz('quiz-geo1', '{}'::jsonb, l_other);
+  v := (j->>'homework');
+  select count(*) into n from public.edu_my_homework() h where h.id = l_mine and h.quiz = 'quiz-geo1' and h.quiz_tries = 2 and h.quiz_first like '0/%';
+  r := r || case when b and v = 'false' and n = 1 then 'PASS' else 'FAIL' end
+         || ' DB-19 тест как ДЗ: своё засчитано ' || b || ', чужое ' || v || ', в «Домашке» попыток 2 — ' || n || E'\n';
+
   -- DB-13: ученик видит только свою карточку: занятие, ссылку, прогресс
   select count(*), max(i.name), bool_and(i.next_at > now()) into n, v, b from public.edu_my_info() i;
   r := r || case when n = 1 and v = 'ТЕСТ ученик' and b then 'PASS' else 'FAIL' end
@@ -187,7 +199,7 @@ begin
   select count(*) into n from storage.objects where name = obj_other;
   select count(*) into n2 from public.edu_quiz_results where student_id = st_id;
   select count(*) into n3 from public.edu_lessons where id = l_other and submitted_at is null and student_comment is null;
-  r := r || case when n = 1 and n2 = 1 and n3 = 1 then 'PASS' else 'FAIL' end
+  r := r || case when n = 1 and n2 = 4 and n3 = 1 then 'PASS' else 'FAIL' end
          || ' DB-14 целостность: чужое фото на месте ' || n || ', попытка у своего ученика ' || n2 || ', чужое ДЗ не тронуто ' || n3 || E'\n';
 
   -- DB-08: гость (без входа) вызывает функции ДЗ и читает таблицы
