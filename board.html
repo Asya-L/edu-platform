@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=0470dba2"></script><script src="assets/auth.js?v=0470dba2"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=b53c4515"></script><script src="assets/auth.js?v=b53c4515"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -62,6 +62,10 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
 .bd-figs .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
 .bd-figs .grid button{border:1.5px solid var(--edge);border-radius:12px;background:#fff;padding:6px;cursor:pointer;text-align:left;font:600 11.5px/1.3 var(--f-body);color:var(--ink-soft)}
 .bd-figs .grid button:hover{border-color:var(--lav-d)} .bd-figs img{width:100%;height:84px;object-fit:contain;display:block;margin-bottom:4px}
+.bd-sl-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 12px}
+.bd-sl-tabs button{border:1.5px solid var(--edge);background:#fff;border-radius:999px;padding:6px 12px;font:700 13px var(--f-body);cursor:pointer;color:var(--ink)}
+.bd-sl-tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+#bdSl .grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))} #bdSl .grid img{height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px}
 .bd-empty{max-width:560px;margin:60px auto;padding:0 16px;text-align:center}
 .bd-banner{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:8;background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 16px;font-weight:700;font-size:14px;display:flex;gap:10px;align-items:center;box-shadow:var(--sh-sm)}
 .bd-banner button{border:0;border-radius:999px;padding:6px 12px;font:800 13px var(--f-body);cursor:pointer;background:var(--butter);color:var(--ink)}
@@ -84,6 +88,8 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
       <button type="button" class="bd-b" id="bdUndo" title="Отменить (Ctrl+Z)" aria-label="Отменить"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5L3 9l4 4M3 9h9a4.5 4.5 0 010 9H9"/></svg></button>
       <button type="button" class="bd-b" id="bdRedo" title="Вернуть (Ctrl+Shift+Z)" aria-label="Вернуть"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 5l4 4-4 4M17 9H8a4.5 4.5 0 000 9h3"/></svg></button>
       <label class="bd-b" title="Вставить картинку или фото (можно Ctrl+V)" aria-label="Вставить картинку" style="cursor:pointer"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="1.5"/><circle cx="7.5" cy="8.5" r="1.4"/><path d="M3.5 14.5l4-3.5 3 2.5 2.5-2 3.5 3"/></svg><input type="file" accept="image/*" id="bdFile" hidden></label>
+      <button type="button" class="bd-b" id="bdSlBtn" title="Слайды урока" aria-label="Слайды урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="15" height="10" rx="1.5"/><path d="M10 14v3M7 17h6M8.5 7.5l3 1.8-3 1.8z"/></svg></button>
+      <button type="button" class="bd-b" id="bdSlNext" title="Следующий слайд" aria-label="Следующий слайд" hidden><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="10" height="8" rx="1.2"/><path d="M14 9h4m-2-2l2 2-2 2"/></svg></button>
       <button type="button" class="bd-b" id="bdFigBtn" title="Чертёж из урока" aria-label="Чертёж из урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l6 4v6l-6 4-6-4V7z M4 7l6 4 6-4M10 11v6"/></svg></button>
       <button type="button" class="bd-b" id="bdBg" title="Клетка / чистый лист (G)" aria-label="Фон"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg></button>
     </div>
@@ -110,12 +116,13 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
   </div>
   <div class="bd-pop bd-menu" id="bdMenu" hidden></div>
   <div class="bd-pop bd-figs" id="bdFigs" hidden></div>
+  <div class="bd-pop bd-figs" id="bdSl" hidden></div>
   <div class="bd-empty" id="bdEmpty"><p>Загружаю доску…</p></div>
   <div class="bd-toast" id="bdToast" hidden></div>
 </div>
 <script>
 (function(){
-var FIGS = [{"g": "Заготовки для построений", "items": [{"f": "ws_cube.png", "c": "Куб"}, {"f": "ws_tet.png", "c": "Тетраэдр"}, {"f": "ws_tet_mid.png", "c": "Тетраэдр с серединами рёбер"}]}, {"g": "Урок 1 · Аксиомы стереометрии", "items": [{"f": "ris05a_pryamaya_v_ploskosti.png", "c": "Прямая a лежит в плоскости α"}, {"f": "ris05b_peresekayut.png", "c": "Прямая a пересекает плоскость в точке M"}, {"f": "ris05v_dve_ploskosti.png", "c": "Две плоскости пересекаются по прямой"}, {"f": "ax_a1.png", "c": "Аксиома А1: три точки задают плоскость, и единственную"}, {"f": "ris08_zadacha1.png", "c": "Рис. 8 (с. 7) — тетраэдр DABC: E на AB, P на DE, M на DB, K на DC"}, {"f": "ris09_zadacha2.png", "c": "Рис. 9 (с. 8) — параллелепипед; K на DD₁, M на CC₁, прямая KM лежит в грани DCC₁"}]}, {"g": "Урок 2 · Параллельность прямых, прямой и плоскости", "items": [{"f": "ris05a_pryamaya_v_ploskosti.png", "c": "а) прямая лежит в плоскости"}, {"f": "ris05b_peresekayut.png", "c": "б) пересекаются в одной точке"}, {"f": "ris15_priznak_par_pr_pl.png", "c": "в) не имеют общих точек — параллельны"}, {"f": "ris17_zadacha17.png", "c": "Рис. 17: M, N, Q, P — середины DB, DC, AC, AB"}]}, {"g": "Урок 3 · Скрещивающиеся прямые. Угол между прямыми", "items": [{"f": "ris19_estakada.png", "c": "Рис. 19: дорога по эстакаде и дорога под ней — модель скрещивающихся прямых"}, {"f": "ris21_tri_sluchaya.png", "c": "Три случая: пересекаются · параллельны · скрещиваются"}, {"f": "ris20_priznak_skresh.png", "c": "Рис. 20: AB ⊂ α, прямая CD пересекает α в точке C ∉ AB"}, {"f": "ris22_ploskost_cherez_skresh.png", "c": "Рис. 22: плоскость α через AB, параллельная CD"}, {"f": "ris24_sonapravlennye.png", "c": "Рис. 24: сонаправленные и несонаправленные лучи"}, {"f": "ris27_ugol_skresh.png", "c": "Рис. 27: перенос обеих прямых в одну точку"}, {"f": "ris27b_ugol_kluch.png", "c": "Ключевой приём: перенос прямой параллельно самой себе"}]}, {"g": "Урок 4 · Параллельность плоскостей", "items": [{"f": "ris28a_peresek.png", "c": "а) плоскости пересекаются по прямой"}, {"f": "ris28b_parallelny.png", "c": "б) плоскости параллельны"}, {"f": "ris29_priznak_par_ploskostey.png", "c": "Рис. 29: a ∥ a₁, b ∥ b₁, прямые a и b пересекаются в M"}, {"f": "ris30_svoystvo1.png", "c": "Рис. 30: плоскость γ режет α ∥ β по прямым a и b"}, {"f": "ris31_svoystvo2.png", "c": "Рис. 31: AB ∥ CD, обе плоскости параллельны ⟹ AB = CD"}]}, {"g": "Урок 5 · Тетраэдр, параллелепипед и сечения", "items": [{"f": "ris34_tetraedr.png", "c": "Рис. 34: тетраэдр DABC"}, {"f": "ris35_tetraedr_lkef.png", "c": "Рис. 35: тетраэдр LKEF, другой ракурс"}, {"f": "ris36a_param_postroenie.png", "c": "Рис. 36, а: как получается параллелепипед"}, {"f": "ris36b_parallelepiped.png", "c": "Рис. 36, б: стандартное изображение и диагонали"}, {"f": "ris37a_grani.png", "c": "Рис. 37, а"}, {"f": "ris37b_diagonali.png", "c": "Рис. 37, б: точка O — общая середина диагоналей"}, {"f": "ris38_secheniya_tetraedra.png", "c": "Рис. 38: сечения тетраэдра — треугольник и четырёхугольник"}, {"f": "ris39a_treugolnik.png", "c": "Рис. 39, а: треугольник и четырёхугольник"}, {"f": "ris39b_pyatiugolnik.png", "c": "Рис. 39, б: пятиугольник"}, {"f": "ris39v_shestiugolnik.png", "c": "Рис. 39, в: шестиугольник"}, {"f": "ris40a_zadacha1.png", "c": "а) условие"}, {"f": "ris40b_zadacha1.png", "c": "б) NP и BC пересекаются в E"}, {"f": "ris40v_zadacha1.png", "c": "в) случай NP ∥ BC"}, {"f": "ris41a_zadacha2.png", "c": "а) условие"}, {"f": "ris41b_zadacha2.png", "c": "б) сечение PQR"}]}];
+var FIGS = [{"g": "Заготовки для построений", "items": [{"f": "ws_cube.png", "c": "Куб"}, {"f": "ws_tet.png", "c": "Тетраэдр"}, {"f": "ws_tet_mid.png", "c": "Тетраэдр с серединами рёбер"}]}, {"g": "Урок 1 · Аксиомы стереометрии", "items": [{"f": "ris05a_pryamaya_v_ploskosti.png", "c": "Прямая a лежит в плоскости α"}, {"f": "ris05b_peresekayut.png", "c": "Прямая a пересекает плоскость в точке M"}, {"f": "ris05v_dve_ploskosti.png", "c": "Две плоскости пересекаются по прямой"}, {"f": "ax_a1.png", "c": "Аксиома А1: три точки задают плоскость, и единственную"}, {"f": "ris08_zadacha1.png", "c": "Рис. 8 (с. 7) — тетраэдр DABC: E на AB, P на DE, M на DB, K на DC"}, {"f": "ris09_zadacha2.png", "c": "Рис. 9 (с. 8) — параллелепипед; K на DD₁, M на CC₁, прямая KM лежит в грани DCC₁"}]}, {"g": "Урок 2 · Параллельность прямых, прямой и плоскости", "items": [{"f": "ris05a_pryamaya_v_ploskosti.png", "c": "а) прямая лежит в плоскости"}, {"f": "ris05b_peresekayut.png", "c": "б) пересекаются в одной точке"}, {"f": "ris15_priznak_par_pr_pl.png", "c": "в) не имеют общих точек — параллельны"}, {"f": "ris17_zadacha17.png", "c": "Рис. 17: M, N, Q, P — середины DB, DC, AC, AB"}]}, {"g": "Урок 3 · Скрещивающиеся прямые. Угол между прямыми", "items": [{"f": "ris19_estakada.png", "c": "Рис. 19: дорога по эстакаде и дорога под ней — модель скрещивающихся прямых"}, {"f": "ris21_tri_sluchaya.png", "c": "Три случая: пересекаются · параллельны · скрещиваются"}, {"f": "ris20_priznak_skresh.png", "c": "Рис. 20: AB ⊂ α, прямая CD пересекает α в точке C ∉ AB"}, {"f": "ris22_ploskost_cherez_skresh.png", "c": "Рис. 22: плоскость α через AB, параллельная CD"}, {"f": "ris24_sonapravlennye.png", "c": "Рис. 24: сонаправленные и несонаправленные лучи"}, {"f": "ris27_ugol_skresh.png", "c": "Рис. 27: перенос обеих прямых в одну точку"}, {"f": "ris27b_ugol_kluch.png", "c": "Ключевой приём: перенос прямой параллельно самой себе"}]}, {"g": "Урок 4 · Параллельность плоскостей", "items": [{"f": "ris28a_peresek.png", "c": "а) плоскости пересекаются по прямой"}, {"f": "ris28b_parallelny.png", "c": "б) плоскости параллельны"}, {"f": "ris29_priznak_par_ploskostey.png", "c": "Рис. 29: a ∥ a₁, b ∥ b₁, прямые a и b пересекаются в M"}, {"f": "ris30_svoystvo1.png", "c": "Рис. 30: плоскость γ режет α ∥ β по прямым a и b"}, {"f": "ris31_svoystvo2.png", "c": "Рис. 31: AB ∥ CD, обе плоскости параллельны ⟹ AB = CD"}]}, {"g": "Урок 5 · Тетраэдр, параллелепипед и сечения", "items": [{"f": "ris34_tetraedr.png", "c": "Рис. 34: тетраэдр DABC"}, {"f": "ris35_tetraedr_lkef.png", "c": "Рис. 35: тетраэдр LKEF, другой ракурс"}, {"f": "ris36a_param_postroenie.png", "c": "Рис. 36, а: как получается параллелепипед"}, {"f": "ris36b_parallelepiped.png", "c": "Рис. 36, б: стандартное изображение и диагонали"}, {"f": "ris37a_grani.png", "c": "Рис. 37, а"}, {"f": "ris37b_diagonali.png", "c": "Рис. 37, б: точка O — общая середина диагоналей"}, {"f": "ris38_secheniya_tetraedra.png", "c": "Рис. 38: сечения тетраэдра — треугольник и четырёхугольник"}, {"f": "ris39a_treugolnik.png", "c": "Рис. 39, а: треугольник и четырёхугольник"}, {"f": "ris39b_pyatiugolnik.png", "c": "Рис. 39, б: пятиугольник"}, {"f": "ris39v_shestiugolnik.png", "c": "Рис. 39, в: шестиугольник"}, {"f": "ris40a_zadacha1.png", "c": "а) условие"}, {"f": "ris40b_zadacha1.png", "c": "б) NP и BC пересекаются в E"}, {"f": "ris40v_zadacha1.png", "c": "в) случай NP ∥ BC"}, {"f": "ris41a_zadacha2.png", "c": "а) условие"}, {"f": "ris41b_zadacha2.png", "c": "б) сечение PQR"}]}], SLIDES = [{"id": "geo1", "t": "Геометрия · урок 1 · Аксиомы стереометрии", "n": 17}, {"id": "geo2", "t": "Геометрия · урок 2 · Параллельность прямых, прямой и плоскости", "n": 15}, {"id": "geo3", "t": "Геометрия · урок 3 · Скрещивающиеся прямые. Угол между прямыми", "n": 13}, {"id": "geo4", "t": "Геометрия · урок 4 · Параллельность плоскостей", "n": 14}, {"id": "geo5", "t": "Геометрия · урок 5 · Тетраэдр, параллелепипед и сечения", "n": 15}, {"id": "alg15", "t": "Алгебра · § 1–5 подробно", "n": 29}, {"id": "alg68", "t": "Алгебра · § 6–8 подробно", "n": 24}, {"id": "alg18", "t": "Алгебра · обзор § 1–8", "n": 22}, {"id": "ege13", "t": "ЕГЭ · лекции 1–3", "n": 25}], slDeck = null, lastSlide = null;
 var K = window.KABINET, sb = null, isT = false, me = {uid: '', role: '', name: ''};
 var board = null, students = [], lessons = [], boards = [], els = [], bg = 'grid';
 var view = {x: -40, y: -40, z: 1}, tool = 'pen', color = '#2B2440', width = 2, dashed = false;
@@ -228,6 +235,7 @@ function imgFor(src){
   if (imgs[src]) return imgs[src]; var o = imgs[src] = {img: new Image(), ok: false};
   o.img.onload = function(){ o.ok = true; draw(); }; o.img.onerror = function(){ o.err = true; draw(); };
   if (src.indexOf('fig:') === 0) o.img.src = 'assets/fig/' + src.slice(4);
+  else if (src.indexOf('sl:') === 0) o.img.src = 'assets/slides/' + src.slice(3) + '.jpg';
   else if (src.indexOf('st:') === 0) { o.img.crossOrigin = 'anonymous'; toSign[src.slice(3)] = o; clearTimeout(signT); signT = setTimeout(sign, 30); }
   return o;
 }
@@ -481,6 +489,7 @@ window.addEventListener('keydown', function(ev){
   if ((k === 'delete' || k === 'backspace') && sel) { var e = find(sel); if (e) commit({k: 'del', ids: [e.id]}, {k: 'add', els: [clone(e)]}); sel = null; ev.preventDefault(); return; }
   if (k === 'escape') { sel = null; closePops(); draw(); return; }
   var map = {v: 'select', h: 'hand', p: 'pen', l: 'line', a: 'arrow', c: 'circ', r: 'rect', o: 'pt', t: 'text', e: 'eraser', k: 'laser'};
+  if (k === 'n' && lastSlide) { $('bdSlNext').click(); return; }
   if (map[k]) { setTool(map[k]); return; } if (k === 'd') setDash(!dashed); if (k === 'f') fit(); if (k === 'g') $('bdBg').click();
 });
 window.addEventListener('keyup', function(ev){ if (ev.key === ' ') { spaceDown = false; stage.classList.remove('pan'); } });
@@ -499,10 +508,10 @@ function exportPng(){
 }
 
 /* ── доски: список, создание, открытие ── */
-function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; }
+function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; $('bdSl').hidden = true; }
 $('bdPick').addEventListener('click', function(ev){ ev.stopPropagation(); var m = $('bdMenu'); if (!m.hidden) { m.hidden = true; return; } closePops(); renderMenu(); m.hidden = false; });
 $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdFigs'); if (!f.hidden) { f.hidden = true; return; } closePops(); renderFigs(); f.hidden = false; });
-document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn')) closePops(); });
+document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
@@ -511,6 +520,41 @@ function renderFigs(){
   f.addEventListener('click', function(ev){ if (ev.target.closest('[data-x]')) { closePops(); return; } var b = ev.target.closest('[data-fig]'); if (!b) return;
     var im = b.querySelector('img'); closePops(); placeImg('fig:' + b.dataset.fig, im.naturalWidth || 600, im.naturalHeight || 400); });
 }
+function pad2(n){ return ('0' + n).slice(-2); }
+function slSrc(d, k){ return 'sl:' + d + '/' + pad2(k); }
+function showArea(x, y, w, h){ var cw = cv.clientWidth, chh = cv.clientHeight, z = Math.max(.15, Math.min(1.6, Math.min((cw - 60) / w, (chh - 60) / h)));
+  view = {x: x + w / 2 - cw / 2 / z, y: y + h / 2 - chh / 2 / z, z: z}; draw(); if (isT) send('view', {x: view.x, y: view.y, z: view.z}); }
+function addSlides(d, from, to){
+  var W0 = 960, H0 = 540, gap = 60, c = centerWorld(), list = [];
+  var x = Math.round(c.x - W0 / 2), y = Math.round(c.y - H0 / 2);
+  if (lastSlide && from === lastSlide.k + 1 && d === lastSlide.d) { var prev = find(lastSlide.id); if (prev) { x = prev.x + prev.ww + gap; y = prev.y; } }
+  for (var k = from; k <= to; k++) list.push({id: nid(), t: 'img', src: slSrc(d, k), x: x + (k - from) * (W0 + gap), y: y, ww: W0, hh: H0, sl: 1});
+  commit({k: 'add', els: list}, {k: 'del', ids: list.map(function(e){ return e.id; })});
+  var last = list[list.length - 1]; lastSlide = {d: d, k: to, id: last.id}; nextBtn();
+  if (list.length === 1) showArea(last.x, last.y, last.ww, last.hh); else { var f = list[0]; showArea(f.x, f.y, (W0 + gap) * list.length - gap, H0); }
+  setTool('pen');
+}
+function nextBtn(){ var deck = lastSlide && SLIDES.find(function(x){ return x.id === lastSlide.d; });
+  var b = $('bdSlNext'); b.hidden = !(deck && lastSlide.k < deck.n); if (deck) b.title = 'Следующий слайд: ' + (lastSlide.k + 1) + ' из ' + deck.n; }
+$('bdSlNext').addEventListener('click', function(){ if (lastSlide) addSlides(lastSlide.d, lastSlide.k + 1, lastSlide.k + 1); });
+$('bdSlBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdSl'); if (!f.hidden) { f.hidden = true; return; } closePops(); renderSlides(); f.hidden = false; });
+function renderSlides(){
+  var f = $('bdSl'); if (!slDeck) slDeck = (lastSlide && lastSlide.d) || SLIDES[0].id; var d = SLIDES.find(function(x){ return x.id === slDeck; });
+  var thumbs = ''; for (var k = 1; k <= d.n; k++) thumbs += '<button type="button" data-k="' + k + '"><img loading="lazy" src="assets/slides/' + d.id + '/' + pad2(k) + '.jpg" alt="">Слайд ' + k + '</button>';
+  f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><b style="font:900 18px var(--f-head)">Слайды урока</b>' +
+    '<span style="display:flex;gap:6px"><button type="button" class="bd-t" data-all>Вставить весь урок (' + d.n + ')</button><button type="button" class="bd-t ghost" data-x>Закрыть</button></span></div>' +
+    '<div class="bd-sl-tabs">' + SLIDES.map(function(x){ return '<button type="button" data-d="' + x.id + '" class="' + (x.id === slDeck ? 'on' : '') + '">' + esc(x.t) + '</button>'; }).join('') + '</div>' +
+    '<p class="muted" style="margin:0 0 10px;font-size:13px">Нажмите на слайд — он встанет на доску, и по нему можно рисовать. Дальше — кнопка «Следующий слайд» на панели: ученику экран подстроится сам.</p>' +
+    '<div class="grid">' + thumbs + '</div>';
+}
+$('bdSl').addEventListener('click', function(ev){
+  ev.stopPropagation();
+  if (ev.target.closest('[data-x]')) { closePops(); return; }
+  var t = ev.target.closest('[data-d]'); if (t) { slDeck = t.dataset.d; renderSlides(); return; }
+  var d = SLIDES.find(function(x){ return x.id === slDeck; });
+  if (ev.target.closest('[data-all]')) { closePops(); lastSlide = null; addSlides(d.id, 1, d.n); return; }
+  var b = ev.target.closest('[data-k]'); if (b) { closePops(); lastSlide = null; addSlides(d.id, +b.dataset.k, +b.dataset.k); }
+});
 function renderMenu(){
   var m = $('bdMenu'), h = '';
   if (isT) {
@@ -557,7 +601,7 @@ async function openBoard(id){
   var r = await sb.rpc('edu_board_get', {p_board: id}); var b = r.data && r.data[0];
   if (!b) { showEmpty('<h2>Нет доступа к этой доске</h2><p class="muted">Доска открывается только учителю и ученику, для которого она создана.</p>'); return; }
   board = {id: b.id, student_id: b.student_id, title: b.title}; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; lastUpd = b.updated_at;
-  undoS = []; redoS = []; sel = null; drafts = {}; cursors = {}; $('bdCursors').innerHTML = ''; btns(); dirty = false; status();
+  lastSlide = null; nextBtn(); undoS = []; redoS = []; sel = null; drafts = {}; cursors = {}; $('bdCursors').innerHTML = ''; btns(); dirty = false; status();
   document.body.classList.add('board-open'); $('bdTitle').textContent = b.title; $('bdEmpty').hidden = true; $('bdBar').hidden = false; stage.hidden = false; $('bdShow').hidden = !isT;
   var u = new URL(location.href); u.searchParams.set('b', b.id); u.searchParams.delete('s'); history.replaceState(null, '', u);
   layout(); if (els.length) fit(); else { view = {x: -40, y: -40, z: 1}; draw(); }
@@ -571,7 +615,7 @@ async function checkNew(){
     bn.querySelectorAll('button')[0].onclick = function(){ bn.hidden = true; openBoard(nb.id); }; bn.querySelectorAll('button')[1].onclick = function(){ bn.hidden = true; checkNew.seen[nb.id] = 1; }; }
 }
 checkNew.seen = {};
-window.__board = {els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }};   // для автотестов
+window.__board = {els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }, imgOk: function(src){ return !!(imgs[src] && imgs[src].ok); }};   // для автотестов
 
 K.state.then(async function(st){
   if (!st || !st.session || !K.sb) return; sb = K.sb; document.body.classList.add('board-page');

@@ -245,6 +245,19 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('BD-15', (await pT.textContent('#bdTitle')) === 'Повторение' && ban.includes('Повторение') && (await pS.textContent('#bdTitle')) === 'Повторение', ban.slice(0, 50));
   await go('journal.html', 1200); const lg = (await p.textContent('#log')) || '';
   rec('BD-16', lg.includes('доска: Повторение') && (await p.getAttribute('#boardLink', 'href')).startsWith('board.html?s='), 'ссылка из журнала');
+  // BD-18…20: слайды урока на доске
+  await pT.click('#bdSlBtn'); await pT.click('#bdSl [data-d="geo3"]'); await pT.click('#bdSl [data-k="5"]'); await pS.waitForTimeout(1200);
+  const s18 = (await E(pS)).filter(e => e.src && e.src.startsWith('sl:')); const ok18 = await pS.evaluate(() => window.__board.imgOk('sl:geo3/05'));
+  const v18 = await pS.evaluate(() => window.__board.view()); const sl = s18[0];
+  const inView = sl && v18.x < sl.x + sl.ww / 2 && sl.x + sl.ww / 2 < v18.x + 1280 / v18.z && v18.y < sl.y + sl.hh / 2;
+  rec('BD-18', s18.length === 1 && sl.src === 'sl:geo3/05' && ok18 && inView, `слайд ${sl && sl.src}, загружен ${ok18}, экран ученика на слайде ${inView}`);
+  const nb19 = await pT.isVisible('#bdSlNext'); await pT.click('#bdSlNext'); await pS.waitForTimeout(800);
+  const s19 = (await E(pS)).filter(e => e.src && e.src.startsWith('sl:geo3/'));
+  rec('BD-19', nb19 && s19.length === 2 && s19[1].src === 'sl:geo3/06' && s19[1].x === s19[0].x + s19[0].ww + 60 && s19[1].y === s19[0].y, s19.map(e => e.src + '@' + e.x).join(' '));
+  await pT.click('#bdSlBtn'); await pT.click('#bdSl [data-d="alg15"]'); await pT.click('#bdSl [data-all]'); await pS.waitForTimeout(1200);
+  const s20 = (await E(pS)).filter(e => e.src && e.src.startsWith('sl:alg15/'));
+  rec('BD-20', s20.length === 29 && s20[28].src === 'sl:alg15/29', s20.length + ' слайдов');
+  await pT.click('#bdUndo'); await pT.click('#bdUndo'); await pT.click('#bdUndo'); await pS.waitForTimeout(600);
   await pS.evaluate(() => localStorage.setItem('mockRtFails', '1')); await pS.reload(); await pS.waitForTimeout(800); const off = await pS.textContent('#bdPeer');
   await pS.waitForTimeout(2600); const on = await pS.textContent('#bdPeer');
   rec('BD-17', off.includes('без живой связи') && on.includes('Учитель на доске'), off + ' → ' + on);
