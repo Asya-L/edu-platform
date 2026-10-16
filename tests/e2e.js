@@ -236,6 +236,13 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   // HW-08…10: тест самопроверки как домашнее задание
   const qo = await p.$$eval('#lQuiz option', o => o.map(x => x.textContent));
   rec('QZ-05', [1, 2, 3, 4, 5].every(n => qo.includes(`Урок ${n} · тест домой`) && qo.includes(`Урок ${n} · тест в классе`)), qo.length + ' тестов в списке ДЗ');
+  await p.fill('#lHw', ''); await p.selectOption('#lQuiz', ''); await p.selectOption('#lTopic', 'g3'); await p.waitForTimeout(100);
+  const j1 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz'), bar: (await p.textContent('#lHwSug')) || ''};
+  await p.fill('#lHw', 'Своё задание'); await p.selectOption('#lTopic', 'g2'); const j2 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz')};
+  await p.click('#lHwSug button:has-text("Подставить")'); await p.click('#lHwSug button:has-text("рабочий лист")'); const j3 = await p.inputValue('#lHw');
+  await p.selectOption('#lTopic', 'a4'); const j4 = await p.inputValue('#lHw');
+  rec('JR-10', j1.hw.startsWith('№ 39, 41, 45, 46') && j1.q === 'quiz-g3b' && j1.bar.includes('слайд «Дома»') && j2.hw === 'Своё задание' && j2.q === 'quiz-g2b'
+    && j3.startsWith('№ 18, 23, 27, 30') && j3.endsWith('; рабочий лист к уроку 2') && j4 === j3, `${j1.hw.slice(0, 20)} · ${j1.q} · своё не затёрто: ${j2.hw} · ${j3.slice(-26)}`);
   await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSave'); await p.waitForTimeout(1400);
   const lq = (await p.textContent('#log')) || '';
   rec('HW-08', lq.includes('Тест в ДЗ: Самопроверка · Глава I — ещё не пройден'), 'журнал: тест задан');

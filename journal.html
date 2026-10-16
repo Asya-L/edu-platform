@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Журнал занятий</title>
-<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=111e1ccd"></script><script src="assets/auth.js?v=111e1ccd"></script>
+<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=91ce551a"></script><script src="assets/auth.js?v=91ce551a"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -63,6 +63,10 @@
 #jr .qz{border-top:1px dashed var(--edge);padding:10px 0;display:grid;grid-template-columns:92px 1fr auto;gap:12px;align-items:baseline}
 #jr .qz:first-child{border-top:0}
 @media (max-width:820px){#jr .next,#jr .qz{grid-template-columns:1fr}}
+#jr .sug{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+#jr .sug-t{flex-basis:100%;color:var(--ink-soft);line-height:1.4} #jr .sug-t b{color:var(--ink)}
+#jr .chipbtn{font:700 12.5px var(--f-body);border:0;border-radius:999px;padding:5px 11px;background:var(--lav);color:var(--lav-d);cursor:pointer}
+#jr .chipbtn:hover{background:#DCD4FF}
 #jr .bankgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:10px}
 #jr .bk{border-radius:14px;padding:9px 11px;display:flex;flex-direction:column;gap:1px;font-size:13px;border:1px solid var(--edge)}
 #jr .bk b{font:900 14px var(--f-head)} #jr .bk .v{font:900 18px var(--f-head);margin-top:3px} #jr .bk.none{opacity:.6}
@@ -118,7 +122,8 @@
           <div class="row"><div><label for="lDate">Дата</label><input id="lDate" type="date" required></div>
             <div><label for="lTopic">Тема</label><select id="lTopic"></select></div></div>
           <div id="lOtherBox" hidden><label for="lOther">Своя тема</label><input id="lOther" placeholder="Например, повторение: подобие треугольников"></div>
-          <div><label for="lHw">Домашнее задание (увидит ученик)</label><textarea id="lHw" placeholder="№ 18, 23, 27; рабочий лист к уроку 2" style="min-height:52px"></textarea></div>
+          <div><label for="lHw">Домашнее задание (увидит ученик)</label><textarea id="lHw" placeholder="№ 18, 23, 27; рабочий лист к уроку 2" style="min-height:52px"></textarea>
+            <div class="sug" id="lHwSug" hidden></div></div>
           <div><label for="lQuiz">Тест самопроверки в ДЗ</label><select id="lQuiz"><option value="">без теста</option></select></div>
           <div class="row">
             <div><label for="lHwStatus">ДЗ с прошлого урока</label><select id="lHwStatus"><option value="none">не задавалось</option><option value="set">задано</option>
@@ -164,6 +169,7 @@ function topicHref(key, teacher){
 }
 function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
 var QUIZ = {"quiz-geo1": "Самопроверка · Глава I", "quiz-g1a": "Урок 1 · тест в классе", "quiz-g1b": "Урок 1 · тест домой", "quiz-g2a": "Урок 2 · тест в классе", "quiz-g2b": "Урок 2 · тест домой", "quiz-g3a": "Урок 3 · тест в классе", "quiz-g3b": "Урок 3 · тест домой", "quiz-g4a": "Урок 4 · тест в классе", "quiz-g4b": "Урок 4 · тест домой", "quiz-g5a": "Урок 5 · тест в классе", "quiz-g5b": "Урок 5 · тест домой"};
+var HWS = {"g1": {"src": "Урок 1, слайд «Дома»", "text": "№ 5, 7, 11, 14. Каждый шаг — со ссылкой на аксиому или теорему.", "full": "№ 5, 7, 11, 14 письменно с полным обоснованием (на каждый шаг — ссылка на аксиому или теорему). Устно: перечислить по памяти четыре способа задать плоскость.", "ws": "рабочий лист к уроку 1", "quiz": "quiz-g1b"}, "g2": {"src": "Урок 2, слайд «Дома»", "text": "№ 18, 23, 27, 30. Признак — с обоими условиями.", "full": "№ 18, 23, 27, 30 письменно. Устно: сформулировать признак параллельности прямой и плоскости и назвать оба его условия; объяснить, почему «не пересекаются» в пространстве не означает «параллельны».", "ws": "рабочий лист к уроку 2", "quiz": "quiz-g2b"}, "g3": {"src": "Урок 3, слайд «Дома»", "text": "№ 39, 41, 45, 46. И найти дома три пары скрещивающихся прямых.", "full": "№ 39, 41, 45, 46 письменно. Устно: назвать три случая расположения прямых и признак скрещивающихся; найти в комнате три пары скрещивающихся прямых.", "ws": "рабочий лист к уроку 3", "quiz": "quiz-g3b"}, "g4": {"src": "Урок 4, слайд «Дома»", "text": "№ 52, 54, 60, 63. Признак — только с пересекающимися прямыми.", "full": "№ 52, 54, 60, 63 письменно. Устно: сформулировать признак параллельности плоскостей и объяснить, почему нельзя заменить «пересекающиеся» на «параллельные»; разобрать № 62 своими словами.", "ws": "рабочий лист к уроку 4", "quiz": "quiz-g4b"}, "g5": {"src": "Урок 5, слайд «Дома»", "text": "№ 73, 79, 84, 85. К каждому построению — список шагов: что соединяю и почему.", "full": "№ 73, 79, 84, 85 письменно с чертежом. Каждое построение сопровождать списком шагов «что соединяю и почему». Устно: назвать три правила построения сечений.", "ws": "рабочий лист к уроку 5", "quiz": "quiz-g5b"}, "a1": {"src": "Презентация, § 1", "text": "§ 1: № 1, 2, 3, 4–5 (учебник, с. 6)"}, "a2": {"src": "Презентация, § 2", "text": "§ 2: № 6, 8, 9, 10–11 (учебник, с. 10)"}, "a3": {"src": "Презентация, § 3", "text": "§ 3: № 13, 15, 16 (учебник, с. 15)"}, "a4": {"src": "Презентация, § 4", "text": "§ 4: № 37, 39–40, 42, 45 (учебник, с. 22)"}, "a5": {"src": "Презентация, § 5", "text": "§ 5: № 74, 75, 76, 77–78 (учебник, с. 33)"}, "a6": {"src": "Презентация, § 6", "text": "§ 6: № 119, 120, 121, 122 (учебник, с. 46)"}, "a7": {"src": "Презентация, § 7", "text": "§ 7: № 131, 132, 133, 135 (учебник, с. 52)"}, "a8": {"src": "Презентация, § 8", "text": "§ 8: № 138, 139, 140 (учебник, с. 58)"}, "e1": {"src": "Банк заданий ЕГЭ, № 1", "text": "Банк заданий ЕГЭ, № 1: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e2": {"src": "Банк заданий ЕГЭ, № 2", "text": "Банк заданий ЕГЭ, № 2: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e3": {"src": "Банк заданий ЕГЭ, № 3", "text": "Банк заданий ЕГЭ, № 3: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e4": {"src": "Банк заданий ЕГЭ, № 4", "text": "Банк заданий ЕГЭ, № 4: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e5": {"src": "Банк заданий ЕГЭ, № 5", "text": "Банк заданий ЕГЭ, № 5: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e6": {"src": "Банк заданий ЕГЭ, № 6", "text": "Банк заданий ЕГЭ, № 6: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e7": {"src": "Банк заданий ЕГЭ, № 7", "text": "Банк заданий ЕГЭ, № 7: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e8": {"src": "Банк заданий ЕГЭ, № 8", "text": "Банк заданий ЕГЭ, № 8: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e9": {"src": "Банк заданий ЕГЭ, № 9", "text": "Банк заданий ЕГЭ, № 9: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e10": {"src": "Банк заданий ЕГЭ, № 10", "text": "Банк заданий ЕГЭ, № 10: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e11": {"src": "Банк заданий ЕГЭ, № 11", "text": "Банк заданий ЕГЭ, № 11: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e12": {"src": "Банк заданий ЕГЭ, № 12", "text": "Банк заданий ЕГЭ, № 12: решить 5 заданий на сайте (ЕГЭ → Банк заданий)"}, "e14": {"src": "ЕГЭ, задание 14", "text": "Задание 14: разобрать примеры и решить тренировочные задачи на сайте (ЕГЭ → Задание 14)"}};
 
 var K = window.KABINET, sb, students = [], lessons = [], progress = {}, profiles = [], quizRes = [], bankRes = [], boardsAll = [], urls = {}, fbOpen = {}, current = null, editing = null, editingStudent = false, confirmId = null, pend = null, pTimer = null;
 var HW = {none:['не задавалось','c-none'],set:['ДЗ задано','c-set'],done:['ДЗ сделано','c-done'],part:['ДЗ частично','c-part'],no:['ДЗ не сделано','c-no']};
@@ -179,9 +185,26 @@ function fail(e){ toast('Не получилось сохранить. Пров�
 (function(){ var s = $('lTopic'); CATALOG.forEach(function(g){ var og = document.createElement('optgroup'); og.label = g[0];
   g[1].forEach(function(t){ var o = el('option', null, t[1]); o.value = t[0]; og.appendChild(o); }); s.appendChild(og); });
   var o = el('option', null, 'Другая тема…'); o.value = 'other'; s.appendChild(o);
-  s.addEventListener('change', function(){ $('lOtherBox').hidden = s.value !== 'other'; }); })();
+  s.addEventListener('change', function(){ $('lOtherBox').hidden = s.value !== 'other'; autoHw(); hwBar(); }); })();
+var lastAuto = '', lastQuiz = '';
+function hwBar(){
+  var h = HWS[$('lTopic').value], bar = $('lHwSug'); bar.innerHTML = ''; if (!h) { bar.hidden = true; return; } bar.hidden = false;
+  var head = el('div', 'sug-t'); head.appendChild(el('b', null, h.src + ': ')); head.appendChild(el('span', null, h.text)); bar.appendChild(head);
+  var acts = [['Подставить', function(){ setHw(h.text); }]];
+  if (h.full) acts.push(['Полностью из конспекта', function(){ setHw(h.full); }]);
+  if (h.ws) acts.push(['+ ' + h.ws, function(){ var v = $('lHw').value.trim(); if (v.indexOf(h.ws) < 0) $('lHw').value = (v ? v.replace(/[.;]\s*$/, '') + '; ' : '') + h.ws; }]);
+  if (h.quiz && QUIZ[h.quiz]) acts.push(['+ ' + QUIZ[h.quiz], function(){ $('lQuiz').value = h.quiz; lastQuiz = h.quiz; }]);
+  acts.forEach(function(a){ var b = el('button', 'chipbtn', a[0]); b.type = 'button'; b.addEventListener('click', a[1]); bar.appendChild(b); });
+}
+function setHw(t){ $('lHw').value = t; lastAuto = t; }
+function autoHw(){
+  if (editing) return; var h = HWS[$('lTopic').value], v = $('lHw').value.trim();
+  if (!v || v === lastAuto) { if (h) setHw(h.text); else { $('lHw').value = ''; lastAuto = ''; } }
+  var q = $('lQuiz').value; if (!q || q === lastQuiz) { var nq = h && h.quiz && QUIZ[h.quiz] ? h.quiz : ''; $('lQuiz').value = nq; lastQuiz = nq; }
+}
 $('lDate').value = today();
 Object.keys(QUIZ).forEach(function(k){ var o = el('option', null, QUIZ[k]); o.value = k; $('lQuiz').appendChild(o); });
+hwBar();
 function quizStat(lid){ var a = quizRes.filter(function(q){ return q.lesson_id === lid; }).sort(function(x, y){ return x.created_at < y.created_at ? -1 : 1; });
   if (!a.length) return null; var best = a.reduce(function(m, q){ return q.score > m.score ? q : m; }, a[0]); return {first: a[0], best: best, n: a.length}; }
 
@@ -348,10 +371,10 @@ function cycle(key){
 }
 
 function resetForm(){ $('lForm').reset(); $('lDate').value = today(); $('lOtherBox').hidden = true; $('fTitle').textContent = 'Новое занятие';
-  $('lSave').textContent = 'Записать занятие'; $('fCancel').hidden = true; editing = null; }
+  $('lSave').textContent = 'Записать занятие'; $('fCancel').hidden = true; editing = null; lastAuto = ''; lastQuiz = ''; hwBar(); }
 function startEdit(l){ editing = l.id; $('fTitle').textContent = 'Правка занятия'; $('lSave').textContent = 'Сохранить изменения'; $('fCancel').hidden = false;
   $('lDate').value = l.date || today(); $('lTopic').value = l.topic || 'other'; $('lOtherBox').hidden = !!l.topic; $('lOther').value = l.topic_text || '';
-  $('lHw').value = l.homework || ''; $('lQuiz').value = l.quiz || ''; $('lHwStatus').value = l.hw_status || 'none'; $('lMark').value = l.mark || ''; $('lNotes').value = l.notes || '';
+  $('lHw').value = l.homework || ''; $('lQuiz').value = l.quiz || ''; hwBar(); $('lHwStatus').value = l.hw_status || 'none'; $('lMark').value = l.mark || ''; $('lNotes').value = l.notes || '';
   $('lForm').scrollIntoView({behavior: 'smooth', block: 'start'}); }
 $('fCancel').addEventListener('click', resetForm);
 
