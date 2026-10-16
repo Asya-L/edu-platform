@@ -26,7 +26,7 @@ for d, _, fs in os.walk(root):
 res.append({'id': 'SEC-01', 'ok': not leaks, 'note': '; '.join(leaks[:10])})
 
 ans = []
-for n in range(1, 6):
+for n in [str(i) for i in range(1, 6)] + [f'a{i}' for i in range(1, 9)]:
     s = open(f'{root}/ws{n}.html', encoding='utf-8').read()
     if 'ans' in re.findall(r'class="([^"]*)"', s).__str__() or '→ ' in s:
         ans.append(f'ws{n}')

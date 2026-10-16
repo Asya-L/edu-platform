@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 8. Равносильные уравнения и неравенства</title>
+<script>document.documentElement.dataset.page="a8";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=7eeb848f"></script><script src="assets/auth.js?v=7eeb848f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 8 · равносильные преобразования, посторонние и потерянные корни, метод интервалов">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 8</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 8</div>
+  <h1>Равносильные уравнения и неравенства</h1>
+  <p class="lede">§ 8 · равносильные преобразования, посторонние и потерянные корни, метод интервалов</p>
+  <div class="btns">
+    <a class="btn" href="sa8.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa8.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<div class="def"><span class="lbl">Определение</span><p>Два уравнения называются <b>равносильными</b>, если они имеют одни и те же корни (или оба не имеют корней).</p><p>Пример: 2<i>x</i> − 6 = 0 и <i>x</i> = 3 равносильны; <i>x</i>² = 9 и <i>x</i> = 3 — нет (у первого есть ещё корень −3).</p></div>
+<h3>Равносильные преобразования</h3>
+<ul><li>перенос слагаемого из одной части в другую с противоположным знаком;</li><li>умножение или деление обеих частей на одно и то же <b>число, не равное нулю</b>;</li><li>тождественные преобразования, не меняющие область допустимых значений.</li></ul>
+<div class="def"><span class="lbl">Следствие</span><p>Если все корни первого уравнения являются корнями второго, то второе называют <b>следствием</b> первого. У следствия могут появиться лишние корни — их называют <b>посторонними</b>.</p></div>
+<h3>Откуда берутся посторонние корни</h3>
+<ol><li><b>Возведение в квадрат.</b> √<i>x</i> = <i>x</i> − 2 ⇒ <i>x</i> = <i>x</i>² − 4<i>x</i> + 4 ⇒ <i>x</i> = 1 или <i>x</i> = 4. Проверка: при <i>x</i> = 1 слева 1, справа −1 — посторонний. Ответ: 4.</li><li><b>Расширение ОДЗ</b> (например, умножение на знаменатель). <i>x</i>/(<i>x</i> − 2) = 2/(<i>x</i> − 2) ⇒ <i>x</i> = 2, но при <i>x</i> = 2 знаменатель равен нулю. Корней нет.</li></ol>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если при решении было возведение в чётную степень или умножение на выражение с переменной — <b>проверка обязательна</b>. Это не формальность, а часть решения: без неё ответ может быть неверным.</p></div>
+<h3>Как теряются корни</h3>
+<p>Делить обе части на выражение с переменной нельзя: <i>x</i>(<i>x</i> − 2) = 3(<i>x</i> − 2). Если разделить на <i>x</i> − 2, получим <i>x</i> = 3 и <b>потеряем</b> корень <i>x</i> = 2. Правильно: перенести всё в одну часть и разложить на множители: (<i>x</i> − 2)(<i>x</i> − 3) = 0, <i>x</i> = 2 или <i>x</i> = 3.</p>
+<div class="ex"><span class="lbl">Пример 1</span><p>Решить √(<i>x</i> + 2) = <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>x</i> + 2 = <i>x</i>² ⇒ <i>x</i>² − <i>x</i> − 2 = 0 ⇒ <i>x</i> = 2 или <i>x</i> = −1. Проверка: √4 = 2 ✓; √1 = 1 ≠ −1 ✗. Ответ: <b>2</b>.</p></div></div>
+<h2>Равносильные неравенства</h2>
+<p>Неравенства равносильны, если множества их решений совпадают. Равносильные преобразования неравенств:</p>
+<ul><li>перенос слагаемого с противоположным знаком;</li><li>умножение или деление на <b>положительное</b> число — знак неравенства сохраняется;</li><li>умножение или деление на <b>отрицательное</b> число — знак неравенства меняется на противоположный.</li></ul>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Умножать неравенство на выражение с переменной (например, на знаменатель) нельзя: неизвестен его знак. Неравенство (<i>x</i> − 1)/(<i>x</i> + 2) &gt; 0 решают методом интервалов, а не «умножением на <i>x</i> + 2».</p></div>
+<h3>Метод интервалов</h3>
+<ol class="steps"><li>Перенести всё в одну часть, чтобы справа был 0.</li><li>Найти нули числителя и знаменателя и отметить их на прямой (нули знаменателя — всегда выколотые).</li><li>Определить знак в каждом промежутке (подставить удобное число).</li><li>Выбрать промежутки с нужным знаком.</li></ol>
+<div class="ex"><span class="lbl">Пример 2</span><p>Решить (<i>x</i> − 1)/(<i>x</i> + 2) &gt; 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Нули: 1 и −2 (оба выколоты). Знаки на (−∞; −2), (−2; 1), (1; +∞): +, −, +. Ответ: <b>(−∞; −2) ∪ (1; +∞)</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Равносильны ли уравнения: а) <i>x</i> + 3 = 5 и 2<i>x</i> = 4; б) <i>x</i>² = 4 и <i>x</i> = 2; в) (<i>x</i> − 1)/(<i>x</i> − 1) = 1 и 1 = 1?</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши уравнение √(3<i>x</i> + 4) = <i>x</i>.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши уравнение (<i>x</i>² − 9)/(<i>x</i> − 3) = 0.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши уравнение <i>x</i>(<i>x</i> + 4) = 5(<i>x</i> + 4), не теряя корней.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши неравенство −3<i>x</i> &gt; 12.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши неравенство (<i>x</i> + 1)/(<i>x</i> − 3) ≤ 0.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 138</b> — Решить уравнения; часть найденных значений не подходит — обращает знаменатель в нуль.</li><li><b>№ 139</b> — Выяснить, равносильны ли уравнения (шесть пар).</li><li><b>№ 140</b> — Выяснить, равносильны ли неравенства.</li><li><b>№ зад. 5–6</b> — Разобраны в учебнике (с. 58): метод интервалов.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a8a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 8</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 138, 139, 140 из учебника письменно. Устно: перечислить преобразования, после которых нужна проверка, и объяснить, почему нельзя делить на выражение с переменной.</p></div>
+<div class="pager"><a href="a7.html">← Урок 7</a><a href="algebra.html">Все уроки →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

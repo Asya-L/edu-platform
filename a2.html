@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 2. Действительные числа</title>
+<script>document.documentElement.dataset.page="a2";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=7eeb848f"></script><script src="assets/auth.js?v=7eeb848f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 2 · иррациональные числа, числовая прямая, модуль">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 2</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 2</div>
+  <h1>Действительные числа</h1>
+  <p class="lede">§ 2 · иррациональные числа, числовая прямая, модуль</p>
+  <div class="btns">
+    <a class="btn" href="sa2.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa2.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Рациональных чисел не хватает</h3>
+<p>Диагональ квадрата со стороной 1 по теореме Пифагора равна √2. Если вычислять, получится 1,41421356… — цифры идут без всякого периода. На прошлом уроке мы выяснили: у рационального числа период есть всегда. Значит, √2 — число нового вида.</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Иррациональное число</b> — бесконечная непериодическая десятичная дробь.</p><p>Примеры: √2, √3, π = 3,14159…, 0,1010010001… (после каждой единицы нулей на один больше).</p></div>
+<div class="thm"><span class="lbl">Теорема</span><p>Число √2 иррационально: его нельзя записать дробью <i>m</i>/<i>n</i>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Предположим противное: √2 = <i>m</i>/<i>n</i>, где дробь <b>несократимая</b>.</p><p>Возведём в квадрат: 2 = <i>m</i>²/<i>n</i>², то есть <i>m</i>² = 2<i>n</i>². Значит, <i>m</i>² чётно, а тогда и <i>m</i> чётно (квадрат нечётного числа нечётен). Пусть <i>m</i> = 2<i>k</i>.</p><p>Подставим: 4<i>k</i>² = 2<i>n</i>², <i>n</i>² = 2<i>k</i>². Значит, и <i>n</i> чётно.</p><p>Но тогда дробь <i>m</i>/<i>n</i> можно сократить на 2 — противоречие с несократимостью. ∎</p></div>
+<div class="def"><span class="lbl">Действительные числа</span><p>Рациональные и иррациональные числа вместе образуют множество <b>действительных чисел R</b>. Каждому действительному числу соответствует точка числовой прямой, и наоборот — каждой точке соответствует число.</p><p><b>N ⊂ Z ⊂ Q ⊂ R</b>.</p></div>
+<h3>Сравнение и оценка</h3>
+<p>Действительные числа сравнивают по десятичной записи — как слова в словаре: 1,4142… &lt; 1,4167… Число с корнем удобно сравнивать, возводя обе части в квадрат (если обе неотрицательны): √10 и 3,2 → 10 и 10,24 → √10 &lt; 3,2.</p>
+<div class="ex"><span class="lbl">Пример 1 · оценка корня</span><p>Между какими соседними десятыми лежит √30?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>5² = 25 &lt; 30 &lt; 36 = 6², значит, 5 &lt; √30 &lt; 6. Уточняем: 5,4² = 29,16 &lt; 30 &lt; 30,25 = 5,5². Ответ: <b>5,4 &lt; √30 &lt; 5,5</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · сравнение</span><p>Сравнить 2√3 и 3√2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Внесём множители под корень: 2√3 = √12, 3√2 = √18. Так как 12 &lt; 18, то <b>2√3 &lt; 3√2</b>.</p></div></div>
+<h3>Сумма и произведение</h3>
+<p>Сумма рационального и иррационального чисел всегда иррациональна (иначе иррациональное число было бы разностью двух рациональных). А вот сумма или произведение двух иррациональных бывает любым: √2 · √8 = 4, √2 + (−√2) = 0, но √2 · √3 = √6 — иррационально.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Частая ошибка — считать, что «с корнем — значит иррациональное». Проверь: √49 = 7, √2·√18 = 6, √50/√2 = 5 — все рациональные.</p></div>
+<h2>Модуль</h2>
+<div class="def"><span class="lbl">Определение</span><p>|<i>a</i>| = <i>a</i>, если <i>a</i> ≥ 0; &nbsp; |<i>a</i>| = −<i>a</i>, если <i>a</i> &lt; 0.</p><p><b>Геометрический смысл:</b> |<i>a</i>| — расстояние от точки <i>a</i> до нуля, |<i>a</i> − <i>b</i>| — расстояние между точками <i>a</i> и <i>b</i>.</p></div>
+<div class="thm"><span class="lbl">Главное свойство</span><p>√(<i>a</i>²) = |<i>a</i>| для любого действительного <i>a</i>.</p><p>√((−5)²) = √25 = 5 = |−5|.</p></div>
+<div class="ex"><span class="lbl">Пример 3 · раскрыть модуль</span><p>Раскрыть модуль: а) |5 − √7|; б) |√3 − 2|.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) √7 &lt; √25 = 5, значит, 5 − √7 &gt; 0 и |5 − √7| = <b>5 − √7</b>.</p><p>б) √3 &lt; √4 = 2, значит, √3 − 2 &lt; 0 и |√3 − 2| = <b>2 − √3</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>√(<i>a</i>²) = <i>a</i> — ошибка, если <i>a</i> может быть отрицательным. Это ловушка в заданиях ЕГЭ на преобразования.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Какие из чисел иррациональны: 0,(12); √9; √12; π; 0,1010010001…; 3,14?</div><div class="task"><span class="task-no">№&nbsp;2</span>Оцени √30 с точностью до 0,1.</div><div class="task"><span class="task-no">№&nbsp;3</span>Сравни: а) √10 и 3,2; б) 2√3 и 3√2.</div><div class="task"><span class="task-no">№&nbsp;4</span>Раскрой модуль: а) |5 − √7|; б) |√3 − 2|; в) |π − 3,15|.</div><div class="task"><span class="task-no">№&nbsp;5</span>Рационально или иррационально: а) √2 · √18; б) (√3 + 1)²; в) √50 : √2; г) √2 + √8?</div><div class="task"><span class="task-no">№&nbsp;6</span>Докажи, что √3 — иррациональное число.</div><div class="task"><span class="task-no">№&nbsp;7</span>Найди значение выражения |<i>x</i> − 2| + |<i>x</i> + 1| при <i>x</i> = √2.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 6</b> — Устно: определить, какие из десятичных дробей иррациональны.</li><li><b>№ 8</b> — Выбрать верное равенство: |<i>x</i>| = <i>x</i> или |<i>x</i>| = −<i>x</i> для выражений вида 5 − √7.</li><li><b>№ 9</b> — Выяснить, рационально или иррационально значение выражения с корнями.</li><li><b>№ 10–11</b> — Вычислить произведения и частные корней, сравнить значения выражений.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a2a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 2</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 8, 9, 11 из учебника письменно. Устно: доказать, что √3 иррационально, по образцу доказательства для √2; объяснить, почему √(<i>a</i>²) = |<i>a</i>|, а не <i>a</i>.</p></div>
+<div class="pager"><a href="a1.html">← Урок 1</a><a href="a3.html">Урок 3 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

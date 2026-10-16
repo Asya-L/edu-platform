@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 7. Взаимно обратные функции</title>
+<script>document.documentElement.dataset.page="a7";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=7eeb848f"></script><script src="assets/auth.js?v=7eeb848f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 7 · обратимость, как найти обратную функцию, симметрия графиков">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 7</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 7</div>
+  <h1>Взаимно обратные функции</h1>
+  <p class="lede">§ 7 · обратимость, как найти обратную функцию, симметрия графиков</p>
+  <div class="btns">
+    <a class="btn" href="sa7.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa7.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Функция по каждому <i>x</i> выдаёт <i>y</i>. Иногда нужно наоборот: по <i>y</i> восстановить <i>x</i>. Для <i>y</i> = 2<i>x</i> − 1 это легко: если <i>y</i> = 5, то <i>x</i> = 3, и так для любого <i>y</i>: <i>x</i> = (<i>y</i> + 1)/2. А для <i>y</i> = <i>x</i>² при <i>y</i> = 4 подходят и <i>x</i> = 2, и <i>x</i> = −2 — однозначно «вернуться» нельзя.</p>
+<div class="def"><span class="lbl">Определение</span><p>Функция называется <b>обратимой</b>, если каждое своё значение она принимает ровно при одном значении аргумента.</p><p>Если функция <i>y</i> = <i>f</i>(<i>x</i>) обратима, то функция, которая каждому <i>y</i> из E(<i>f</i>) ставит в соответствие это единственное <i>x</i>, называется <b>обратной</b> к <i>f</i>. Записывают <i>f</i><sup>−1</sup>, а аргумент по привычке снова обозначают <i>x</i>.</p></div>
+<div class="figrow"><figure><img src="assets/fig/inv_not.png" alt="y = x² необратима: прямая y = 2,25 пересекает график дважды"><figcaption>y = x² необратима: прямая y = 2,25 пересекает график дважды</figcaption></figure><figure><img src="assets/fig/inv_linear.png" alt="y = 2x − 1 и y = (x + 1)/2 — взаимно обратные"><figcaption>y = 2x − 1 и y = (x + 1)/2 — взаимно обратные</figcaption></figure></div>
+<div class="thm"><span class="lbl">Теорема</span><p>Если функция возрастает (или убывает) на промежутке, то она обратима на нём. Обратная функция тоже возрастает (убывает).</p></div>
+<h3>Как найти обратную функцию</h3>
+<ol class="steps"><li>Проверить, что функция обратима (например, монотонна).</li><li>Выразить <i>x</i> через <i>y</i> из равенства <i>y</i> = <i>f</i>(<i>x</i>).</li><li>Поменять обозначения: <i>x</i> ↔ <i>y</i>.</li><li>Записать область определения обратной: D(<i>f</i><sup>−1</sup>) = E(<i>f</i>), E(<i>f</i><sup>−1</sup>) = D(<i>f</i>).</li></ol>
+<div class="ex"><span class="lbl">Пример 1</span><p>Найти функцию, обратную к <i>y</i> = 2<i>x</i> − 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Функция возрастает ⇒ обратима. <i>x</i> = (<i>y</i> + 1)/2. Меняем обозначения: <b><i>y</i> = (<i>x</i> + 1)/2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>Найти функцию, обратную к <i>y</i> = <i>x</i>³ + 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Возрастает на ℝ. <i>x</i>³ = <i>y</i> − 1, <i>x</i> = ³√(<i>y</i> − 1). Ответ: <b><i>y</i> = ³√(<i>x</i> − 1)</b>.</p></div></div>
+<h3>Графики взаимно обратных функций</h3>
+<div class="thm"><span class="lbl">Свойство</span><p>Графики функции и обратной к ней симметричны относительно прямой <i>y</i> = <i>x</i>: если точка (<i>a</i>; <i>b</i>) лежит на одном графике, то (<i>b</i>; <i>a</i>) — на другом.</p></div>
+<figure><img src="assets/fig/inv_sqrt.png" alt="y = x² (x ≥ 0) и y = √x: точки (1,5; 2,25) и (2,25; 1,5) симметричны относительно y = x"><figcaption>y = x² (x ≥ 0) и y = √x: точки (1,5; 2,25) и (2,25; 1,5) симметричны относительно y = x</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 3</span><p>Найти функцию, обратную к <i>y</i> = <i>x</i>², <i>x</i> ≥ 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>На [0; +∞) функция возрастает. <i>x</i> = √<i>y</i> (берём неотрицательный корень, так как <i>x</i> ≥ 0). Ответ: <b><i>y</i> = √<i>x</i></b>, D = [0; +∞).</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Частая ошибка — забыть про область определения. Для <i>y</i> = √<i>x</i> обратная — <i>y</i> = <i>x</i>² <b>при <i>x</i> ≥ 0</b>, а не вся парабола: E(√<i>x</i>) = [0; +∞), и это область определения обратной.</p></div>
+<div class="ex"><span class="lbl">Пример 4 · проверка</span><p>Доказать, что <i>f</i>(<i>x</i>) = 3<i>x</i> + 6 и <i>g</i>(<i>x</i>) = <i>x</i>/3 − 2 взаимно обратные.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>g</i>(<i>f</i>(<i>x</i>)) = (3<i>x</i> + 6)/3 − 2 = <i>x</i> и <i>f</i>(<i>g</i>(<i>x</i>)) = 3(<i>x</i>/3 − 2) + 6 = <i>x</i>. Обе композиции дают <i>x</i> — функции взаимно обратные.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Обратима ли функция: а) <i>y</i> = 3<i>x</i> − 1; б) <i>y</i> = <i>x</i>² + 7; в) <i>y</i> = 1/<i>x</i>; г) <i>y</i> = √<i>x</i>; д) <i>y</i> = <i>x</i>⁴; е) <i>y</i> = <i>x</i>⁴ при <i>x</i> &lt; 0?</div><div class="task"><span class="task-no">№&nbsp;2</span>Найди обратную функцию: а) <i>y</i> = −5<i>x</i> + 4; б) <i>y</i> = <i>x</i>³ − 3.</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди обратную к <i>y</i> = 2/(<i>x</i> − 1) и её область определения.</div><div class="task"><span class="task-no">№&nbsp;4</span>Точка (2; 7) лежит на графике функции <i>f</i>. Какая точка лежит на графике обратной функции?</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди D и E функции, обратной к <i>y</i> = √(<i>x</i> − 2).</div><div class="task"><span class="task-no">№&nbsp;6</span>Являются ли взаимно обратными <i>y</i> = 2<i>x</i> + 1 и <i>y</i> = <i>x</i>/2 − 1?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 131</b> — Устно: обратима ли функция (3<i>x</i> − 1, <i>x</i>² + 7, 1/<i>x</i>, √<i>x</i>, <i>x</i>⁴, <i>x</i>⁴ при <i>x</i> &lt; 0).</li><li><b>№ 132</b> — Найти обратную: 2<i>x</i> − 1, −5<i>x</i> + 4, <i>x</i>³ + 1, <i>x</i>³ − 3.</li><li><b>№ 133</b> — Область определения и множество значений обратной функции.</li><li><b>№ 135</b> — Проверить подстановкой, что функции взаимно обратные.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a7a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 7</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 132, 133, 135 из учебника письменно; № 131 — устно. Построить в одной системе координат графики y = x³ и y = ³√x и прямую y = x.</p></div>
+<div class="pager"><a href="a6.html">← Урок 6</a><a href="a8.html">Урок 8 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

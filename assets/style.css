@@ -114,6 +114,11 @@ a.pill:hover{text-decoration:none;background:var(--butter);color:var(--butter-d)
 .warn .lbl{color:var(--peach-d)} .goal .lbl{color:var(--butter-d)} .proof .lbl{background:var(--bg);color:var(--ink-soft)}
 .def p:last-child,.thm p:last-child,.note p:last-child,.warn p:last-child,.goal p:last-child,.proof p:last-child{margin-bottom:0}
 .def p:first-of-type,.thm p:first-of-type{margin-top:0}
+.ex{border-radius:var(--r);padding:18px 22px;margin:20px 0;background:var(--paper);border:1.5px solid var(--edge);border-left:6px solid var(--sky-d)}
+.ex .lbl{background:var(--sky);color:var(--sky-d)} .ex p{margin:8px 0}
+.ex-sol{margin-top:10px;padding-top:10px;border-top:1px dashed var(--edge)} .ex-h{font-weight:800;color:var(--sky-d);font-size:14px;margin-right:6px}
+.ex-sol p:first-of-type{display:inline} .ex-sol p:last-child{margin-bottom:0}
+.plan td:first-child{white-space:nowrap;font-weight:800;color:var(--lav-d)}
 ul,ol{padding-left:22px;margin:12px 0} li{margin:6px 0} p{margin:12px 0}
 .steps{list-style:none;counter-reset:st;padding:0;margin:16px 0}
 .steps li{counter-increment:st;position:relative;padding:2px 0 0 46px;margin:14px 0}
@@ -169,6 +174,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .sec h3 .n{width:30px;height:30px;border-radius:10px;background:var(--lav);color:var(--lav-d);display:inline-flex;align-items:center;justify-content:center;font-size:15px}
 .blank{display:inline-block;min-width:130px;border-bottom:1.5px solid var(--ink-soft);margin:0 4px;transform:translateY(-3px)}
 .lines{margin:10px 0 4px}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 22px;margin:4px 0}
+.calc>div{padding:8px 0;border-bottom:1px dashed var(--edge)} .calc .blank{min-width:70px}
 .lines div{height:30px;border-bottom:1px dashed #BDB4D3}
 .tf{width:100%;border:0;border-radius:0;box-shadow:none;background:transparent;margin:6px 0}
 .tf td{border-bottom:1px dashed var(--edge);padding:9px 6px}

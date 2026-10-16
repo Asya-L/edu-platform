@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 1. Целые и рациональные числа</title>
+<script>document.documentElement.dataset.page="a1";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=7eeb848f"></script><script src="assets/auth.js?v=7eeb848f"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 1 · от натуральных чисел к рациональным, периодические дроби">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 1</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 1</div>
+  <h1>Целые и рациональные числа</h1>
+  <p class="lede">§ 1 · от натуральных чисел к рациональным, периодические дроби</p>
+  <div class="btns">
+    <a class="btn" href="sa1.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa1.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Зачем числа «расширяли»</h3>
+<p>Натуральные числа <b>N</b> = {1, 2, 3, …} появились для счёта. Их можно складывать и умножать, а вычитать — не всегда: 3 − 5 в натуральных числах не выполняется. Добавили ноль и отрицательные числа — получились <b>целые числа Z</b>. Но и в целых не всегда выполняется деление: 3 : 5 — не целое. Добавили дроби — получились <b>рациональные числа Q</b>.</p>
+<p>Каждое следующее множество содержит предыдущее: <b>N ⊂ Z ⊂ Q</b>. Расширение каждый раз нужно, чтобы стало выполнимым ещё одно действие.</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Рациональное число</b> — это число вида <i>m</i>/<i>n</i>, где <i>m</i> — целое, <i>n</i> — натуральное.</p><p>Одно и то же рациональное число записывается многими дробями: 1/2 = 2/4 = 50/100. Среди них есть одна <b>несократимая</b>.</p></div>
+<h3>Дробь в десятичную: откуда берётся период</h3>
+<p>Делим числитель на знаменатель уголком. Например, 3/11: 30 : 11 = 2 (ост. 8), 80 : 11 = 7 (ост. 3), 30 : 11 = 2 (ост. 8), … Остаток 8 повторился — и дальше цифры пойдут по кругу: 3/11 = 0,272727… = <b>0,(27)</b>.</p>
+<div class="thm"><span class="lbl">Почему период неизбежен</span><p>При делении на <i>n</i> остатков всего <i>n</i> возможных: 0, 1, …, <i>n</i> − 1. Если встретился остаток 0 — дробь конечная. Если нет, то не позже чем через <i>n</i> − 1 шаг какой-то остаток повторится, и цифры пойдут по кругу. Значит, <b>любое рациональное число записывается конечной или бесконечной периодической десятичной дробью</b>.</p></div>
+<p>Конечную дробь тоже можно считать периодической: 0,5 = 0,5(0). Поэтому коротко говорят: рациональные числа — это периодические десятичные дроби.</p>
+<div class="thm"><span class="lbl">Когда дробь конечная</span><p>Несократимая дробь <i>m</i>/<i>n</i> записывается <b>конечной</b> десятичной дробью тогда и только тогда, когда в разложении знаменателя <i>n</i> на простые множители есть только 2 и 5.</p><p>7/40 = 0,175 (40 = 2³·5); 1/6 = 0,1(6) (в 6 есть множитель 3).</p></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Признак работает только для <b>несократимой</b> дроби. 9/75 кажется «плохой» из-за 75 = 3·5², но 9/75 = 3/25 = 0,12 — конечная. Сначала сократи, потом смотри на знаменатель.</p></div>
+<h2>Периодическая дробь в обыкновенную</h2>
+<p>Идея одна: умножить число на 10, 100, 1000… так, чтобы периоды «совпали», и вычесть — бесконечный хвост исчезнет.</p>
+<div class="ex"><span class="lbl">Пример 1 · чистый период</span><p>Записать 0,(27) обыкновенной дробью.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть <i>x</i> = 0,2727… Период из двух цифр — умножаем на 100: 100<i>x</i> = 27,2727… Вычитаем: 100<i>x</i> − <i>x</i> = 27, 99<i>x</i> = 27, <i>x</i> = 27/99 = <b>3/11</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · с целой частью</span><p>Записать 2,(18) обыкновенной дробью.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2,(18) = 2 + 0,(18) = 2 + 18/99 = 2 + 2/11 = <b>24/11</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · смешанная периодическая</span><p>Записать 0,2(45) обыкновенной дробью.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>x</i> = 0,24545… Сначала «сдвигаем» предпериод: 10<i>x</i> = 2,4545…, затем период: 1000<i>x</i> = 245,4545… Вычитаем: 990<i>x</i> = 243, <i>x</i> = 243/990 = <b>27/110</b>.</p></div></div>
+<div class="def"><span class="lbl">Полезно запомнить (для проверки)</span><p>0,(<i>a</i>) = <i>a</i>/9 &nbsp; · &nbsp; 0,(<i>ab</i>) = <i>ab</i>/99 &nbsp; · &nbsp; 0,(<i>abc</i>) = <i>abc</i>/999</p><p>Например, 0,(7) = 7/9, 0,(36) = 36/99 = 4/11.</p></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Частые ошибки: умножают на 10 вместо 100 при периоде из двух цифр; в смешанной дроби вычитают <i>x</i> вместо 10<i>x</i>; забывают сократить ответ.</p></div>
+<h2>Разбор примеров</h2>
+<p>Сравнить 0,(45) и 0,4(5). Переводим: 0,(45) = 45/99 = 5/11; 0,4(5) = 41/90. Приводим к общему знаменателю 990: 450/990 и 451/990. Значит, <b>0,4(5) больше</b>. Можно проще — сравнить цифры: 0,4545… и 0,4555… отличаются в третьем знаке.</p>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Запиши в виде десятичной дроби: а) 7/8; б) 4/9; в) 5/6; г) 13/11.</div><div class="task"><span class="task-no">№&nbsp;2</span>Не выполняя деления, определи, какие дроби записываются конечной десятичной дробью: 3/40, 7/30, 9/75, 11/14.</div><div class="task"><span class="task-no">№&nbsp;3</span>Запиши обыкновенной дробью: а) 0,(7); б) 0,(36); в) 1,(3); г) 0,1(2).</div><div class="task"><span class="task-no">№&nbsp;4</span>Вычисли, переведя дроби в обыкновенные: а) 0,(3) + 0,(6); б) 0,(1) · 9; в) 0,(6) · 1,5.</div><div class="task"><span class="task-no">№&nbsp;5</span>Сравни 0,(45) и 0,4(5).</div><div class="task"><span class="task-no">№&nbsp;6</span>Найди период дроби 1/7 и его длину. Какая цифра стоит на 20-м месте после запятой?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 1</b> — Записать обыкновенные дроби в виде десятичных: 2/3, 8/11, 3/5, 13/99 и другие.</li><li><b>№ 2</b> — Выполнить действия и записать результат десятичной дробью.</li><li><b>№ 3</b> — Записать периодические дроби обыкновенными: 0,(6), 1,(55), 0,1(2), −3,(27).</li><li><b>№ 4–5</b> — Длинные вычисления со смешанными дробями — техника счёта без калькулятора.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a1a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 1</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 1, 3, 5 из учебника письменно. Устно: объяснить, почему 1/7 даёт бесконечную периодическую дробь, а 3/40 — конечную; рассказать алгоритм перевода 0,1(2) в обыкновенную дробь.</p></div>
+<div class="pager"><a href="algebra.html">← Все уроки</a><a href="a2.html">Урок 2 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

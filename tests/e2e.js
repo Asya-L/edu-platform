@@ -12,8 +12,8 @@ const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR
 
 const results = []; let errors = [];
 function rec(id, ok, note) { results.push({id, ok: !!ok, note: note || ''}); console.log((ok ? 'PASS ' : 'FAIL ') + id + (note ? ' — ' + note : '')); }
-const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2'];
-const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','ege-bank','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5'];
+const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2','a1','a2','a3','a4','a5','a6','a7','a8','wsa1','wsa2','wsa3','wsa4','wsa5','wsa6','wsa7','wsa8'];
+const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','ege-bank','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5','a1','a2','a3','a4','a5','a6','a7','a8','wsa1','wsa2','wsa3','wsa4','wsa5','wsa6','wsa7','wsa8','sa1','sa2','sa3','sa4','sa5','sa6','sa7','sa8','quiz-a1a'];
 
 (async () => {
   const b = await chromium.launch();
@@ -87,7 +87,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     const refs = await p.evaluate(() => [...document.querySelectorAll('#tview a[href], #tview img[src]')].map(e => e.getAttribute('href') || e.getAttribute('src'))
       .filter(h => h && !/^(https?:|mailto:|#|t\.html|javascript:)/.test(h)).map(h => h.split('#')[0]).filter(Boolean));
     const TF = await p.evaluate(() => window.KABINET && 1);
-    for (const r of new Set(refs)) { const target = /^files\/(ws\d-teacher|test-|geo-solutions|geo-drawings|ege-lecture-1)/.test(r) ? 't/' + r + '.bin' : r;
+    for (const r of new Set(refs)) { const target = /^files\/(wsa?\d-teacher|test-|geo-solutions|geo-drawings|ege-lecture-1)/.test(r) ? 't/' + r + '.bin' : r;
       const st = await p.evaluate(async (u) => (await fetch(u, {method:'HEAD'})).status, target); if (st !== 200) tBroken.add(n + ': ' + r + ' ' + st); } }
   await p.setViewportSize({width: 1280, height: 860});
   rec('ENC-01', !encFail.length, encFail.join(', ') || TEACHER_PAGES.length + ' страниц');
@@ -97,6 +97,10 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await go('t.html#g2'); const anchor = await p.getAttribute('#tview a[href*="practice"]', 'href');
   await go('t.html#g2/practice', 900); const scrolled = await p.evaluate(() => scrollY > 500);
   rec('ENC-02', gl === 't.html#g1' && anchor === 't.html#g2/practice' && scrolled, gl + ' ' + anchor + ' scrolled=' + scrolled);
+  await go('t.html#a6', 900); const ta = await p.evaluate(() => ({plan: !!document.querySelector('#tview #plan'), notes: document.querySelectorAll('#tview .note').length,
+    ans: document.querySelectorAll('#tview .task details').length, keys: document.querySelectorAll('#tview #tests ~ details li').length, book: document.querySelectorAll('#tview #book ~ .tablewrap tr').length,
+    ws: (document.querySelector('#tview a[href*="wsa6"]') || {}).getAttribute ? document.querySelector('#tview a[href*="wsa6"]').getAttribute('href') : ''}));
+  rec('AL-02', ta.plan && ta.notes >= 1 && ta.ans === 6 && ta.keys === 16 && ta.book >= 5 && ta.ws === 't.html#wsa6', JSON.stringify(ta));
   await go('t.html#library');
   const [pop] = await Promise.all([ctx.waitForEvent('page'), p.click('#tview a[href="files/geo-drawings-1-33.png"]')]);
   await pop.waitForTimeout(1500); const img = await pop.evaluate(() => (document.querySelector('img') || {}).naturalWidth || 0).catch(() => 0);
@@ -212,6 +216,17 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
   await p.click('#qzGo'); await p.waitForTimeout(800); const sc4 = (await p.textContent('#qzScore')) || ''; const cr4 = (await p.textContent('.crumbs')) || '';
   rec('QZ-04', !!tl4 && k4.length === 8 && sc4.startsWith('8 из 8') && cr4.includes('Урок 2'), sc4.slice(0, 30) + ' · ' + cr4.replace(/\s+/g, ' ').slice(0, 50));
+  // QZ-06: тест к уроку алгебры со страницы урока; AL-01: конспект ученика без методички, с примерами и задачами
+  await go('a3.html', 900); const al = await p.evaluate(() => ({ex: document.querySelectorAll('.ex').length, note: document.querySelectorAll('main .note').length + document.querySelectorAll('main .goal').length - 1,
+    tasks: document.querySelectorAll('#practice ~ .task').length, quiz: !!document.querySelector('a[href="quiz-a3a.html"]'), ws: !!document.querySelector('a[href="wsa3.html"]'),
+    sa: !!document.querySelector('a[href="sa3.html"]'), det: document.querySelectorAll('main details').length}));
+  await go('a6.html', 900); const figs = await p.evaluate(() => [...document.querySelectorAll('main img')].map(i => i.naturalWidth > 0));
+  rec('AL-01', al.ex >= 3 && al.note === 0 && al.tasks === 6 && al.quiz && al.ws && al.sa && al.det === 0 && figs.length === 6 && figs.every(Boolean), JSON.stringify(al) + ' figs ' + figs.length);
+  await go('quiz-a3a.html', 1000); const k6 = QK['quiz-a3a'] || [];
+  for (let i = 0; i < k6.length; i++) { const k = k6[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
+    if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
+  await p.click('#qzGo'); await p.waitForTimeout(800); const sc6 = (await p.textContent('#qzScore')) || ''; const cr6 = (await p.textContent('.crumbs')) || '';
+  rec('QZ-06', k6.length === 8 && sc6.startsWith('8 из 8') && cr6.includes('Алгебра') && cr6.includes('Урок 3'), sc6.slice(0, 30) + ' · ' + cr6.replace(/\s+/g, ' ').slice(0, 50));
 
   // ── учитель видит сдачу и тест, отвечает
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
@@ -235,7 +250,8 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
 
   // HW-08…10: тест самопроверки как домашнее задание
   const qo = await p.$$eval('#lQuiz option', o => o.map(x => x.textContent));
-  rec('QZ-05', [1, 2, 3, 4, 5].every(n => qo.includes(`Урок ${n} · тест домой`) && qo.includes(`Урок ${n} · тест в классе`)), qo.length + ' тестов в списке ДЗ');
+  rec('QZ-05', [1, 2, 3, 4, 5].every(n => qo.includes(`Геометрия · урок ${n} · тест домой`) && qo.includes(`Геометрия · урок ${n} · тест в классе`))
+    && [1, 2, 3, 4, 5, 6, 7, 8].every(n => qo.includes(`Алгебра · урок ${n} · тест домой`) && qo.includes(`Алгебра · урок ${n} · тест в классе`)), qo.length + ' тестов в списке ДЗ');
   await p.fill('#lHw', ''); await p.selectOption('#lQuiz', ''); await p.selectOption('#lTopic', 'g3'); await p.waitForTimeout(100);
   const j1 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz'), bar: (await p.textContent('#lHwSug')) || ''};
   await p.fill('#lHw', 'Своё задание'); await p.selectOption('#lTopic', 'g2'); const j2 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz')};
@@ -243,6 +259,11 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await p.selectOption('#lTopic', 'a4'); const j4 = await p.inputValue('#lHw');
   rec('JR-10', j1.hw.startsWith('№ 39, 41, 45, 46') && j1.q === 'quiz-g3b' && j1.bar.includes('слайд «Дома»') && j2.hw === 'Своё задание' && j2.q === 'quiz-g2b'
     && j3.startsWith('№ 18, 23, 27, 30') && j3.endsWith('; рабочий лист к уроку 2') && j4 === j3, `${j1.hw.slice(0, 20)} · ${j1.q} · своё не затёрто: ${j2.hw} · ${j3.slice(-26)}`);
+  // JR-11: тема урока алгебры подставляет ДЗ со слайда «Дома», домашний тест и номера из презентации учебника
+  await p.fill('#lHw', ''); await p.selectOption('#lQuiz', ''); await p.selectOption('#lTopic', 'a4'); await p.waitForTimeout(100);
+  const j5 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz'), bar: (await p.textContent('#lHwSug')) || ''};
+  rec('JR-11', j5.hw.startsWith('№ 37, 39, 42, 45') && j5.q === 'quiz-a4b' && j5.bar.includes('Алгебра, урок 4') && j5.bar.includes('Номера из презентации учебника')
+    && j5.bar.includes('рабочий лист к уроку алгебры 4'), `${j5.hw.slice(0, 30)} · ${j5.q}`);
   await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSave'); await p.waitForTimeout(1400);
   const lq = (await p.textContent('#log')) || '';
   rec('HW-08', lq.includes('Тест в ДЗ: Самопроверка · Глава I — ещё не пройден'), 'журнал: тест задан');
