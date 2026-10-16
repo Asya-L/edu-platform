@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Журнал занятий</title>
-<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=7eeb848f"></script><script src="assets/auth.js?v=7eeb848f"></script>
+<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=91b2ff44"></script><script src="assets/auth.js?v=91b2ff44"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -180,6 +180,7 @@ function toast(t){ var e = $('toast'); e.textContent = t; e.hidden = false; clea
 function today(){ var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
 function remember(id){ try { localStorage.setItem('jr.current', id); } catch(e){} }
 function recall(){ try { return localStorage.getItem('jr.current'); } catch(e){ return null; } }
+(function(){ var m = /[#&]s=([^&]+)/.exec(location.hash); if (m) { remember(decodeURIComponent(m[1])); try { history.replaceState(null, '', location.pathname); } catch(e){} } })();
 function fail(e){ toast('Не получилось сохранить. Проверьте интернет и попробуйте ещё раз.'); console.error(e); }
 
 (function(){ var s = $('lTopic'); CATALOG.forEach(function(g){ var og = document.createElement('optgroup'); og.label = g[0];

@@ -150,6 +150,12 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await p.fill('#nAt', nextLocal); await p.fill('#nUrl', 'https://example.test/call/abc'); await p.click('#nSave'); await p.waitForTimeout(600);
   const stRow = await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_students[0]);
   rec('JR-09', stRow.call_url === 'https://example.test/call/abc' && Math.abs(new Date(stRow.next_at) - next) < 6e4, stRow.next_at);
+  // TH-01: на главной учителя — ближайшее занятие ученика со ссылкой на звонок и журнал
+  await go('t.html#index', 1400); const th = (await p.textContent('#thBox')) || '';
+  const thCall = await p.getAttribute('#thBox a.go', 'href').catch(() => null); const thJr = await p.getAttribute('#thBox .th-row a[href^="journal.html#s="]', 'href').catch(() => null);
+  rec('TH-01', th.includes('Ближайшие занятия') && th.includes('18:00') && th.includes('послезавтра') && th.includes(stRow.name) && thCall === 'https://example.test/call/abc'
+    && thJr === 'journal.html#s=' + stRow.id && th.includes('Всё проверено'), th.replace(/\s+/g, ' ').slice(0, 120));
+  await go('journal.html', 900);
 
   // ── HW ученик
   await logout(); await login('kid@test.local');
@@ -229,7 +235,10 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('QZ-06', k6.length === 8 && sc6.startsWith('8 из 8') && cr6.includes('Алгебра') && cr6.includes('Урок 3'), sc6.slice(0, 30) + ' · ' + cr6.replace(/\s+/g, ' ').slice(0, 50));
 
   // ── учитель видит сдачу и тест, отвечает
-  await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
+  await logout(); await login('teacher@test.local'); await go('t.html#index', 1400); const th2 = (await p.textContent('#thBox')) || '';
+  await p.click('#thBox .th-todo a'); await p.waitForTimeout(1200); const th2url = path(); const th2sel = await p.evaluate(() => localStorage.getItem('jr.current'));
+  rec('TH-02', th2.includes('Ждут проверки') && th2.includes('1 сдача') && th2.includes('№ 18, 23') && th2url === 'journal.html' && !!th2sel, th2.replace(/\s+/g, ' ').slice(-80) + ' → ' + th2url);
+  await go('journal.html', 1200);
   const logT = (await p.textContent('#log')) || ''; const imgT = await p.$$eval('#log .ph img', e => e.filter(i => i.src.startsWith('data:')).length);
   rec('HW-06', logT.includes('сдано') && logT.includes('1 фото') && logT.includes('Ученик: Не понял № 27') && imgT === 1, `фото у учителя ${imgT}`);
   const qzT = (await p.textContent('#quiz')) || '';
