@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Журнал занятий</title>
-<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=df8f259a"></script><script src="assets/auth.js?v=df8f259a"></script>
+<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=111e1ccd"></script><script src="assets/auth.js?v=111e1ccd"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -163,7 +163,7 @@ function topicHref(key, teacher){
   return '';
 }
 function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
-var QUIZ = {"quiz-geo1": "Самопроверка · Глава I"};
+var QUIZ = {"quiz-geo1": "Самопроверка · Глава I", "quiz-g1a": "Урок 1 · тест в классе", "quiz-g1b": "Урок 1 · тест домой", "quiz-g2a": "Урок 2 · тест в классе", "quiz-g2b": "Урок 2 · тест домой", "quiz-g3a": "Урок 3 · тест в классе", "quiz-g3b": "Урок 3 · тест домой", "quiz-g4a": "Урок 4 · тест в классе", "quiz-g4b": "Урок 4 · тест домой", "quiz-g5a": "Урок 5 · тест в классе", "quiz-g5b": "Урок 5 · тест домой"};
 
 var K = window.KABINET, sb, students = [], lessons = [], progress = {}, profiles = [], quizRes = [], bankRes = [], boardsAll = [], urls = {}, fbOpen = {}, current = null, editing = null, editingStudent = false, confirmId = null, pend = null, pTimer = null;
 var HW = {none:['не задавалось','c-none'],set:['ДЗ задано','c-set'],done:['ДЗ сделано','c-done'],part:['ДЗ частично','c-part'],no:['ДЗ не сделано','c-no']};

@@ -206,6 +206,13 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const st5 = await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_bank_attempts.map(a => [a.task, a.ok, a.revealed]));
   rec('BK-05', chips.includes('решено') && !chips.includes('с первой') && chips.includes('решение открыто') && chips1.includes('решено с первой попытки') && st5.length === 4, chips + ' | ' + chips1 + ' | ' + JSON.stringify(st5));
 
+  // QZ-04: тест к уроку (вариант «в классе») со страницы урока
+  await go('g2.html', 900); const tl4 = await p.$('a[href="quiz-g2a.html"]'); await go('quiz-g2a.html', 1000); const k4 = QK['quiz-g2a'] || [];
+  for (let i = 0; i < k4.length; i++) { const k = k4[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
+    if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
+  await p.click('#qzGo'); await p.waitForTimeout(800); const sc4 = (await p.textContent('#qzScore')) || ''; const cr4 = (await p.textContent('.crumbs')) || '';
+  rec('QZ-04', !!tl4 && k4.length === 8 && sc4.startsWith('8 из 8') && cr4.includes('Урок 2'), sc4.slice(0, 30) + ' · ' + cr4.replace(/\s+/g, ' ').slice(0, 50));
+
   // ── учитель видит сдачу и тест, отвечает
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
   const logT = (await p.textContent('#log')) || ''; const imgT = await p.$$eval('#log .ph img', e => e.filter(i => i.src.startsWith('data:')).length);
@@ -227,6 +234,8 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
 
   // HW-08…10: тест самопроверки как домашнее задание
+  const qo = await p.$$eval('#lQuiz option', o => o.map(x => x.textContent));
+  rec('QZ-05', [1, 2, 3, 4, 5].every(n => qo.includes(`Урок ${n} · тест домой`) && qo.includes(`Урок ${n} · тест в классе`)), qo.length + ' тестов в списке ДЗ');
   await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSave'); await p.waitForTimeout(1400);
   const lq = (await p.textContent('#log')) || '';
   rec('HW-08', lq.includes('Тест в ДЗ: Самопроверка · Глава I — ещё не пройден'), 'журнал: тест задан');
@@ -256,8 +265,11 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const bT = await pT.textContent('#bdTitle'); const nb = (await mdb()).edu_boards.length;
   rec('BD-01', /^Занятие \d\d\.\d\d$/.test(bT) && nb === 1 && pT.url().includes('board.html?b='), bT + ', досок ' + nb);
   await pS.goto(SITE + 'board.html'); await pS.waitForTimeout(1500);
+  const ch28 = await pS.evaluate(() => ({vis: !!document.getElementById('bdChoose'), n: document.querySelectorAll('#bdChoose [data-b]').length, t: (document.getElementById('bdChoose') || {}).textContent || '', st: document.getElementById('bdStage').hidden}));
+  await pS.click('#bdChoose [data-b] >> nth=0'); await pS.waitForTimeout(1300);
   const bS = await pS.textContent('#bdTitle'); const peerT = await pT.textContent('#bdPeer'), peerS = await pS.textContent('#bdPeer');
   rec('BD-02', bS === bT && peerT.includes('Ученик на доске') && peerS.includes('Учитель на доске'), peerT + ' / ' + peerS);
+  rec('BD-28', ch28.vis && ch28.n === 1 && ch28.t.includes(bT) && ch28.t.includes('новая') && ch28.st, 'ученик сначала видит выбор: ' + ch28.t.slice(0, 60));
   const bx = await pT.locator('#bdCanvas').boundingBox(), sx = await pS.locator('#bdCanvas').boundingBox();
   await pT.mouse.move(bx.x + 200, bx.y + 200); await pT.mouse.down(); for (let i = 1; i <= 12; i++) await pT.mouse.move(bx.x + 200 + i * 10, bx.y + 200 + i * 5); await pT.mouse.up();
   await pS.waitForTimeout(500); const e3 = await E(pS); await pT.waitForTimeout(1200); const saved3 = (await mdb()).edu_boards[0].data.els.length;

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=df8f259a"></script><script src="assets/auth.js?v=df8f259a"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=111e1ccd"></script><script src="assets/auth.js?v=111e1ccd"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -67,6 +67,12 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
 .bd-sl-tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 #bdSl .grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))} #bdSl .grid img{height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px}
 .bd-empty{max-width:560px;margin:60px auto;padding:0 16px;text-align:center}
+.bd-choose{display:grid;gap:10px;margin:18px 0;text-align:left}
+.bd-choose button{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;border:1.5px solid var(--edge);border-radius:16px;background:var(--paper);padding:14px 16px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:var(--sh-sm);text-align:left}
+.bd-choose button:hover,.bd-choose button:focus-visible{border-color:var(--lav-d);background:#F7F5FF}
+.bd-choose b{font:900 17px var(--f-head)} .bd-choose span{grid-column:1;font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.bd-choose em{grid-column:2;grid-row:1/span 2;font:800 12.5px var(--f-body);font-style:normal;border-radius:999px;padding:4px 10px;background:var(--mint);color:var(--mint-d)}
+.bd-choose em.last{background:var(--lav);color:var(--lav-d)}
 .bd-banner{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:8;background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 16px;font-weight:700;font-size:14px;display:flex;gap:10px;align-items:center;box-shadow:var(--sh-sm)}
 .bd-banner button{border:0;border-radius:999px;padding:6px 12px;font:800 13px var(--f-body);cursor:pointer;background:var(--butter);color:var(--ink)}
 .bd-toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;z-index:40}
@@ -896,9 +902,24 @@ async function openBoard(id){
   layout(); if (els.length) fit(); else { view = {x: -40, y: -40, z: 1}; draw(); }
   connect();
 }
+function whenTxt(t){ if (!t) return ''; var d = new Date(t), n = new Date(), hm = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
+  var day = function(x){ return new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime(); }, diff = Math.round((day(n) - day(d)) / 864e5);
+  return diff === 0 ? 'сегодня в ' + hm : diff === 1 ? 'вчера в ' + hm : fmtD(t); }
+function chooser(list){
+  var h = '<h2>Какую доску открыть?</h2><p class="muted">Доски с наших занятий, новые сверху. Свою доску можно завести для черновиков.</p><div class="bd-choose" id="bdChoose">' +
+    list.map(function(x, i){ var fresh = new Date(x.created_at) > new Date(Date.now() - 6 * 3600e3);
+      return '<button type="button" data-b="' + x.id + '"><b>' + esc(x.title) + '</b><span>' + (x.lesson_date ? 'занятие ' + fmtDate(x.lesson_date) + ' · ' : '') + 'изменена ' + whenTxt(x.updated_at || x.created_at) + '</span>' +
+        (fresh ? '<em>новая</em>' : i === 0 ? '<em class="last">последняя</em>' : '') + '</button>'; }).join('') +
+    '</div><p><button type="button" class="bd-t" id="bdOwn">+ Свой черновик</button></p>';
+  showEmpty(h); chooser.shown = list.map(function(x){ return x.id; }).join();
+  document.querySelectorAll('#bdChoose [data-b]').forEach(function(x){ x.onclick = function(){ openBoard(x.dataset.b); }; });
+  var first = document.querySelector('#bdChoose [data-b]'); if (first) first.focus();
+  $('bdOwn').onclick = async function(){ var r2 = await sb.rpc('edu_board_new', {p_title: 'Черновик ' + fmtD(new Date())}); if (!r2.error) { await loadMine(); openBoard(r2.data); } else toast('Не получилось создать доску'); };
+}
 function showEmpty(h){ document.body.classList.remove('board-open'); $('bdEmpty').innerHTML = h; $('bdEmpty').hidden = false; $('bdBar').hidden = true; stage.hidden = true; }
 async function checkNew(){
-  if (isT || !board) return; var list = await loadMine(); var nb = list[0];
+  if (isT) return; if (!board) { if (!$('bdChoose')) return; var l2 = await loadMine(); if (l2.map(function(x){ return x.id; }).join() !== chooser.shown) chooser(l2); return; }
+  var list = await loadMine(); var nb = list[0];
   if (nb && nb.id !== board.id && new Date(nb.created_at) > new Date(Date.now() - 6 * 3600e3) && !checkNew.seen[nb.id]) {
     var bn = $('bdBanner'); bn.innerHTML = 'Учитель открыл новую доску «' + esc(nb.title) + '»<button type="button">Перейти</button><button type="button" style="background:transparent;color:#fff">✕</button>'; bn.hidden = false;
     bn.querySelectorAll('button')[0].onclick = function(){ bn.hidden = true; openBoard(nb.id); }; bn.querySelectorAll('button')[1].onclick = function(){ bn.hidden = true; checkNew.seen[nb.id] = 1; }; }
@@ -920,7 +941,7 @@ K.state.then(async function(st){
       students.map(function(x){ return '<button type="button" data-s="' + x.id + '"><span>' + esc(x.name) + '</span><small>открыть →</small></button>'; }).join('') + '</div>'), document.querySelectorAll('[data-s]').forEach(function(x){ x.onclick = function(){ forStudent(x.dataset.s, true); }; });
   } else {
     var list = await loadMine();
-    if (b) await openBoard(b); else if (list.length) await openBoard(list[0].id);
+    if (b) await openBoard(b); else if (list.length) chooser(list);
     else { var info = await sb.rpc('edu_my_info');
       showEmpty(info.data && info.data.length ? '<h2>Доски пока нет</h2><p class="muted">Учитель откроет доску на занятии — она появится здесь. А пока можно завести свой черновик.</p><p><button type="button" class="btn" id="bdFirst">Свой черновик</button></p>'
         : '<h2>Доска появится после привязки</h2><p class="muted">Учитель ещё не привязал твой аккаунт к журналу. Напиши ему — и здесь появится общая доска для занятий.</p>');
