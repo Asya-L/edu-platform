@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-22).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-24).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -51,6 +51,7 @@ begin
   insert into public.edu_boards(student_id, title) values (ot_id, 'ТЕСТ чужая доска') returning id into b_other;
   insert into public.edu_bank(id, num, answer, solution) values ('test-bank', 5, '-2.5', 'ТЕСТ решение') on conflict (id) do update set answer = '-2.5', num = 5;
   insert into public.edu_bank_attempts(student_id, task, num, answer, ok) values (ot_id, 'test-bank', 5, '1', false);
+  insert into public.edu_ws_answers(student_id, ws, answers, submitted_at) values (ot_id, 'ws9', '{"0":"ЧУЖОЕ"}', now());
 
   -- DB-01: учитель читает ключ
   perform set_config('request.jwt.claims', json_build_object('sub', t_uid, 'role', 'authenticated')::text, true);
@@ -207,6 +208,20 @@ begin
   r := r || case when err = '' and n = 1 then 'PASS' else 'FAIL' end
          || ' DB-17 картинки доски: ' || case when err = '' then 'только своя доска' else err end || ', видит ' || n || E'\n';
 
+  -- DB-23: рабочий лист — ученик сохраняет и сдаёт свой лист, таблицу напрямую не видит, чужой лист не читает
+  j := public.edu_ws_save('wsa3', '{"0":"ТЕСТ"}'::jsonb, false);
+  b := (j->>'submitted_at') is null;
+  j := public.edu_ws_save('wsa3', '{"0":"ТЕСТ","1":"В"}'::jsonb, true);
+  select count(*) into n from public.edu_ws_answers;
+  v := public.edu_ws_mine('wsa3')->'answers'->>'1';
+  err := '';
+  if public.edu_ws_mine('ws9') is not null then err := err || 'чужой лист виден; '; end if;
+  begin perform public.edu_ws_save('../x', '{}'::jsonb); err := err || 'плохое имя листа принято; '; exception when others then null; end;
+  begin perform public.edu_ws_save('ws1', '[1]'::jsonb); err := err || 'не объект принят; '; exception when others then null; end;
+  begin update public.edu_ws_answers set answers = '{}' where ws = 'ws9'; exception when others then null; end;
+  r := r || case when b and (j->>'submitted_at') is not null and n = 0 and v = 'В' and err = '' then 'PASS' else 'FAIL' end
+         || ' DB-23 рабочий лист: черновик без сдачи ' || b || ', сдан ' || ((j->>'submitted_at') is not null) || ', строк таблицы видно ' || n || ', ответ ' || coalesce(v, '—') || case when err = '' then '' else ', ' || err end || E'\n';
+
   -- DB-18: живой канал доски — правило пускает только в свою доску
   b := public.edu_can_board(b_mine::text); v := public.edu_can_board(b_other::text)::text;
   execute 'reset role';
@@ -229,6 +244,15 @@ begin
   r := r || case when n = 1 and n2 = 4 and n3 = 1 then 'PASS' else 'FAIL' end
          || ' DB-14 целостность: чужое фото на месте ' || n || ', попытка у своего ученика ' || n2 || ', чужое ДЗ не тронуто ' || n3 || E'\n';
 
+  -- DB-24: учитель видит листы учеников; чужой лист не изменён учеником
+  perform set_config('request.jwt.claims', json_build_object('sub', t_uid, 'role', 'authenticated')::text, true);
+  perform set_config('request.jwt.claim.sub', coalesce(t_uid::text, ''), true);
+  execute 'set local role authenticated';
+  select count(*) into n from public.edu_ws_answers where student_id in (st_id, ot_id);
+  select count(*) into n2 from public.edu_ws_answers where student_id = ot_id and answers->>'0' = 'ЧУЖОЕ';
+  execute 'reset role';
+  r := r || case when n = 2 and n2 = 1 then 'PASS' else 'FAIL' end || ' DB-24 учитель видит рабочие листы: ' || n || ', чужой лист цел ' || n2 || E'\n';
+
   -- DB-08: гость (без входа) вызывает функции ДЗ и читает таблицы
   perform set_config('request.jwt.claims', '', true);
   perform set_config('request.jwt.claim.sub', '', true);
@@ -241,6 +265,8 @@ begin
   begin perform public.edu_submit(l_mine, 'x', '[]'::jsonb); err := err || 'сдача доступна; ';
   exception when insufficient_privilege then null; end;
   begin perform * from public.edu_my_info(); err := err || 'карточка доступна; ';
+  exception when insufficient_privilege then null; end;
+  begin perform public.edu_ws_save('ws1', '{}'::jsonb); err := err || 'сохранение листа доступно; ';
   exception when insufficient_privilege then null; end;
   begin perform public.edu_check_quiz('quiz-geo1', '{}'::jsonb); err := err || 'проверка теста доступна; ';
   exception when insufficient_privilege then null; end;

@@ -233,11 +233,30 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
   await p.click('#qzGo'); await p.waitForTimeout(800); const sc6 = (await p.textContent('#qzScore')) || ''; const cr6 = (await p.textContent('.crumbs')) || '';
   rec('QZ-06', k6.length === 8 && sc6.startsWith('8 из 8') && cr6.includes('Алгебра') && cr6.includes('Урок 3'), sc6.slice(0, 30) + ' · ' + cr6.replace(/\s+/g, ' ').slice(0, 50));
+  // WS-01…02: ученик заполняет рабочий лист на сайте — ответы сохраняются сами, лист сдаётся кнопкой
+  await go('wsa3.html', 1200); const nf = await p.$$eval('.sheet .wsf, .sheet .wstf', e => e.length);
+  await p.fill('.sheet input.wsf >> nth=0', '|q| < 1'); await p.click('.sheet .wstf >> nth=0 >> button:has-text("Н")'); await p.click('.sheet .wstf >> nth=1 >> button:has-text("В")');
+  await p.fill('.sheet .calc input.wsf >> nth=0', '8'); await p.fill('.sheet textarea.wsf >> nth=0', 'q = -1/3, S = 13,5'); await p.waitForTimeout(1800);
+  const ws1 = (await p.textContent('#wsBar')) || ''; await go('wsa3.html', 1200);
+  const back1 = {a: await p.inputValue('.sheet input.wsf >> nth=0'), t: await p.inputValue('.sheet textarea.wsf >> nth=0'), tf: await p.$$eval('.sheet .wstf button.on', e => e.map(x => x.textContent).join(''))};
+  rec('WS-01', nf === 20 && ws1.includes('Сохранено') && back1.a === '|q| < 1' && back1.t.startsWith('q = -1/3') && back1.tf === 'НВ', `полей ${nf} · ${JSON.stringify(back1)}`);
+  await p.click('#wsSend'); const ws2a = (await p.textContent('#wsBar')) || ''; await p.click('#wsSend'); await p.waitForTimeout(800); const ws2 = (await p.textContent('#wsBar')) || '';
+  const wrow = await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_ws_answers.find(w => w.ws === 'wsa3'));
+  rec('WS-02', ws2a.includes('Заполнено 5 из 20') && ws2.includes('Лист сдан учителю') && !!wrow.submitted_at && Object.keys(wrow.answers).length === 5, ws2.replace(/\s+/g, ' ').slice(0, 70));
 
   // ── учитель видит сдачу и тест, отвечает
   await logout(); await login('teacher@test.local'); await go('t.html#index', 1400); const th2 = (await p.textContent('#thBox')) || '';
   await p.click('#thBox .th-todo a'); await p.waitForTimeout(1200); const th2url = path(); const th2sel = await p.evaluate(() => localStorage.getItem('jr.current'));
-  rec('TH-02', th2.includes('Ждут проверки') && th2.includes('1 сдача') && th2.includes('№ 18, 23') && th2url === 'journal.html' && !!th2sel, th2.replace(/\s+/g, ' ').slice(-80) + ' → ' + th2url);
+  rec('TH-02', th2.includes('Ждут проверки') && th2.includes('2 сдачи') && th2.includes('рабочий лист: Алгебра · лист 3') && th2.includes('№ 18, 23') && th2url === 'journal.html' && !!th2sel, th2.replace(/\s+/g, ' ').slice(-80) + ' → ' + th2url);
+  // WS-03: учитель открывает сданный лист с главной — ответы ученика рядом с правильными, «верно/неверно» отмечено, лист помечен просмотренным
+  await go('t.html#index', 1400); await p.click('#thBox a[data-ws-student]'); await p.waitForTimeout(1600);
+  const ws3 = await p.evaluate(() => ({url: location.hash, sel: (document.getElementById('wsWho') || {}).value, a: (document.querySelector('#tview .sheet input.wsf') || {}).value,
+    ro: (document.querySelector('#tview .sheet input.wsf') || {}).readOnly, y: [...document.querySelectorAll('#tview .wsmark.y')].map(x => x.textContent), n: [...document.querySelectorAll('#tview .wsmark.n')].map(x => x.textContent),
+    info: (document.getElementById('wsInfo') || {}).textContent || ''}));
+  const seen = await p.evaluate(() => !!JSON.parse(localStorage.getItem('mockdb')).edu_ws_answers.find(w => w.ws === 'wsa3').seen_at);
+  await go('journal.html', 1200); const wsl = (await p.textContent('#wsl')) || '';
+  rec('WS-03', ws3.url === '#wsa3' && !!ws3.sel && ws3.a === '|q| < 1' && ws3.ro && ws3.y.filter(x => x === 'верно').length === 2 && ws3.y.includes('совпало') && !ws3.n.length && ws3.info.includes('Заполнено 5 из 20')
+    && seen && wsl.includes('Алгебра · лист 3') && wsl.includes('сдан · просмотрен'), JSON.stringify(ws3).slice(0, 160));
   await go('journal.html', 1200);
   const logT = (await p.textContent('#log')) || ''; const imgT = await p.$$eval('#log .ph img', e => e.filter(i => i.src.startsWith('data:')).length);
   rec('HW-06', logT.includes('сдано') && logT.includes('1 фото') && logT.includes('Ученик: Не понял № 27') && imgT === 1, `фото у учителя ${imgT}`);
