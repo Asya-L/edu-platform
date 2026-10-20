@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 5. Векторы</title>
+<script>document.documentElement.dataset.page="el5";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="координаты, длина, сумма и разность, скалярное произведение, угол, перпендикулярность и коллинеарность">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 5</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 5 · задание № 2</div>
+  <h1>Векторы</h1>
+  <p class="lede">координаты, длина, сумма и разность, скалярное произведение, угол, перпендикулярность и коллинеарность</p>
+  <div class="btns">
+    <a class="btn" href="sel5.html">▶ Презентация</a>
+    <a class="btn lime" href="wse5.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Координаты вектора</h2>
+<div class="tablewrap"><table><thead><tr><th>Что</th><th>Формула</th></tr></thead><tbody><tr><td>Вектор AB по точкам A(x₁; y₁), B(x₂; y₂)</td><td>AB = (x₂ − x₁; y₂ − y₁) — «конец минус начало»</td></tr><tr><td>Длина вектора a(x; y)</td><td>|a| = √(x² + y²)</td></tr><tr><td>Сумма и разность</td><td>покоординатно: a ± b = (x₁ ± x₂; y₁ ± y₂)</td></tr><tr><td>Умножение на число</td><td>k · a = (kx; ky), длина меняется в |k| раз</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>A(1; 2), B(7; 10). Найдите длину вектора AB.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>AB = (6; 8), |AB| = √(36 + 64) = <b>10</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>a(3; −2), b(1; 4). Найдите абсциссу вектора 2a + b.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2a + b = (6 + 1; −4 + 4) = (7; 0) → <b>7</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Координаты вектора — «конец минус начало», а не наоборот. Для BA знаки поменяются. На длину это не влияет, а на сумму векторов — влияет.</p></div>
+<h2>Скалярное произведение</h2>
+<div class="thm"><span class="lbl">Две формулы</span><p>1) Через координаты: a · b = x₁x₂ + y₁y₂.</p><p>2) Через длины и угол: a · b = |a| · |b| · cos φ.</p><p>Отсюда угол: cos φ = (a · b) / (|a| · |b|).</p></div>
+<ul><li>a ⟂ b ⇔ a · b = 0.</li><li>Если a · b &gt; 0 — угол острый, если &lt; 0 — тупой.</li><li>a · a = |a|² — так находят длину суммы: |a + b|² = |a|² + 2a·b + |b|².</li><li>a ∥ b ⇔ координаты пропорциональны: x₁ / x₂ = y₁ / y₂.</li></ul>
+<div class="ex"><span class="lbl">Пример 3</span><p>a(2; 5), b(−4; 1). Найдите скалярное произведение.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2 · (−4) + 5 · 1 = <b>−3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4</span><p>|a| = 4, |b| = 5, угол между векторами 60°. Найдите a · b.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>4 · 5 · 0,5 = <b>10</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5</span><p>При каком k векторы a(k; 4) и b(2; −3) перпендикулярны?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2k − 12 = 0 → k = <b>6</b>.</p></div></div>
+<h2>В пространстве</h2>
+<p>Всё то же самое с третьей координатой: |a| = √(x² + y² + z²), a · b = x₁x₂ + y₁y₂ + z₁z₂.</p>
+<div class="ex"><span class="lbl">Пример 6</span><p>a(1; 2; 2), b(2; −1; 3). Найдите a · b и |a|.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>a · b = 2 − 2 + 6 = <b>6</b>; |a| = √(1 + 4 + 4) = <b>3</b>.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Даны точки A(−2; 3) и B(4; 11). Найдите длину вектора AB.</div><div class="task"><span class="task-no">№&nbsp;2</span>Даны векторы a(4; −1) и b(−2; 5). Найдите ординату вектора a + 2b.</div><div class="task"><span class="task-no">№&nbsp;3</span>Найдите скалярное произведение векторов a(3; 1) и b(−1; 2).</div><div class="task"><span class="task-no">№&nbsp;4</span>Найдите угол между векторами a(1; 3) и b(6; −2). Ответ дайте в градусах.</div><div class="task"><span class="task-no">№&nbsp;5</span>При каком m векторы a(4; −3) и b(m; 8) перпендикулярны?</div><div class="task"><span class="task-no">№&nbsp;6</span>Длины векторов a и b равны 3 и 6, угол между ними 120°. Найдите a · b.</div><div class="task"><span class="task-no">№&nbsp;7</span>Найдите длину вектора 0,5a, если a(6; 8).</div><div class="task"><span class="task-no">№&nbsp;8</span>Векторы a и b перпендикулярны, |a| = 5, |b| = 12. Найдите длину вектора a + b.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el5a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 5</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Выписать в тетрадь все формулы лекции и к каждой — свой пример с ответом.</p></div>
+<div class="task"><span class="task-no">Д1</span>Даны точки A(1; −2) и B(−8; 10). Найдите длину вектора AB.</div><div class="task"><span class="task-no">Д2</span>Найдите скалярное произведение векторов a(5; −2) и b(2; 3).</div><div class="task"><span class="task-no">Д3</span>При каком k векторы a(2; 3) и b(k; 6) коллинеарны?</div><div class="task"><span class="task-no">Д4</span>Найдите косинус угла между векторами a(3; 4) и b(4; 3).</div><div class="task"><span class="task-no">Д5</span>Длины векторов a и b равны 2 и 7, угол между ними 60°. Найдите a · b.</div><div class="task"><span class="task-no">Д6</span>Даны векторы a(1; 2; −2) и b(3; 0; 4). Найдите a · b.</div>
+<div class="pager"><a href="el4.html">← Лекция 4</a><a href="el6.html">Лекция 6 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

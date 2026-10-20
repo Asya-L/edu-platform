@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 19. Задача с параметром</title>
+<script>document.documentElement.dataset.page="el19";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="аналитический метод (дискриминант, Виет, расположение корней) и графический: «семейство прямых» и картинка y = f(x)">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 19</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 19 · задание № 19</div>
+  <h1>Задача с параметром</h1>
+  <p class="lede">аналитический метод (дискриминант, Виет, расположение корней) и графический: «семейство прямых» и картинка y = f(x)</p>
+  <div class="btns">
+    <a class="btn" href="sel19.html">▶ Презентация</a>
+    <a class="btn lime" href="wse19.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Как оценивают</h2>
+<p>Схема баллов — по образцу демоверсий последних лет; с финальной демоверсией 2027 года её нужно сверить.</p>
+<div class="tablewrap"><table><thead><tr><th>Баллы</th><th>Что сделано</th></tr></thead><tbody><tr><td>4</td><td>обоснованно получен правильный ответ</td></tr><tr><td>3</td><td>с помощью верного рассуждения получено множество значений a, отличающееся от искомого конечным числом точек</td></tr><tr><td>2</td><td>с помощью верного рассуждения получены все граничные точки искомого множества</td></tr><tr><td>1</td><td>верно получена хотя бы одна граничная точка искомого множества</td></tr><tr><td>0</td><td>всё остальное</td></tr></tbody></table></div>
+<h2>Аналитический метод</h2>
+<div class="tablewrap"><table><thead><tr><th>Вопрос</th><th>Условие для ax² + bx + c = 0, a ≠ 0</th></tr></thead><tbody><tr><td>Два различных корня</td><td>D &gt; 0</td></tr><tr><td>Один корень</td><td>D = 0 (и отдельно проверить случай a = 0!)</td></tr><tr><td>Корни одного знака</td><td>D ≥ 0 и x₁x₂ = c/a &gt; 0</td></tr><tr><td>Оба положительны</td><td>D &gt; 0, x₁ + x₂ &gt; 0, x₁x₂ &gt; 0</td></tr><tr><td>Корни разных знаков</td><td>c/a &lt; 0 (D проверять не нужно)</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>При каких a уравнение x² + 2(a − 1)x + a + 5 = 0 имеет два различных положительных корня?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>D/4 = (a − 1)² − (a + 5) = a² − 3a − 4 &gt; 0 → a &lt; −1 или a &gt; 4. Сумма −2(a − 1) &gt; 0 → a &lt; 1. Произведение a + 5 &gt; 0 → a &gt; −5. Ответ: <b>(−5; −1)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если коэффициент при x² содержит параметр, при его нуле уравнение становится линейным — этот случай рассматривают отдельно. Это самая частая потеря баллов.</p></div>
+<h2>Графический метод</h2>
+<p>Уравнение f(x) = a: число его корней равно числу точек пересечения графика y = f(x) с горизонтальной прямой y = a. Рисуем график один раз и «двигаем» прямую.</p>
+<div class="ex"><span class="lbl">Пример 2</span><p>При каких a уравнение |x² − 4x| = a имеет ровно три корня?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>График y = |x² − 4x|: парабола, часть между корнями 0 и 4 отражена вверх; «горб» с вершиной (2; 4). Прямая y = a даёт: a &lt; 0 — 0 корней; a = 0 — 2; 0 &lt; a &lt; 4 — 4; a = 4 — 3; a &gt; 4 — 2. Ответ: <b>a = 4</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3</span><p>При каких a уравнение (x − a)(x² − 5x + 6) = 0 имеет ровно два различных корня?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Корни 2, 3 и a. Два различных — когда a совпадает с 2 или 3. Ответ: <b>a ∈ {2; 3}</b>.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>При каких a уравнение x² − 4x + a = 0 имеет два различных корня?</div><div class="task"><span class="task-no">№&nbsp;2</span>При каких a уравнение |x − 2| = a имеет ровно два корня?</div><div class="task"><span class="task-no">№&nbsp;3</span>При каких a уравнение x² + 2(a − 1)x + a + 5 = 0 имеет два различных положительных корня?</div><div class="task"><span class="task-no">№&nbsp;4</span>При каких a уравнение |x² − 4x| = a имеет ровно три корня?</div><div class="task"><span class="task-no">№&nbsp;5</span>При каких a уравнение (x − a)(x² − 5x + 6) = 0 имеет ровно два различных корня?</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el19a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 19</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д4 ниже. Д2 и Д4 — обязательно с графиком и «движущейся» прямой y = a.</p></div>
+<div class="task"><span class="task-no">Д1</span>При каких a уравнение x² + 6x + a = 0 не имеет корней?</div><div class="task"><span class="task-no">Д2</span>При каких a уравнение |x + 1| + |x − 3| = a имеет бесконечно много корней?</div><div class="task"><span class="task-no">Д3</span>При каких a оба корня уравнения x² − 2ax + a² − 1 = 0 лежат в интервале (0; 5)?</div><div class="task"><span class="task-no">Д4</span>При каких a уравнение |x² − 2x − 3| = a имеет ровно четыре корня?</div>
+<div class="pager"><a href="el18.html">← Лекция 18</a><a href="el20.html">Лекция 20 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

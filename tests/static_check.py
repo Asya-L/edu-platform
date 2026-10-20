@@ -26,9 +26,13 @@ for d, _, fs in os.walk(root):
 res.append({'id': 'SEC-01', 'ok': not leaks, 'note': '; '.join(leaks[:10])})
 
 ans = []
-for n in [str(i) for i in range(1, 6)] + [f'a{i}' for i in range(1, 9)]:
+for n in [str(i) for i in range(1, 6)] + [f'a{i}' for i in range(1, 9)] + [f'e{i}' for i in range(1, 21)]:
     s = open(f'{root}/ws{n}.html', encoding='utf-8').read()
-    if 'ans' in re.findall(r'class="([^"]*)"', s).__str__() or '→ ' in s:
+    if n[0] == 'e':   # в листах ЕГЭ стрелка — часть условия; утечка — если в строке «Посчитай» нет пустого поля
+        calc_leak = any('class="blank"' not in d for b in re.findall(r'<div class="calc">(.*?)</div></div>', s, re.S) for d in re.findall(r'<div>(.*?)</div>', b + '</div>', re.S))
+    else:
+        calc_leak = '→ ' in s
+    if 'ans' in re.findall(r'class="([^"]*)"', s).__str__() or calc_leak:
         ans.append(f'ws{n}')
 res.append({'id': 'SEC-02', 'ok': not ans, 'note': ', '.join(ans)})
 

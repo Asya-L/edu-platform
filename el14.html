@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 14. Уравнения с отбором корней</title>
+<script>document.documentElement.dataset.page="el14";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="тригонометрические, показательные и логарифмические уравнения; замена, разложение на множители; отбор корней на отрезке">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 14</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 14 · задание № 14</div>
+  <h1>Уравнения с отбором корней</h1>
+  <p class="lede">тригонометрические, показательные и логарифмические уравнения; замена, разложение на множители; отбор корней на отрезке</p>
+  <div class="btns">
+    <a class="btn" href="sel14.html">▶ Презентация</a>
+    <a class="btn lime" href="wse14.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Как оценивают</h2>
+<p>Схема баллов — по образцу демоверсий последних лет; с финальной демоверсией 2027 года её нужно сверить.</p>
+<div class="tablewrap"><table><thead><tr><th>Баллы</th><th>Что сделано</th></tr></thead><tbody><tr><td>2</td><td>обоснованно получены верные ответы в обоих пунктах</td></tr><tr><td>1</td><td>обоснованно получен верный ответ в пункте а), или получены неверные ответы из-за вычислительной ошибки при верной последовательности всех шагов решения обоих пунктов</td></tr><tr><td>0</td><td>всё остальное</td></tr></tbody></table></div>
+<h2>Простейшие уравнения</h2>
+<div class="tablewrap"><table><thead><tr><th>Уравнение</th><th>Корни</th></tr></thead><tbody><tr><td>sin x = a, |a| ≤ 1</td><td>x = (−1)ᵏ arcsin a + πk</td></tr><tr><td>cos x = a, |a| ≤ 1</td><td>x = ± arccos a + 2πk</td></tr><tr><td>tg x = a</td><td>x = arctg a + πk</td></tr><tr><td>sin x = 0 / 1 / −1</td><td>πk / π/2 + 2πk / −π/2 + 2πk</td></tr><tr><td>cos x = 0 / 1 / −1</td><td>π/2 + πk / 2πk / π + 2πk</td></tr><tr><td>aˣ = aᵇ</td><td>x = b</td></tr><tr><td>logₐ f(x) = b</td><td>f(x) = aᵇ, проверить f(x) &gt; 0</td></tr></tbody></table></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если |a| &gt; 1, уравнения sin x = a и cos x = a корней не имеют — это частый «отброшенный корень» после замены.</p></div>
+<h2>Методы</h2>
+<ul><li><b>Замена</b>: 2sin²x − 3sin x + 1 = 0 → t = sin x, |t| ≤ 1; 4ˣ − 5 · 2ˣ + 4 = 0 → t = 2ˣ, t &gt; 0.</li><li><b>Формулы</b>: cos 2x = 1 − 2sin²x = 2cos²x − 1; sin 2x = 2 sin x cos x; sin²x + cos²x = 1.</li><li><b>Разложение на множители</b>: произведение равно нулю ⇔ хотя бы один множитель равен нулю (и выражение имеет смысл). Делить на выражение с переменной нельзя — потеряете корни.</li></ul>
+<div class="ex"><span class="lbl">Пример 1</span><p>а) Решите уравнение 2sin²x − 3sin x + 1 = 0. б) Найдите его корни на отрезке [−2π; −π/2].</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) t = sin x: 2t² − 3t + 1 = 0 → t = 1 или t = 1/2. sin x = 1 → x = π/2 + 2πk; sin x = 1/2 → x = π/6 + 2πk, x = 5π/6 + 2πk.</p><p>б) k = −1: −3π/2, −11π/6, −7π/6 — все в отрезке; при других k корни вне отрезка. Ответ: а) π/2 + 2πk, π/6 + 2πk, 5π/6 + 2πk, k ∈ ℤ; б) −11π/6, −3π/2, −7π/6.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>а) Решите уравнение sin 2x = √3 cos x. б) Найдите корни на отрезке [−π; π/2].</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 2 sin x cos x − √3 cos x = 0 → cos x (2 sin x − √3) = 0. cos x = 0 → x = π/2 + πk; sin x = √3/2 → x = π/3 + 2πk, 2π/3 + 2πk.</p><p>б) −π/2, π/3, π/2. Ответ: а) π/2 + πk, π/3 + 2πk, 2π/3 + 2πk; б) −π/2; π/3; π/2.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В примере 2 нельзя делить обе части на cos x — потеряется серия x = π/2 + πk.</p></div>
+<h2>Отбор корней</h2>
+<ol class="steps"><li><b>Перебор k</b>: подставляем k = …, −1, 0, 1, … пока корни не выйдут за отрезок.</li><li><b>Двойное неравенство</b>: a ≤ x₀ + 2πk ≤ b → находим целые k.</li><li><b>Окружность</b>: отмечаем дугу отрезка и точки серий — видно, какие попадают.</li></ol>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>а) Решите уравнение 4ˣ − 5 · 2ˣ + 4 = 0. б) Найдите его корни на отрезке [1; 3].</div><div class="task"><span class="task-no">№&nbsp;2</span>а) Решите уравнение log₂(x² − 2x) = 3. б) Найдите его корни на отрезке [−3; 3].</div><div class="task"><span class="task-no">№&nbsp;3</span>а) Решите уравнение cos 2x + sin x = 0. б) Найдите его корни на отрезке [π; 5π/2].</div><div class="task"><span class="task-no">№&nbsp;4</span>а) Решите уравнение 2sin²x − 3sin x + 1 = 0. б) Найдите его корни на отрезке [−2π; −π/2].</div><div class="task"><span class="task-no">№&nbsp;5</span>а) Решите уравнение sin 2x = √3 cos x. б) Найдите его корни на отрезке [−π; π/2].</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el14a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 14</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Уравнения Д1–Д4 ниже — с полным оформлением, как на экзамене: пункт а), пункт б) с обоснованием отбора (перебор или окружность), ответ.</p></div>
+<div class="task"><span class="task-no">Д1</span>а) Решите уравнение 2cos²x + 3cos x − 2 = 0. б) Найдите его корни на отрезке [2π; 7π/2].</div><div class="task"><span class="task-no">Д2</span>а) Решите уравнение 9ˣ − 4 · 3ˣ + 3 = 0. б) Найдите его корни на отрезке [−1; 0,5].</div><div class="task"><span class="task-no">Д3</span>а) Решите уравнение log₃(x + 1) + log₃(x + 3) = 1. б) Найдите его корни на отрезке [−1; 1].</div><div class="task"><span class="task-no">Д4</span>а) Решите уравнение tg²x − (1 + √3) tg x + √3 = 0. б) Найдите его корни на отрезке [−π; 0].</div>
+<div class="pager"><a href="el13.html">← Лекция 13</a><a href="el15.html">Лекция 15 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

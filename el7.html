@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 7. Вероятность: классическое определение</title>
+<script>document.documentElement.dataset.page="el7";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="P = m/n, противоположное событие, монеты и кубики, жеребьёвка, выбор из группы">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 7</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 7 · задание № 4</div>
+  <h1>Вероятность: классическое определение</h1>
+  <p class="lede">P = m/n, противоположное событие, монеты и кубики, жеребьёвка, выбор из группы</p>
+  <div class="btns">
+    <a class="btn" href="sel7.html">▶ Презентация</a>
+    <a class="btn lime" href="wse7.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Классическое определение</h2>
+<div class="def"><span class="lbl">Определение</span><p>Если у эксперимента n <b>равновозможных</b> исходов и m из них благоприятны событию A, то <b>P(A) = m/n</b>. Всегда 0 ≤ P ≤ 1.</p></div>
+<ul><li>Противоположное событие: P(не A) = 1 − P(A). Удобно, когда «не A» считать проще.</li><li>«В среднем из 1000 насосов 5 подтекают» — это частота, её берут как вероятность: P(подтекает) = 0,005.</li></ul>
+<div class="ex"><span class="lbl">Пример 1 · жеребьёвка</span><p>В соревновании 50 спортсменов: 18 из России, 22 из Китая, остальные из Индии. Порядок выступлений — жребий. Найдите вероятность, что последним выступает спортсмен из Индии.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Номер места не важен: n = 50, m = 10 → <b>0,2</b>.</p></div></div>
+<h2>Монеты и кубики</h2>
+<div class="tablewrap"><table><thead><tr><th>Эксперимент</th><th>Число исходов n</th></tr></thead><tbody><tr><td>Монета k раз</td><td>2<sup>k</sup></td></tr><tr><td>Кубик один раз</td><td>6</td></tr><tr><td>Кубик два раза</td><td>36 — удобно выписать таблицу 6 × 6</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>Монету бросают три раза. Найдите вероятность, что орёл выпадет ровно два раза.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>n = 8; благоприятные ООР, ОРО, РОО — m = 3 → 3/8 = <b>0,375</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3</span><p>Кубик бросают дважды. Найдите вероятность, что в сумме выпадет 6. Ответ округлите до сотых.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>(1;5), (2;4), (3;3), (4;2), (5;1) — m = 5, n = 36 → 0,138… ≈ <b>0,14</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Две разные пары (1; 5) и (5; 1) — это <b>два</b> исхода: кубики различимы (первый бросок и второй). Ошибка «сумма 6 выпадает тремя способами» даёт неверный ответ.</p></div>
+<h2>Выбор в группу</h2>
+<div class="ex"><span class="lbl">Пример 4</span><p>26 человек случайно делят на две группы по 13. Найдите вероятность, что Петя и Вася окажутся в одной группе.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Петя уже где-то стоит; в его группе осталось 12 мест из 25 оставшихся → 12/25 = <b>0,48</b>.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>В сборнике 40 билетов, в 6 из них есть вопрос по тригонометрии. Найдите вероятность, что в случайном билете такого вопроса нет.</div><div class="task"><span class="task-no">№&nbsp;2</span>В соревновании 25 участников, 7 из них из Германии. Порядок выступлений определяется жребием. Найдите вероятность, что первым выступает участник из Германии.</div><div class="task"><span class="task-no">№&nbsp;3</span>Монету бросают четыре раза. Найдите вероятность, что все четыре раза выпадет орёл.</div><div class="task"><span class="task-no">№&nbsp;4</span>Из 1000 насосов в среднем 5 подтекают. Найдите вероятность, что случайно выбранный насос не подтекает.</div><div class="task"><span class="task-no">№&nbsp;5</span>Из 200 сумок 8 имеют дефект. Найдите вероятность, что случайная сумка качественная.</div><div class="task"><span class="task-no">№&nbsp;6</span>Кубик бросают дважды. Найдите вероятность, что хотя бы раз выпадет шестёрка. Ответ округлите до сотых.</div><div class="task"><span class="task-no">№&nbsp;7</span>Кубик бросают дважды. Найдите вероятность, что наибольшее из двух выпавших чисел равно 3. Ответ округлите до сотых.</div><div class="task"><span class="task-no">№&nbsp;8</span>Три монеты бросают одновременно. Найдите вероятность, что выпадет хотя бы одна решка.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el7a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 7</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. В каждой выписать отдельно n и m. Для двух бросков кубика — нарисовать таблицу 6 × 6.</p></div>
+<div class="task"><span class="task-no">Д1</span>В классе 16 девочек и 9 мальчиков. Дежурного выбирают случайно. Найдите вероятность, что это мальчик.</div><div class="task"><span class="task-no">Д2</span>Из 600 лампочек 18 бракованных. Найдите вероятность, что случайная лампочка исправна.</div><div class="task"><span class="task-no">Д3</span>Монету бросают дважды. Найдите вероятность, что выпадут разные стороны.</div><div class="task"><span class="task-no">Д4</span>Кубик бросают дважды. Найдите вероятность, что выпадут одинаковые числа. Ответ округлите до сотых.</div><div class="task"><span class="task-no">Д5</span>В конференции 4 дня; доклады распределены так: в первый день 20, остальные поровну между 2-м, 3-м и 4-м днями, всего 50 докладов. Порядок — жребий. Найдите вероятность, что доклад профессора Н. запланирован на последний день.</div><div class="task"><span class="task-no">Д6</span>20 человек случайно делят на две группы по 10. Найдите вероятность, что два друга окажутся в разных группах. Ответ округлите до сотых.</div>
+<div class="pager"><a href="el6.html">← Лекция 6</a><a href="el8.html">Лекция 8 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

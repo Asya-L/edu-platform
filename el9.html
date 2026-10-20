@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 9. Случайные величины</title>
+<script>document.documentElement.dataset.page="el9";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="распределение, математическое ожидание, дисперсия, стандартное отклонение, свойства">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 9</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 9 · задание № 6</div>
+  <h1>Случайные величины</h1>
+  <p class="lede">распределение, математическое ожидание, дисперсия, стандартное отклонение, свойства</p>
+  <div class="btns">
+    <a class="btn" href="sel9.html">▶ Презентация</a>
+    <a class="btn lime" href="wse9.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Распределение</h2>
+<div class="def"><span class="lbl">Определение</span><p><b>Случайная величина</b> X принимает числовые значения x₁, x₂, …, x<sub>k</sub> с вероятностями p₁, p₂, …, p<sub>k</sub>. Таблица «значение — вероятность» называется <b>распределением</b>. Всегда p₁ + p₂ + … + p<sub>k</sub> = 1.</p></div>
+<div class="tablewrap"><table><thead><tr><th>x</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td>p</td><td>0,1</td><td>0,3</td><td>0,4</td><td>?</td></tr></tbody></table></div>
+<p>Неизвестная вероятность: 1 − (0,1 + 0,3 + 0,4) = 0,2.</p>
+<h2>Математическое ожидание</h2>
+<div class="thm"><span class="lbl">Формула</span><p>E(X) = x₁p₁ + x₂p₂ + … + x<sub>k</sub>p<sub>k</sub> — «среднее значение с весами».</p></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>X принимает значения −1, 0, 2 с вероятностями 0,2; 0,5; 0,3. Найдите E(X).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>−0,2 + 0 + 0,6 = <b>0,4</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>X — число очков на игральном кубике. Найдите E(X).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>(1 + 2 + … + 6)/6 = <b>3,5</b>.</p></div></div>
+<h2>Дисперсия и стандартное отклонение</h2>
+<div class="thm"><span class="lbl">Формулы</span><p>D(X) = E((X − E X)²) = E(X²) − (E X)². &nbsp; σ(X) = √D(X).</p></div>
+<div class="ex"><span class="lbl">Пример 3</span><p>X принимает значения 0 и 2 с вероятностями 0,5 и 0,5. Найдите D(X) и σ(X).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>E X = 1, E(X²) = 0 · 0,5 + 4 · 0,5 = 2 → D = 2 − 1 = <b>1</b>, σ = <b>1</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Частые ошибки: забыть возвести E X в квадрат; написать D(X) = E(X²) без вычитания; считать σ = D. Дисперсия не бывает отрицательной — если вышло &lt; 0, ищите ошибку.</p></div>
+<h2>Свойства</h2>
+<div class="tablewrap"><table><thead><tr><th>Свойство</th><th>Пример</th></tr></thead><tbody><tr><td>E(aX + b) = a · E X + b</td><td>E X = 3 → E(2X + 5) = 11</td></tr><tr><td>D(aX + b) = a² · D X</td><td>D X = 4 → D(3X − 1) = 36</td></tr><tr><td>E(X + Y) = E X + E Y</td><td>для любых X и Y</td></tr><tr><td>D(X + Y) = D X + D Y</td><td>только для независимых X и Y</td></tr></tbody></table></div>
+<h2>Число успехов в n испытаниях</h2>
+<p>Если событие происходит с вероятностью p в каждом из n независимых испытаний, то среднее число успехов E = np, а дисперсия D = np(1 − p).</p>
+<div class="ex"><span class="lbl">Пример 4</span><p>Монету бросают 10 раз. X — число орлов. Найдите E(X) и D(X).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>E = 10 · 0,5 = <b>5</b>; D = 10 · 0,5 · 0,5 = <b>2,5</b>.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Случайная величина принимает значения 1, 2, 3, 4 с вероятностями 0,1; 0,3; 0,4 и p. Найдите p.</div><div class="task"><span class="task-no">№&nbsp;2</span>Случайная величина принимает значения 1, 3, 5 с вероятностями 0,2; 0,5; 0,3. Найдите её математическое ожидание.</div><div class="task"><span class="task-no">№&nbsp;3</span>Случайная величина принимает значения −1 и 1 с вероятностями 0,5 и 0,5. Найдите дисперсию.</div><div class="task"><span class="task-no">№&nbsp;4</span>Математическое ожидание X равно 3. Найдите E(2X + 5).</div><div class="task"><span class="task-no">№&nbsp;5</span>Дисперсия X равна 4. Найдите дисперсию 3X − 1.</div><div class="task"><span class="task-no">№&nbsp;6</span>Дисперсия случайной величины 2,25. Найдите стандартное отклонение.</div><div class="task"><span class="task-no">№&nbsp;7</span>Стрелок попадает с вероятностью 0,8 и делает 20 независимых выстрелов. Найдите математическое ожидание числа попаданий.</div><div class="task"><span class="task-no">№&nbsp;8</span>Случайная величина принимает значения 0, 1, 2 с вероятностями 0,3; 0,4; 0,3. Найдите дисперсию.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el9a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 9</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Выучить три формулы (E, D, σ) и четыре свойства; придумать свою таблицу распределения и посчитать для неё E и D.</p></div>
+<div class="task"><span class="task-no">Д1</span>Случайная величина принимает значения 0, 1, 2 с вероятностями 0,25; 0,5 и p. Найдите p.</div><div class="task"><span class="task-no">Д2</span>Случайная величина принимает значения 2, 4, 10 с вероятностями 0,5; 0,3; 0,2. Найдите математическое ожидание.</div><div class="task"><span class="task-no">Д3</span>E(X) = −2. Найдите E(5 − X).</div><div class="task"><span class="task-no">Д4</span>E(X) = 2, E(Y) = 7. Найдите E(X + Y).</div><div class="task"><span class="task-no">Д5</span>Случайная величина принимает значения 1 и 5 с вероятностями 0,75 и 0,25. Найдите дисперсию.</div><div class="task"><span class="task-no">Д6</span>Кубик бросают 12 раз. Найдите математическое ожидание числа выпавших шестёрок.</div>
+<div class="pager"><a href="el8.html">← Лекция 8</a><a href="el10.html">Лекция 10 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

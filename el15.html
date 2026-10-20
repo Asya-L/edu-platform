@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 15. Стереометрия: доказательство, углы и расстояния</title>
+<script>document.documentElement.dataset.page="el15";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="угол между прямой и плоскостью, между плоскостями, расстояние до плоскости; классический и координатный метод">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 15</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 15 · задание № 15</div>
+  <h1>Стереометрия: доказательство, углы и расстояния</h1>
+  <p class="lede">угол между прямой и плоскостью, между плоскостями, расстояние до плоскости; классический и координатный метод</p>
+  <div class="btns">
+    <a class="btn" href="sel15.html">▶ Презентация</a>
+    <a class="btn lime" href="wse15.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Как оценивают</h2>
+<p>Схема баллов — по образцу демоверсий последних лет; с финальной демоверсией 2027 года её нужно сверить.</p>
+<div class="tablewrap"><table><thead><tr><th>Баллы</th><th>Что сделано</th></tr></thead><tbody><tr><td>3</td><td>доказан пункт а) и обоснованно получен верный ответ в б)</td></tr><tr><td>2</td><td>обоснованно получен верный ответ в б), или б) решён с арифметической ошибкой при доказанном а)</td></tr><tr><td>1</td><td>доказан а), или б) решён без доказательства а)</td></tr><tr><td>0</td><td>всё остальное</td></tr></tbody></table></div>
+<h2>Определения</h2>
+<ul><li><b>Угол между прямой и плоскостью</b> — угол между прямой и её проекцией на плоскость.</li><li><b>Угол между плоскостями</b> — линейный угол двугранного угла: два перпендикуляра к линии пересечения, проведённые в обеих плоскостях из одной точки.</li><li><b>Расстояние от точки до плоскости</b> — длина перпендикуляра. Если прямая параллельна плоскости, расстояние от любой её точки одинаково.</li><li><b>Теорема о трёх перпендикулярах</b>: наклонная перпендикулярна прямой в плоскости ⇔ её проекция перпендикулярна этой прямой.</li></ul>
+<h2>Координатный метод</h2>
+<div class="tablewrap"><table><thead><tr><th>Что найти</th><th>Формула</th></tr></thead><tbody><tr><td>Плоскость</td><td>ax + by + cz + d = 0, нормаль n(a; b; c)</td></tr><tr><td>Угол прямой (вектор l) и плоскости</td><td>sin φ = |n · l| / (|n| · |l|)</td></tr><tr><td>Угол между плоскостями</td><td>cos φ = |n₁ · n₂| / (|n₁| · |n₂|)</td></tr><tr><td>Расстояние от M(x₀; y₀; z₀)</td><td>d = |ax₀ + by₀ + cz₀ + d| / √(a² + b² + c²)</td></tr></tbody></table></div>
+<p>Плоскость через три точки на осях (p; 0; 0), (0; q; 0), (0; 0; r): x/p + y/q + z/r = 1 — «уравнение в отрезках», самый быстрый способ.</p>
+<div class="ex"><span class="lbl">Пример 1</span><p>Куб ABCDA₁B₁C₁D₁ с ребром 6. а) Докажите, что прямая AC₁ перпендикулярна плоскости A₁BD. б) Найдите расстояние от A до плоскости A₁BD.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) BD ⟂ AC и BD ⟂ CC₁ ⇒ BD ⟂ плоскости ACC₁ ⇒ BD ⟂ AC₁. Аналогично A₁B ⟂ AC₁ (через плоскость AB₁C₁). Прямая, перпендикулярная двум пересекающимся прямым плоскости, перпендикулярна плоскости.</p><p>б) A(0; 0; 0), B(6; 0; 0), D(0; 6; 0), A₁(0; 0; 6). Плоскость x/6 + y/6 + z/6 = 1, то есть x + y + z − 6 = 0. d = 6/√3 = <b>2√3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>В правильной четырёхугольной пирамиде SABCD все рёбра равны 2. а) Докажите, что SA ⟂ SC. б) Найдите угол между SA и плоскостью основания.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) AC = 2√2, SA² + SC² = 4 + 4 = 8 = AC² — по теореме, обратной Пифагору, угол ASC прямой.</p><p>б) Проекция SA — отрезок AO, где O — центр основания. SO = √(4 − 2) = √2, sin ∠SAO = √2/2 → <b>45°</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не забывайте обосновать, что проекция — именно этот отрезок: «SO ⟂ (ABC), так как пирамида правильная, значит AO — проекция SA».</p></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Прямоугольный параллелепипед ABCDA₁B₁C₁D₁: AB = 3, AD = 4, AA₁ = 12. а) Докажите, что угол B₁DB — угол между прямой B₁D и плоскостью ABC. б) Найдите тангенс этого угла.</div><div class="task"><span class="task-no">№&nbsp;2</span>Правильная треугольная призма ABCA₁B₁C₁, все рёбра равны 2, M — середина AB. а) Докажите, что ∠C₁MC — линейный угол двугранного угла между плоскостями ABC₁ и ABC. б) Найдите тангенс этого угла.</div><div class="task"><span class="task-no">№&nbsp;3</span>Правильная четырёхугольная пирамида SABCD, AB = 6, высота SO = 4. а) Докажите, что расстояние от A до плоскости SBC вдвое больше расстояния от O до этой плоскости. б) Найдите расстояние от A до плоскости SBC.</div><div class="task"><span class="task-no">№&nbsp;4</span>Куб ABCDA₁B₁C₁D₁ с ребром 6. а) Докажите, что AC₁ ⟂ (A₁BD). б) Найдите расстояние от A до плоскости A₁BD.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el15a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 15</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д4 ниже: чертёж, пункт а) с обоснованием, пункт б) — двумя способами (классически и координатами), ответы должны совпасть.</p></div>
+<div class="task"><span class="task-no">Д1</span>Куб ABCDA₁B₁C₁D₁. а) Докажите, что ∠C₁AC — угол между AC₁ и плоскостью ABC. б) Найдите тангенс этого угла.</div><div class="task"><span class="task-no">Д2</span>Правильная треугольная пирамида SABC: AB = 6, SA = 4. а) Докажите, что основание высоты — центр треугольника ABC. б) Найдите угол между SA и плоскостью основания.</div><div class="task"><span class="task-no">Д3</span>Прямоугольный параллелепипед: AB = AD = 2, AA₁ = 1. а) Докажите, что треугольник A₁BD равнобедренный. б) Найдите расстояние от A до плоскости A₁BD.</div><div class="task"><span class="task-no">Д4</span>Правильная четырёхугольная пирамида SABCD, AB = 6, высота 4. а) Постройте линейный угол двугранного угла при ребре BC. б) Найдите его тангенс.</div>
+<div class="pager"><a href="el14.html">← Лекция 14</a><a href="el16.html">Лекция 16 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

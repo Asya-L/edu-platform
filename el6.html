@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 6. Стереометрия: объёмы и площади</title>
+<script>document.documentElement.dataset.page="el6";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="призма, пирамида, цилиндр, конус, шар; подобные тела; «сосуды с водой»">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 6</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 6 · задание № 3</div>
+  <h1>Стереометрия: объёмы и площади</h1>
+  <p class="lede">призма, пирамида, цилиндр, конус, шар; подобные тела; «сосуды с водой»</p>
+  <div class="btns">
+    <a class="btn" href="sel6.html">▶ Презентация</a>
+    <a class="btn lime" href="wse6.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Многогранники</h2>
+<div class="tablewrap"><table><thead><tr><th>Тело</th><th>Объём</th><th>Что ещё помнить</th></tr></thead><tbody><tr><td>Прямоугольный параллелепипед a × b × c</td><td>V = abc</td><td>диагональ d = √(a² + b² + c²); S = 2(ab + bc + ac)</td></tr><tr><td>Куб с ребром a</td><td>V = a³</td><td>S = 6a², диагональ a√3</td></tr><tr><td>Призма</td><td>V = S<sub>осн</sub> · h</td><td>боковая поверхность прямой призмы — периметр основания · h</td></tr><tr><td>Пирамида</td><td>V = ⅓ · S<sub>осн</sub> · h</td><td>у правильной пирамиды вершина проецируется в центр основания</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>Рёбра прямоугольного параллелепипеда 3, 4 и 12. Найдите его диагональ.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>√(9 + 16 + 144) = √169 = <b>13</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>Правильная четырёхугольная пирамида: сторона основания 6, высота 4. Найдите объём.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>⅓ · 36 · 4 = <b>48</b>.</p></div></div>
+<h2>Тела вращения</h2>
+<div class="tablewrap"><table><thead><tr><th>Тело</th><th>Объём</th><th>Площадь поверхности</th></tr></thead><tbody><tr><td>Цилиндр (r, h)</td><td>πr²h</td><td>боковая 2πrh, полная 2πr(r + h)</td></tr><tr><td>Конус (r, h, образующая l)</td><td>⅓πr²h</td><td>боковая πrl, полная πr(r + l)</td></tr><tr><td>Шар (R)</td><td>4/3 · πR³</td><td>4πR²</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 3</span><p>Высота конуса 8, образующая 10. Найдите площадь боковой поверхности, делённую на π.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>r = √(100 − 64) = 6; S = π · 6 · 10 → <b>60</b>.</p></div></div>
+<h2>Подобие тел</h2>
+<div class="thm"><span class="lbl">Правило</span><p>Если все линейные размеры тела увеличить в k раз, площадь поверхности увеличится в k², а объём — в k³ раз.</p></div>
+<div class="ex"><span class="lbl">Пример 4</span><p>Радиус шара увеличили в 2 раза. Во сколько раз увеличился объём?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2³ = <b>8</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · сосуды</span><p>Вода в цилиндрическом сосуде стоит на высоте 12 см. Её перелили в цилиндрический сосуд, диаметр которого в 2 раза больше. На какой высоте будет вода?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Объём тот же, площадь дна больше в 4 раза → высота меньше в 4 раза: <b>3</b> см.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Ошибка в примере 5 — ответ 6 («диаметр в 2 раза — высота в 2 раза»). Площадь дна зависит от квадрата радиуса.</p></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Объём куба равен 64. Найдите площадь его поверхности.</div><div class="task"><span class="task-no">№&nbsp;2</span>Радиус основания цилиндра 3, высота 5. Найдите объём цилиндра, делённый на π.</div><div class="task"><span class="task-no">№&nbsp;3</span>Высота конуса 6, радиус основания 4. Найдите объём конуса, делённый на π.</div><div class="task"><span class="task-no">№&nbsp;4</span>Площадь основания треугольной призмы 12, высота 7. Найдите объём.</div><div class="task"><span class="task-no">№&nbsp;5</span>Объём шара равен 288π. Найдите его радиус.</div><div class="task"><span class="task-no">№&nbsp;6</span>Цилиндр и конус имеют общее основание и общую высоту. Объём цилиндра 27. Найдите объём конуса.</div><div class="task"><span class="task-no">№&nbsp;7</span>Ребро куба увеличили в 3 раза. Во сколько раз увеличилась площадь его поверхности?</div><div class="task"><span class="task-no">№&nbsp;8</span>Площадь осевого сечения цилиндра 24, радиус основания 2. Найдите объём цилиндра, делённый на π.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el6a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 6</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Составить таблицу формул (объём, площадь поверхности) для 6 тел — без подглядывания, потом сверить с лекцией.</p></div>
+<div class="task"><span class="task-no">Д1</span>Рёбра прямоугольного параллелепипеда 2, 3 и 6. Найдите его диагональ.</div><div class="task"><span class="task-no">Д2</span>Площадь поверхности куба 150. Найдите его объём.</div><div class="task"><span class="task-no">Д3</span>Правильная четырёхугольная пирамида: сторона основания 8, высота 3. Найдите объём.</div><div class="task"><span class="task-no">Д4</span>Радиус шара 3. Найдите площадь его поверхности, делённую на π.</div><div class="task"><span class="task-no">Д5</span>Вода в цилиндрическом сосуде стоит на уровне 20 см. Её перелили в сосуд, радиус которого в 2 раза меньше. На какой высоте будет вода?</div><div class="task"><span class="task-no">Д6</span>Высота конуса 12, радиус основания 5. Найдите площадь боковой поверхности, делённую на π.</div>
+<div class="pager"><a href="el5.html">← Лекция 5</a><a href="el7.html">Лекция 7 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

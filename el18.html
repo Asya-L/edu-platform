@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 18. Планиметрия: доказательство и вычисление</title>
+<script>document.documentElement.dataset.page="el18";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="подобие, вписанные углы, свойство биссектрисы, теоремы синусов и косинусов, вписанные и описанные окружности">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 18</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 18 · задание № 18</div>
+  <h1>Планиметрия: доказательство и вычисление</h1>
+  <p class="lede">подобие, вписанные углы, свойство биссектрисы, теоремы синусов и косинусов, вписанные и описанные окружности</p>
+  <div class="btns">
+    <a class="btn" href="sel18.html">▶ Презентация</a>
+    <a class="btn lime" href="wse18.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Как оценивают</h2>
+<p>Схема баллов — по образцу демоверсий последних лет; с финальной демоверсией 2027 года её нужно сверить.</p>
+<div class="tablewrap"><table><thead><tr><th>Баллы</th><th>Что сделано</th></tr></thead><tbody><tr><td>3</td><td>доказан пункт а) и обоснованно получен верный ответ в б)</td></tr><tr><td>2</td><td>обоснованно получен верный ответ в б), или доказан а) и при решении б) допущена арифметическая ошибка</td></tr><tr><td>1</td><td>доказан а), или верный ответ в б) получен с использованием недоказанного а)</td></tr><tr><td>0</td><td>всё остальное</td></tr></tbody></table></div>
+<h2>Инструменты</h2>
+<div class="tablewrap"><table><thead><tr><th>Факт</th><th>Формулировка</th></tr></thead><tbody><tr><td>Подобие</td><td>по двум углам; по двум сторонам и углу между ними; по трём сторонам. Площади относятся как k².</td></tr><tr><td>Свойство биссектрисы</td><td>BD : DC = AB : AC</td></tr><tr><td>Теорема косинусов</td><td>c² = a² + b² − 2ab cos γ</td></tr><tr><td>Теорема синусов</td><td>a / sin α = 2R</td></tr><tr><td>Отрезки касательных</td><td>равны; в треугольнике AK = p − BC (K — точка касания на AB)</td></tr><tr><td>Вписанный четырёхугольник</td><td>сумма противоположных углов 180°; вписанные углы на одну дугу равны</td></tr></tbody></table></div>
+<h2>Ключевые конфигурации</h2>
+<div class="ex"><span class="lbl">Пример 1 · высоты</span><p>В остроугольном треугольнике ABC проведены высоты AA₁ и BB₁. а) Докажите, что треугольник A₁B₁C подобен треугольнику ABC. б) Найдите A₁B₁, если AB = 10, ∠C = 60°.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) В прямоугольных треугольниках AA₁C и BB₁C: CA₁ = AC · cos C, CB₁ = BC · cos C. Значит CA₁/CA = CB₁/CB = cos C, угол C общий → треугольники подобны по двум сторонам и углу, k = cos C.</p><p>б) A₁B₁ = AB · cos C = 10 · 0,5 = <b>5</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · вписанная трапеция</span><p>Около трапеции ABCD описана окружность. а) Докажите, что трапеция равнобедренная. б) Найдите радиус окружности, если основания 8 и 6, а высота 7.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) ∠A + ∠C = 180° (вписанный четырёхугольник), ∠B + ∠A = 180° (углы при боковой стороне трапеции) → ∠C = ∠B → трапеция равнобедренная.</p><p>б) Центр на оси симметрии. Нижнее основание (−4; 0)–(4; 0), верхнее (−3; 7)–(3; 7), центр (0; y): 16 + y² = 9 + (7 − y)² → y = 3, R = √(16 + 9) = <b>5</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Частая ошибка в а): использовать то, что нужно доказать, или «очевидно из рисунка». Каждое равенство углов или отрезков — с причиной.</p></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>В треугольнике ABC AB = 6, AC = 9, BC = 10, AD — биссектриса. а) Докажите, что BD : DC = 2 : 3. б) Найдите BD.</div><div class="task"><span class="task-no">№&nbsp;2</span>Окружность, вписанная в прямоугольный треугольник ABC (∠C = 90°, AC = 6, BC = 8), касается гипотенузы в точке K. а) Докажите, что AK · KB равно площади треугольника. б) Найдите радиус окружности.</div><div class="task"><span class="task-no">№&nbsp;3</span>В остроугольном треугольнике ABC проведены высоты AA₁ и BB₁. а) Докажите, что △A₁B₁C ∼ △ABC. б) Найдите A₁B₁, если AB = 10, ∠C = 60°.</div><div class="task"><span class="task-no">№&nbsp;4</span>Около трапеции ABCD описана окружность. а) Докажите, что трапеция равнобедренная. б) Найдите радиус, если основания 8 и 6, высота 7.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el18a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 18</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д4 ниже: аккуратный чертёж, доказательство пункта а) цепочкой «утверждение — причина», вычисление б).</p></div>
+<div class="task"><span class="task-no">Д1</span>В остроугольном треугольнике ABC проведены высоты AA₁ и CC₁. а) Докажите, что ∠BA₁C₁ = ∠BAC. б) Найдите A₁C₁, если AC = 12, ∠B = 60°.</div><div class="task"><span class="task-no">Д2</span>В треугольнике ABC: AB = 8, AC = 12, BC = 15, AD — биссектриса. а) Докажите, что BD : DC = 2 : 3. б) Найдите BD.</div><div class="task"><span class="task-no">Д3</span>Около трапеции описана окружность, основания 24 и 10, высота 17. а) Докажите, что центр окружности лежит на оси симметрии трапеции. б) Найдите радиус.</div><div class="task"><span class="task-no">Д4</span>Катеты прямоугольного треугольника 5 и 12. а) Докажите, что r = (a + b − c)/2. б) Найдите r.</div>
+<div class="pager"><a href="el17.html">← Лекция 17</a><a href="el19.html">Лекция 19 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 20. Задача на числа</title>
+<script>document.documentElement.dataset.page="el20";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="делимость и остатки, чётность, оценка + пример, «может ли быть»; структура а) – б) – в)">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 20</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 20 · задание № 20</div>
+  <h1>Задача на числа</h1>
+  <p class="lede">делимость и остатки, чётность, оценка + пример, «может ли быть»; структура а) – б) – в)</p>
+  <div class="btns">
+    <a class="btn" href="sel20.html">▶ Презентация</a>
+    <a class="btn lime" href="wse20.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Как оценивают</h2>
+<p>Схема баллов — по образцу демоверсий последних лет; с финальной демоверсией 2027 года её нужно сверить.</p>
+<div class="tablewrap"><table><thead><tr><th>Баллы</th><th>Что сделано</th></tr></thead><tbody><tr><td>4</td><td>верно получены все результаты: а), б), в) с оценкой и примером</td></tr><tr><td>3</td><td>верно получены три результата из четырёх (а; б; оценка в в); пример в в))</td></tr><tr><td>2</td><td>верно получены два результата</td></tr><tr><td>1</td><td>верно получен один результат</td></tr><tr><td>0</td><td>всё остальное</td></tr></tbody></table></div>
+<h2>Инструменты</h2>
+<div class="tablewrap"><table><thead><tr><th>Факт</th><th>Пример</th></tr></thead><tbody><tr><td>Наименьшая сумма n различных натуральных</td><td>1 + 2 + … + n = n(n + 1)/2; для 5 чисел — 15</td></tr><tr><td>Остаток суммы и произведения</td><td>определяется остатками слагаемых и множителей</td></tr><tr><td>Чётность</td><td>сумма нечётного числа нечётных слагаемых нечётна</td></tr><tr><td>Последняя цифра произведения</td><td>определяется последними цифрами множителей</td></tr><tr><td>Делимость на простое p</td><td>произведение делится на p ⇔ хотя бы один множитель делится на p</td></tr><tr><td>Числа с одинаковыми остатками</td><td>n ≡ r по модулям m₁, m₂ ⇔ n − r делится на НОК(m₁, m₂)</td></tr></tbody></table></div>
+<h2>Схема «оценка + пример»</h2>
+<ol class="steps"><li><b>Оценка</b>: доказать, что искомая величина не меньше (не больше) некоторого числа N.</li><li><b>Пример</b>: показать набор чисел, на котором ровно N достигается.</li><li>Без примера оценка не доказывает ответ; без оценки пример — тоже.</li></ol>
+<div class="ex"><span class="lbl">Пример 1</span><p>а) Может ли сумма пяти различных натуральных чисел быть равна 14? б) Может ли она быть равна 15, если их произведение делится на 7? в) Найдите наименьшую сумму пяти различных натуральных чисел, произведение которых делится на 7.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Нет: наименьшая сумма 1 + 2 + 3 + 4 + 5 = 15 &gt; 14.</p><p>б) Нет: сумма 15 только у набора 1, 2, 3, 4, 5, его произведение 120 не делится на 7.</p><p>в) Оценка: одно из чисел делится на 7, значит ≥ 7; остальные четыре различны и ≥ 1 + 2 + 3 + 4 = 10; сумма ≥ 17. Пример: 1, 2, 3, 4, 7. Ответ: <b>17</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>а) Может ли среднее арифметическое десяти различных натуральных чисел равняться 5? б) А 6? в) Каким наибольшим может быть наибольшее из десяти различных натуральных чисел со средним 6?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Нет: сумма была бы 50, а наименьшая сумма десяти различных — 55. б) Да: 1, 2, …, 9, 15 (сумма 60).</p><p>в) Оценка: остальные девять ≥ 1 + … + 9 = 45, значит наибольшее ≤ 60 − 45 = 15. Пример из б). Ответ: <b>15</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Ответ «нет» без объяснения — 0 за пункт. Ответ «да» без конкретного примера — тоже 0. Пример нужно проверить: выписать числа и посчитать.</p></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>а) Может ли сумма пяти различных натуральных чисел быть равна 14? б) Может ли она быть равна 15, если их произведение делится на 7? в) Найдите наименьшую сумму пяти различных натуральных чисел, произведение которых делится на 7.</div><div class="task"><span class="task-no">№&nbsp;2</span>а) Существует ли натуральное число, которое при делении на 3 даёт остаток 2, а при делении на 6 — остаток 1? б) Найдите наименьшее натуральное число, большее 2, дающее остаток 2 при делении на 3, на 4 и на 5. в) Сколько трёхзначных чисел дают остаток 2 при делении на 3, на 4 и на 5?</div><div class="task"><span class="task-no">№&nbsp;3</span>а) Может ли среднее арифметическое десяти различных натуральных чисел равняться 5? б) А 6? в) Каким наибольшим может быть наибольшее из этих чисел при среднем 6?</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el20a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 20</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д3 ниже. В каждом пункте: «да» — с примером, «нет» — с объяснением; пункт в) — оценка и пример отдельными абзацами.</p></div>
+<div class="task"><span class="task-no">Д1</span>а) Может ли произведение двух последовательных натуральных чисел оканчиваться на 7? б) На 2? в) Сколько из чисел 1·2, 2·3, …, 100·101 оканчиваются на 6?</div><div class="task"><span class="task-no">Д2</span>а) Можно ли представить число 7 в виде 3a + 5b с целыми неотрицательными a, b? б) А число 13? в) Найдите наибольшее натуральное число, которое нельзя так представить.</div><div class="task"><span class="task-no">Д3</span>На доске числа 1, 2, …, 10. Их разбивают на две группы и в каждой перемножают числа. а) Могут ли произведения быть равны? б) Может ли большее произведение делиться на меньшее с частным 2? в) Найдите наименьшее возможное целое значение отношения большего произведения к меньшему.</div>
+<div class="pager"><a href="el19.html">← Лекция 19</a><a href="ege-math.html">Все лекции →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

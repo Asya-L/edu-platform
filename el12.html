@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 12. Функции и их графики</title>
+<script>document.documentElement.dataset.page="el12";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="линейная, квадратичная, обратная пропорциональность, корень, показательная и логарифмическая: коэффициенты по графику">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 12</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 12 · задание № 12</div>
+  <h1>Функции и их графики</h1>
+  <p class="lede">линейная, квадратичная, обратная пропорциональность, корень, показательная и логарифмическая: коэффициенты по графику</p>
+  <div class="btns">
+    <a class="btn" href="sel12.html">▶ Презентация</a>
+    <a class="btn lime" href="wse12.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Главный приём</h2>
+<ol class="steps"><li>Определить вид функции по рисунку (подпись обычно дана).</li><li>Найти на графике точки в узлах сетки — сколько неизвестных коэффициентов, столько и точек.</li><li>Подставить точки в формулу, решить систему.</li><li>Записать формулу и вычислить то, что спрашивают (значение в точке, корень, пересечение).</li></ol>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Берите только точки, которые <b>точно</b> лежат в узлах сетки. Точку «примерно на 1,5» использовать нельзя — ответ получится неверным.</p></div>
+<h2>Шесть графиков</h2>
+<div class="tablewrap"><table><thead><tr><th>Функция</th><th>Как выглядит</th><th>Подсказки</th></tr></thead><tbody><tr><td>y = kx + b</td><td>прямая</td><td>b — точка пересечения с Oy; k = Δy/Δx</td></tr><tr><td>y = ax² + bx + c</td><td>парабола</td><td>c = f(0); вершина x₀ = −b/(2a); a &gt; 0 — ветви вверх</td></tr><tr><td>y = k/x + a</td><td>гипербола</td><td>горизонтальная асимптота y = a; k — из любой точки</td></tr><tr><td>y = k√x</td><td>ветвь параболы на боку</td><td>k — из любой точки, кроме (0; 0)</td></tr><tr><td>y = aˣ + b</td><td>экспонента</td><td>асимптота y = b; a — из точки</td></tr><tr><td>y = logₐ(x + b)</td><td>логарифм</td><td>вертикальная асимптота x = −b; a — из точки</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 1 · парабола</span><p>На рисунке — график f(x) = ax² + bx + c. Найдите f(7).<br><img src="assets/fig/g_parab.png" alt="" style="max-width:230px;margin-top:8px"></p><div class="ex-sol"><span class="ex-h">Решение</span><p>Точки (0; 1), (1; −2), (2; −3): c = 1; a + b = −3; 4a + 2b = −4 → a = 1, b = −4. f(x) = x² − 4x + 1, f(7) = 49 − 28 + 1 = <b>22</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · гипербола</span><p>На рисунке — график f(x) = k/x + a. Найдите f(10).<br><img src="assets/fig/g_hyper.png" alt="" style="max-width:230px;margin-top:8px"></p><div class="ex-sol"><span class="ex-h">Решение</span><p>Точки (1; 3) и (2; 2): k + a = 3, k/2 + a = 2 → k = 2, a = 1. f(10) = 0,2 + 1 = <b>1,2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · пересечение</span><p>На рисунке — две прямые. Найдите ординату их точки пересечения.<br><img src="assets/fig/g_lines.png" alt="" style="max-width:230px;margin-top:8px"></p><div class="ex-sol"><span class="ex-h">Решение</span><p>Синяя: через (0; 0) и (2; 1) → y = 0,5x. Оранжевая: через (0; 4) и (2; 0) → y = −2x + 4. 0,5x = −2x + 4 → x = 1,6, y = <b>0,8</b>.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>На рисунке изображён график функции f(x) = aˣ + b. Найдите f(5).<br><img src="assets/fig/g_exp.png" alt="" style="max-width:230px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;2</span>На рисунке изображён график функции f(x) = logₐ(x + b). Найдите f(31).<br><img src="assets/fig/g_log.png" alt="" style="max-width:230px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;3</span>На рисунке изображён график функции f(x) = k√x. Найдите f(25).<br><img src="assets/fig/g_root.png" alt="" style="max-width:230px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;4</span>На рисунке изображён график функции f(x) = ax² + bx + c. Найдите значение x, при котором f(x) = 13, если x &gt; 0.<br><img src="assets/fig/g_parab.png" alt="" style="max-width:230px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;5</span>На рисунке изображён график функции f(x) = k/x + a. Найдите, при каком x значение f(x) = 0,5.<br><img src="assets/fig/g_hyper.png" alt="" style="max-width:230px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;6</span>На рисунке изображены две прямые. Найдите абсциссу их точки пересечения.<br><img src="assets/fig/g_lines.png" alt="" style="max-width:230px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;7</span>График линейной функции проходит через точки (1; 3) и (4; 9). Найдите, в какой точке он пересекает ось Oy (ординату).</div><div class="task"><span class="task-no">№&nbsp;8</span>Вершина параболы y = x² + bx + c находится в точке (3; −4). Найдите c.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el12a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 12</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Нарисовать в тетради по одному графику каждого из шести видов и отметить на них по две точки в узлах сетки.</p></div>
+<div class="task"><span class="task-no">Д1</span>Прямая y = kx + b проходит через точки (−2; 7) и (3; −3). Найдите b.</div><div class="task"><span class="task-no">Д2</span>Парабола y = ax² проходит через точку (2; 6). Найдите y(4).</div><div class="task"><span class="task-no">Д3</span>Гипербола y = k/x проходит через точку (4; −3). Найдите y(−6).</div><div class="task"><span class="task-no">Д4</span>График y = 2ˣ + b проходит через точку (3; 5). Найдите y(4).</div><div class="task"><span class="task-no">Д5</span>График y = log₃x + b проходит через точку (9; 5). Найдите y(27).</div><div class="task"><span class="task-no">Д6</span>Вершина параболы y = x² − 6x + c лежит на оси Ox. Найдите c.</div>
+<div class="pager"><a href="el11.html">← Лекция 11</a><a href="el13.html">Лекция 13 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

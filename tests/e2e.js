@@ -12,8 +12,8 @@ const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR
 
 const results = []; let errors = [];
 function rec(id, ok, note) { results.push({id, ok: !!ok, note: note || ''}); console.log((ok ? 'PASS ' : 'FAIL ') + id + (note ? ' — ' + note : '')); }
-const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2','a1','a2','a3','a4','a5','a6','a7','a8','wsa1','wsa2','wsa3','wsa4','wsa5','wsa6','wsa7','wsa8'];
-const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','ege-bank','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5','a1','a2','a3','a4','a5','a6','a7','a8','wsa1','wsa2','wsa3','wsa4','wsa5','wsa6','wsa7','wsa8','sa1','sa2','sa3','sa4','sa5','sa6','sa7','sa8','quiz-a1a'];
+const TEACHER_PAGES = ['index','math','geometry','algebra','ege-math','ege-inf','library','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','test-geo1','test-alg1','test-alg2','a1','a2','a3','a4','a5','a6','a7','a8','wsa1','wsa2','wsa3','wsa4','wsa5','wsa6','wsa7','wsa8','el1','el2','el3','el4','el5','el6','el7','el8','el9','el10','el11','el12','el13','el14','el15','el16','el17','el18','el19','el20','wse1','wse2','wse3','wse4','wse5','wse6','wse7','wse8','wse9','wse10','wse11','wse12','wse13','wse14','wse15','wse16','wse17','wse18','wse19','wse20'];
+const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege-inf','quiz-geo1','ege-bank','board','reference','library','help','g1','g2','g3','g4','g5','ws1','ws2','ws3','ws4','ws5','s1','s2','s3','s4','s5','a1','a2','a3','a4','a5','a6','a7','a8','wsa1','wsa2','wsa3','wsa4','wsa5','wsa6','wsa7','wsa8','sa1','sa2','sa3','sa4','sa5','sa6','sa7','sa8','quiz-a1a','el1','el2','el3','el4','el5','el6','el7','el8','el9','el10','el11','el12','el13','el14','el15','el16','el17','el18','el19','el20','wse1','wse2','wse3','wse4','wse5','wse6','wse7','wse8','wse9','wse10','wse11','wse12','wse13','wse14','wse15','wse16','wse17','wse18','wse19','wse20','sel1','sel2','sel3','sel4','sel5','sel6','sel7','sel8','sel9','sel10','sel11','sel12','sel13','sel14','sel15','sel16','sel17','sel18','sel19','sel20','quiz-el1a','quiz-el20b'];
 
 (async () => {
   const b = await chromium.launch();
@@ -87,7 +87,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     const refs = await p.evaluate(() => [...document.querySelectorAll('#tview a[href], #tview img[src]')].map(e => e.getAttribute('href') || e.getAttribute('src'))
       .filter(h => h && !/^(https?:|mailto:|#|t\.html|javascript:)/.test(h)).map(h => h.split('#')[0]).filter(Boolean));
     const TF = await p.evaluate(() => window.KABINET && 1);
-    for (const r of new Set(refs)) { const target = /^files\/(wsa?\d-teacher|test-|geo-solutions|geo-drawings|ege-lecture-1)/.test(r) ? 't/' + r + '.bin' : r;
+    for (const r of new Set(refs)) { const target = /^files\/(ws[ae]?\d+-teacher|test-|geo-solutions|geo-drawings|ege-lecture-1)/.test(r) ? 't/' + r + '.bin' : r;
       const st = await p.evaluate(async (u) => (await fetch(u, {method:'HEAD'})).status, target); if (st !== 200) tBroken.add(n + ': ' + r + ' ' + st); } }
   await p.setViewportSize({width: 1280, height: 860});
   rec('ENC-01', !encFail.length, encFail.join(', ') || TEACHER_PAGES.length + ' страниц');
@@ -162,7 +162,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await go('index.html', 1200); const home = (await p.textContent('#hwBox')) || ''; const me = (await p.textContent('#meBox')) || '';
   const callHref = await p.getAttribute('#meBox a.btn', 'href').catch(() => null);
   rec('ST-01', me.includes('Следующее занятие') && me.includes('18:00') && me.includes('послезавтра') && callHref === 'https://example.test/call/abc', me.slice(0, 90));
-  rec('ST-02', me.includes('Мой прогресс') && me.includes('в работе 3') && me.includes('0 из 35 тем освоено'), (me.match(/\d+ из \d+ тем освоено/) || [''])[0]);
+  rec('ST-02', me.includes('Мой прогресс') && me.includes('в работе 3') && me.includes('0 из 55 тем освоено'), (me.match(/\d+ из \d+ тем освоено/) || [''])[0]);
   await go('homework.html', 1200); const hwAll = (await p.textContent('#hwBox')) || ''; const html = await p.content();
   rec('HW-01', home.includes('Рабочий лист 3') && hwAll.includes('№ 18, 23, 27, 30') && hwAll.includes('Урок 2'), 'на главной последнее, в «Домашке» оба');
   const raw = await p.evaluate(async () => (await window.KABINET.sb.rpc('edu_my_homework')).data);
@@ -233,6 +233,22 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
   await p.click('#qzGo'); await p.waitForTimeout(800); const sc6 = (await p.textContent('#qzScore')) || ''; const cr6 = (await p.textContent('.crumbs')) || '';
   rec('QZ-06', k6.length === 8 && sc6.startsWith('8 из 8') && cr6.includes('Алгебра') && cr6.includes('Урок 3'), sc6.slice(0, 30) + ' · ' + cr6.replace(/\s+/g, ' ').slice(0, 50));
+  // EG-01: страница ЕГЭ по модели 2027 — 20 номеров, у каждого своя лекция; EG-02: конспект лекции ученика без методички
+  await go('ege-math.html', 900); const eg1 = await p.evaluate(() => ({lede: (document.querySelector('.lede') || {}).textContent || '', rows: document.querySelectorAll('table a[href^="el"]').length,
+    lect: document.querySelectorAll('.lesson-row').length}));
+  rec('EG-01', eg1.lede.includes('20 заданий') && eg1.lede.includes('33 первичных') && eg1.rows === 20 && eg1.lect === 20, JSON.stringify(eg1).slice(0, 120));
+  await go('el7.html', 900); const eg2 = await p.evaluate(() => ({ex: document.querySelectorAll('.ex').length, note: document.querySelectorAll('main .note').length, det: document.querySelectorAll('main details').length,
+    tasks: document.querySelectorAll('main .task').length, quiz: !!document.querySelector('a[href="quiz-el7a.html"]'), ws: !!document.querySelector('a[href="wse7.html"]'), sl: !!document.querySelector('a[href="sel7.html"]')}));
+  rec('EG-02', eg2.ex >= 3 && eg2.note === 0 && eg2.det === 0 && eg2.tasks === 14 && eg2.quiz && eg2.ws && eg2.sl, JSON.stringify(eg2));
+  // EG-03: тест лекции ЕГЭ 8/8, хлебные крошки «ЕГЭ · Лекция»; EG-04: рабочий лист лекции ЕГЭ сохраняется
+  await go('quiz-el7a.html', 1000); const k7 = QK['quiz-el7a'] || [];
+  for (let i = 0; i < k7.length; i++) { const k = k7[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
+    if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
+  await p.click('#qzGo'); await p.waitForTimeout(800); const sc7 = (await p.textContent('#qzScore')) || ''; const cr7 = (await p.textContent('.crumbs')) || '';
+  rec('EG-03', k7.length === 8 && sc7.startsWith('8 из 8') && cr7.includes('ЕГЭ') && cr7.includes('Лекция 7'), sc7.slice(0, 30) + ' · ' + cr7.replace(/\s+/g, ' ').slice(0, 50));
+  await go('wse7.html', 1200); await p.fill('.sheet input.wsf >> nth=0', '0,25'); await p.waitForTimeout(1800); const eg4bar = (await p.textContent('#wsBar')) || '';
+  const eg4 = await p.evaluate(() => (JSON.parse(localStorage.getItem('mockdb')).edu_ws_answers.find(w => w.ws === 'wse7') || {}).answers || {});
+  rec('EG-04', eg4bar.includes('Сохранено') && Object.values(eg4).includes('0,25'), eg4bar.replace(/\s+/g, ' ').slice(0, 60));
   // WS-01…02: ученик заполняет рабочий лист на сайте — ответы сохраняются сами, лист сдаётся кнопкой
   await go('wsa3.html', 1200); const nf = await p.$$eval('.sheet .wsf, .sheet .wstf', e => e.length);
   await p.fill('.sheet input.wsf >> nth=0', '|q| < 1'); await p.click('.sheet .wstf >> nth=0 >> button:has-text("Н")'); await p.click('.sheet .wstf >> nth=1 >> button:has-text("В")');

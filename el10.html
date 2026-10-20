@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 10. Функции и производная</title>
+<script>document.documentElement.dataset.page="el10";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="геометрический и физический смысл производной, чтение графиков f и f′, экстремумы">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 10</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 10 · задание № 9</div>
+  <h1>Функции и производная</h1>
+  <p class="lede">геометрический и физический смысл производной, чтение графиков f и f′, экстремумы</p>
+  <div class="btns">
+    <a class="btn" href="sel10.html">▶ Презентация</a>
+    <a class="btn lime" href="wse10.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Производная — наклон касательной</h2>
+<div class="def"><span class="lbl">Геометрический смысл</span><p>f′(x₀) — угловой коэффициент касательной к графику в точке x₀: f′(x₀) = k = tg α, где α — угол между касательной и положительным направлением оси Ox.</p></div>
+<p>Чтобы найти k по рисунку: берём две точки касательной в узлах сетки, k = Δy / Δx. Если касательная «идёт вниз» слева направо — k отрицателен.</p>
+<figure style="max-width:420px"><img src="assets/fig/ege_tangent.png" alt="График функции и касательная в точке x₀"></figure>
+<div class="ex"><span class="lbl">Пример 1</span><p>На рисунке — график функции и касательная в точке x₀. Найдите f′(x₀).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Касательная проходит через (1; 3) и (3; 6): k = (6 − 3)/(3 − 1) = <b>1,5</b>.</p></div></div>
+<h3>Как считать производную многочлена</h3>
+<div class="tablewrap"><table><thead><tr><th>Функция</th><th>Производная</th></tr></thead><tbody><tr><td>c (число)</td><td>0</td></tr><tr><td>x</td><td>1</td></tr><tr><td>xⁿ</td><td>n · xⁿ⁻¹</td></tr><tr><td>c · f(x)</td><td>c · f′(x)</td></tr><tr><td>f + g</td><td>f′ + g′</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>f(x) = x³ − 6x² + 1. Найдите f′(3).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>f′(x) = 3x² − 12x → 27 − 36 = <b>−9</b>.</p></div></div>
+<h2>Читаем график производной</h2>
+<div class="tablewrap"><table><thead><tr><th>На графике f′</th><th>Что это значит для f</th></tr></thead><tbody><tr><td>f′ &gt; 0 (выше оси)</td><td>f возрастает</td></tr><tr><td>f′ &lt; 0 (ниже оси)</td><td>f убывает</td></tr><tr><td>f′ меняет знак с + на −</td><td>точка максимума f</td></tr><tr><td>f′ меняет знак с − на +</td><td>точка минимума f</td></tr><tr><td>f′(x) = k</td><td>касательная к f параллельна прямой y = kx + b</td></tr></tbody></table></div>
+<figure style="max-width:460px"><img src="assets/fig/ege_fprime.png" alt="График производной функции на интервале (−5,5; 5,5)"></figure>
+<div class="ex"><span class="lbl">Пример 3</span><p>По графику производной (рисунок выше) найдите количество точек максимума функции f на интервале (−5,5; 5,5).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>f′ меняет знак с + на − в точках x = −5 и x = 2 → <b>2</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Главная ловушка задания 9: на рисунке график <b>производной</b>, а спрашивают про <b>функцию</b>. Не ищите «вершины» на графике f′ — это точки экстремума самой f′. Смотрите на нули и знак.</p></div>
+<h2>Физический смысл</h2>
+<p>Если x(t) — координата точки в момент t, то скорость v(t) = x′(t).</p>
+<div class="ex"><span class="lbl">Пример 4</span><p>x(t) = t³ − 3t² + 5t (м, с). Найдите скорость в момент t = 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>v = 3t² − 6t + 5 → 12 − 12 + 5 = <b>5</b> м/с.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>На рисунке изображён график функции y = f(x) и касательная к нему в точке x₀. Найдите f′(x₀).<br><img src="assets/fig/ege_tangent.png" alt="" style="max-width:260px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;2</span>На рисунке — график производной функции f на интервале (−5,5; 5,5). Найдите количество точек минимума функции f.<br><img src="assets/fig/ege_fprime.png" alt="" style="max-width:300px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;3</span>По графику производной из задачи 2 (он повторён здесь) найдите длину наибольшего промежутка убывания функции f.<br><img src="assets/fig/ege_fprime.png" alt="" style="max-width:300px;margin-top:8px"></div><div class="task"><span class="task-no">№&nbsp;4</span>По тому же графику найдите количество точек, в которых касательная к графику f параллельна оси Ox.</div><div class="task"><span class="task-no">№&nbsp;5</span>По тому же графику найдите, в какой точке отрезка [−4; −2] функция f принимает наибольшее значение.</div><div class="task"><span class="task-no">№&nbsp;6</span>Материальная точка движется по закону x(t) = t³ − 3t² + 5t. Найдите её скорость в момент t = 2.</div><div class="task"><span class="task-no">№&nbsp;7</span>Прямая y = 3x + 1 касается графика функции f в точке x₀ = 2. Найдите f′(2).</div><div class="task"><span class="task-no">№&nbsp;8</span>Точка движется по закону x(t) = t² − 4t + 3. В какой момент времени её скорость равна 6?</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el10a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 10</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже (Д2 и Д3 — по графику производной из лекции). Выписать таблицу «знак f′ → поведение f».</p></div>
+<div class="task"><span class="task-no">Д1</span>f(x) = x³ − 6x² + 1. Найдите f′(3).</div><div class="task"><span class="task-no">Д2</span>По графику производной из лекции найдите количество точек, в которых касательная к графику f параллельна прямой y = 2x − 7.</div><div class="task"><span class="task-no">Д3</span>По тому же графику найдите количество точек экстремума функции f.</div><div class="task"><span class="task-no">Д4</span>Точка движется по закону x(t) = 2t³ − t² + t. Найдите её скорость в момент t = 1.</div><div class="task"><span class="task-no">Д5</span>Найдите угловой коэффициент касательной к графику y = x² в точке x₀ = 3.</div><div class="task"><span class="task-no">Д6</span>Точка движется по закону x(t) = −t² + 8t + 2. В какой момент её скорость равна нулю?</div>
+<div class="pager"><a href="el9.html">← Лекция 9</a><a href="el11.html">Лекция 11 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

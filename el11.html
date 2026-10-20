@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 11. Прикладная задача: работаем с формулой</title>
+<script>document.documentElement.dataset.page="el11";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="подстановка в формулу, единицы измерения, уравнение и неравенство из условия, выбор корня по смыслу">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 11</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 11 · задание № 10</div>
+  <h1>Прикладная задача: работаем с формулой</h1>
+  <p class="lede">подстановка в формулу, единицы измерения, уравнение и неравенство из условия, выбор корня по смыслу</p>
+  <div class="btns">
+    <a class="btn" href="sel11.html">▶ Презентация</a>
+    <a class="btn lime" href="wse11.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Алгоритм</h2>
+<ol class="steps"><li>Выписать формулу и значения всех букв из условия.</li><li>Привести единицы к тем, что в формуле (если формула в метрах, километры перевести).</li><li>Найти, какая буква неизвестна, и выразить её — или подставить и решить уравнение.</li><li>Если в условии «не менее», «не более», «не превышает» — это неравенство; ищем границы.</li><li>Проверить смысл: время положительно, нужный корень — тот, о котором спрашивают («через сколько секунд впервые»).</li></ol>
+<div class="ex"><span class="lbl">Пример 1 · движение</span><p>Высота мяча (м) меняется по закону h(t) = 1,6 + 8t − 5t², t — в секундах. Сколько секунд мяч находится на высоте не менее 3 м?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1,6 + 8t − 5t² ≥ 3 → 5t² − 8t + 1,4 ≤ 0 → t ∈ [0,2; 1,4] → 1,4 − 0,2 = <b>1,2</b> с.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · оптика</span><p>Для линзы 1/d₁ + 1/d₂ = 1/f. Фокусное расстояние f = 30 см, предмет на расстоянии d₁ = 50 см. На каком расстоянии d₂ (см) получится изображение?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1/d₂ = 1/30 − 1/50 = (5 − 3)/150 = 1/75 → <b>75</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · единицы</span><p>Расстояние до горизонта l = √(2Rh), R = 6400 км. С какой высоты (в метрах) горизонт виден на 4 км?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>16 = 2 · 6400 · h → h = 0,00125 км = <b>1,25</b> м. Формула в километрах — ответ переводим в метры в самом конце.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Три ловушки задания 10: единицы (формула в км, а ответ просят в м); «впервые» — нужен меньший корень; «сколько времени выше» — длина промежутка, а не его конец.</p></div>
+<div class="ex"><span class="lbl">Пример 4 · наибольшее значение</span><p>Камень брошен вверх, h(t) = 18t − 5t². Найдите наибольшую высоту.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Вершина параболы: t = 18/10 = 1,8 → h = 32,4 − 16,2 = <b>16,2</b> м.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Мощность P = I²R. Сопротивление R = 20 Ом, мощность P = 500 Вт. Найдите силу тока I (в амперах).</div><div class="task"><span class="task-no">№&nbsp;2</span>Температура нагревателя T(t) = 1400 + 160t − 8t² (в кельвинах, t — в минутах). Прибор нужно отключить, когда T впервые достигнет 1750 К. Через сколько минут?</div><div class="task"><span class="task-no">№&nbsp;3</span>По закону Ома I = U/R. Напряжение 220 В, сила тока не должна превышать 4 А. Найдите наименьшее допустимое сопротивление (Ом).</div><div class="task"><span class="task-no">№&nbsp;4</span>Высота камня h(t) = 2 + 12t − 5t² (м). Найдите наибольшую высоту.</div><div class="task"><span class="task-no">№&nbsp;5</span>Скорость автомобиля, разгоняющегося с места, v = √(2la), где l — путь (км), a — ускорение (км/ч²). Найдите ускорение, при котором на пути 0,4 км автомобиль наберёт 100 км/ч.</div><div class="task"><span class="task-no">№&nbsp;6</span>Высота мяча h(t) = 1 + 11t − 5t² (м). Сколько секунд мяч находится на высоте не менее 3 м?</div><div class="task"><span class="task-no">№&nbsp;7</span>Количество теплоты Q = cm(t₂ − t₁), c = 4200 Дж/(кг·°C), m = 2 кг, Q = 168 000 Дж. На сколько градусов нагрелась вода?</div><div class="task"><span class="task-no">№&nbsp;8</span>Для линзы 1/d₁ + 1/d₂ = 1/f, f = 20 см. Предмет на расстоянии 30 см. На каком расстоянии (см) получится изображение?</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el11a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 11</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. В каждой — сначала выписать формулу и значения букв с единицами, потом решать.</p></div>
+<div class="task"><span class="task-no">Д1</span>Мощность P = U²/R. U = 220 В, P = 880 Вт. Найдите R (Ом).</div><div class="task"><span class="task-no">Д2</span>Расстояние до горизонта l = √(2Rh), R = 6400 км. Наблюдатель стоит на высоте 0,2 м. На каком расстоянии (км) он видит горизонт?</div><div class="task"><span class="task-no">Д3</span>Высота мяча h(t) = 1,8 + 9t − 5t² (м). Через сколько секунд мяч впервые окажется на высоте 5,8 м?</div><div class="task"><span class="task-no">Д4</span>Сила тока I = U/R, U = 12 В. При каком наименьшем сопротивлении (Ом) ток не превысит 0,5 А?</div><div class="task"><span class="task-no">Д5</span>Высота камня h(t) = 20t − 5t². Найдите наибольшую высоту (м).</div><div class="task"><span class="task-no">Д6</span>Кинетическая энергия E = mv²/2. Тело массой 4 кг имеет энергию 200 Дж. Найдите скорость (м/с).</div>
+<div class="pager"><a href="el10.html">← Лекция 10</a><a href="el12.html">Лекция 12 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

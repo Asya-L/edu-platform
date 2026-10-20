@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 17. Математическое моделирование</title>
+<script>document.documentElement.dataset.page="el17";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="от ситуации к функции; наибольшее и наименьшее значение; задачи из физики, экономики и геометрии">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 17</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 17 · задание № 17</div>
+  <h1>Математическое моделирование</h1>
+  <p class="lede">от ситуации к функции; наибольшее и наименьшее значение; задачи из физики, экономики и геометрии</p>
+  <div class="btns">
+    <a class="btn" href="sel17.html">▶ Презентация</a>
+    <a class="btn lime" href="wse17.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Алгоритм моделирования</h2>
+<ol class="steps"><li>Выбрать переменную x — то, что можно менять (размер, сопротивление, цену).</li><li>Выразить через x величину, которую нужно сделать наибольшей или наименьшей: f(x).</li><li>Найти, какие x допустимы по смыслу (длины положительны, цена не больше …).</li><li>Найти наибольшее или наименьшее значение f на этом промежутке.</li><li>Ответить на вопрос задачи — значение x или f, с единицами.</li></ol>
+<h2>Три инструмента</h2>
+<div class="tablewrap"><table><thead><tr><th>Инструмент</th><th>Когда</th><th>Пример</th></tr></thead><tbody><tr><td>Вершина параболы</td><td>f — квадратный трёхчлен</td><td>S = x(40 − 2x) → x = 10</td></tr><tr><td>Производная</td><td>многочлен 3-й степени, дроби</td><td>V = x(12 − 2x)² → V′ = 0 при x = 2</td></tr><tr><td>a + b ≥ 2√(ab)</td><td>сумма двух слагаемых с постоянным произведением</td><td>R + r²/R ≥ 2r</td></tr></tbody></table></div>
+<div class="ex"><span class="lbl">Пример 1 · генератор</span><p>Источник с ЭДС ε = 12 В и внутренним сопротивлением r = 2 Ом подключён к нагрузке R. Мощность в нагрузке P = ε²R/(R + r)². При каком R мощность наибольшая и чему она равна?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>P = ε² / (R + 2r + r²/R). Знаменатель наименьший, когда R + r²/R наименьшее; по неравенству о средних R + r²/R ≥ 2r, равенство при R = r. Значит, R = 2 Ом и P = 144 · 2 / 16 = <b>18</b> Вт.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · коробка</span><p>Из квадратного листа 12 × 12 вырезают по углам квадраты со стороной x и сгибают коробку. При каком x объём наибольший?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>V = x(12 − 2x)², 0 &lt; x &lt; 6. V′ = (12 − 2x)(12 − 6x) = 0 → x = 2 (x = 6 вне промежутка). V′ меняет знак с + на − → максимум, V = 2 · 64 = <b>128</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не забывайте область допустимых значений: «x = 6» тоже обнуляет производную, но коробки при нём нет. Эксперт снимет балл за ответ без проверки, что найденная точка — именно максимум.</p></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Огород прямоугольной формы примыкает к стене; с трёх сторон его ограждают забором длиной 40 м. Найдите наибольшую площадь огорода.</div><div class="task"><span class="task-no">№&nbsp;2</span>Тело брошено со скоростью 20 м/с под углом α к горизонту; дальность L = v² sin 2α / g, g = 10 м/с². Найдите наибольшую дальность.</div><div class="task"><span class="task-no">№&nbsp;3</span>Источник ε = 12 В, r = 2 Ом, нагрузка R. Мощность P = ε²R/(R + r)². Найдите наибольшую мощность.</div><div class="task"><span class="task-no">№&nbsp;4</span>Из квадратного листа 12 × 12 сделали открытую коробку, вырезав по углам квадраты. Найдите наибольший объём коробки.</div><div class="task"><span class="task-no">№&nbsp;5</span>Спрос на товар q = 100 − 2p (штук), где p — цена. При какой цене выручка pq наибольшая и чему она равна?</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el17a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 17</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д4 ниже — по алгоритму из пяти шагов, с проверкой, что найденная точка даёт именно наибольшее значение.</p></div>
+<div class="task"><span class="task-no">Д1</span>Источник ε = 10 В, r = 5 Ом. Найдите наибольшую мощность в нагрузке P = ε²R/(R + r)².</div><div class="task"><span class="task-no">Д2</span>Периметр прямоугольника 24. Найдите его наибольшую площадь.</div><div class="task"><span class="task-no">Д3</span>Из листа 6 × 6 сделали открытую коробку, вырезав по углам квадраты со стороной x. Найдите наибольший объём.</div><div class="task"><span class="task-no">Д4</span>Спрос q = 60 − 3p. Найдите наибольшую выручку pq.</div>
+<div class="pager"><a href="el16.html">← Лекция 16</a><a href="el18.html">Лекция 18 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

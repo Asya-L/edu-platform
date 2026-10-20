@@ -48,7 +48,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       .map(l => ({id:l.id, date:l.date, topic:l.topic, topic_text:l.topic_text, homework:l.homework, student_done:l.student_done,
         student_comment:l.student_comment || null, photos:l.photos || [], submitted_at:l.submitted_at || null, feedback:l.feedback || null, hw_mark:l.hw_mark || null, feedback_at:l.feedback_at || null,
         quiz:l.quiz || null, quiz_first: qs(l.id, false), quiz_best: qs(l.id, true), quiz_tries: D.edu_quiz_results.filter(r => r.lesson_id === l.id).length})) : []);
-    if (name === 'edu_ws_save') { if (!s) return Promise.resolve({data:null, error:{message:'no student'}}); if (!/^wsa?[0-9]{1,2}$/.test(args.p_ws)) return Promise.resolve({data:null, error:{message:'bad worksheet'}});
+    if (name === 'edu_ws_save') { if (!s) return Promise.resolve({data:null, error:{message:'no student'}}); if (!/^ws[ae]?[0-9]{1,2}$/.test(args.p_ws)) return Promise.resolve({data:null, error:{message:'bad worksheet'}});
       let w = D.edu_ws_answers.find(x => x.student_id === s.id && x.ws === args.p_ws); const now = new Date().toISOString();
       if (!w) { w = {student_id: s.id, ws: args.p_ws, submitted_at: null, seen_at: null}; D.edu_ws_answers.push(w); }
       w.answers = args.p_answers; w.updated_at = now; if (args.p_submit) w.submitted_at = now; put('mockdb', D); return R({updated_at: w.updated_at, submitted_at: w.submitted_at}); }

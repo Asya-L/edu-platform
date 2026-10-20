@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-24).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-25).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -222,6 +222,11 @@ begin
   r := r || case when b and (j->>'submitted_at') is not null and n = 0 and v = 'В' and err = '' then 'PASS' else 'FAIL' end
          || ' DB-23 рабочий лист: черновик без сдачи ' || b || ', сдан ' || ((j->>'submitted_at') is not null) || ', строк таблицы видно ' || n || ', ответ ' || coalesce(v, '—') || case when err = '' then '' else ', ' || err end || E'\n';
 
+  -- DB-25: лист к лекции ЕГЭ (wse…) сохраняется так же
+  err := '';
+  begin j := public.edu_ws_save('wse4', '{"0":"ТЕСТ"}'::jsonb, true); exception when others then err := 'лист wse4 не сохранился: ' || sqlerrm; end;
+  r := r || case when err = '' and public.edu_ws_mine('wse4') is not null then 'PASS' else 'FAIL' end || ' DB-25 лист к лекции ЕГЭ: ' || case when err = '' then 'сохранён и сдан' else err end || E'\n';
+
   -- DB-18: живой канал доски — правило пускает только в свою доску
   b := public.edu_can_board(b_mine::text); v := public.edu_can_board(b_other::text)::text;
   execute 'reset role';
@@ -251,7 +256,7 @@ begin
   select count(*) into n from public.edu_ws_answers where student_id in (st_id, ot_id);
   select count(*) into n2 from public.edu_ws_answers where student_id = ot_id and answers->>'0' = 'ЧУЖОЕ';
   execute 'reset role';
-  r := r || case when n = 2 and n2 = 1 then 'PASS' else 'FAIL' end || ' DB-24 учитель видит рабочие листы: ' || n || ', чужой лист цел ' || n2 || E'\n';
+  r := r || case when n = 3 and n2 = 1 then 'PASS' else 'FAIL' end || ' DB-24 учитель видит рабочие листы: ' || n || ', чужой лист цел ' || n2 || E'\n';
 
   -- DB-08: гость (без входа) вызывает функции ДЗ и читает таблицы
   perform set_config('request.jwt.claims', '', true);

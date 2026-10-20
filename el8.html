@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЕГЭ · лекция 8. Вероятность сложных событий</title>
+<script>document.documentElement.dataset.page="el8";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="сложение и умножение вероятностей, независимость, «хотя бы один», условная вероятность, формула полной вероятности">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="on">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-math.html">ЕГЭ</a> · Лекция 8</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">ЕГЭ · лекция 8 · задание № 5</div>
+  <h1>Вероятность сложных событий</h1>
+  <p class="lede">сложение и умножение вероятностей, независимость, «хотя бы один», условная вероятность, формула полной вероятности</p>
+  <div class="btns">
+    <a class="btn" href="sel8.html">▶ Презентация</a>
+    <a class="btn lime" href="wse8.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Сложение вероятностей</h2>
+<ul><li><b>Несовместные</b> события не могут произойти вместе: P(A или B) = P(A) + P(B).</li><li>Для любых событий: P(A или B) = P(A) + P(B) − P(A и B).</li></ul>
+<div class="ex"><span class="lbl">Пример 1</span><p>P(A) = 0,3, P(B) = 0,5, P(A и B) = 0,1. Найдите P(A или B).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>0,3 + 0,5 − 0,1 = <b>0,7</b>.</p></div></div>
+<h2>Умножение вероятностей</h2>
+<ul><li><b>Независимые</b> события не влияют друг на друга: P(A и B) = P(A) · P(B).</li><li>«Хотя бы один раз» = 1 − P(ни разу).</li></ul>
+<div class="ex"><span class="lbl">Пример 2</span><p>Стрелок попадает с вероятностью 0,8. Он стреляет 3 раза. Найдите вероятность, что первые два раза он попадёт, а третий — промахнётся.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>0,8 · 0,8 · 0,2 = <b>0,128</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3</span><p>Два независимых автомата исправны с вероятностью 0,9 каждый. Найдите вероятность, что хотя бы один исправен.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1 − 0,1 · 0,1 = <b>0,99</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не путайте: несовместные — «не бывают вместе» (вероятности складывают), независимые — «не влияют друг на друга» (вероятности умножают). «Ровно одно попадание из двух» — это две несовместные ветки: 0,7·0,3 + 0,3·0,7.</p></div>
+<h2>Условная вероятность</h2>
+<div class="def"><span class="lbl">Определение</span><p>P(A | B) = P(A и B) / P(B) — вероятность A при условии, что B произошло. Практически: сужаем множество исходов до B.</p></div>
+<div class="ex"><span class="lbl">Пример 4</span><p>Кубик бросают дважды. Известно, что в сумме выпало 8. Найдите вероятность, что в первый раз выпало 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Сумма 8: (2;6), (3;5), (4;4), (5;3), (6;2) — 5 исходов, нужный один → <b>0,2</b>.</p></div></div>
+<h2>Формула полной вероятности</h2>
+<p>Если событие может произойти «через разные ветки», рисуем дерево: вероятность ветки — произведение вероятностей на ней, итог — сумма нужных веток.</p>
+<div class="ex"><span class="lbl">Пример 5</span><p>Первая фабрика выпускает 40% стёкол, из них 3% бракованные; вторая — 60%, брак 2%. Найдите вероятность, что купленное стекло бракованное.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>0,4 · 0,03 + 0,6 · 0,02 = 0,012 + 0,012 = <b>0,024</b>.</p></div></div>
+<h2 id="practice">Задачи лекции</h2>
+<p>Задачи в формате ЕГЭ. Реши в тетради, ответ — число, как в бланке. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вероятность попадания стрелка 0,7. Он стреляет дважды. Найдите вероятность ровно одного попадания.</div><div class="task"><span class="task-no">№&nbsp;2</span>Два стрелка стреляют по разу, вероятности попадания 0,6 и 0,5. Найдите вероятность, что хотя бы один попадёт.</div><div class="task"><span class="task-no">№&nbsp;3</span>События A и B несовместны, P(A) = 0,45, P(B) = 0,35. Найдите P(A или B).</div><div class="task"><span class="task-no">№&nbsp;4</span>В магазине 70% товара с фабрики A (брак 1%) и 30% с фабрики B (брак 4%). Найдите вероятность, что случайный товар бракованный.</div><div class="task"><span class="task-no">№&nbsp;5</span>Из 100 учеников 40 занимаются спортом, из них 25 — ещё и музыкой. Случайно выбрали ученика, занимающегося спортом. Найдите вероятность, что он занимается и музыкой.</div><div class="task"><span class="task-no">№&nbsp;6</span>Тест на болезнь у больного положителен с вероятностью 0,9, у здорового — с вероятностью 0,05. Болеют 10% обследуемых. Найдите вероятность положительного результата.</div><div class="task"><span class="task-no">№&nbsp;7</span>Вероятность, что батарейка бракованная, 0,06. В упаковке две независимые батарейки. Найдите вероятность, что обе исправны.</div><div class="task"><span class="task-no">№&nbsp;8</span>Кубик бросили один раз. Известно, что выпало чётное число. Найдите вероятность, что выпало число больше 3. Ответ округлите до сотых.</div>
+<h2 id="test">Тест к лекции</h2>
+<div class="cards"><a class="card lime" href="quiz-el8a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по лекции 8</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. К задачам Д3 и Д5 нарисовать дерево вероятностей.</p></div>
+<div class="task"><span class="task-no">Д1</span>Три независимых выключателя исправны с вероятностью 0,9 каждый. Найдите вероятность, что все три исправны.</div><div class="task"><span class="task-no">Д2</span>Вероятность, что новый чайник прослужит больше года, 0,93; больше двух лет — 0,81. Найдите вероятность, что он прослужит больше года, но меньше двух лет.</div><div class="task"><span class="task-no">Д3</span>Стрелок попадает с вероятностью 0,9. Найдите вероятность, что из трёх выстрелов он попадёт хотя бы один раз.</div><div class="task"><span class="task-no">Д4</span>Кубик бросили один раз; выпало число меньше 5. Найдите вероятность, что это чётное число.</div><div class="task"><span class="task-no">Д5</span>Ученик решает задачу с вероятностью 0,8, если повторял тему, и с вероятностью 0,3, если не повторял. Тему повторяют 60% учеников. Найдите вероятность, что случайный ученик решит задачу.</div><div class="task"><span class="task-no">Д6</span>P(A) = 0,6, P(B) = 0,5, P(A или B) = 0,8. Найдите P(A и B).</div>
+<div class="pager"><a href="el7.html">← Лекция 7</a><a href="el9.html">Лекция 9 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
