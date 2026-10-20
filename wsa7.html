@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Рабочий лист · алгебра, урок 7</title>
-<script>document.documentElement.dataset.page="wsa7";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4f869cc"></script><script src="assets/auth.js?v=d4f869cc"></script>
+<script>document.documentElement.dataset.page="wsa7";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=e23e8ce8"></script><script src="assets/auth.js?v=e23e8ce8"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -105,6 +105,7 @@ async function student(){
     if (busy) { dirty = true; return; } busy = true; dirty = false; var a = collect();
     try { localStorage.setItem(LS, JSON.stringify({a: a, t: new Date().toISOString()})); } catch(e) {}
     var res = await K.sb.rpc('edu_ws_save', {p_ws: WS, p_answers: a, p_submit: !!submit}); busy = false;
+    if (res.error && /could not find the function|PGRST202|does not exist/i.test((res.error.message || '') + ' ' + (res.error.code || ''))) { status('Сдача листа на сайте ещё не включена — ответы пока хранятся только в этом браузере.', 'err'); return false; }
     if (res.error) { status(/no student/.test(res.error.message || '') ? 'Не сохраняется: учитель ещё не добавил тебя в журнал. Ответы пока хранятся в этом браузере.' : 'Нет связи — ответы сохранены в этом браузере, отправлю, когда появится интернет.', 'err'); return false; }
     try { localStorage.removeItem(LS); } catch(e) {}
     if (res.data && res.data.submitted_at) submitted = res.data.submitted_at;
