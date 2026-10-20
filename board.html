@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=450048fc"></script><script src="assets/auth.js?v=450048fc"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3d68d924"></script><script src="assets/auth.js?v=3d68d924"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -857,9 +857,11 @@ function renderMenu(){
     h += '<h3>Доски ученика</h3><div class="bd-list">' + (boards.length ? boards.map(function(b){ return '<button type="button" data-open="' + b.id + '" class="' + (board && b.id === board.id ? 'on' : '') + '"><span>' + esc(b.title) + '</span><small>' + (b.lesson_id ? 'занятие ' : '') + fmtD(b.created_at) + '</small></button>'; }).join('') : '<p class="muted" style="margin:4px 10px">Досок пока нет.</p>') + '</div>';
     h += '<h3>Новая доска</h3><label for="bmTitle">Название</label><input id="bmTitle" value="Занятие ' + fmtD(new Date()) + '">' +
       '<label for="bmLesson">Привязать к занятию</label><select id="bmLesson"><option value="">не привязывать</option>' + lessons.map(function(l){ return '<option value="' + l.id + '">' + fmtDate(l.date) + (l.topic_text || l.topic ? ' · ' + esc(l.topic_text || l.topic) : '') + '</option>'; }).join('') + '</select>' +
+      '<p class="muted" style="margin:6px 0 0;font-size:13px">Занятия ещё нет в журнале? Не страшно: доска привяжется сама, когда вы запишете занятие за этот день. Привязку можно поменять в любой момент ниже, в «Эта доска».</p>' +
       '<div class="bd-row"><button type="button" class="bd-t dark" id="bmNew">Создать доску</button></div>';
     h += '<div class="bd-row"><a class="bd-t ghost" href="journal.html">Открыть журнал →</a></div>';
-    if (board) h += '<h3>Эта доска</h3><label for="bmRen">Название</label><input id="bmRen" value="' + esc(board.title) + '"><div class="bd-row"><button type="button" class="bd-t" id="bmSave">Сохранить название</button><button type="button" class="bd-t ghost" id="bmDel">Удалить доску</button></div>';
+    if (board) h += '<h3>Эта доска</h3><label for="bmLink">Занятие</label><select id="bmLink"><option value="">не привязана</option>' + lessons.map(function(l){ return '<option value="' + l.id + '"' + (board.lesson_id === l.id ? ' selected' : '') + '>' + fmtDate(l.date) + (l.topic_text || l.topic ? ' · ' + esc(l.topic_text || l.topic) : '') + '</option>'; }).join('') + '</select>' +
+      '<label for="bmRen">Название</label><input id="bmRen" value="' + esc(board.title) + '"><div class="bd-row"><button type="button" class="bd-t" id="bmSave">Сохранить название</button><button type="button" class="bd-t ghost" id="bmDel">Удалить доску</button></div>';
   } else {
     h += '<h3>Мои доски</h3><div class="bd-list">' + boards.map(function(b){ return '<button type="button" data-open="' + b.id + '" class="' + (board && b.id === board.id ? 'on' : '') + '"><span>' + esc(b.title) + '</span><small>' + (b.lesson_date ? 'занятие ' + fmtDate(b.lesson_date) : fmtD(b.created_at)) + '</small></button>'; }).join('') + '</div>' +
       '<div class="bd-row"><button type="button" class="bd-t" id="bmDraft">+ Свой черновик</button></div>';
@@ -869,7 +871,10 @@ function renderMenu(){
   if (isT) {
     $('bmStudent').addEventListener('change', async function(){ closePops(); await forStudent(this.value, true); });
     $('bmNew').addEventListener('click', async function(){ var id = await createBoard(board ? board.student_id : $('bmStudent').value, $('bmTitle').value.trim(), $('bmLesson').value || null); closePops(); if (id) openBoard(id); });
-    if (board) { $('bmSave').addEventListener('click', async function(){ var t = $('bmRen').value.trim() || 'Доска'; var r = await sb.from('edu_boards').update({title: t}).eq('id', board.id); if (r.error) { toast('Не сохранилось'); return; }
+    if (board) { $('bmLink').addEventListener('change', async function(){ var v = this.value || null; var r = await sb.from('edu_boards').update({lesson_id: v}).eq('id', board.id);
+        if (r.error) { toast('Не сохранилось'); return; } board.lesson_id = v; var bb = boards.find(function(x){ return x.id === board.id; }); if (bb) bb.lesson_id = v;
+        closePops(); toast(v ? 'Доска привязана к занятию' : 'Привязка снята'); });
+      $('bmSave').addEventListener('click', async function(){ var t = $('bmRen').value.trim() || 'Доска'; var r = await sb.from('edu_boards').update({title: t}).eq('id', board.id); if (r.error) { toast('Не сохранилось'); return; }
         board.title = t; $('bdTitle').textContent = t; var bb = boards.find(function(x){ return x.id === board.id; }); if (bb) bb.title = t; closePops(); toast('Название сохранено'); });
       $('bmDel').addEventListener('click', async function(){ if (!confirmBox('Удалить доску «' + board.title + '»? Это нельзя отменить.')) return;
         var imgsList = els.filter(function(e){ return e.t === 'img' && e.src.indexOf('st:') === 0; }).map(function(e){ return e.src.slice(3); });
@@ -889,13 +894,13 @@ async function forStudent(sid, auto){
   var today = lessons.find(function(x){ var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return x.date === d.toISOString().slice(0, 10); });
   var id = await createBoard(sid, 'Занятие ' + fmtD(new Date()), today ? today.id : null); if (id) openBoard(id);
 }
-function TOPIC_NAME(k){ return k ? ({g1: 'Урок 1', g2: 'Урок 2', g3: 'Урок 3', g4: 'Урок 4', g5: 'Урок 5'}[k] || k) : ''; }
+function TOPIC_NAME(k){ if (!k) return ''; var m = /^([ga])(\d)$/.exec(k); if (m) return (m[1] === 'g' ? 'Геометрия' : 'Алгебра') + ' · урок ' + m[2]; m = /^e(\d+)$/.exec(k); return m ? 'ЕГЭ № ' + m[1] : k; }
 async function loadMine(){ var r = await sb.rpc('edu_my_boards'); boards = r.data || []; return boards; }
 async function openBoard(id){
   if (board && dirty) await save();
   var r = await sb.rpc('edu_board_get', {p_board: id}); var b = r.data && r.data[0];
   if (!b) { showEmpty('<h2>Нет доступа к этой доске</h2><p class="muted">Доска открывается только учителю и ученику, для которого она создана.</p>'); return; }
-  board = {id: b.id, student_id: b.student_id, title: b.title}; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; lastUpd = b.updated_at;
+  var bl = boards.find(function(x){ return x.id === b.id; }); board = {id: b.id, student_id: b.student_id, title: b.title, lesson_id: bl ? bl.lesson_id : null}; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; lastUpd = b.updated_at;
   lastSlide = null; nextBtn(); undoS = []; redoS = []; sel = null; drafts = {}; cursors = {}; $('bdCursors').innerHTML = ''; btns(); dirty = false; status();
   document.body.classList.add('board-open'); $('bdTitle').textContent = b.title; $('bdEmpty').hidden = true; $('bdBar').hidden = false; stage.hidden = false; $('bdShow').hidden = !isT;
   var u = new URL(location.href); u.searchParams.set('b', b.id); u.searchParams.delete('s'); history.replaceState(null, '', u);

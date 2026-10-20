@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Журнал занятий</title>
-<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=450048fc"></script><script src="assets/auth.js?v=450048fc"></script>
+<script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3d68d924"></script><script src="assets/auth.js?v=3d68d924"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -168,6 +168,7 @@ function topicHref(key, teacher){
   if (/^e\d+$/.test(key)) return teacher ? 't.html#ege-math' : 'ege-math.html';
   return '';
 }
+function localDay(t){ var d = new Date(t); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
 function fmtDate(d){ if (!d) return '—'; var p = d.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
 var QUIZ = {"quiz-geo1": "Самопроверка · Глава I", "quiz-g1a": "Геометрия · урок 1 · тест в классе", "quiz-g1b": "Геометрия · урок 1 · тест домой", "quiz-g2a": "Геометрия · урок 2 · тест в классе", "quiz-g2b": "Геометрия · урок 2 · тест домой", "quiz-g3a": "Геометрия · урок 3 · тест в классе", "quiz-g3b": "Геометрия · урок 3 · тест домой", "quiz-g4a": "Геометрия · урок 4 · тест в классе", "quiz-g4b": "Геометрия · урок 4 · тест домой", "quiz-g5a": "Геометрия · урок 5 · тест в классе", "quiz-g5b": "Геометрия · урок 5 · тест домой", "quiz-a1a": "Алгебра · урок 1 · тест в классе", "quiz-a1b": "Алгебра · урок 1 · тест домой", "quiz-a2a": "Алгебра · урок 2 · тест в классе", "quiz-a2b": "Алгебра · урок 2 · тест домой", "quiz-a3a": "Алгебра · урок 3 · тест в классе", "quiz-a3b": "Алгебра · урок 3 · тест домой", "quiz-a4a": "Алгебра · урок 4 · тест в классе", "quiz-a4b": "Алгебра · урок 4 · тест домой", "quiz-a5a": "Алгебра · урок 5 · тест в классе", "quiz-a5b": "Алгебра · урок 5 · тест домой", "quiz-a6a": "Алгебра · урок 6 · тест в классе", "quiz-a6b": "Алгебра · урок 6 · тест домой", "quiz-a7a": "Алгебра · урок 7 · тест в классе", "quiz-a7b": "Алгебра · урок 7 · тест домой", "quiz-a8a": "Алгебра · урок 8 · тест в классе", "quiz-a8b": "Алгебра · урок 8 · тест домой"};
 var WST = {"ws1": "Геометрия · лист 1", "ws2": "Геометрия · лист 2", "ws3": "Геометрия · лист 3", "ws4": "Геометрия · лист 4", "ws5": "Геометрия · лист 5", "wsa1": "Алгебра · лист 1", "wsa2": "Алгебра · лист 2", "wsa3": "Алгебра · лист 3", "wsa4": "Алгебра · лист 4", "wsa5": "Алгебра · лист 5", "wsa6": "Алгебра · лист 6", "wsa7": "Алгебра · лист 7", "wsa8": "Алгебра · лист 8"};
@@ -402,9 +403,15 @@ $('lForm').addEventListener('submit', async function(ev){ ev.preventDefault(); i
     homework: $('lHw').value.trim() || null, quiz: $('lQuiz').value || null, hw_status: $('lHwStatus').value, mark: $('lMark').value || null, notes: $('lNotes').value.trim() || null,
     updated_at: new Date().toISOString()};
   var b = $('lSave'); b.disabled = true;
-  var r = editing ? await sb.from('edu_lessons').update(data).eq('id', editing) : await sb.from('edu_lessons').insert(data);
+  var r = editing ? await sb.from('edu_lessons').update(data).eq('id', editing) : await sb.from('edu_lessons').insert(data).select().single();
   b.disabled = false; if (r.error) { fail(r.error); return; }
-  toast(editing ? 'Изменения сохранены' : (data.homework || data.quiz ? 'Занятие записано, ДЗ отправлено ученику' : 'Занятие записано'));
+  var linked = 0;
+  if (!editing && r.data && r.data.id) {   // доски этого дня, ещё не привязанные к занятию, — к новой записи
+    var rb = await sb.from('edu_boards').select('id,lesson_id,created_at,student_id').eq('student_id', current);   // свежий список: доску могли создать только что
+    var free = (rb.data || []).filter(function(x){ return !x.lesson_id && localDay(x.created_at) === data.date; });
+    for (var i = 0; i < free.length; i++) { var u = await sb.from('edu_boards').update({lesson_id: r.data.id}).eq('id', free[i].id); if (!u.error) { free[i].lesson_id = r.data.id; linked++; } }
+  }
+  toast((editing ? 'Изменения сохранены' : (data.homework || data.quiz ? 'Занятие записано, ДЗ отправлено ученику' : 'Занятие записано')) + (linked ? ' · доска занятия привязана' : ''));
   resetForm(); if (topic !== 'other' && !(progress[current] || {})[topic]) cycle(topic);
   setTimeout(load, 800); });
 

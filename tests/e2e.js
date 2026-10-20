@@ -368,6 +368,19 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('BD-15', (await pT.textContent('#bdTitle')) === 'Повторение' && ban.includes('Повторение') && (await pS.textContent('#bdTitle')) === 'Повторение', ban.slice(0, 50));
   await go('journal.html', 1200); const lg = (await p.textContent('#log')) || '';
   rec('BD-16', lg.includes('доска: Повторение') && (await p.getAttribute('#boardLink', 'href')).startsWith('board.html?s='), 'ссылка из журнала');
+  // BD-29: доску можно привязать к занятию в любой момент; доска без занятия привязывается сама, когда занятие записали в журнал
+  await pT.click('#bdPick'); await pT.fill('#bmTitle', 'Без занятия'); await pT.selectOption('#bmLesson', ''); await pT.click('#bmNew'); await pT.waitForTimeout(800);
+  const free = (await mdb()).edu_boards.find(x => x.title === 'Без занятия');
+  await pT.click('#bdPick'); const opts29 = await pT.$$eval('#bmLink option', o => o.length); await pT.selectOption('#bmLink', {index: 1}); await pT.waitForTimeout(500);
+  const linked29 = (await mdb()).edu_boards.find(x => x.title === 'Без занятия').lesson_id;
+  await pT.click('#bdPick'); await pT.selectOption('#bmLink', ''); await pT.waitForTimeout(500); const unl29 = (await mdb()).edu_boards.find(x => x.title === 'Без занятия').lesson_id;
+  await p.selectOption('#lTopic', 'a3'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', ''); await p.click('#lSave'); await p.waitForTimeout(1500);
+  const D29 = await mdb(); const newest = D29.edu_lessons.filter(l => l.topic === 'a3').pop(); const auto29 = D29.edu_boards.find(x => x.title === 'Без занятия').lesson_id;
+  const log29 = (await p.textContent('#log')) || '';
+  rec('BD-29', free && !free.lesson_id && opts29 >= 2 && !!linked29 && !unl29 && newest && auto29 === newest.id && log29.includes('доска: Без занятия'),
+    `создана без занятия, привязка вручную ${!!linked29}, снята ${!unl29}, после записи в журнал → ${auto29 === (newest || {}).id}`);
+  await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Да")'); await p.waitForTimeout(900);
+  const rep29 = (await mdb()).edu_boards.find(x => x.title === 'Повторение').id; await pT.click('#bdPick'); await pT.click(`#bdMenu [data-open="${rep29}"]`); await pT.waitForTimeout(1200);
   // BD-18…20: слайды урока на доске
   await pT.click('#bdSlBtn'); await pT.click('#bdSl [data-d="geo3"]'); await pT.click('#bdSl [data-k="5"]'); await pS.waitForTimeout(1200);
   const s18 = (await E(pS)).filter(e => e.src && e.src.startsWith('sl:')); const ok18 = await pS.evaluate(() => window.__board.imgOk('sl:geo3/05'));
