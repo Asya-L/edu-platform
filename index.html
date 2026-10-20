@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Кабинет математики</title>
-<script>document.documentElement.dataset.page="index";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=e23e8ce8"></script><script src="assets/auth.js?v=e23e8ce8"></script>
+<script>document.documentElement.dataset.page="index";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=450048fc"></script><script src="assets/auth.js?v=450048fc"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -179,11 +179,14 @@ function thumbs(paths, removable){
       : '<a class="hw-ph" href="' + K.esc(u || '#') + '" target="_blank" rel="noopener">' + img + '</a>';
   }).join('') + '</div>';
 }
+function hwText(t){  // «рабочий лист к уроку N» → ссылка на лист, который заполняется на сайте
+  return K.esc(t).replace(/[Рр]абочий лист к уроку алгебры (\d)/g, '<a href="wsa$1.html">$&</a>').replace(/[Рр]абочий лист к уроку (\d)/g, '<a href="ws$1.html">$&</a>');
+}
 function card(l){
   var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
   var h = '<div class="hw-card" id="hw-' + l.id + '" data-id="' + l.id + '"><div class="hw-top"><b>' + fmtDate(l.date) +
     (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' + chip(l) + '</div>' +
-    (l.homework ? '<p class="hw-text">' + K.esc(l.homework) + '</p>' : '');
+    (l.homework ? '<p class="hw-text">' + hwText(l.homework) + '</p>' : '');
   if (l.quiz) {
     var qt = QUIZ[l.quiz] || 'Тест', qh = l.quiz + '.html?hw=' + l.id;
     h += '<div class="hw-sub"><div class="me-lbl">Тест в домашке</div><p style="margin:4px 0 8px;font-weight:700">' + K.esc(qt) + '</p>' +
