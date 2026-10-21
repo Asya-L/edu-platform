@@ -9,7 +9,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
   const db = () => { const D = get('mockdb', {edu_students:[], edu_lessons:[], edu_progress:[], edu_profiles:[
     {user_id:'u1',email:'teacher@test.local',role:'teacher',created_at:'2026-10-01'},
     {user_id:'u2',email:'kid@test.local',role:'student',created_at:'2026-10-02'},
-    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; return D; };
+    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; return D; };
   const sess = () => { try { const t = sessionStorage.getItem('mockSessionTab'); if (t) return JSON.parse(t); } catch(e) {} return get('mockSession', null); };
   const me = () => { const s = sess(); if (!s) return null; const p = db().edu_profiles.find(x => x.user_id === s.user.id); return {id: s.user.id, role: p ? p.role : 'student'}; };
   let n = 0; const uid = () => 'id' + Date.now() + '_' + (n++);
@@ -29,7 +29,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       if (st.op === 'upsert') { D[t] = D[t].filter(r => r.student_id !== st.data.student_id); D[t].push(st.data); put('mockdb', D); return {data:null}; }
       if (st.op === 'update') { let out = null; D[t] = D[t].map(r => match(r) ? (out = Object.assign({}, r, st.data)) : r); put('mockdb', D); return {data: st.single ? out : null}; }
       if (st.op === 'delete') { D[t] = D[t].filter(r => !match(r)); if (t === 'edu_students') { const ok = l => D.edu_students.some(s => s.id === l.student_id);
-        D.edu_lessons = D.edu_lessons.filter(ok); D.edu_progress = D.edu_progress.filter(ok); D.edu_quiz_results = D.edu_quiz_results.filter(ok); D.edu_boards = D.edu_boards.filter(ok); D.edu_bank_attempts = D.edu_bank_attempts.filter(ok); D.edu_ws_answers = D.edu_ws_answers.filter(ok); } put('mockdb', D); return {data:null}; }
+        D.edu_lessons = D.edu_lessons.filter(ok); D.edu_progress = D.edu_progress.filter(ok); D.edu_quiz_results = D.edu_quiz_results.filter(ok); D.edu_boards = D.edu_boards.filter(ok); D.edu_bank_attempts = D.edu_bank_attempts.filter(ok); D.edu_ws_answers = D.edu_ws_answers.filter(ok); D.edu_visits = D.edu_visits.filter(ok); } put('mockdb', D); return {data:null}; }
       let rows = D[t].filter(match); if (t === 'edu_lessons') rows.sort(byDate);
       if (t === 'edu_quiz_results' || t === 'edu_boards' || t === 'edu_bank_attempts') rows.sort((a, b) => a.created_at < b.created_at ? 1 : -1);
       return {data: st.single ? (rows[0] || null) : rows}; };
@@ -53,6 +53,12 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       if (!w) { w = {student_id: s.id, ws: args.p_ws, submitted_at: null, seen_at: null}; D.edu_ws_answers.push(w); }
       w.answers = args.p_answers; w.updated_at = now; if (args.p_submit) w.submitted_at = now; put('mockdb', D); return R({updated_at: w.updated_at, submitted_at: w.submitted_at}); }
     if (name === 'edu_ws_mine') { const w = s && D.edu_ws_answers.find(x => x.student_id === s.id && x.ws === args.p_ws); return R(w ? {answers: w.answers, updated_at: w.updated_at, submitted_at: w.submitted_at} : null); }
+    if (name === 'edu_ping') { if (!s) return R(null); const d = new Date(), day = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2), now = d.toISOString();
+      let v = D.edu_visits.find(x => x.student_id === s.id && x.day === day); const pg = /^[a-z0-9-]{1,40}$/.test(args.p_page || '') ? args.p_page : null;
+      if (!v) { v = {student_id: s.id, day, first_at: now, last_at: now, last_active_at: null, visits: 1, active_min: 0, pages: {}}; D.edu_visits.push(v); }
+      else { if (d - new Date(v.last_at) > 30 * 6e4) v.visits++; v.last_at = now; }
+      if (args.p_active && (!v.last_active_at || d - new Date(v.last_active_at) >= 5e4)) { v.active_min++; v.last_active_at = now; }
+      if (pg) v.pages[pg] = (v.pages[pg] || 0) + 1; put('mockdb', D); return R(null); }
     if (name === 'edu_set_done') { D.edu_lessons.forEach(l => { if (s && l.id === args.p_lesson && l.student_id === s.id && l.hw_sent_at) l.student_done = args.p_done; }); put('mockdb', D); return R(null); }
     if (name === 'edu_submit') { const pref = u.id + '/' + args.p_lesson + '/';
       if ((args.p_photos || []).some(p => !p.startsWith(pref))) return Promise.resolve({data:null, error:{message:'photos'}});

@@ -272,6 +272,11 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await logout(); await login('teacher@test.local'); await go('t.html#index', 1400); const th2 = (await p.textContent('#thBox')) || '';
   await p.click('#thBox .th-todo a'); await p.waitForTimeout(1200); const th2url = path(); const th2sel = await p.evaluate(() => localStorage.getItem('jr.current'));
   rec('TH-02', th2.includes('Ждут проверки') && th2.includes('2 сдачи') && th2.includes('рабочий лист: Алгебра · лист 3') && th2.includes('№ 18, 23') && th2url === 'journal.html' && !!th2sel, th2.replace(/\s+/g, ' ').slice(-80) + ' → ' + th2url);
+  // VS-01: посещения ученика — на главной учителя «на сайте сегодня», в журнале сводка, календарь и что открывал; заходы учителя не считаются
+  { const vdb = await p.evaluate(() => JSON.parse(localStorage.getItem('mockdb')).edu_visits);
+    await go('journal.html', 1400); const vs = await p.evaluate(() => ({t: (document.getElementById('visits') || {}).textContent || '', now: (document.querySelector('#visits .vd.now') || {}).className || ''}));
+    rec('VS-01', th2.includes('на сайте сегодня') && vs.t.includes('Последний раз') && vs.t.includes('сегодня в') && vs.t.includes('Домашка') && vs.t.includes('лист «Алгебра · лист 3»')
+      && /v[123]/.test(vs.now) && vdb.length === 1 && !vdb[0].pages.journal && !vdb[0].pages.t && vdb[0].active_min >= 1, vs.t.replace(/\s+/g, ' ').slice(0, 110)); }
   // WS-03: учитель открывает сданный лист с главной — ответы ученика рядом с правильными, «верно/неверно» отмечено, лист помечен просмотренным
   await go('t.html#index', 1400); await p.click('#thBox a[data-ws-student]'); await p.waitForTimeout(1600);
   const ws3 = await p.evaluate(() => ({url: location.hash, sel: (document.getElementById('wsWho') || {}).value, a: (document.querySelector('#tview .sheet input.wsf') || {}).value,

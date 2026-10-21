@@ -67,6 +67,15 @@ K.state = (async function(){
   document.addEventListener('DOMContentLoaded', function(){ K.renderNav(st); });
   if (document.readyState !== 'loading') K.renderNav(st);
   if (page !== 't') reveal();
+  if (role !== 'teacher') track(page);
   return st;
 })();
+// посещения ученика: открытая страница и активные минуты (раз в минуту, если в последние 2 минуты были клики, ввод или прокрутка)
+function track(pg){
+  var last = Date.now(), bump = function(){ last = Date.now(); };
+  ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(function(e){ addEventListener(e, bump, {passive: true, capture: true}); });
+  var ping = function(p, a){ try { sb.rpc('edu_ping', {p_page: p, p_active: a}).then(function(){}, function(){}); } catch(e){} };
+  ping(/^[a-z0-9-]{1,40}$/.test(page) ? page : null, true);
+  setInterval(function(){ if (document.visibilityState === 'visible' && Date.now() - last < 120000) ping(null, true); }, 60000);
+}
 })();

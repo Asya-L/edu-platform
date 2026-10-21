@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-26).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-27).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -240,6 +240,11 @@ begin
   begin j := public.edu_ws_save('wse4', '{"0":"ТЕСТ"}'::jsonb, true); exception when others then err := 'лист wse4 не сохранился: ' || sqlerrm; end;
   r := r || case when err = '' and public.edu_ws_mine('wse4') is not null then 'PASS' else 'FAIL' end || ' DB-25 лист к лекции ЕГЭ: ' || case when err = '' then 'сохранён и сдан' else err end || E'\n';
 
+  -- DB-27: посещения — ученик отмечается, но саму таблицу не видит; чужие имена страниц отбрасываются
+  perform public.edu_ping('el7', true); perform public.edu_ping('el7', true); perform public.edu_ping('../x', false); perform public.edu_ping(null, true);
+  select count(*) into n from public.edu_visits;
+  r := r || case when n = 0 then '' else E'FAIL DB-27a ученик видит таблицу посещений\n' end;
+
   -- DB-18: живой канал доски — правило пускает только в свою доску
   b := public.edu_can_board(b_mine::text); v := public.edu_can_board(b_other::text)::text;
   execute 'reset role';
@@ -270,6 +275,13 @@ begin
   select count(*) into n2 from public.edu_ws_answers where student_id = ot_id and answers->>'0' = 'ЧУЖОЕ';
   execute 'reset role';
   r := r || case when n = 3 and n2 = 1 then 'PASS' else 'FAIL' end || ' DB-24 учитель видит рабочие листы: ' || n || ', чужой лист цел ' || n2 || E'\n';
+  perform set_config('request.jwt.claims', json_build_object('sub', t_uid, 'role', 'authenticated')::text, true);
+  perform set_config('request.jwt.claim.sub', coalesce(t_uid::text, ''), true);
+  execute 'set local role authenticated';
+  select count(*), max((pages ->> 'el7')::int), max(active_min), max(jsonb_typeof(pages -> '../x')) into n, n2, n3, v from public.edu_visits where student_id = st_id;
+  execute 'reset role';
+  r := r || case when n = 1 and n2 = 2 and n3 = 1 and v is null then 'PASS' else 'FAIL' end
+         || ' DB-27 посещения: строк ' || n || ', открыта лекция 7 раз ' || coalesce(n2::text, '—') || ', активных минут ' || coalesce(n3::text, '—') || E'\n';
 
   -- DB-08: гость (без входа) вызывает функции ДЗ и читает таблицы
   perform set_config('request.jwt.claims', '', true);
@@ -285,6 +297,8 @@ begin
   begin perform * from public.edu_my_info(); err := err || 'карточка доступна; ';
   exception when insufficient_privilege then null; end;
   begin perform public.edu_ws_save('ws1', '{}'::jsonb); err := err || 'сохранение листа доступно; ';
+  exception when insufficient_privilege then null; end;
+  begin perform public.edu_ping('index', true); err := err || 'отметка посещения доступна; ';
   exception when insufficient_privilege then null; end;
   begin perform public.edu_check_quiz('quiz-geo1', '{}'::jsonb); err := err || 'проверка теста доступна; ';
   exception when insufficient_privilege then null; end;
@@ -302,7 +316,7 @@ begin
        + (select count(*) from public.edu_lessons) + (select count(*) from public.edu_profiles)
        + (select count(*) from public.edu_quiz_keys) + (select count(*) from public.edu_quiz_results)
        + (select count(*) from storage.objects where bucket_id in ('edu-hw', 'edu-board')) + (select count(*) from public.edu_boards)
-       + (select count(*) from public.edu_bank) + (select count(*) from public.edu_bank_attempts) into n;
+       + (select count(*) from public.edu_bank) + (select count(*) from public.edu_bank_attempts) + (select count(*) from public.edu_visits) into n;
   execute 'reset role';
   r := r || case when err = '' and n = 0 then 'PASS' else 'FAIL' end
          || ' DB-08 гость: ' || case when err = '' then 'функции закрыты' else err end || ', видит строк ' || n || E'\n';
