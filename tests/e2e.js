@@ -394,6 +394,14 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   rec('BD-13', e13.includes('Нет доступа'), e13.slice(0, 40));
   const [dl] = await Promise.all([pT.waitForEvent('download', {timeout: 5000}).catch(() => null), pT.click('#bdExport')]);
   rec('BD-14', dl && dl.suggestedFilename().endsWith('.png'), dl && dl.suggestedFilename());
+  // BD-31: ссылка на доске — только http(s), у ученика появляется кнопка ↗, открывается в новой вкладке
+  await pT.click('#bdLinkBtn'); await pT.fill('#bdLinkUrl', 'javascript:alert(1)'); await pT.press('#bdLinkUrl', 'Enter'); const lkErr = await pT.isVisible('#bdLinkErr');
+  await pT.fill('#bdLinkUrl', 'example.org/video'); await pT.fill('#bdLinkTxt', 'Видео к уроку'); await pT.press('#bdLinkTxt', 'Enter'); await pT.waitForTimeout(1600);
+  const lkEl = ((await E(pT)) || []).find(e => e.t === 'link'); const lkA = await pS.evaluate(() => { const a = document.querySelector('#bdLinks a'); return a ? [a.getAttribute('href'), a.target, a.rel, a.getBoundingClientRect().width] : null; });
+  await pS.context().route('https://example.org/**', r => r.fulfill({body: 'ok', contentType: 'text/html'}));
+  const [lkPop] = await Promise.all([pS.waitForEvent('popup', {timeout: 4000}).catch(() => null), pS.click('#bdLinks a').catch(() => null)]); const popUrl = lkPop ? lkPop.url() : ''; if (lkPop) await lkPop.close();
+  rec('BD-31', lkErr && lkEl && lkEl.url === 'https://example.org/video' && lkEl.s === 'Видео к уроку' && lkA && lkA[0] === 'https://example.org/video' && lkA[1] === '_blank' && lkA[2].includes('noopener') && lkA[3] > 20
+    && popUrl.startsWith('https://example.org/video'), JSON.stringify(lkA) + ' · ' + popUrl);
   await pT.click('#bdPick'); await pT.fill('#bmTitle', 'Повторение'); await pT.selectOption('#bmLesson', {index: 1}); await pT.click('#bmNew'); await pT.waitForTimeout(800);
   await pS.waitForTimeout(1600); const ban = (await pS.textContent('#bdBanner')) || ''; await pS.click('#bdBanner button >> nth=0'); await pS.waitForTimeout(800);
   rec('BD-15', (await pT.textContent('#bdTitle')) === 'Повторение' && ban.includes('Повторение') && (await pS.textContent('#bdTitle')) === 'Повторение', ban.slice(0, 50));

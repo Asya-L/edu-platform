@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=90941d82"></script><script src="assets/auth.js?v=90941d82"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=0f38916a"></script><script src="assets/auth.js?v=0f38916a"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -44,6 +44,10 @@ body.board-page{overscroll-behavior:none}
 body.board-open{overflow:hidden} body.board-open .top{display:none}
 .bd-home{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--lav);color:var(--lav-d);font:900 19px var(--f-head);text-decoration:none}
 .bd-cur{position:absolute;left:0;top:0;pointer-events:none;z-index:3;transition:transform .06s linear}
+#bdLinks{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.bd-lk{position:absolute;left:0;top:0;pointer-events:auto;border-radius:999px;cursor:pointer;display:block}
+.bd-lk:hover{background:rgba(123,97,217,.18)} .bd-lk:focus-visible{outline:3px solid var(--lav-d);outline-offset:2px}
+.bd-lbl{display:block;font:800 12.5px var(--f-body);color:var(--ink-soft);margin:2px 0 4px} #bdLink input + .bd-lbl{margin-top:10px}
 .bd-cur svg{display:block} .bd-cur span{position:absolute;left:14px;top:14px;font:800 11.5px var(--f-body);color:#fff;border-radius:999px;padding:2px 8px;white-space:nowrap}
 #bdText{position:absolute;z-index:5;min-width:120px;border:1.5px dashed var(--lav-d);background:rgba(255,255,255,.92);border-radius:6px;padding:2px 4px;resize:none;outline:none;overflow:hidden;line-height:1.25;font-family:var(--f-body)}
 .bd-syms{position:absolute;z-index:6;display:flex;flex-wrap:wrap;gap:3px;max-width:420px;background:var(--paper);border:1.5px solid var(--edge);border-radius:12px;padding:6px;box-shadow:var(--sh-sm)}
@@ -108,6 +112,7 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
       <button type="button" class="bd-b" id="bdSlBtn" title="Слайды урока" aria-label="Слайды урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="15" height="10" rx="1.5"/><path d="M10 14v3M7 17h6M8.5 7.5l3 1.8-3 1.8z"/></svg></button>
       <button type="button" class="bd-b" id="bdSlNext" title="Следующий слайд" aria-label="Следующий слайд" hidden><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="10" height="8" rx="1.2"/><path d="M14 9h4m-2-2l2 2-2 2"/></svg></button>
       <button type="button" class="bd-b" id="bdFigBtn" title="Чертёж из урока" aria-label="Чертёж из урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l6 4v6l-6 4-6-4V7z M4 7l6 4 6-4M10 11v6"/></svg></button>
+      <button type="button" class="bd-b" id="bdLinkBtn" title="Ссылка: ученик откроет её прямо с доски" aria-label="Вставить ссылку"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 11.5a3.2 3.2 0 0 0 4.6 0l2.6-2.6a3.2 3.2 0 0 0-4.6-4.6l-1 1"/><path d="M11.5 8.5a3.2 3.2 0 0 0-4.6 0l-2.6 2.6a3.2 3.2 0 0 0 4.6 4.6l1-1"/></svg></button>
       <button type="button" class="bd-b" id="bdTplBtn" title="Шаблоны: координатная плоскость, числовая прямая, тригонометрический круг" aria-label="Шаблоны"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h14M3 17V3M3 3l-1.5 2.2M3 3l1.5 2.2M17 17l-2.2-1.5M17 17l-2.2 1.5"/><path d="M5 14c2.5-7 6-9 10-9" stroke-dasharray="0"/></svg></button>
       <button type="button" class="bd-b" id="bdBg" title="Клетка / чистый лист (G)" aria-label="Фон"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg></button>
     </div>
@@ -127,6 +132,16 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
   <div class="bd-stage" id="bdStage" hidden>
     <canvas id="bdCanvas"></canvas>
     <div id="bdCursors"></div>
+    <div id="bdLinks"></div>
+    <div class="bd-math" id="bdLink" hidden>
+      <label class="bd-lbl" for="bdLinkUrl">Адрес ссылки</label>
+      <input id="bdLinkUrl" type="url" spellcheck="false" autocomplete="off" placeholder="https://… — видео, тренажёр, задача">
+      <label class="bd-lbl" for="bdLinkTxt">Подпись на доске (можно пропустить)</label>
+      <input id="bdLinkTxt" type="text" autocomplete="off" placeholder="например: Видео про производную">
+      <p class="bd-mhint" id="bdLinkErr" hidden style="color:#C0392B">Это не похоже на адрес сайта. Скопируйте ссылку из адресной строки браузера.</p>
+      <div class="bd-row"><button type="button" class="bd-t dark" id="bdLinkOk">Готово</button><button type="button" class="bd-t ghost" id="bdLinkX">Отмена</button></div>
+      <p class="bd-mhint">На доске появится плашка со стрелкой ↗ — по ней ссылка откроется в новой вкладке. Двойной клик по плашке — изменить.</p>
+    </div>
     <textarea id="bdText" hidden spellcheck="false" aria-label="Текст на доске"></textarea>
     <div class="bd-syms" id="bdSyms" hidden><button type="button" tabindex="-1">²</button><button type="button" tabindex="-1">³</button><button type="button" tabindex="-1">√</button><button type="button" tabindex="-1">π</button><button type="button" tabindex="-1">°</button><button type="button" tabindex="-1">∠</button><button type="button" tabindex="-1">△</button><button type="button" tabindex="-1">⊥</button><button type="button" tabindex="-1">∥</button><button type="button" tabindex="-1">≠</button><button type="button" tabindex="-1">≈</button><button type="button" tabindex="-1">≤</button><button type="button" tabindex="-1">≥</button><button type="button" tabindex="-1">±</button><button type="button" tabindex="-1">·</button><button type="button" tabindex="-1">∈</button><button type="button" tabindex="-1">∉</button><button type="button" tabindex="-1">⊂</button><button type="button" tabindex="-1">∩</button><button type="button" tabindex="-1">∪</button><button type="button" tabindex="-1">⇒</button><button type="button" tabindex="-1">⇔</button><button type="button" tabindex="-1">α</button><button type="button" tabindex="-1">β</button><button type="button" tabindex="-1">γ</button><button type="button" tabindex="-1">φ</button><button type="button" tabindex="-1">Δ</button><button type="button" tabindex="-1">∞</button><button type="button" tabindex="-1">½</button><button type="button" tabindex="-1">⅓</button><button type="button" tabindex="-1">¼</button></div>
     <div class="bd-math" id="bdMath" hidden>
@@ -368,7 +383,7 @@ function render(){
   els.forEach(function(e){ drawEl(cx, e); });
   Object.keys(drafts).forEach(function(k){ if (drafts[k]) drawEl(cx, drafts[k]); });
   if (cur) drawEl(cx, cur);
-  drawSel(); drawSnap(); drawLasers(); placeCursors();
+  drawSel(); drawSnap(); drawLasers(); placeCursors(); placeLinks();
   $('bdZ').textContent = Math.round(view.z * 100) + '%';
   if (lasers.length) draw();
 }
@@ -399,6 +414,15 @@ function drawEl(c, e){
   else if (e.t === 'text') { c.font = '600 ' + e.fs + 'px ' + FONT; c.textBaseline = 'top';
     String(e.s).split('\n').forEach(function(line, i){ c.fillText(line, e.x, e.y + i * e.fs * 1.25); }); }
   else if (e.t === 'math') { MF.draw(c, e.s, e.fs, e.x, e.y, e.c); }
+  else if (e.t === 'link') { var ls = linkSize(e), col = e.c || '#7B61D9', rr = ls.h / 2; c.setLineDash([]);
+    c.beginPath(); c.moveTo(e.x + rr, e.y); c.arcTo(e.x + ls.w, e.y, e.x + ls.w, e.y + ls.h, rr); c.arcTo(e.x + ls.w, e.y + ls.h, e.x, e.y + ls.h, rr);
+    c.arcTo(e.x, e.y + ls.h, e.x, e.y, rr); c.arcTo(e.x, e.y, e.x + ls.w, e.y, rr); c.closePath();
+    c.fillStyle = '#F4F1FF'; c.fill(); c.lineWidth = 2; c.strokeStyle = col; c.stroke();
+    c.fillStyle = col; c.beginPath(); c.arc(e.x + ls.w - rr, e.y + rr, rr - 5, 0, Math.PI * 2); c.fill();
+    c.strokeStyle = '#fff'; c.lineWidth = 2.2; c.lineCap = 'round'; var ax = e.x + ls.w - rr, ay = e.y + rr, q = (rr - 5) * .42;
+    c.beginPath(); c.moveTo(ax - q, ay + q); c.lineTo(ax + q, ay - q); c.moveTo(ax - q * .2, ay - q); c.lineTo(ax + q, ay - q); c.lineTo(ax + q, ay + q * .2); c.stroke();
+    c.fillStyle = col; c.font = '700 ' + LFS + 'px ' + FONT; c.textBaseline = 'middle'; c.fillText(linkLabel(e), e.x + 16, ay + 1);
+    c.fillRect(e.x + 16, ay + LFS * .62, ls.tw, 1.5); }
   else if (e.t === 'tpl') { drawTpl(c, e); }
   else if (e.t === 'img') { var o = imgFor(e.src);
     if (o.ok) c.drawImage(o.img, e.x, e.y, e.ww, e.hh);
@@ -406,6 +430,21 @@ function drawEl(c, e){
       c.fillStyle = '#9A92AD'; c.font = '600 14px ' + FONT; c.textBaseline = 'top'; c.fillText(o.err ? 'картинка недоступна' : 'загрузка…', e.x + 8, e.y + 8); } }
   c.restore();
 }
+var LFS = 20;
+function linkLabel(e){ var t = String(e.s || '').trim(); if (t) return t.length > 60 ? t.slice(0, 59) + '…' : t;
+  try { var u = new URL(e.url); t = u.hostname.replace(/^www\./, '') + (u.pathname.length > 1 ? u.pathname : ''); } catch(er) { t = String(e.url || 'ссылка'); }
+  return t.length > 48 ? t.slice(0, 47) + '…' : t; }
+function linkSize(e){ cx.save(); cx.font = '700 ' + LFS + 'px ' + FONT; var tw = cx.measureText(linkLabel(e)).width; cx.restore(); var h = LFS + 22; return {w: 16 + tw + 12 + h, h: h, tw: tw}; }
+function safeUrl(v){ v = String(v || '').trim(); if (!v) return ''; if (!/^[a-z][a-z0-9+.-]*:/i.test(v)) v = 'https://' + v;
+  try { var u = new URL(v); return (u.protocol === 'https:' || u.protocol === 'http:') && u.hostname.indexOf('.') > 0 ? u.href : ''; } catch(er) { return ''; } }
+function openLink(e){ var u = safeUrl(e.url); if (u) window.open(u, '_blank', 'noopener,noreferrer'); }
+function placeLinks(){ var box = $('bdLinks'); if (!box) return; var seen = {};
+  els.forEach(function(e){ if (e.t !== 'link') return; var u = safeUrl(e.url); if (!u) return; seen[e.id] = 1;
+    var a = document.getElementById('lk-' + e.id); if (!a) { a = document.createElement('a'); a.className = 'bd-lk'; a.id = 'lk-' + e.id; a.target = '_blank'; a.rel = 'noopener noreferrer'; box.appendChild(a); }
+    if (a.getAttribute('href') !== u) { a.href = u; a.title = 'Открыть: ' + u; a.setAttribute('aria-label', 'Открыть ссылку ' + linkLabel(e)); }
+    var ls = linkSize(e), d = ls.h * view.z; a.style.width = a.style.height = d + 'px';
+    a.style.transform = 'translate(' + ((e.x + ls.w - ls.h - view.x) * view.z) + 'px,' + ((e.y - view.y) * view.z) + 'px)'; });
+  [].slice.call(box.children).forEach(function(a){ if (!seen[a.id.slice(3)]) a.remove(); }); }
 function textSize(e){ cx.save(); cx.font = '600 ' + e.fs + 'px ' + FONT; var ls = String(e.s).split('\n');
   var w = Math.max.apply(null, ls.map(function(l){ return cx.measureText(l).width; })); cx.restore(); return {w: Math.max(w, 10), h: ls.length * e.fs * 1.25}; }
 function bbox(e){
@@ -416,6 +455,7 @@ function bbox(e){
   if (e.t === 'rect' || e.t === 'img' || e.t === 'tpl') return [Math.min(e.x, e.x + e.ww), Math.min(e.y, e.y + e.hh), Math.max(e.x, e.x + e.ww), Math.max(e.y, e.y + e.hh)];
   if (e.t === 'pt') return [e.x - 5, e.y - 26, e.x + 24, e.y + 5];
   if (e.t === 'text') { var s = textSize(e); return [e.x, e.y, e.x + s.w, e.y + s.h]; }
+  if (e.t === 'link') { var lz = linkSize(e); return [e.x, e.y, e.x + lz.w, e.y + lz.h]; }
   return [0, 0, 0, 0];
 }
 function drawSel(){
@@ -570,9 +610,9 @@ function nextLetter(){ var used = {}; els.forEach(function(e){ if (e.t === 'pt' 
 /* ── мышь ── */
 function pt2(p){ return {x: r1(p.x), y: r1(p.y)}; }
 cv.addEventListener('pointerdown', function(ev){
-  if (!board) return; closePops(); if (editing) { commitText(); return; } if (mathEd) { commitMath(); return; }
+  if (!board) return; closePops(); if (editing) { commitText(); return; } if (mathEd) { commitMath(); return; } if (linkEd) { commitLinkEd(); if (linkEd) closeLinkEd(); return; }
   var p = W2(ev); cv.setPointerCapture(ev.pointerId);
-  if (ev.button === 1 || spaceDown || tool === 'hand') { act = {k: 'pan', sx: ev.clientX, sy: ev.clientY, vx: view.x, vy: view.y}; stage.classList.add('panning'); return; }
+  if (ev.button === 1 || spaceDown || tool === 'hand') { act = {k: 'pan', sx: ev.clientX, sy: ev.clientY, vx: view.x, vy: view.y, p: p}; stage.classList.add('panning'); return; }
   if (ev.button !== 0) return;
   var base = {by: me.uid, c: color, w: width, d: dashed};
   if (tool === 'pen') { cur = Object.assign({id: nid(), t: 'pen', pts: [r1(p.x), r1(p.y)]}, base); act = {k: 'draw'}; }
@@ -612,8 +652,9 @@ window.addEventListener('pointermove', function(ev){
   if (act.k === 'resize') { var o = act.orig, k = Math.max(.05, (p.x - o.x) / o.ww); var rs = clone(o); rs.ww = r1(o.ww * k); rs.hh = r1(o.hh * k);
     for (var j = 0; j < els.length; j++) if (els[j].id === rs.id) els[j] = rs; draw(); }
 });
-window.addEventListener('pointerup', function(){
+window.addEventListener('pointerup', function(ev){
   if (!act) return; var a = act; act = null; stage.classList.remove('panning'); snapMark = null;
+  if (a.k === 'pan' && a.p && Math.abs(ev.clientX - a.sx) + Math.abs(ev.clientY - a.sy) < 4) { var hl = topHit(a.p, true); if (hl && hl.t === 'link') openLink(hl); }
   if (a.k === 'draw' && cur) { var c = cur; cur = null; var ok = c.t === 'pen' ? c.pts.length >= 2 : c.t === 'line' ? Math.hypot(c.x2 - c.x1, c.y2 - c.y1) > 3 : c.t === 'circ' ? c.r > 3 : Math.abs(c.ww) > 3 && Math.abs(c.hh) > 3;
     if (c.t === 'pen' && c.pts.length === 2) c.pts.push(c.pts[0] + .1, c.pts[1]);
     if (ok) commit({k: 'add', els: [c]}, {k: 'del', ids: [c.id]}); else { send('draft', {by: me.uid, el: null}); draw(); } }
@@ -625,7 +666,7 @@ window.addEventListener('pointerup', function(){
 function eraseAt(p){ var h = topHit(p, true); if (!h) return; act.gone.push(clone(h)); var op = {k: 'del', ids: [h.id]}; apply(op, false); send('op', op); }
 function laserAt(p){ lasers.push({x: p.x, y: p.y, t: Date.now(), by: me.uid}); act.buf.push([r1(p.x), r1(p.y)]);
   if (act.buf.length > 4) { send('laser', {by: me.uid, pts: act.buf}); act.buf = []; } draw(); }
-cv.addEventListener('dblclick', function(ev){ var h = topHit(W2(ev), true); if (!h) return; if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); else if (h.t === 'math') openMath(h); });
+cv.addEventListener('dblclick', function(ev){ var h = topHit(W2(ev), true); if (!h) return; if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); else if (h.t === 'math') openMath(h); else if (h.t === 'link') openLinkEd(h); });
 stage.addEventListener('wheel', function(ev){
   ev.preventDefault(); if (ev.ctrlKey || ev.metaKey) { var r = cv.getBoundingClientRect(); zoomAt(view.z * Math.exp(-ev.deltaY * .0025), ev.clientX - r.left, ev.clientY - r.top); }
   else { view.x += (ev.shiftKey ? ev.deltaY : ev.deltaX) / view.z; view.y += (ev.shiftKey ? 0 : ev.deltaY) / view.z; draw(); }
@@ -696,6 +737,33 @@ function commitMath(){
 $('bdMathIn').addEventListener('input', mathPreview); $('bdMathSz').addEventListener('change', function(){ mathPreview(); $('bdMathIn').focus(); });
 $('bdMathIn').addEventListener('keydown', function(ev){ if (ev.key === 'Enter') { ev.preventDefault(); commitMath(); } else if (ev.key === 'Escape') { ev.preventDefault(); closeMath(); } ev.stopPropagation(); });
 $('bdMathOk').addEventListener('click', commitMath); $('bdMathX').addEventListener('click', closeMath);
+/* ── ссылка ── */
+var linkEd = null;
+function openLinkEd(e){
+  if (editing) commitText(); if (mathEd) commitMath(); closePops();
+  var p = e ? null : centerWorld(); linkEd = {e: e, p: p}; var box = $('bdLink');
+  $('bdLinkUrl').value = e ? e.url : ''; $('bdLinkTxt').value = e ? (e.s || '') : ''; $('bdLinkErr').hidden = true; box.hidden = false;
+  var x = e ? e.x : p.x - 160 / view.z, y = e ? e.y + linkSize(e).h + 8 / view.z : p.y - 60 / view.z, sx = (x - view.x) * view.z, sy = (y - view.y) * view.z;
+  box.style.left = Math.max(8, Math.min(stage.clientWidth - box.offsetWidth - 8, sx)) + 'px';
+  box.style.top = Math.max(8, Math.min(stage.clientHeight - box.offsetHeight - 8, sy)) + 'px';
+  $('bdLinkUrl').focus();
+}
+function closeLinkEd(){ linkEd = null; $('bdLink').hidden = true; }
+function commitLinkEd(){
+  if (!linkEd) return; var raw = $('bdLinkUrl').value.trim(), u = safeUrl(raw), t = $('bdLinkTxt').value.trim().slice(0, 120), ed = linkEd;
+  if (ed.e && !raw) { closeLinkEd(); commit({k: 'del', ids: [ed.e.id]}, {k: 'add', els: [ed.e]}); return; }
+  if (!raw) { closeLinkEd(); return; }
+  if (!u) { $('bdLinkErr').hidden = false; $('bdLinkUrl').focus(); return; }
+  closeLinkEd();
+  if (ed.e) { if (u === ed.e.url && t === (ed.e.s || '')) return; var n = clone(ed.e); n.url = u; n.s = t; commit({k: 'upd', els: [n]}, {k: 'upd', els: [ed.e]}); return; }
+  var e = {id: nid(), t: 'link', url: u, s: t, c: color, by: me.uid}; var lz = linkSize(e); e.x = r1(ed.p.x - lz.w / 2); e.y = r1(ed.p.y - lz.h / 2);
+  for (var g = 0; g < 30 && els.some(function(o){ var b = bbox(o); return o.t !== 'tpl' && e.y < b[3] + 6 && e.y + lz.h > b[1] - 6 && e.x < b[2] && e.x + lz.w > b[0]; }); g++) e.y = r1(e.y + lz.h + 12);
+  commit({k: 'add', els: [e]}, {k: 'del', ids: [e.id]}); sel = e.id; draw();
+}
+$('bdLinkBtn').addEventListener('click', function(){ if (board) openLinkEd(null); });
+$('bdLinkOk').addEventListener('click', commitLinkEd); $('bdLinkX').addEventListener('click', closeLinkEd);
+['bdLinkUrl', 'bdLinkTxt'].forEach(function(id){ $(id).addEventListener('keydown', function(ev){ if (ev.key === 'Enter') { ev.preventDefault(); commitLinkEd(); } else if (ev.key === 'Escape') { ev.preventDefault(); closeLinkEd(); } ev.stopPropagation(); }); });
+$('bdLink').addEventListener('pointerdown', function(ev){ ev.stopPropagation(); });
 $('bdMath').addEventListener('pointerdown', function(ev){ ev.stopPropagation(); });
 $('bdMath').querySelector('.bd-mbtns').addEventListener('mousedown', function(ev){ ev.preventDefault(); });
 $('bdMath').querySelector('.bd-mbtns').addEventListener('click', function(ev){ var b = ev.target.closest('[data-ins]'); if (!b) return;
