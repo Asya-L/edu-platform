@@ -44,7 +44,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
     const s = D.edu_students.find(x => x.user_id === u.id); const R = data => Promise.resolve({data, error:null});
     const qs = (lid, best) => { const a = D.edu_quiz_results.filter(r => r.lesson_id === lid).sort((x, y) => x.created_at < y.created_at ? -1 : 1); if (!a.length) return null;
       const r = best ? a.reduce((m, q) => q.score > m.score ? q : m, a[0]) : a[0]; return r.score + '/' + r.total; };
-    if (name === 'edu_my_homework') return R(s ? D.edu_lessons.filter(l => l.student_id === s.id && (l.homework || l.quiz)).sort(byDate)
+    if (name === 'edu_my_homework') return R(s ? D.edu_lessons.filter(l => l.student_id === s.id && l.hw_sent_at && (l.homework || l.quiz)).sort(byDate)
       .map(l => ({id:l.id, date:l.date, topic:l.topic, topic_text:l.topic_text, homework:l.homework, student_done:l.student_done,
         student_comment:l.student_comment || null, photos:l.photos || [], submitted_at:l.submitted_at || null, feedback:l.feedback || null, hw_mark:l.hw_mark || null, feedback_at:l.feedback_at || null,
         quiz:l.quiz || null, quiz_first: qs(l.id, false), quiz_best: qs(l.id, true), quiz_tries: D.edu_quiz_results.filter(r => r.lesson_id === l.id).length})) : []);
@@ -53,10 +53,10 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       if (!w) { w = {student_id: s.id, ws: args.p_ws, submitted_at: null, seen_at: null}; D.edu_ws_answers.push(w); }
       w.answers = args.p_answers; w.updated_at = now; if (args.p_submit) w.submitted_at = now; put('mockdb', D); return R({updated_at: w.updated_at, submitted_at: w.submitted_at}); }
     if (name === 'edu_ws_mine') { const w = s && D.edu_ws_answers.find(x => x.student_id === s.id && x.ws === args.p_ws); return R(w ? {answers: w.answers, updated_at: w.updated_at, submitted_at: w.submitted_at} : null); }
-    if (name === 'edu_set_done') { D.edu_lessons.forEach(l => { if (s && l.id === args.p_lesson && l.student_id === s.id) l.student_done = args.p_done; }); put('mockdb', D); return R(null); }
+    if (name === 'edu_set_done') { D.edu_lessons.forEach(l => { if (s && l.id === args.p_lesson && l.student_id === s.id && l.hw_sent_at) l.student_done = args.p_done; }); put('mockdb', D); return R(null); }
     if (name === 'edu_submit') { const pref = u.id + '/' + args.p_lesson + '/';
       if ((args.p_photos || []).some(p => !p.startsWith(pref))) return Promise.resolve({data:null, error:{message:'photos'}});
-      let hit = false; D.edu_lessons.forEach(l => { if (s && l.id === args.p_lesson && l.student_id === s.id) { hit = true;
+      let hit = false; D.edu_lessons.forEach(l => { if (s && l.id === args.p_lesson && l.student_id === s.id && l.hw_sent_at) { hit = true;
         Object.assign(l, {student_comment: args.p_comment || null, photos: args.p_photos || [], submitted_at: new Date().toISOString(), student_done: true}); } });
       put('mockdb', D); return R(hit); }
     if (name === 'edu_my_info') { if (!s) return R([]); const p = D.edu_progress.find(x => x.student_id === s.id);
@@ -67,7 +67,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
         return {q: i + 1, ok, answer: k.split('|')[0]}; });
       const score = items.filter(x => x.ok).length;
       let lid = null, first = false;
-      if (s && args.p_lesson) { const l = D.edu_lessons.find(x => x.id === args.p_lesson && x.student_id === s.id && x.quiz === args.p_quiz); if (l) { lid = l.id; first = !D.edu_quiz_results.some(r => r.lesson_id === lid);
+      if (s && args.p_lesson) { const l = D.edu_lessons.find(x => x.id === args.p_lesson && x.student_id === s.id && x.quiz === args.p_quiz && x.hw_sent_at); if (l) { lid = l.id; first = !D.edu_quiz_results.some(r => r.lesson_id === lid);
         if (first) { l.student_done = true; l.submitted_at = l.submitted_at || new Date().toISOString(); } } }
       if (s) { D.edu_quiz_results.push({id: uid(), student_id: s.id, quiz: args.p_quiz, score, total: items.length, answers: args.p_answers, lesson_id: lid,
         wrong: items.filter(x => !x.ok).map(x => x.q), created_at: new Date().toISOString()}); put('mockdb', D); }

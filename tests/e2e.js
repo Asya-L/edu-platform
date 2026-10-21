@@ -137,7 +137,15 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await p.click('#log button:has-text("Изменить")'); const pre = await p.inputValue('#lHw');
   await p.fill('#lHw', '№ 18, 23, 27, 30'); await p.selectOption('#lHwStatus', 'done'); await p.click('#lSave'); await p.waitForTimeout(1200);
   rec('JR-04', pre === '№ 18, 23, 27' && ((await p.textContent('#log')) || '').includes('27, 30'), 'было: ' + pre);
-  await p.selectOption('#lTopic', 'g3'); await p.fill('#lHw', 'Рабочий лист 3'); await p.selectOption('#lMark', '4'); await p.click('#lSave'); await p.waitForTimeout(1400);
+  await p.selectOption('#lTopic', 'g3'); await p.fill('#lHw', 'Рабочий лист 3'); await p.selectOption('#lMark', '4'); await p.click('#lSend'); await p.waitForTimeout(1400);
+  // JR-12: ДЗ без «Отправить» — черновик (чип, напоминание на главной), кнопка отправляет
+  const jr12 = await p.evaluate(() => [...document.querySelectorAll('#log .lesson')].map(r => r.textContent));
+  const draftRow = jr12.find(t => t.includes('27, 30')) || '', sentRow = jr12.find(t => t.includes('Рабочий лист 3')) || '';
+  await go('t.html#index', 1400); const thU = (await p.textContent('#thUnsent').catch(() => '')) || ''; await go('journal.html', 900);
+  await p.click('#log .lesson:has-text("27, 30") >> button:has-text("Отправить ДЗ ученику")'); await p.waitForTimeout(1200);
+  const draftAfter = (await p.textContent('#log .lesson:has-text("27, 30")')) || '';
+  rec('JR-12', draftRow.includes('ДЗ не отправлено') && !draftRow.includes('Ответить на ДЗ') && sentRow.includes('ДЗ отправлено') && thU.includes('Не отправлена домашка') && thU.includes('Миша')
+    && draftAfter.includes('ДЗ отправлено') && draftAfter.includes('Вернуть в черновик'), thU.replace(/\s+/g, ' ').slice(0, 70) + ' · ' + draftAfter.replace(/\s+/g, ' ').slice(0, 60));
   const stats = await p.evaluate(() => ['stLessons','stHw','stMark','stLast'].map(i => document.getElementById(i).textContent).join(' '));
   rec('JR-07', /^2 100% 4,5 \d\d\.\d\d\.\d{4}$/.test(stats), stats);
   await p.click('#progress button:has-text("Урок 4")'); await p.waitForTimeout(900); await go('journal.html', 900);
@@ -308,10 +316,14 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const j5 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz'), bar: (await p.textContent('#lHwSug')) || ''};
   rec('JR-11', j5.hw.startsWith('№ 37, 39, 42, 45') && j5.q === 'quiz-a4b' && j5.bar.includes('Алгебра, урок 4') && j5.bar.includes('Номера из презентации учебника')
     && j5.bar.includes('рабочий лист к уроку алгебры 4'), `${j5.hw.slice(0, 30)} · ${j5.q}`);
-  await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSave'); await p.waitForTimeout(1400);
+  await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSend'); await p.waitForTimeout(1400);
+  // занятие, записанное заранее, с домашкой-черновиком: ученик его не видит (проверка в HW-12)
+  await p.fill('#lDate', '2020-01-01'); await p.selectOption('#lTopic', 'other'); await p.fill('#lOther', 'Заранее'); await p.fill('#lHw', 'ЧЕРНОВИК-ДЗ'); await p.selectOption('#lQuiz', '');
+  await p.click('#lSave'); await p.waitForTimeout(1400);
   const lq = (await p.textContent('#log')) || '';
   rec('HW-08', lq.includes('Тест в ДЗ: Самопроверка · Глава I — ещё не пройден'), 'журнал: тест задан');
   await logout(); await login('kid@test.local'); await go('homework.html', 1200);
+  const hw12 = (await p.textContent('#hwBox')) || ''; rec('HW-12', hw12.length > 50 && !hw12.includes('ЧЕРНОВИК-ДЗ') && !hw12.includes('Заранее'), 'черновик ДЗ скрыт от ученика');
   const hq1 = (await p.textContent('#hwBox .hw-card >> nth=0')) || ''; await p.click('#hwBox .hw-card >> nth=0 >> a:has-text("Пройти тест")'); await p.waitForTimeout(1200);
   const hwNote = (await p.textContent('#qzHw')) || '';
   for (let i = 0; i < keys.length; i++) { const k = keys[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
@@ -336,6 +348,9 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await pT.goto(SITE + 'journal.html'); await pT.waitForTimeout(1000); await pT.click('#boardLink'); await pT.waitForTimeout(1500);
   const bT = await pT.textContent('#bdTitle'); const nb = (await mdb()).edu_boards.length;
   rec('BD-01', /^Занятие \d\d\.\d\d$/.test(bT) && nb === 1 && pT.url().includes('board.html?b='), bT + ', досок ' + nb);
+  // BD-30: занятие на сегодня уже записано в журнал (в т. ч. заранее) — новая доска сразу к нему привязана
+  { const db = await mdb(), b0 = db.edu_boards[0], l0 = db.edu_lessons.find(l => l.id === b0.lesson_id); const d = new Date(), td = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    rec('BD-30', !!l0 && l0.date === td, l0 ? 'занятие ' + l0.date : 'не привязана'); }
   await pS.goto(SITE + 'board.html'); await pS.waitForTimeout(1500);
   const ch28 = await pS.evaluate(() => ({vis: !!document.getElementById('bdChoose'), n: document.querySelectorAll('#bdChoose [data-b]').length, t: (document.getElementById('bdChoose') || {}).textContent || '', st: document.getElementById('bdStage').hidden}));
   await pS.click('#bdChoose [data-b] >> nth=0'); await pS.waitForTimeout(1300);
@@ -456,7 +471,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Нет")'); const after1 = await p.$$eval('#log .lesson', e => e.length);
   await p.click('#log button:has-text("Удалить") >> nth=0'); await p.click('#log button:has-text("Да")'); await p.waitForTimeout(900);
   const after2 = await p.$$eval('#log .lesson', e => e.length);
-  rec('JR-05', after1 === 3 && after2 === 2, after1 + ' → ' + after2);
+  rec('JR-05', after1 === 4 && after2 === 3, after1 + ' → ' + after2);
   await p.click('#delBox button'); await p.click('#delBox button.danger'); await p.waitForTimeout(900);
   const leftFiles = await p.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('mockfiles') || '{}')).length);
   rec('JR-08', ((await p.textContent('#status')) || '').includes('Добавьте первого ученика') &&

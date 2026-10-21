@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-25).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-26).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -12,7 +12,7 @@ declare
   t_uid uuid;
   s_uid uuid := gen_random_uuid();   -- тестовый ученик
   o_uid uuid := gen_random_uuid();   -- другой тестовый ученик
-  st_id uuid; ot_id uuid; l_mine uuid; l_other uuid;
+  st_id uuid; ot_id uuid; l_mine uuid; l_other uuid; l_draft uuid;
   n int; n2 int; n3 int; b boolean; v text; err text; j jsonb; obj_other text; b_mine uuid; b_other uuid; nb uuid; nk int;
   r text := E'ИТОГ ПРОВЕРКИ (все изменения отменены)\n';
 
@@ -36,12 +36,14 @@ begin
   -- тестовые данные журнала (от имени владельца базы)
   insert into public.edu_students(user_id, name) values (s_uid, 'ТЕСТ ученик') returning id into st_id;
   insert into public.edu_students(user_id, name) values (o_uid, 'ТЕСТ другой') returning id into ot_id;
-  insert into public.edu_lessons(student_id, topic, homework, notes, mark)
-    values (st_id, 'g1', 'ТЕСТ: моё ДЗ', 'ТЕСТ: заметка учителя', '5') returning id into l_mine;
+  insert into public.edu_lessons(student_id, topic, homework, notes, mark, hw_sent_at)
+    values (st_id, 'g1', 'ТЕСТ: моё ДЗ', 'ТЕСТ: заметка учителя', '5', now()) returning id into l_mine;
+  insert into public.edu_lessons(student_id, date, topic, homework, quiz)
+    values (st_id, current_date + 3, 'g3', 'ТЕСТ: черновик ДЗ', 'quiz-geo1') returning id into l_draft;   -- записано заранее, ученику не отправлено
   insert into public.edu_lessons(student_id, topic, homework)
     values (st_id, 'g2', '') ;                                   -- занятие без ДЗ — не должно попасть в список
-  insert into public.edu_lessons(student_id, homework, notes)
-    values (ot_id, 'ТЕСТ: чужое ДЗ', 'ТЕСТ: чужая заметка') returning id into l_other;
+  insert into public.edu_lessons(student_id, homework, notes, hw_sent_at)
+    values (ot_id, 'ТЕСТ: чужое ДЗ', 'ТЕСТ: чужая заметка', now()) returning id into l_other;
   insert into public.edu_progress(student_id) values (st_id), (ot_id);
   update public.edu_students set next_at = now() + interval '2 days', call_url = 'https://example.invalid/call' where id = st_id;
   obj_other := o_uid::text || '/' || l_other::text || '/z.jpg';
@@ -101,6 +103,17 @@ begin
   r := r || case when n = 1 and not b then 'PASS' else 'FAIL' end
          || ' DB-05 моё ДЗ: заданий ' || n || ' (ждём 1), чужое попало? ' || b || E'\n';
 
+  -- DB-26: домашка, записанная заранее и не отправленная, ученику не видна: ни в списке, ни для сдачи, ни для теста, ни для фото
+  err := '';
+  if exists(select 1 from public.edu_my_homework() h where h.id = l_draft) then err := err || 'черновик виден; '; end if;
+  if public.edu_submit(l_draft, 'x', '[]'::jsonb) then err := err || 'черновик сдан; '; end if;
+  perform public.edu_set_done(l_draft, true);
+  j := public.edu_check_quiz('quiz-geo1', '{}'::jsonb, l_draft);
+  if (j->>'homework')::boolean then err := err || 'тест засчитан в черновик; '; end if;
+  begin insert into storage.objects(bucket_id, name) values ('edu-hw', s_uid::text || '/' || l_draft::text || '/d.jpg'); err := err || 'фото к черновику загрузилось; ';
+  exception when others then null; end;
+  r := r || case when err = '' then 'PASS' else 'FAIL' end || ' DB-26 неотправленная домашка: ' || case when err = '' then 'ученику не видна и не сдаётся' else err end || E'\n';
+
   -- DB-06: «сделал» — своему занятию можно, чужому нельзя
   perform public.edu_set_done(l_other, true);
   perform public.edu_set_done(l_mine, true);
@@ -140,7 +153,7 @@ begin
   -- DB-12: проверка на сервере сохраняет попытку ученика
   j := public.edu_check_quiz('quiz-geo1', '{}'::jsonb);
   select count(*) into n from public.edu_my_quiz_results();
-  r := r || case when (j->>'saved')::boolean and (j->>'total')::int > 0 and (j->>'score')::int = 0 and n = 1 then 'PASS' else 'FAIL' end
+  r := r || case when (j->>'saved')::boolean and (j->>'total')::int > 0 and (j->>'score')::int = 0 and n = 2 then 'PASS' else 'FAIL' end
          || ' DB-12 проверка теста: ' || (j->>'score') || ' из ' || (j->>'total') || ', сохранено ' || (j->>'saved') || ', попыток видно ' || n || E'\n';
 
   -- DB-19: тест как ДЗ — своё задание засчитывается (первая попытка), чужое нельзя
@@ -246,7 +259,7 @@ begin
   select count(*) into n3 from public.edu_lessons where id = l_other and submitted_at is null and student_comment is null;
   select count(*) into nk from public.edu_bank_attempts where student_id = st_id;
   r := r || case when nk = 4 then 'PASS' else 'FAIL' end || ' DB-22 попытки банка у ученика записаны: ' || nk || ' (3 ответа + просмотр решения)' || E'\n';
-  r := r || case when n = 1 and n2 = 4 and n3 = 1 then 'PASS' else 'FAIL' end
+  r := r || case when n = 1 and n2 = 5 and n3 = 1 then 'PASS' else 'FAIL' end
          || ' DB-14 целостность: чужое фото на месте ' || n || ', попытка у своего ученика ' || n2 || ', чужое ДЗ не тронуто ' || n3 || E'\n';
 
   -- DB-24: учитель видит листы учеников; чужой лист не изменён учеником

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fde2a191"></script><script src="assets/auth.js?v=fde2a191"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=90941d82"></script><script src="assets/auth.js?v=90941d82"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -856,8 +856,8 @@ function renderMenu(){
     h += '<h3>Ученик</h3><select id="bmStudent">' + students.map(function(s){ return '<option value="' + s.id + '"' + (board && s.id === board.student_id ? ' selected' : '') + '>' + esc(s.name) + '</option>'; }).join('') + '</select>';
     h += '<h3>Доски ученика</h3><div class="bd-list">' + (boards.length ? boards.map(function(b){ return '<button type="button" data-open="' + b.id + '" class="' + (board && b.id === board.id ? 'on' : '') + '"><span>' + esc(b.title) + '</span><small>' + (b.lesson_id ? 'занятие ' : '') + fmtD(b.created_at) + '</small></button>'; }).join('') : '<p class="muted" style="margin:4px 10px">Досок пока нет.</p>') + '</div>';
     h += '<h3>Новая доска</h3><label for="bmTitle">Название</label><input id="bmTitle" value="Занятие ' + fmtD(new Date()) + '">' +
-      '<label for="bmLesson">Привязать к занятию</label><select id="bmLesson"><option value="">не привязывать</option>' + lessons.map(function(l){ return '<option value="' + l.id + '">' + fmtDate(l.date) + (l.topic_text || l.topic ? ' · ' + esc(l.topic_text || l.topic) : '') + '</option>'; }).join('') + '</select>' +
-      '<p class="muted" style="margin:6px 0 0;font-size:13px">Занятия ещё нет в журнале? Не страшно: доска привяжется сама, когда вы запишете занятие за этот день. Привязку можно поменять в любой момент ниже, в «Эта доска».</p>' +
+      '<label for="bmLesson">Привязать к занятию</label><select id="bmLesson"><option value="">не привязывать</option>' + lessons.map(function(l){ return '<option value="' + l.id + '"' + (todayLesson() === l ? ' selected' : '') + '>' + fmtDate(l.date) + (l.topic_text || l.topic ? ' · ' + esc(l.topic_text || l.topic) : '') + '</option>'; }).join('') + '</select>' +
+      '<p class="muted" style="margin:6px 0 0;font-size:13px">Занятие на сегодня уже есть в журнале — оно выбрано само. Если ещё нет — доска привяжется, когда вы запишете занятие за этот день. Привязку можно поменять в любой момент ниже, в «Эта доска».</p>' +
       '<div class="bd-row"><button type="button" class="bd-t dark" id="bmNew">Создать доску</button></div>';
     h += '<div class="bd-row"><a class="bd-t ghost" href="journal.html">Открыть журнал →</a></div>';
     if (board) h += '<h3>Эта доска</h3><label for="bmLink">Занятие</label><select id="bmLink"><option value="">не привязана</option>' + lessons.map(function(l){ return '<option value="' + l.id + '"' + (board.lesson_id === l.id ? ' selected' : '') + '>' + fmtDate(l.date) + (l.topic_text || l.topic ? ' · ' + esc(l.topic_text || l.topic) : '') + '</option>'; }).join('') + '</select>' +
@@ -890,11 +890,20 @@ async function forStudent(sid, auto){
   var r = await sb.from('edu_boards').select('id,title,lesson_id,created_at,student_id').eq('student_id', sid).order('created_at', {ascending: false});
   boards = r.data || []; var l = await sb.from('edu_lessons').select('id,date,topic,topic_text').eq('student_id', sid).order('date', {ascending: false}).limit(30);
   lessons = l.data || []; lessons.forEach(function(x){ x.topic_text = x.topic_text || TOPIC_NAME(x.topic); });
+  var tday = dayKey(new Date()), today = todayLesson();
+  if (today) {   // занятие на сегодня есть в журнале (его могли записать заранее) — доска этого занятия
+    var mine = boards.find(function(x){ return x.lesson_id === today.id; });
+    if (mine) return openBoard(mine.id);
+    var free = boards.find(function(x){ return !x.lesson_id && dayKey(new Date(x.created_at)) === tday; });
+    if (free) { var u = await sb.from('edu_boards').update({lesson_id: today.id}).eq('id', free.id); if (!u.error) free.lesson_id = today.id; return openBoard(free.id); }
+    var nid = await createBoard(sid, 'Занятие ' + fmtD(new Date()), today.id); if (nid) openBoard(nid); return;
+  }
   if (boards.length) return openBoard(boards[0].id);
-  var today = lessons.find(function(x){ var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return x.date === d.toISOString().slice(0, 10); });
-  var id = await createBoard(sid, 'Занятие ' + fmtD(new Date()), today ? today.id : null); if (id) openBoard(id);
+  var id = await createBoard(sid, 'Занятие ' + fmtD(new Date()), null); if (id) openBoard(id);
 }
-function TOPIC_NAME(k){ if (!k) return ''; var m = /^([ga])(\d)$/.exec(k); if (m) return (m[1] === 'g' ? 'Геометрия' : 'Алгебра') + ' · урок ' + m[2]; m = /^e(\d+)$/.exec(k); return m ? 'ЕГЭ № ' + m[1] : k; }
+function dayKey(d){ return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+function todayLesson(){ var t = dayKey(new Date()); return lessons.find(function(x){ return x.date === t; }) || null; }
+function TOPIC_NAME(k){ if (!k) return ''; var m = /^([ga])(\d)$/.exec(k); if (m) return (m[1] === 'g' ? 'Геометрия' : 'Алгебра') + ' · урок ' + m[2]; m = /^el(\d+)$/.exec(k); if (m) return 'ЕГЭ · лекция ' + m[1]; m = /^e(\d+)$/.exec(k); return m ? 'ЕГЭ № ' + m[1] : k; }
 async function loadMine(){ var r = await sb.rpc('edu_my_boards'); boards = r.data || []; return boards; }
 async function openBoard(id){
   if (board && dirty) await save();
