@@ -1,4 +1,4 @@
--- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-27).
+-- Кабинет математики — проверка правил доступа в базе (тест-кейсы DB-01…DB-28).
 -- Как запустить: Supabase → SQL Editor → New query → вставить целиком → Run.
 --
 -- Скрипт ничего не меняет: он создаёт двух временных тестовых учеников, проверяет,
@@ -49,6 +49,7 @@ begin
   obj_other := o_uid::text || '/' || l_other::text || '/z.jpg';
   insert into storage.objects(bucket_id, name) values ('edu-hw', obj_other);
   update public.edu_lessons set quiz = 'quiz-geo1' where id in (l_mine, l_other);
+  update public.edu_lessons set hw_via = 'в мессенджере' where id = l_other;   -- учитель отметил сдачу вручную (чужое занятие)
   insert into public.edu_boards(student_id, title) values (st_id, 'ТЕСТ моя доска') returning id into b_mine;
   insert into public.edu_boards(student_id, title) values (ot_id, 'ТЕСТ чужая доска') returning id into b_other;
   insert into public.edu_bank(id, num, answer, solution) values ('test-bank', 5, '-2.5', 'ТЕСТ решение') on conflict (id) do update set answer = '-2.5', num = 5;
@@ -102,6 +103,12 @@ begin
   select count(*), coalesce(bool_or(h.homework like '%чужое%'), false) into n, b from public.edu_my_homework() h;
   r := r || case when n = 1 and not b then 'PASS' else 'FAIL' end
          || ' DB-05 моё ДЗ: заданий ' || n || ' (ждём 1), чужое попало? ' || b || E'\n';
+
+  -- DB-28: отметка «сдано вручную» видна только своему ученику, сам ученик поставить её не может
+  update public.edu_lessons set hw_via = 'взлом' where id = l_mine;
+  get diagnostics n = row_count;
+  select count(*) into n2 from public.edu_my_homework() h where h.hw_via is not null;
+  r := r || case when n = 0 and n2 = 0 then 'PASS' else 'FAIL' end || ' DB-28 ручная отметка сдачи: ученик изменил строк ' || n || ', видит чужих отметок ' || n2 || E'\n';
 
   -- DB-26: домашка, записанная заранее и не отправленная, ученику не видна: ни в списке, ни для сдачи, ни для теста, ни для фото
   err := '';

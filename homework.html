@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Домашнее задание</title>
-<script>document.documentElement.dataset.page="homework";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fc6fd64b"></script><script src="assets/auth.js?v=fc6fd64b"></script>
+<script>document.documentElement.dataset.page="homework";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=7b1c5716"></script><script src="assets/auth.js?v=7b1c5716"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -106,7 +106,8 @@ var BUCKET = 'edu-hw', uid = null, items = [], urls = {}, edit = {}, busy = {};
 function fmtTs(t){ if (!t) return ''; var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2); }
 function chip(l){
   if (l.feedback || l.hw_mark) return '<span class="hw-chip hw-c-ok">проверено' + (l.hw_mark ? ' · ' + K.esc(l.hw_mark) : '') + '</span>';
-  var work = (l.photos || []).length || l.student_comment;
+  var work = (l.photos || []).length || l.student_comment || l.hw_via;
+  if (l.hw_via) return '<span class="hw-chip hw-c-sent">сдано ' + K.esc(l.hw_via) + '</span>';
   if (l.submitted_at && l.homework && l.quiz_first && !work) return '<span class="hw-chip hw-c-todo">тест сдан · нужны фото задач</span>';
   if (l.submitted_at) return '<span class="hw-chip hw-c-sent">сдано ' + fmtTs(l.submitted_at) + '</span>';
   if (l.quiz && !l.quiz_first) return '<span class="hw-chip hw-c-todo">' + (l.homework ? 'не сдано · тест не пройден' : 'тест не пройден') + '</span>';
@@ -148,15 +149,16 @@ function card(l){
       '<div class="hw-row"><button class="hw-btn" type="submit"' + (busy[l.id] ? ' disabled' : '') + '>' + (l.submitted_at ? 'Сохранить' : 'Сдать') + '</button>' +
       (l.submitted_at ? '<button class="hw-btn ghost" type="button" data-cancel>Отмена</button>' : '') +
       '<span class="hw-msg" data-msg></span></div></form>';
-  } else if (l.quiz_first && !(l.photos || []).length && !l.student_comment) {   // тест пройден, а задачи из тетради ещё не сданы
+  } else if (l.quiz_first && !(l.photos || []).length && !l.student_comment && !l.hw_via) {   // тест пройден, а задачи из тетради ещё не сданы
     h += '<div class="hw-sub hw-todo"><div class="me-lbl">Тест сдан · задачи из тетради ещё не сданы</div>' +
       '<p class="hw-msg" style="margin:6px 0 0">Сфотографируй решение задач в тетради и отправь — тогда домашка будет сдана целиком.</p>' +
       '<div class="hw-row"><button class="hw-btn" type="button" data-edit="' + l.id + '">Сдать фото задач</button></div></div>';
   } else {
     h += '<div class="hw-sub"><div class="me-lbl">Моя работа · сдано ' + fmtTs(l.submitted_at) + '</div>' +
       ((l.photos || []).length ? thumbs(l.photos, false) : '') +
+      (l.hw_via ? '<p style="margin:6px 0 0;font-weight:700">Учитель отметил: сдано ' + K.esc(l.hw_via) + '.</p>' : '') +
       (l.student_comment ? '<p style="margin:8px 0 0;white-space:pre-wrap;font-size:14.5px">' + K.esc(l.student_comment) + '</p>' : '') +
-      ((l.photos || []).length || l.student_comment ? '' : '<p class="hw-msg" style="margin:6px 0 0">' + (l.quiz_first ? 'Тест сдан.' : 'Отмечено как сделанное, без фото.') + '</p>') +
+      ((l.photos || []).length || l.student_comment || l.hw_via ? '' : '<p class="hw-msg" style="margin:6px 0 0">' + (l.quiz_first ? 'Тест сдан.' : 'Отмечено как сделанное, без фото.') + '</p>') +
       '<div class="hw-row"><button class="hw-btn soft" type="button" data-edit="' + l.id + '">' + ((l.photos || []).length || l.student_comment || !l.quiz_first ? 'Изменить сдачу' : 'Добавить фото') + '</button></div></div>';
   }
   return h + '</div>';

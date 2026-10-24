@@ -345,6 +345,13 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const lq13 = (await p.textContent('#log .lesson:has-text("№ 5, 7")')) || 'сдано 1';
   // HW-13: тест из ДЗ засчитан, а задачи из тетради нет — ученику после теста напоминание, в журнале не «сдано», а «фото задач нет»
   rec('HW-13', hs1.includes('В этой домашке есть ещё задачи из тетради') && hs1.includes('№ 5, 7') && !/сдано \d/.test(lq13), hs1.slice(-90));
+  // HW-14: учитель вручную отмечает сдачу (прислал в мессенджере) — у ученика «Учитель отметил: сдано в мессенджере», «Сдать фото задач» больше не просит
+  await p.click('#log .lesson:has-text("№ 5, 7") >> button:has-text("Отметить сдачу")'); await p.selectOption('#log .viaform select', 'в мессенджере'); await p.click('#log .viaform button.primary'); await p.waitForTimeout(1200);
+  const via1 = (await p.textContent('#log .lesson:has-text("№ 5, 7")')) || ''; const via2 = await p.isVisible('#log .lesson:has-text("№ 5, 7") >> button:has-text("Снять отметку")');
+  await logout(); await login('kid@test.local'); await go('homework.html', 1200); const via3 = (await p.textContent('#hwBox .hw-card:has-text("№ 5, 7")')) || '';
+  await logout(); await login('teacher@test.local'); await go('journal.html', 1200);
+  rec('HW-14', via1.includes('сдано в мессенджере') && !via1.includes('фото задач из тетради нет') && via2 && via3.includes('Учитель отметил: сдано в мессенджере') && via3.includes('сдано в мессенджере') && !via3.includes('Сдать фото задач'),
+    via3.replace(/\s+/g, ' ').slice(0, 120));
 
   // ── Доска: учитель и ученик в двух окнах
   const mk = async (email, id) => { const pg = await ctx.newPage(); pg.on('pageerror', e => errors.push('board ' + email + ' :: ' + e.message)); pg.on('dialog', d => d.accept());
