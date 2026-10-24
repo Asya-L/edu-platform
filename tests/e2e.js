@@ -321,7 +321,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const j5 = {hw: await p.inputValue('#lHw'), q: await p.inputValue('#lQuiz'), bar: (await p.textContent('#lHwSug')) || ''};
   rec('JR-11', j5.hw.startsWith('№ 37, 39, 42, 45') && j5.q === 'quiz-a4b' && j5.bar.includes('Алгебра, урок 4') && j5.bar.includes('Номера из презентации учебника')
     && j5.bar.includes('рабочий лист к уроку алгебры 4'), `${j5.hw.slice(0, 30)} · ${j5.q}`);
-  await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', ''); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSend'); await p.waitForTimeout(1400);
+  await p.selectOption('#lTopic', 'g4'); await p.fill('#lHw', 'Задачи из тетради: № 5, 7'); await p.selectOption('#lQuiz', 'quiz-geo1'); await p.click('#lSend'); await p.waitForTimeout(1400);
   // занятие, записанное заранее, с домашкой-черновиком: ученик его не видит (проверка в HW-12)
   await p.fill('#lDate', '2020-01-01'); await p.selectOption('#lTopic', 'other'); await p.fill('#lOther', 'Заранее'); await p.fill('#lHw', 'ЧЕРНОВИК-ДЗ'); await p.selectOption('#lQuiz', '');
   await p.click('#lSave'); await p.waitForTimeout(1400);
@@ -333,15 +333,18 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   const hwNote = (await p.textContent('#qzHw')) || '';
   for (let i = 0; i < keys.length; i++) { const k = keys[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
     if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${i < 2 ? (k === 'a' ? 'b' : 'a') : k}"]`); else await p.fill(sel + ' input[type=text]', i < 2 ? '999' : k); }
-  await p.click('#qzGo'); await p.waitForTimeout(800); const hs1 = (await p.textContent('#qzScore')) || '';
+  await p.click('#qzGo'); await p.waitForTimeout(1500); const hs1 = (await p.textContent('#qzScore')) || '';
   await p.click('#qzAgain'); for (let i = 0; i < keys.length; i++) { const k = keys[i].split('|')[0]; const sel = `[data-q="${i + 1}"]`;
     if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
   await p.click('#qzGo'); await p.waitForTimeout(800); const hs2 = (await p.textContent('#qzScore')) || '';
   rec('HW-09', hq1.includes('тест не пройден') && hwNote.includes('первой попытки') && hs1.includes('Засчитано как домашнее задание') && hs2.includes('тренировочная попытка'), hs1.slice(0, 40) + ' / ' + hs2.slice(0, 30));
-  await go('homework.html', 1200); const hq2 = (await p.textContent('#hwBox .hw-card >> nth=0')) || '';
+  await go('homework.html', 1200); const hq2 = (await p.textContent('#hwBox .hw-card >> nth=0')) || ''; const hq2btn = await p.$('#hwBox .hw-card >> nth=0 >> button:has-text("Сдать фото задач")');
   await logout(); await login('teacher@test.local'); await go('journal.html', 1200); const lq2 = (await p.textContent('#log')) || '';
-  rec('HW-10', hq2.includes(`Засчитана первая попытка: ${keys.length - 2} из ${keys.length}`) && hq2.includes(`лучшая ${keys.length} из ${keys.length}`) && hq2.includes('сдано')
-    && lq2.includes(`тест ${keys.length - 2} из ${keys.length} · лучшая ${keys.length} · попыток 2`), 'ученик и журнал видят первую и лучшую');
+  rec('HW-10', hq2.includes(`Засчитана первая попытка: ${keys.length - 2} из ${keys.length}`) && hq2.includes(`лучшая ${keys.length} из ${keys.length}`) && hq2.includes('задачи из тетради ещё не сданы') && !!hq2btn
+    && lq2.includes(`тест ${keys.length - 2} из ${keys.length} · лучшая ${keys.length} · попыток 2`) && lq2.includes('тест пройден · фото задач из тетради нет'), 'ученик и журнал видят первую и лучшую');
+  const lq13 = (await p.textContent('#log .lesson:has-text("№ 5, 7")')) || 'сдано 1';
+  // HW-13: тест из ДЗ засчитан, а задачи из тетради нет — ученику после теста напоминание, в журнале не «сдано», а «фото задач нет»
+  rec('HW-13', hs1.includes('В этой домашке есть ещё задачи из тетради') && hs1.includes('№ 5, 7') && !/сдано \d/.test(lq13), hs1.slice(-90));
 
   // ── Доска: учитель и ученик в двух окнах
   const mk = async (email, id) => { const pg = await ctx.newPage(); pg.on('pageerror', e => errors.push('board ' + email + ' :: ' + e.message)); pg.on('dialog', d => d.accept());

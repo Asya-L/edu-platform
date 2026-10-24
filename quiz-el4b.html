@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ЕГЭ · лекция 4 · тест домой</title>
-<script>document.documentElement.dataset.page="quiz-el4b";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=b02d60fa"></script><script src="assets/auth.js?v=b02d60fa"></script>
+<script>document.documentElement.dataset.page="quiz-el4b";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=fc6fd64b"></script><script src="assets/auth.js?v=fc6fd64b"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -76,6 +76,8 @@ form.addEventListener('submit', async function(ev){
   s.innerHTML = '<b>' + d.score + ' из ' + d.total + '</b>' + (c >= .8 ? 'Отлично! ' : c >= .5 ? 'Неплохо, но есть что повторить. ' : 'Стоит повторить тему и пройти ещё раз. ') +
     (d.homework ? (d.first ? 'Засчитано как домашнее задание — учитель видит результат.' : 'Это тренировочная попытка: в домашке уже засчитана первая.') + ' <a href="homework.html">← К домашке</a>' : d.saved ? 'Результат сохранён — учитель его увидит.' : role === 'teacher' ? 'Режим учителя: результат не сохраняется.' : 'Результат не сохранён: аккаунт ещё не привязан к журналу — напиши учителю.');
   s.scrollIntoView({behavior: 'smooth', block: 'start'}); go.hidden = true; again.hidden = false; form.querySelector('.qz-bar').style.position = 'static'; if (d.saved) history();
+  if (d.homework && HW) K.sb.rpc('edu_my_homework').then(function(h){ var l = (h.data || []).find(function(x){ return x.id === HW; });
+    if (l && l.homework && !(l.photos || []).length && !l.student_comment) s.innerHTML += '<p class="qz-todo" style="margin:10px 0 0;font-weight:800">В этой домашке есть ещё задачи из тетради: «' + K.esc(l.homework) + '». Сфотографируй решение и сдай его — <a href="homework.html#' + l.id + '">на странице «Домашка»</a>.</p>'; }, function(){});
 });
 again.addEventListener('click', function(){
   form.reset(); form.querySelectorAll('[data-q]').forEach(function(b){ b.classList.remove('ok', 'bad'); b.querySelector('.qz-res').hidden = true;
