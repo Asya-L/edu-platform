@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · урок 8. Перпендикуляр и наклонные. Теорема о трёх перпендикулярах</title>
+<script>document.documentElement.dataset.page="g8";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=783c6680"></script><script src="assets/auth.js?v=783c6680"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="п. 19–20 · расстояние от точки до плоскости, свойства наклонных, теорема о трёх перпендикулярах и обратная к ней">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry.html">Геометрия</a> · Урок 8</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · урок 8 · п. 19–20</div>
+  <h1>Перпендикуляр и наклонные. Теорема о трёх перпендикулярах</h1>
+  <p class="lede">п. 19–20 · расстояние от точки до плоскости, свойства наклонных, теорема о трёх перпендикулярах и обратная к ней</p>
+  <div class="btns">
+    <a class="btn" href="s8.html">▶ Презентация</a>
+    <a class="btn lime" href="ws8.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Перпендикуляр и наклонная</h3>
+<figure><img src="assets/fig/g2_naklonnye.png" alt="AH — перпендикуляр, AM и AN — наклонные, HM и HN — их проекции"><figcaption>AH — перпендикуляр, AM и AN — наклонные, HM и HN — их проекции</figcaption></figure>
+<p>Пусть точка <i>A</i> не лежит в плоскости <i>α</i>. Проведём через <i>A</i> прямую, перпендикулярную к <i>α</i> (она единственная, урок 7), и обозначим через <i>H</i> точку её пересечения с плоскостью.</p>
+<ul><li><b>Перпендикуляр</b> — отрезок <i>AH</i>; точка <i>H</i> — <b>основание перпендикуляра</b>.</li><li><b>Наклонная</b> — отрезок <i>AM</i>, где <i>M</i> — любая точка плоскости, отличная от <i>H</i>; <i>M</i> — <b>основание наклонной</b>.</li><li><b>Проекция наклонной</b> — отрезок <i>HM</i>, соединяющий основания перпендикуляра и наклонной.</li></ul>
+<p>Треугольник <i>AHM</i> прямоугольный (<i>AH</i> ⊥ <i>HM</i>, так как <i>AH</i> ⊥ <i>α</i>). Отсюда сразу три свойства — те же, что в планиметрии для перпендикуляра и наклонных:</p>
+<ol class="steps"><li>Перпендикуляр <b>короче</b> любой наклонной, проведённой из той же точки: <i>AH</i> &lt; <i>AM</i> (катет меньше гипотенузы).</li><li>Равные наклонные имеют равные проекции, и наоборот: <i>AM</i>² = <i>AH</i>² + <i>HM</i>².</li><li>Из двух наклонных больше та, у которой больше проекция, и наоборот.</li></ol>
+<div class="def"><span class="lbl">Расстояние от точки до плоскости</span><p>— это длина перпендикуляра, проведённого из точки к плоскости. Расстояние <b>меньше</b> длины любой наклонной.</p></div>
+<p>Через расстояние от точки до плоскости определяются и другие расстояния:</p>
+<ul><li>между <b>параллельными плоскостями</b> — расстояние от любой точки одной плоскости до другой (все такие расстояния равны);</li><li>между прямой и <b>параллельной ей плоскостью</b> — расстояние от любой точки прямой до плоскости;</li><li>между <b>скрещивающимися прямыми</b> — расстояние от одной из них до плоскости, проходящей через другую прямую параллельно первой. Оно равно длине <b>общего перпендикуляра</b> — отрезка с концами на прямых, перпендикулярного к обеим.</li></ul>
+<h3>Теорема о трёх перпендикулярах</h3>
+<div class="thm"><span class="lbl">Теорема</span><p>Прямая, проведённая в плоскости через основание наклонной перпендикулярно к её проекции на эту плоскость, перпендикулярна и к самой наклонной.</p></div>
+<figure><img src="assets/fig/g2_ttp.png" alt="AH ⊥ α, a лежит в α, a ⊥ HM ⟹ a ⊥ AM"><figcaption>AH ⊥ α, a лежит в α, a ⊥ HM ⟹ a ⊥ AM</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>AH</i> — перпендикуляр к плоскости <i>α</i>, <i>AM</i> — наклонная, <i>a</i> — прямая плоскости <i>α</i>, проходящая через <i>M</i>, причём <i>a</i> ⊥ <i>HM</i>.</p><p>Так как <i>AH</i> ⊥ <i>α</i>, то <i>a</i> ⊥ <i>AH</i>. Итак, прямая <i>a</i> перпендикулярна к двум пересекающимся прямым <i>HM</i> и <i>AH</i> плоскости <i>AHM</i>. По признаку <i>a</i> ⊥ (<i>AHM</i>), значит, <i>a</i> перпендикулярна любой прямой этой плоскости, в том числе <i>AM</i>. ∎</p></div>
+<div class="thm"><span class="lbl">Обратная теорема</span><p>Прямая, проведённая в плоскости через основание наклонной перпендикулярно к ней, перпендикулярна и к её проекции.</p></div>
+<p>Доказательство то же: <i>a</i> ⊥ <i>AM</i> и <i>a</i> ⊥ <i>AH</i> ⟹ <i>a</i> ⊥ (<i>AHM</i>) ⟹ <i>a</i> ⊥ <i>HM</i>.</p>
+<h2>Разбор примеров</h2>
+<figure><img src="assets/fig/g2_dist_line.png" alt="MA ⊥ (ABC), AK ⊥ BC ⟹ MK ⊥ BC"><figcaption>MA ⊥ (ABC), AK ⊥ BC ⟹ MK ⊥ BC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 1 · расстояние от точки до прямой</span><p>В треугольнике <i>ABC</i> <i>AB</i> = <i>AC</i> = 10, <i>BC</i> = 12. Отрезок <i>MA</i> перпендикулярен к плоскости <i>ABC</i>, <i>MA</i> = 6. Найдите расстояние от <i>M</i> до прямой <i>BC</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) Проведём высоту <i>AK</i> треугольника <i>ABC</i>: <i>K</i> — середина <i>BC</i>, <i>AK</i> = √(100 − 36) = 8.</p><p>2) <i>AK</i> — проекция наклонной <i>MK</i> на плоскость <i>ABC</i>, <i>BC</i> ⊥ <i>AK</i>. По теореме о трёх перпендикулярах <i>BC</i> ⊥ <i>MK</i>, значит, <i>MK</i> — искомое расстояние.</p><p>3) <i>MK</i> = √(36 + 64) = <b>10</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Частая ошибка — искать расстояние от <i>M</i> до <i>BC</i> как <i>MB</i> или <i>MC</i>. Расстояние — это <b>перпендикуляр</b>, и его основание надо сначала найти: проводим перпендикуляр в плоскости из основания <i>A</i> и пользуемся теоремой.</p></div>
+<div class="ex"><span class="lbl">Пример 2 · две наклонные</span><p>Из точки к плоскости проведены две наклонные длиной 10 и 17. Их проекции относятся как 2 : 5. Найдите расстояние от точки до плоскости.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Проекции 2<i>k</i> и 5<i>k</i>, расстояние <i>d</i>: <i>d</i>² = 100 − 4<i>k</i>² = 289 − 25<i>k</i>². Отсюда 21<i>k</i>² = 189, <i>k</i> = 3, проекции 6 и 15, <i>d</i> = √(100 − 36) = <b>8</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · равные наклонные</span><p>Точка <i>M</i> удалена от каждой вершины правильного треугольника со стороной 6 на 4. Найдите расстояние от <i>M</i> до плоскости треугольника.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Наклонные <i>MA</i>, <i>MB</i>, <i>MC</i> равны, значит, равны и их проекции: основание перпендикуляра <i>O</i> равноудалено от вершин — это центр треугольника, <i>OA</i> = 6/√3 = 2√3. <i>MO</i> = √(16 − 12) = <b>2</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Из точки к плоскости проведена наклонная длиной 10, её проекция равна 6. Найдите расстояние от точки до плоскости.</div><div class="task"><span class="task-no">№&nbsp;2</span>Из точки, удалённой от плоскости на 12, проведены наклонные длиной 13 и 20. Найдите их проекции.</div><div class="task"><span class="task-no">№&nbsp;3</span>Из точки к плоскости проведены две наклонные, одна на 2 длиннее другой. Их проекции равны 5 и 9. Найдите длины наклонных.</div><div class="task"><span class="task-no">№&nbsp;4</span>Отрезок <i>MA</i> перпендикулярен к плоскости квадрата <i>ABCD</i> со стороной 4, <i>MA</i> = 3. Найдите расстояние от <i>M</i> до прямой <i>CD</i>.</div><div class="task"><span class="task-no">№&nbsp;5</span>В условии задачи 4 найдите расстояние от <i>M</i> до прямой <i>BD</i>.</div><div class="task"><span class="task-no">№&nbsp;6</span>Ребро куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ равно 6. Найдите расстояние между скрещивающимися прямыми <i>AA</i>₁ и <i>BD</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Точка <i>M</i> удалена от каждой вершины квадрата со стороной 6 на 5. Найдите расстояние от <i>M</i> до плоскости квадрата.</div><div class="task"><span class="task-no">№&nbsp;8</span>В прямоугольном треугольнике <i>ABC</i> (∠<i>C</i> = 90°) <i>AC</i> = 8; отрезок <i>MA</i> перпендикулярен к плоскости треугольника, <i>MA</i> = 6. Найдите расстояние от <i>M</i> до прямой <i>BC</i>.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-g8a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 8</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Выучить теорему о трёх перпендикулярах и обратную; на чертеже к Д3 и Д4 отметить все три прямых угла.</p></div>
+<div class="task"><span class="task-no">Д1</span>Из точки, удалённой от плоскости на 9, проведена наклонная длиной 15. Найдите её проекцию.</div><div class="task"><span class="task-no">Д2</span>Из точки к плоскости проведены наклонные длиной 10 и 17, разность их проекций равна 9. Найдите расстояние от точки до плоскости.</div><div class="task"><span class="task-no">Д3</span>Отрезок <i>MA</i> перпендикулярен к плоскости прямоугольника <i>ABCD</i>, <i>AB</i> = 5, <i>AD</i> = 12, <i>MA</i> = 12. Найдите расстояния от <i>M</i> до прямых <i>BC</i> и <i>CD</i>.</div><div class="task"><span class="task-no">Д4</span>В треугольнике <i>ABC</i> <i>AB</i> = <i>AC</i> = 13, <i>BC</i> = 10. Отрезок <i>MA</i> перпендикулярен к его плоскости, <i>MA</i> = 9. Найдите расстояние от <i>M</i> до прямой <i>BC</i>.</div><div class="task"><span class="task-no">Д5</span>Точка <i>M</i> удалена от каждой вершины правильного треугольника со стороной 9 на 6. Найдите расстояние от <i>M</i> до плоскости треугольника.</div><div class="task"><span class="task-no">Д6</span>Ребро куба равно 4. Найдите расстояние между прямыми <i>AB</i> и <i>CC</i>₁.</div>
+<div class="pager"><a href="g7.html">← Урок 7</a><a href="g9.html">Урок 9 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

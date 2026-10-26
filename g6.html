@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · урок 6. Прямая, перпендикулярная к плоскости</title>
+<script>document.documentElement.dataset.page="g6";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=783c6680"></script><script src="assets/auth.js?v=783c6680"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="п. 15–16 · перпендикулярные прямые в пространстве, лемма, две теоремы о параллельности и перпендикулярности">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry.html">Геометрия</a> · Урок 6</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · урок 6 · п. 15–16</div>
+  <h1>Прямая, перпендикулярная к плоскости</h1>
+  <p class="lede">п. 15–16 · перпендикулярные прямые в пространстве, лемма, две теоремы о параллельности и перпендикулярности</p>
+  <div class="btns">
+    <a class="btn" href="s6.html">▶ Презентация</a>
+    <a class="btn lime" href="ws6.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Перпендикулярные прямые в пространстве</h3>
+<p>На уроке 3 мы ввели угол между любыми двумя прямыми — и пересекающимися, и скрещивающимися. Значит, слово «перпендикулярны» можно применять к любым прямым, у которых этот угол прямой.</p>
+<div class="def"><span class="lbl">Определение</span><p>Две прямые в пространстве называются <b>перпендикулярными</b>, если угол между ними равен 90°. Обозначение: <i>a</i> ⊥ <i>b</i>.</p><p>Перпендикулярные прямые могут <b>пересекаться</b> (как рёбра <i>AB</i> и <i>AD</i> куба) или <b>скрещиваться</b> (как рёбра <i>AA</i>₁ и <i>BC</i>).</p></div>
+<div class="thm"><span class="lbl">Лемма</span><p>Если одна из двух параллельных прямых перпендикулярна к третьей прямой, то и другая прямая перпендикулярна к этой прямой.</p></div>
+<figure><img src="assets/fig/g2_lemma.png" alt="a ∥ b, прямая c′ ∥ c проведена через точку M прямой a"><figcaption>a ∥ b, прямая c′ ∥ c проведена через точку M прямой a</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ∥ <i>b</i> и <i>a</i> ⊥ <i>c</i>. Возьмём на прямой <i>a</i> точку <i>M</i> и проведём через неё прямую <i>c</i>′ ∥ <i>c</i>.</p><p>Угол между <i>a</i> и <i>c</i> по определению — это угол между <i>a</i> и <i>c</i>′, он равен 90°.</p><p>Угол между <i>b</i> и <i>c</i> находится так же: проводим через какую-нибудь точку прямые, параллельные <i>b</i> и <i>c</i>. Возьмём точку <i>M</i>: прямая, параллельная <i>b</i>, — это <i>a</i> (через <i>M</i> проходит единственная прямая, параллельная <i>b</i>), а параллельная <i>c</i> — это <i>c</i>′. Получаем тот же прямой угол. Значит, <i>b</i> ⊥ <i>c</i>. ∎</p></div>
+<h3>Прямая, перпендикулярная к плоскости</h3>
+<div class="def"><span class="lbl">Определение</span><p>Прямая называется <b>перпендикулярной к плоскости</b>, если она перпендикулярна к <b>любой</b> прямой, лежащей в этой плоскости. Обозначение: <i>a</i> ⊥ <i>α</i>.</p></div>
+<figure><img src="assets/fig/g2_perp_def.png" alt="a ⊥ α: a перпендикулярна прямым b, c, m и любой другой прямой плоскости"><figcaption>a ⊥ α: a перпендикулярна прямым b, c, m и любой другой прямой плоскости</figcaption></figure>
+<p>Примеры из жизни: вертикальный столб и площадка, ножка стола и пол, линия отвеса и поверхность воды. Перпендикулярная к плоскости прямая обязательно её <b>пересекает</b>: если бы она лежала в плоскости или была ей параллельна, в плоскости нашлась бы прямая, параллельная ей, — а угол между параллельными прямыми равен 0°, а не 90°.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Определение требует перпендикулярности к <b>каждой</b> прямой плоскости, в том числе к тем, что не проходят через точку пересечения. Пока у нас нет признака, проверять это «по определению» неудобно — признак будет на следующем уроке. Сегодня пользуемся определением в обратную сторону: <b>если a ⊥ α, то a перпендикулярна любой прямой из α</b>. Это главный инструмент в задачах.</p></div>
+<div class="thm"><span class="lbl">Теорема 1</span><p>Если одна из двух параллельных прямых перпендикулярна к плоскости, то и другая прямая перпендикулярна к этой плоскости.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ∥ <i>a</i>₁ и <i>a</i> ⊥ <i>α</i>. Возьмём в плоскости <i>α</i> любую прямую <i>x</i>. Так как <i>a</i> ⊥ <i>α</i>, то <i>a</i> ⊥ <i>x</i>. По лемме параллельная прямая <i>a</i>₁ тоже перпендикулярна <i>x</i>. Прямая <i>x</i> была любой, значит, <i>a</i>₁ ⊥ <i>α</i>. ∎</p></div>
+<div class="thm"><span class="lbl">Теорема 2 (обратная)</span><p>Если две прямые перпендикулярны к плоскости, то они параллельны.</p></div>
+<figure><img src="assets/fig/g2_two_perp.png" alt="a ⊥ α и b ⊥ α ⟹ a ∥ b"><figcaption>a ⊥ α и b ⊥ α ⟹ a ∥ b</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ⊥ <i>α</i> и <i>b</i> ⊥ <i>α</i>, прямая <i>b</i> пересекает <i>α</i> в точке <i>B</i>. Проведём через <i>B</i> прямую <i>b</i>₁ ∥ <i>a</i>. По теореме 1 <i>b</i>₁ ⊥ <i>α</i>. Докажем, что <i>b</i>₁ совпадает с <i>b</i>.</p><p>Допустим, это не так. Тогда через пересекающиеся прямые <i>b</i> и <i>b</i>₁ проходит плоскость <i>β</i>; она пересекает <i>α</i> по прямой <i>c</i>. Обе прямые <i>b</i> и <i>b</i>₁ перпендикулярны к <i>c</i> (так как обе перпендикулярны к <i>α</i>), проходят через точку <i>B</i> и лежат в плоскости <i>β</i>. Но в плоскости через точку прямой можно провести только один перпендикуляр к ней. Противоречие. Значит, <i>b</i> = <i>b</i>₁, то есть <i>b</i> ∥ <i>a</i>. ∎</p></div>
+<h2>Разбор примеров</h2>
+<figure><img src="assets/fig/g2_cube_aa1.png" alt="В кубе: AA₁ ⊥ AB и AA₁ ⊥ AD, а BC ∥ AD"><figcaption>В кубе: AA₁ ⊥ AB и AA₁ ⊥ AD, а BC ∥ AD</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 1 · куб</span><p>Найдите угол между прямыми <i>AA</i>₁ и <i>BC</i> куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Прямые скрещиваются. <i>BC</i> ∥ <i>AD</i>, а <i>AA</i>₁ ⊥ <i>AD</i> (грань <i>AA</i>₁<i>D</i>₁<i>D</i> — квадрат). По лемме <i>AA</i>₁ ⊥ <i>BC</i>. Ответ: <b>90°</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · прямая к плоскости квадрата</span><p>Прямая <i>MA</i> перпендикулярна к плоскости квадрата <i>ABCD</i> со стороной 6, <i>MA</i> = 8. Найдите <i>MB</i> и <i>MC</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>MA</i> ⊥ (<i>ABC</i>), поэтому <i>MA</i> перпендикулярна любой прямой этой плоскости, в том числе <i>AB</i> и <i>AC</i>. Треугольники <i>MAB</i> и <i>MAC</i> прямоугольные с прямым углом при вершине <i>A</i>.</p><p><i>MB</i> = √(8² + 6²) = <b>10</b>. Диагональ квадрата <i>AC</i> = 6√2, <i>MC</i> = √(64 + 72) = √136 = <b>2√34</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · две перпендикулярные прямые</span><p>Прямые <i>a</i> и <i>b</i> перпендикулярны к плоскости <i>α</i> и пересекают её в точках <i>A</i> и <i>B</i>, <i>AB</i> = 4. На <i>a</i> взята точка <i>M</i>, на <i>b</i> — точка <i>N</i> по ту же сторону от <i>α</i>, <i>AM</i> = 5, <i>BN</i> = 2. Найдите <i>MN</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>По теореме 2 <i>a</i> ∥ <i>b</i>, значит, точки <i>A</i>, <i>B</i>, <i>N</i>, <i>M</i> лежат в одной плоскости и <i>ABNM</i> — прямоугольная трапеция (<i>MA</i> ⊥ <i>AB</i>, <i>NB</i> ⊥ <i>AB</i>). Опустим из <i>N</i> перпендикуляр на <i>MA</i>: катеты 4 и 5 − 2 = 3. <i>MN</i> = √(16 + 9) = <b>5</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если точки <i>M</i> и <i>N</i> лежат по <b>разные</b> стороны от плоскости, второй катет — не разность, а <b>сумма</b>: 5 + 2 = 7, и <i>MN</i> = √(16 + 49) = √65. Всегда уточняйте по условию, где лежат точки.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Сколько рёбер куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ перпендикулярны прямой <i>AA</i>₁?</div><div class="task"><span class="task-no">№&nbsp;2</span>Найдите угол между прямыми куба: а) <i>AB</i> и <i>CC</i>₁; б) <i>A</i>₁<i>D</i> и <i>BC</i>; в) <i>AB</i>₁ и <i>CD</i>₁.</div><div class="task"><span class="task-no">№&nbsp;3</span>Прямая <i>AK</i> перпендикулярна к плоскости прямоугольника <i>ABCD</i>, <i>AB</i> = 3, <i>AD</i> = 4, <i>AK</i> = 12. Найдите <i>KC</i>.</div><div class="task"><span class="task-no">№&nbsp;4</span>В тетраэдре <i>DABC</i> ребро <i>DA</i> перпендикулярно к плоскости <i>ABC</i>, <i>DA</i> = <i>AB</i> = <i>AC</i> = 6, ∠<i>BAC</i> = 90°. Найдите периметр треугольника <i>DBC</i>.</div><div class="task"><span class="task-no">№&nbsp;5</span>Прямые <i>a</i> и <i>b</i> перпендикулярны к плоскости <i>α</i> и пересекают её в точках <i>A</i> и <i>B</i>, <i>AB</i> = 8. Точки <i>M</i> ∈ <i>a</i> и <i>N</i> ∈ <i>b</i> лежат по одну сторону от <i>α</i>, <i>AM</i> = 9, <i>BN</i> = 3. Найдите <i>MN</i>.</div><div class="task"><span class="task-no">№&nbsp;6</span>В условии задачи 5 точки <i>M</i> и <i>N</i> лежат по разные стороны от <i>α</i>. Найдите <i>MN</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Прямая <i>MO</i> перпендикулярна к плоскости квадрата <i>ABCD</i>, <i>O</i> — точка пересечения диагоналей, сторона квадрата 4, <i>MO</i> = 1. Найдите <i>MA</i>.</div><div class="task"><span class="task-no">№&nbsp;8</span>Прямая <i>a</i> перпендикулярна к плоскости <i>α</i>, прямая <i>b</i> лежит в <i>α</i>. Могут ли <i>a</i> и <i>b</i> быть скрещивающимися? Каков угол между ними?</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-g6a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 6</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — чертёж. Выучить определения и формулировки леммы, теорем 1 и 2; доказательство теоремы 2 — рассказать устно.</p></div>
+<div class="task"><span class="task-no">Д1</span>В кубе <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ найдите угол между прямыми <i>BB</i>₁ и <i>AD</i>, а также между <i>BC</i>₁ и <i>AD</i>.</div><div class="task"><span class="task-no">Д2</span>Прямая <i>MA</i> перпендикулярна к плоскости квадрата <i>ABCD</i>, <i>MA</i> = 5, сторона квадрата 12. Найдите <i>MB</i>.</div><div class="task"><span class="task-no">Д3</span>Прямая <i>DA</i> перпендикулярна к плоскости прямоугольного треугольника <i>ABC</i> (∠<i>C</i> = 90°), <i>AC</i> = 4, <i>BC</i> = 3, <i>DA</i> = 12. Найдите <i>DB</i>.</div><div class="task"><span class="task-no">Д4</span>Прямые <i>a</i> и <i>b</i> перпендикулярны к плоскости <i>α</i> и пересекают её в точках <i>A</i> и <i>B</i>, <i>AB</i> = 12. Точки <i>M</i> ∈ <i>a</i>, <i>N</i> ∈ <i>b</i> лежат по одну сторону от <i>α</i>, <i>AM</i> = 7, <i>BN</i> = 2. Найдите <i>MN</i>.</div><div class="task"><span class="task-no">Д5</span>Докажите, что если прямая <i>a</i> перпендикулярна к плоскости <i>α</i>, а прямая <i>b</i> параллельна <i>a</i>, то <i>b</i> перпендикулярна любой прямой плоскости <i>α</i>.</div><div class="task"><span class="task-no">Д6</span>Прямая <i>SO</i> перпендикулярна к плоскости правильного треугольника <i>ABC</i> со стороной 6, <i>O</i> — его центр, <i>SO</i> = 2. Найдите <i>SA</i>.</div>
+<div class="pager"><a href="g5.html">← Урок 5 · глава I</a><a href="g7.html">Урок 7 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
