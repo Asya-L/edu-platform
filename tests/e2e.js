@@ -87,7 +87,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     const refs = await p.evaluate(() => [...document.querySelectorAll('#tview a[href], #tview img[src]')].map(e => e.getAttribute('href') || e.getAttribute('src'))
       .filter(h => h && !/^(https?:|mailto:|#|t\.html|javascript:)/.test(h)).map(h => h.split('#')[0]).filter(Boolean));
     const TF = await p.evaluate(() => window.KABINET && 1);
-    for (const r of new Set(refs)) { const target = /^files\/(ws[ae]?\d+-teacher|test-|geo-solutions|geo-drawings|ege-lecture-1)/.test(r) ? 't/' + r + '.bin' : r;
+    for (const r of new Set(refs)) { const target = /^files\/(ws(?:a|e|ma|mg)?\d+-teacher|test-|geo-solutions|geo-drawings|ege-lecture-1)/.test(r) ? 't/' + r + '.bin' : r;
       const st = await p.evaluate(async (u) => (await fetch(u, {method:'HEAD'})).status, target); if (st !== 200) tBroken.add(n + ': ' + r + ' ' + st); } }
   await p.setViewportSize({width: 1280, height: 860});
   rec('ENC-01', !encFail.length, encFail.join(', ') || TEACHER_PAGES.length + ' страниц');
@@ -170,7 +170,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
   await go('index.html', 1200); const home = (await p.textContent('#hwBox')) || ''; const me = (await p.textContent('#meBox')) || '';
   const callHref = await p.getAttribute('#meBox a.btn', 'href').catch(() => null);
   rec('ST-01', me.includes('Следующее занятие') && me.includes('18:00') && me.includes('послезавтра') && callHref === 'https://example.test/call/abc', me.slice(0, 90));
-  rec('ST-02', me.includes('Мой прогресс') && me.includes('в работе 3') && me.includes('0 из 64 тем освоено'), (me.match(/\d+ из \d+ тем освоено/) || [''])[0]);
+  rec('ST-02', me.includes('Мой прогресс') && me.includes('в работе 3') && /0 из \d+ тем освоено/.test(me), (me.match(/\d+ из \d+ тем освоено/) || [''])[0]);
   await go('homework.html', 1200); const hwAll = (await p.textContent('#hwBox')) || ''; const html = await p.content();
   rec('HW-01', home.includes('Рабочий лист 3') && hwAll.includes('№ 18, 23, 27, 30') && hwAll.includes('Урок 2'), 'на главной последнее, в «Домашке» оба');
   const raw = await p.evaluate(async () => (await window.KABINET.sb.rpc('edu_my_homework')).data);

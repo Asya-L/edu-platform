@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 7. Обратная функция</title>
+<script>document.documentElement.dataset.page="ma7";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3c30cd67"></script><script src="assets/auth.js?v=3c30cd67"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 7 · обратимые функции, взаимно обратные функции, симметрия графиков относительно y = x">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 7</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 7</div>
+  <h1>Обратная функция</h1>
+  <p class="lede">§ 7 · обратимые функции, взаимно обратные функции, симметрия графиков относительно y = x</p>
+  <div class="btns">
+    <a class="btn" href="sma7.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma7.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Обратимая функция</h3>
+<p>Функция по каждому <i>x</i> находит <i>y</i>. А можно ли «повернуть назад» — по значению <i>y</i> однозначно узнать, из какого <i>x</i> оно получилось? Для <i>y</i> = 2<i>x</i> + 1 можно: <i>y</i> = 7 только при <i>x</i> = 3. Для <i>y</i> = <i>x</i>² нельзя: <i>y</i> = 4 и при <i>x</i> = 2, и при <i>x</i> = −2.</p>
+<div class="def"><span class="lbl">Определение</span><p>Функцию <i>y</i> = <i>f</i>(<i>x</i>) называют <b>обратимой</b>, если для любого <i>y</i>₀ ∈ <i>E</i>(<i>f</i>) существует <b>единственное</b> <i>x</i>₀ ∈ <i>D</i>(<i>f</i>), такое, что <i>y</i>₀ = <i>f</i>(<i>x</i>₀).</p></div>
+<p>Иначе говоря, обратимая функция каждое своё значение принимает ровно один раз. На графике это видно сразу: <b>любая горизонтальная прямая пересекает график обратимой функции не более чем в одной точке</b>.</p>
+<div class="figrow"><figure><img src="assets/fig/mal7_yes.png" alt="каждая горизонтальная прямая — не больше одной точки"><figcaption>каждая горизонтальная прямая — не больше одной точки</figcaption></figure><figure><img src="assets/fig/mal7_no.png" alt="прямая y = 4 пересекает в двух точках"><figcaption>прямая y = 4 пересекает в двух точках</figcaption></figure></div>
+<div class="thm"><span class="lbl">Теорема 7.1</span><p>Если функция возрастающая (убывающая), то она обратима.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>y</i> = <i>f</i>(<i>x</i>) возрастает, а какое-то значение принимается дважды: <i>f</i>(<i>x</i>₁) = <i>f</i>(<i>x</i>₂), где <i>x</i>₁ &lt; <i>x</i>₂. Но для возрастающей функции из <i>x</i>₁ &lt; <i>x</i>₂ следует <i>f</i>(<i>x</i>₁) &lt; <i>f</i>(<i>x</i>₂) — противоречие. Для убывающей — так же.</p></div>
+<p>Обратная теорема неверна: обратимая функция не обязана быть монотонной. Пример — <i>y</i> = 1/<i>x</i>: каждое значение она принимает один раз, но на всей области определения не возрастает и не убывает (−1 &lt; 1, а 1/(−1) = −1 &lt; 1/1 = 1, хотя на каждом промежутке функция убывает).</p>
+<figure><img src="assets/fig/mal7_recip.png" alt="y = 1/x обратима, но не монотонна на D"><figcaption>y = 1/x обратима, но не монотонна на D</figcaption></figure>
+<h3>Взаимно обратные функции</h3>
+<p>Пусть функция <i>f</i> задана таблицей: <i>f</i>(5) = √5, <i>f</i>(6) = √6, <i>f</i>(7) = √7. Поменяем строки таблицы местами — получим функцию <i>g</i>: <i>g</i>(√5) = 5, <i>g</i>(√6) = 6, <i>g</i>(√7) = 7. Функция <i>g</i> «отменяет» действие <i>f</i>: <i>g</i>(<i>f</i>(<i>x</i>)) = <i>x</i>.</p>
+<div class="def"><span class="lbl">Определение</span><p>Функции <i>f</i> и <i>g</i> называют <b>взаимно обратными</b>, если: 1) <i>D</i>(<i>f</i>) = <i>E</i>(<i>g</i>) и <i>E</i>(<i>f</i>) = <i>D</i>(<i>g</i>); 2) для любого <i>x</i>₀ ∈ <i>D</i>(<i>f</i>) из <i>f</i>(<i>x</i>₀) = <i>y</i>₀ следует <i>g</i>(<i>y</i>₀) = <i>x</i>₀, то есть <i>g</i>(<i>f</i>(<i>x</i>₀)) = <i>x</i>₀.</p></div>
+<p>Говорят, что <i>g</i> — функция, <b>обратная</b> к <i>f</i>. Обратная функция есть только у обратимой функции, и у каждой обратимой она есть.</p>
+<h3>Как найти обратную функцию</h3>
+<ol class="steps"><li>Убедиться, что функция обратима (например, монотонна) — при необходимости сузить область определения.</li><li>Выразить <i>x</i> через <i>y</i> из равенства <i>y</i> = <i>f</i>(<i>x</i>).</li><li>Поменять обозначения: аргумент снова назвать <i>x</i>, значение — <i>y</i>.</li><li>Записать область определения обратной функции: <i>D</i>(<i>g</i>) = <i>E</i>(<i>f</i>).</li></ol>
+<div class="ex"><span class="lbl">Пример 1 · линейная функция</span><p>Найди функцию, обратную к <i>y</i> = 2<i>x</i> + 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Функция возрастает — значит, обратима. Выражаем <i>x</i>: 2<i>x</i> = <i>y</i> − 1, <i>x</i> = (<i>y</i> − 1)/2. Меняем обозначения: <b><i>y</i> = (<i>x</i> − 1)/2</b>.</p><p>Проверка: <i>g</i>(<i>f</i>(<i>x</i>)) = ((2<i>x</i> + 1) − 1)/2 = <i>x</i>. Верно.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · дробь</span><p>Найди функцию, обратную к <i>y</i> = 1/(<i>x</i> − 2).</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>D</i>(<i>f</i>): <i>x</i> ≠ 2; <i>E</i>(<i>f</i>): <i>y</i> ≠ 0 (дробь с числителем 1 нулю не равна). Каждое значение принимается один раз: из 1/(<i>x</i> − 2) = <i>y</i>₀ однозначно <i>x</i> = 2 + 1/<i>y</i>₀.</p><p>Меняем обозначения: <b><i>y</i> = 2 + 1/<i>x</i></b>, <i>x</i> ≠ 0. Её область значений <i>y</i> ≠ 2 — совпадает с <i>D</i>(<i>f</i>), как и требует определение.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · сужаем область определения</span><p>Найди функцию, обратную к <i>y</i> = <i>x</i>² − 1, <i>x</i> ≥ 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>На всей прямой <i>x</i>² − 1 не обратима, а на [0; +∞) она возрастает — обратима. <i>E</i>(<i>f</i>) = [−1; +∞).</p><p><i>x</i>² = <i>y</i> + 1, и так как <i>x</i> ≥ 0, то <i>x</i> = √(<i>y</i> + 1) (не «±»!). Ответ: <b><i>y</i> = √(<i>x</i> + 1)</b>, <i>D</i> = [−1; +∞).</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>При извлечении корня смотри на ограничение <i>x</i> ≥ 0 или <i>x</i> ≤ 0. Для <i>y</i> = <i>x</i>², <i>x</i> ≤ 0, обратная — <i>y</i> = <b>−</b>√<i>x</i>, а не √<i>x</i>.</p></div>
+<h3>Графики взаимно обратных функций</h3>
+<div class="thm"><span class="lbl">Теорема 7.2</span><p>Графики взаимно обратных функций симметричны относительно прямой <i>y</i> = <i>x</i>.</p></div>
+<p>Почему: если точка <i>M</i>(<i>a</i>; <i>b</i>) лежит на графике <i>f</i>, то <i>f</i>(<i>a</i>) = <i>b</i>, значит, <i>g</i>(<i>b</i>) = <i>a</i>, и точка <i>N</i>(<i>b</i>; <i>a</i>) лежит на графике <i>g</i>. А точки (<i>a</i>; <i>b</i>) и (<i>b</i>; <i>a</i>) симметричны относительно прямой <i>y</i> = <i>x</i>: эта прямая — серединный перпендикуляр отрезка <i>MN</i>.</p>
+<div class="figrow"><figure><img src="assets/fig/mal7_sym.png" alt="y = 2x + 1 и y = (x − 1)/2"><figcaption>y = 2x + 1 и y = (x − 1)/2</figcaption></figure><figure><img src="assets/fig/mal7_sqrt.png" alt="y = x² − 1 (x ≥ 0) и y = √(x + 1)"><figcaption>y = x² − 1 (x ≥ 0) и y = √(x + 1)</figcaption></figure></div>
+<div class="thm"><span class="lbl">Теоремы 7.3 и 7.4</span><p>Если <i>f</i> возрастает (убывает), то и обратная функция <i>g</i> возрастает (убывает). Общие точки графиков <b>возрастающих</b> взаимно обратных функций лежат на прямой <i>y</i> = <i>x</i>. Поэтому уравнение <i>f</i>(<i>x</i>) = <i>g</i>(<i>x</i>) для них равносильно уравнению <i>f</i>(<i>x</i>) = <i>x</i>.</p></div>
+<div class="ex"><span class="lbl">Пример 4 · уравнение</span><p>Реши уравнение √(√<i>x</i> + 2) = <i>x</i> − 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Заменим √<i>x</i> = <i>t</i>, <i>t</i> ≥ 0; тогда <i>x</i> = <i>t</i>², и уравнение принимает вид √(<i>t</i> + 2) = <i>t</i>² − 2.</p><p>Функции <i>f</i>(<i>t</i>) = <i>t</i>² − 2 на [0; +∞) и <i>g</i>(<i>t</i>) = √(<i>t</i> + 2) взаимно обратные (проверь: из <i>y</i> = <i>t</i>² − 2, <i>t</i> ≥ 0, получаем <i>t</i> = √(<i>y</i> + 2)) и обе возрастают. Значит, уравнение равносильно <i>t</i>² − 2 = <i>t</i>, то есть <i>t</i>² − <i>t</i> − 2 = 0, <i>t</i> = 2 или <i>t</i> = −1. Условию <i>t</i> ≥ 0 отвечает <i>t</i> = 2.</p><p>√<i>x</i> = 2, <b><i>x</i> = 4</b>. Проверка: √(√4 + 2) = √4 = 2 и 4 − 2 = 2.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Теорема 7.4 требует <b>возрастания</b>. Функция <i>y</i> = −<i>x</i> обратна сама себе и убывает: графики <i>f</i> и <i>g</i> здесь совпадают, и их общие точки, например (1; −1), не лежат на прямой <i>y</i> = <i>x</i>.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Какие функции обратимы: а) <i>y</i> = 5 − 3<i>x</i>; б) <i>y</i> = <i>x</i>² − 4<i>x</i>; в) <i>y</i> = √(<i>x</i> − 1); г) <i>y</i> = |<i>x</i> − 2|?</div><div class="task"><span class="task-no">№&nbsp;2</span>Найди функцию, обратную к <i>y</i> = 4<i>x</i> − 1.</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди функцию, обратную к <i>y</i> = 2/(<i>x</i> + 1).</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди функцию, обратную к <i>y</i> = √(<i>x</i> − 3).</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди функцию, обратную к <i>y</i> = <i>x</i>², <i>x</i> ≤ 0.</div><div class="task"><span class="task-no">№&nbsp;6</span><i>f</i>(<i>x</i>) = <i>x</i>³ + <i>x</i>, <i>g</i> — обратная к <i>f</i>. Найди <i>g</i>(2) и <i>g</i>(10), не находя формулу для <i>g</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Точка (3; −1) лежит на графике обратимой функции <i>f</i>. Какая точка обязательно лежит на графике обратной функции?</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши уравнение √(√<i>x</i> + 6) = <i>x</i> − 6.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 7.1</b> — Доказать, что функция не является обратимой.</li><li><b>№ 7.2, 7.3</b> — Доказать, что функции взаимно обратные.</li><li><b>№ 7.4, 7.5</b> — Найти функцию, обратную к данной.</li><li><b>№ 7.6, 7.7</b> — Обратная функция с ограничением области определения.</li><li><b>№ 7.8</b> — Графики функции и обратной к ней в одной системе координат.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma7a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 7</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 7.3, 7.5, 7.7, 7.9 из учебника письменно. В № 7.9 обязательно провести прямую y = x и проверить симметрию графиков по двум-трём точкам.</p></div>
+<div class="pager"><a href="ma6.html">← Урок 6</a><a href="ma8.html">Урок 8 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

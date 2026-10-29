@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 5. Параллельность прямой и плоскости</title>
+<script>document.documentElement.dataset.page="mg5";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3c30cd67"></script><script src="assets/auth.js?v=3c30cd67"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 5 · определение, признак (теорема 5.1), теоремы 5.2–5.4, сечения, параллельные данной прямой">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 5</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 5</div>
+  <h1>Параллельность прямой и плоскости</h1>
+  <p class="lede">§ 5 · определение, признак (теорема 5.1), теоремы 5.2–5.4, сечения, параллельные данной прямой</p>
+  <div class="btns">
+    <a class="btn" href="smg5.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg5.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Три случая для прямой и плоскости</h3>
+<p>Прямая и плоскость могут располагаться тремя способами:</p>
+<ul><li>прямая <b>лежит</b> в плоскости — все её точки принадлежат плоскости;</li><li>прямая <b>пересекает</b> плоскость — ровно одна общая точка;</li><li>прямая и плоскость <b>не имеют общих точек</b>.</li></ul>
+<p>Других вариантов нет: две общие точки уже «затягивают» прямую в плоскость (аксиома А4).</p>
+<div class="def"><span class="lbl">Определение</span><p>Прямую и плоскость называют <b>параллельными</b>, если они не имеют общих точек. Обозначение: <i>a</i> ∥ <i>α</i>.</p></div>
+<figure><img src="assets/fig/mg5_cube.png" alt="Прямая A₁B₁ параллельна плоскости ABC"><figcaption>Прямая A₁B₁ параллельна плоскости ABC</figcaption></figure>
+<p>Примеры: перекладина турника и пол, водосточная труба и стена дома, верхнее ребро <i>A</i>₁<i>B</i>₁ куба и плоскость нижней грани. Отрезок называют параллельным плоскости, если он лежит на прямой, параллельной этой плоскости.</p>
+<h3>Признак параллельности прямой и плоскости</h3>
+<p>Проверить по определению, что у прямой и плоскости нет ни одной общей точки, трудно — плоскость бесконечна. Поэтому нужен признак.</p>
+<div class="thm"><span class="lbl">Теорема 5.1 (признак)</span><p>Если прямая, не принадлежащая плоскости, параллельна какой-нибудь прямой, лежащей в этой плоскости, то она параллельна и самой плоскости.</p></div>
+<figure><img src="assets/fig/mg5_priznak.png" alt="a ⊄ α, b ⊂ α, a ∥ b ⟹ a ∥ α"><figcaption>a ⊄ α, b ⊂ α, a ∥ b ⟹ a ∥ α</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ⊄ <i>α</i>, <i>b</i> ⊂ <i>α</i>, <i>a</i> ∥ <i>b</i>. Допустим, <i>a</i> всё-таки пересекает <i>α</i> в точке <i>M</i>. Возможны два случая.</p><p>1) <i>M</i> ∈ <i>b</i>. Тогда у <i>a</i> и <i>b</i> есть общая точка — они пересекаются, а не параллельны.</p><p>2) <i>M</i> ∉ <i>b</i>. Тогда <i>b</i> лежит в <i>α</i>, а <i>a</i> пересекает <i>α</i> в точке вне <i>b</i> — по признаку 4.3 прямые скрещиваются, а не параллельны.</p><p>Оба случая противоречат условию. Значит, общих точек нет: <i>a</i> ∥ <i>α</i>. ∎</p></div>
+<p>Пример: в кубе <i>A</i>₁<i>B</i>₁ ∥ <i>AB</i> (противоположные стороны квадрата <i>ABB</i>₁<i>A</i>₁), а <i>AB</i> лежит в плоскости <i>ABC</i>. Значит, <i>A</i>₁<i>B</i>₁ ∥ (<i>ABC</i>).</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не забывай условие «прямая <b>не лежит</b> в плоскости». Прямая <i>AB</i> параллельна <i>DC</i>, но плоскости <i>ABC</i> она не параллельна — она в ней лежит.</p></div>
+<h3>Как параллельность прямой и плоскости даёт параллельные прямые</h3>
+<div class="thm"><span class="lbl">Теорема 5.2</span><p>Если плоскость проходит через данную прямую, параллельную другой плоскости, и пересекает эту плоскость, то прямая пересечения плоскостей параллельна данной прямой.</p></div>
+<figure><img src="assets/fig/mg5_t52.png" alt="a ∥ α, a ⊂ β, β ∩ α = b ⟹ a ∥ b"><figcaption>a ∥ α, a ⊂ β, β ∩ α = b ⟹ a ∥ b</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ∥ <i>α</i>, <i>a</i> ⊂ <i>β</i>, <i>β</i> ∩ <i>α</i> = <i>b</i>. Прямые <i>a</i> и <i>b</i> лежат в одной плоскости <i>β</i>, значит, они либо пересекаются, либо параллельны. Если бы они пересекались, то общая точка лежала бы на <i>b</i> ⊂ <i>α</i> — прямая <i>a</i> имела бы общую точку с <i>α</i>. Но <i>a</i> ∥ <i>α</i>. Значит, <i>a</i> ∥ <i>b</i>. ∎</p></div>
+<p>Это главный инструмент для сечений: <b>если секущая плоскость проходит через прямую, параллельную грани, то она режет грань по прямой, параллельной этой прямой</b>.</p>
+<div class="thm"><span class="lbl">Следствие</span><p>Если прямая параллельна плоскости, то в этой плоскости есть прямая, параллельная данной.</p></div>
+<p>Возьми любую точку <i>M</i> ∈ <i>α</i> и проведи плоскость через прямую <i>a</i> и <i>M</i> (теорема 2.1). Она пересекает <i>α</i> по прямой через <i>M</i>, и по теореме 5.2 эта прямая параллельна <i>a</i>.</p>
+<div class="thm"><span class="lbl">Теорема 5.3</span><p>Если через каждую из двух параллельных прямых проведена плоскость, причём эти плоскости пересекаются по прямой, отличной от данных, то эта прямая параллельна каждой из данных прямых.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ∥ <i>b</i>, <i>a</i> ⊂ <i>α</i>, <i>b</i> ⊂ <i>β</i>, <i>α</i> ∩ <i>β</i> = <i>c</i>. Прямая <i>a</i> не лежит в <i>β</i> (иначе она совпала бы с <i>c</i>) и параллельна прямой <i>b</i> из <i>β</i>, поэтому <i>a</i> ∥ <i>β</i> (признак 5.1). Плоскость <i>α</i> проходит через <i>a</i> и пересекает <i>β</i> по <i>c</i> — по теореме 5.2 <i>a</i> ∥ <i>c</i>. Так же <i>b</i> ∥ <i>c</i>. ∎</p></div>
+<div class="thm"><span class="lbl">Теорема 5.4</span><p>Две прямые, параллельные третьей прямой, параллельны между собой.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ∥ <i>c</i> и <i>b</i> ∥ <i>c</i>. Если все три прямые в одной плоскости — это планиметрия. Иначе возьмём точку <i>M</i> ∈ <i>a</i>, проведём плоскость <i>α</i> через <i>b</i> и <i>M</i>, плоскость <i>β</i> через <i>c</i> и <i>M</i>. Они пересекаются по прямой <i>a</i>₁ через <i>M</i>. По теореме 5.3 (для параллельных <i>b</i> и <i>c</i>) <i>a</i>₁ ∥ <i>b</i> и <i>a</i>₁ ∥ <i>c</i>. Через <i>M</i> проходят <i>a</i> ∥ <i>c</i> и <i>a</i>₁ ∥ <i>c</i> — по теореме 4.2 это одна прямая. Значит, <i>a</i> ∥ <i>b</i>. ∎</p></div>
+<p>В планиметрии это было очевидно, а в пространстве потребовало доказательства. Зато теперь можно смело говорить: «<i>AB</i> ∥ <i>MN</i> и <i>MN</i> ∥ <i>KP</i>, значит, <i>AB</i> ∥ <i>KP</i>» — даже если прямые лежат в разных гранях.</p>
+<div class="thm"><span class="lbl">Ключевая задача</span><p>Если прямая параллельна каждой из двух пересекающихся плоскостей, то она параллельна прямой их пересечения.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · какие грани параллельны ребру</span><p>Плоскостям каких граней куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ параллельна прямая <i>A</i>₁<i>B</i>₁?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Прямая <i>A</i>₁<i>B</i>₁ лежит в гранях <i>AA</i>₁<i>B</i>₁<i>B</i> и <i>A</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ и пересекает плоскости граней <i>AA</i>₁<i>D</i>₁<i>D</i> и <i>BB</i>₁<i>C</i>₁<i>C</i> (в точках <i>A</i>₁ и <i>B</i>₁). Остаются две грани: <i>ABCD</i> (<i>A</i>₁<i>B</i>₁ ∥ <i>AB</i>) и <i>DD</i>₁<i>C</i>₁<i>C</i> (<i>A</i>₁<i>B</i>₁ ∥ <i>D</i>₁<i>C</i>₁). По признаку 5.1 — <b>2 грани</b>.</p></div></div>
+<figure><img src="assets/fig/mg5_tri.png" alt="Плоскость α ∥ AC пересекает стороны AB и BC; A₁C₁ ∥ AC"><figcaption>Плоскость α ∥ AC пересекает стороны AB и BC; A₁C₁ ∥ AC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 2 · плоскость, параллельная стороне треугольника</span><p>Плоскость <i>α</i>, параллельная стороне <i>AC</i> треугольника <i>ABC</i>, пересекает стороны <i>AB</i> и <i>BC</i> в точках <i>A</i>₁ и <i>C</i>₁. <i>BA</i>₁ : <i>BA</i> = 2 : 5, <i>AC</i> = 15. Найдите <i>A</i>₁<i>C</i>₁.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Плоскость треугольника проходит через прямую <i>AC</i>, параллельную <i>α</i>, и пересекает <i>α</i> по прямой <i>A</i>₁<i>C</i>₁. По теореме 5.2 <i>A</i>₁<i>C</i>₁ ∥ <i>AC</i>.</p><p>Дальше планиметрия: △<i>A</i>₁<i>BC</i>₁ ∼ △<i>ABC</i>, <i>A</i>₁<i>C</i>₁ = 15 · 2/5 = <b>6</b>.</p></div></div>
+<figure><img src="assets/fig/mg5_tet.png" alt="Сечение через середину M ребра DA параллельно AB и DC"><figcaption>Сечение через середину M ребра DA параллельно AB и DC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 3 · сечение, параллельное двум рёбрам</span><p>Все рёбра тетраэдра <i>DABC</i> равны 8. Постройте сечение плоскостью, проходящей через середину <i>M</i> ребра <i>DA</i> параллельно прямым <i>AB</i> и <i>DC</i>, и найдите его периметр.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) Секущая плоскость параллельна <i>AB</i> и пересекает грань <i>DAB</i> по прямой через <i>M</i>, параллельной <i>AB</i> (теорема 5.2). Это средняя линия: она приходит в середину <i>N</i> ребра <i>DB</i>.</p><p>2) Так же в грани <i>DAC</i>: через <i>M</i> прямая ∥ <i>DC</i> — средняя линия <i>MP</i>, <i>P</i> — середина <i>AC</i>. В грани <i>DBC</i>: через <i>N</i> прямая ∥ <i>DC</i> приходит в середину <i>Q</i> ребра <i>BC</i>.</p><p>3) Сечение — <i>MNQP</i>. Все его стороны — средние линии: <i>MN</i> = <i>PQ</i> = <i>AB</i>/2 = 4, <i>MP</i> = <i>NQ</i> = <i>DC</i>/2 = 4 (и <i>MN</i> ∥ <i>PQ</i> по теореме 5.4 — это параллелограмм). Периметр <b>16</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Секущую плоскость, «параллельную прямой», нельзя строить «на глаз». Всегда ищи грань, через которую проходит эта прямая (или параллельную ей), и проводи в ней параллельную прямую — это и есть след по теореме 5.2.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Плоскостям каких граней куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ параллельна прямая <i>AA</i>₁?</div><div class="task"><span class="task-no">№&nbsp;2</span>Плоскостям каких граней куба параллельна прямая <i>AC</i>?</div><div class="task"><span class="task-no">№&nbsp;3</span>Плоскость, параллельная стороне <i>AB</i> треугольника <i>ABC</i>, пересекает <i>AC</i> и <i>BC</i> в точках <i>M</i> и <i>N</i>, <i>CM</i> : <i>MA</i> = 3 : 2, <i>AB</i> = 20. Найди <i>MN</i>.</div><div class="task"><span class="task-no">№&nbsp;4</span>В условии задачи 3: <i>MN</i> = 6, <i>AB</i> = 15, <i>CN</i> = 4. Найди <i>CB</i>.</div><div class="task"><span class="task-no">№&nbsp;5</span>Все рёбра тетраэдра <i>DABC</i> равны 6. Построй сечение, проходящее через середину ребра <i>AB</i> параллельно прямым <i>AD</i> и <i>BC</i>. Найди его периметр.</div><div class="task"><span class="task-no">№&nbsp;6</span>В тетраэдре <i>DABC</i> <i>DA</i> = 10, <i>BC</i> = 14. Найди периметр сечения, проходящего через середину ребра <i>AB</i> параллельно прямым <i>DA</i> и <i>BC</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Прямая <i>a</i> параллельна плоскости <i>α</i>. Верно ли, что <i>a</i> параллельна любой прямой этой плоскости?</div><div class="task"><span class="task-no">№&nbsp;8</span>Прямые <i>a</i> и <i>b</i> параллельны, <i>a</i> ∥ <i>α</i>, прямая <i>b</i> не лежит в <i>α</i>. Докажи, что <i>b</i> ∥ <i>α</i>.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg5a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 5</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — рисунок. Из учебника: № 5.2, 5.9, 5.13, 5.20. Выучить признак 5.1 и теорему 5.2 с доказательствами; формулировки теорем 5.3, 5.4.</p></div>
+<div class="task"><span class="task-no">Д1</span>Плоскостям каких граней куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ параллельна прямая <i>B</i>₁<i>C</i>₁?</div><div class="task"><span class="task-no">Д2</span>Плоскость, параллельная стороне <i>AC</i> треугольника <i>ABC</i>, проходит через точку <i>K</i> стороны <i>AB</i>, <i>BK</i> : <i>KA</i> = 3 : 1, и пересекает <i>BC</i> в точке <i>L</i>. <i>AC</i> = 12. Найди <i>KL</i>.</div><div class="task"><span class="task-no">Д3</span>В тетраэдре <i>DABC</i> <i>AD</i> = 8, <i>BC</i> = 12. Построй сечение, проходящее через середину ребра <i>DC</i> параллельно прямым <i>AD</i> и <i>BC</i>, и найди его периметр.</div><div class="task"><span class="task-no">Д4</span><i>ABCD</i> — трапеция с основаниями <i>BC</i> и <i>AD</i>, точка <i>S</i> не лежит в её плоскости. Докажи, что прямая <i>BC</i> параллельна плоскости <i>SAD</i>.</div><div class="task"><span class="task-no">Д5</span>Прямая <i>a</i> параллельна каждой из плоскостей <i>α</i> и <i>β</i>, которые пересекаются по прямой <i>c</i>. Как расположены прямые <i>a</i> и <i>c</i>? Обоснуй.</div><div class="task"><span class="task-no">Д6</span>Плоскость, параллельная стороне <i>AC</i> треугольника <i>ABC</i>, пересекает <i>AB</i> в точке <i>M</i>, <i>BC</i> — в точке <i>N</i>; <i>BM</i> = 6, <i>MA</i> = 4, <i>MN</i> = 9. Найди <i>AC</i>.</div>
+<div class="pager"><a href="mg4.html">← Урок 4</a><a href="mg6.html">Урок 6 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

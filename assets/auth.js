@@ -3,7 +3,7 @@
 'use strict';
 var CFG = window.APP_CONFIG || {};
 var READY = !!(CFG.supabaseUrl && CFG.supabaseKey && window.supabase);
-var TEACHER_PAGES = ["index", "math", "geometry", "algebra", "ege-math", "ege-inf", "library", "g1", "g2", "g3", "g4", "g5", "ws1", "ws2", "ws3", "ws4", "ws5", "test-geo1", "test-geo2", "test-alg1", "test-alg2", "algebra-m", "geometry-m", "test-malg1", "test-mgeo1", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "wsa1", "wsa2", "wsa3", "wsa4", "wsa5", "wsa6", "wsa7", "wsa8", "el1", "el2", "el3", "el4", "el5", "el6", "el7", "el8", "el9", "el10", "el11", "el12", "el13", "el14", "el15", "el16", "el17", "el18", "el19", "el20", "wse1", "wse2", "wse3", "wse4", "wse5", "wse6", "wse7", "wse8", "wse9", "wse10", "wse11", "wse12", "wse13", "wse14", "wse15", "wse16", "wse17", "wse18", "wse19", "wse20", "g6", "g7", "g8", "g9", "g10", "g11", "ws6", "ws7", "ws8", "ws9", "ws10", "ws11"];
+var TEACHER_PAGES = ["index", "math", "geometry", "algebra", "ege-math", "ege-inf", "library", "g1", "g2", "g3", "g4", "g5", "ws1", "ws2", "ws3", "ws4", "ws5", "test-geo1", "test-geo2", "test-alg1", "test-alg2", "algebra-m", "geometry-m", "test-malg1", "test-mgeo1", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "wsa1", "wsa2", "wsa3", "wsa4", "wsa5", "wsa6", "wsa7", "wsa8", "el1", "el2", "el3", "el4", "el5", "el6", "el7", "el8", "el9", "el10", "el11", "el12", "el13", "el14", "el15", "el16", "el17", "el18", "el19", "el20", "wse1", "wse2", "wse3", "wse4", "wse5", "wse6", "wse7", "wse8", "wse9", "wse10", "wse11", "wse12", "wse13", "wse14", "wse15", "wse16", "wse17", "wse18", "wse19", "wse20", "g6", "g7", "g8", "g9", "g10", "g11", "ws6", "ws7", "ws8", "ws9", "ws10", "ws11", "ma1", "ma2", "ma3", "ma4", "ma5", "ma6", "ma7", "ma8", "wsma1", "wsma2", "wsma3", "wsma4", "wsma5", "wsma6", "wsma7", "wsma8", "mg1", "mg2", "mg3", "mg4", "mg5", "mg6", "mg7", "mg8", "wsmg1", "wsmg2", "wsmg3", "wsmg4", "wsmg5", "wsmg6", "wsmg7", "wsmg8"];
 var root = document.documentElement;
 var page = root.dataset.page || '';
 var K = window.KABINET = {ready: READY, teacherPages: TEACHER_PAGES};
@@ -27,7 +27,7 @@ K.renderNav = function(state, current){
   var nav = document.querySelector('.top .nav'); if (!nav) return;
   var cur = current || page;
   var group = {g1:'geometry',g2:'geometry',g3:'geometry',g4:'geometry',g5:'geometry',ws1:'geometry',ws2:'geometry',ws3:'geometry',ws4:'geometry',ws5:'geometry',
-    'test-geo1':'geometry','test-geo2':'geometry','quiz-geo1':'geometry','test-alg1':'algebra','test-alg2':'algebra','algebra-m':'algebra','test-malg1':'algebra','geometry-m':'geometry','test-mgeo1':'geometry','ege-14':'ege-math',math:'index'}[cur] || (/^quiz-g\d/.test(cur) ? 'geometry' : /^(a|sa|wsa)\d$|^quiz-a\d/.test(cur) ? 'algebra' : /^(el|sel|wse)\d+$|^quiz-el\d/.test(cur) ? 'ege-math' : cur);
+    'test-geo1':'geometry','test-geo2':'geometry','quiz-geo1':'geometry','test-alg1':'algebra','test-alg2':'algebra','algebra-m':'algebra','test-malg1':'algebra','geometry-m':'geometry','test-mgeo1':'geometry','ege-14':'ege-math',math:'index'}[cur] || (/^(mg|smg|wsmg)\d+$|^quiz-mg\d/.test(cur) ? 'geometry' : /^(ma|sma|wsma)\d+$|^quiz-ma\d/.test(cur) ? 'algebra' : /^quiz-g\d/.test(cur) ? 'geometry' : /^(a|sa|wsa)\d$|^quiz-a\d/.test(cur) ? 'algebra' : /^(el|sel|wse)\d+$|^quiz-el\d/.test(cur) ? 'ege-math' : cur);
   var teacherView = state.role === 'teacher' && !state.asStudent;
   var items = teacherView ? NAV_T : NAV_S;
   var h = items.map(function(i){ return '<a href="'+i[0]+'" class="'+(i[2]===group?'on':'')+'">'+i[1]+'</a>'; }).join('');

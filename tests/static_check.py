@@ -26,9 +26,10 @@ for d, _, fs in os.walk(root):
 res.append({'id': 'SEC-01', 'ok': not leaks, 'note': '; '.join(leaks[:10])})
 
 ans = []
-for n in [str(i) for i in range(1, 12)] + [f'a{i}' for i in range(1, 9)] + [f'e{i}' for i in range(1, 21)]:
+for n in [str(i) for i in range(1, 12)] + [f'a{i}' for i in range(1, 9)] + [f'e{i}' for i in range(1, 21)] + \
+         [f[2:-5] for f in sorted(os.listdir(root)) if re.match(r'wsm[ag]\d+\.html$', f)]:
     s = open(f'{root}/ws{n}.html', encoding='utf-8').read()
-    if n[0] == 'e' or (n.isdigit() and int(n) >= 6):   # в листах ЕГЭ и главы II геометрии стрелка — часть условия; утечка — если в строке «Посчитай» нет пустого поля
+    if n[0] in 'em' or (n.isdigit() and int(n) >= 6):   # в листах ЕГЭ и главы II геометрии стрелка — часть условия; утечка — если в строке «Посчитай» нет пустого поля
         calc_leak = any('class="blank"' not in d for b in re.findall(r'<div class="calc">(.*?)</div></div>', s, re.S) for d in re.findall(r'<div>(.*?)</div>', b + '</div>', re.S))
     else:
         calc_leak = '→ ' in s

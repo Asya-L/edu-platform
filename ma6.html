@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 6. Построение графиков с помощью преобразований</title>
+<script>document.documentElement.dataset.page="ma6";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3c30cd67"></script><script src="assets/auth.js?v=3c30cd67"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 6 · y = f(kx), y = f(−x), y = f(|x|), y = |f(x)| и их комбинации">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 6</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 6</div>
+  <h1>Построение графиков с помощью преобразований</h1>
+  <p class="lede">§ 6 · y = f(kx), y = f(−x), y = f(|x|), y = |f(x)| и их комбинации</p>
+  <div class="btns">
+    <a class="btn" href="sma6.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma6.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Что мы уже умеем (9 класс)</h3>
+<p>Если известен график <i>y</i> = <i>f</i>(<i>x</i>), то без вычислений можно построить:</p>
+<div class="tablewrap"><table><thead><tr><th>Функция</th><th>Что делаем с графиком y = f(x)</th></tr></thead><tbody><tr><td><i>y</i> = <i>f</i>(<i>x</i>) + <i>b</i></td><td>сдвиг <b>вверх</b> на <i>b</i> (при <i>b</i> &lt; 0 — вниз на |<i>b</i>|)</td></tr><tr><td><i>y</i> = <i>f</i>(<i>x</i> + <i>a</i>)</td><td>сдвиг <b>влево</b> на <i>a</i> (при <i>a</i> &lt; 0 — вправо на |<i>a</i>|)</td></tr><tr><td><i>y</i> = <i>k</i><i>f</i>(<i>x</i>), <i>k</i> &gt; 0</td><td>растяжение от оси абсцисс в <i>k</i> раз (при 0 &lt; <i>k</i> &lt; 1 — сжатие)</td></tr><tr><td><i>y</i> = −<i>f</i>(<i>x</i>)</td><td>симметрия относительно оси абсцисс</td></tr></tbody></table></div>
+<p>Заметь закономерность: то, что делают <b>с <i>y</i></b> (снаружи, после <i>f</i>), меняет график по вертикали и «как написано». То, что делают <b>с <i>x</i></b> (внутри скобки), меняет график по горизонтали и «наоборот»: <i>f</i>(<i>x</i> + 2) сдвигается влево, а не вправо. Сегодня добавим ещё четыре преобразования.</p>
+<h3>График y = f(kx), k > 0</h3>
+<p>Пусть точка (<i>x</i>₀; <i>y</i>₀) лежит на графике <i>y</i> = <i>f</i>(<i>x</i>). Какое <i>x</i> нужно подставить в <i>f</i>(<i>k</i><i>x</i>), чтобы получить то же значение <i>y</i>₀? Такое, что <i>k</i><i>x</i> = <i>x</i>₀, то есть <i>x</i> = <i>x</i>₀/<i>k</i>. Значит, точка (<i>x</i>₀/<i>k</i>; <i>y</i>₀) лежит на графике <i>y</i> = <i>f</i>(<i>k</i><i>x</i>).</p>
+<div class="thm"><span class="lbl">Правило</span><p>График <i>y</i> = <i>f</i>(<i>k</i><i>x</i>), <i>k</i> &gt; 0, получают из графика <i>y</i> = <i>f</i>(<i>x</i>), заменив каждую точку на точку с той же ординатой и абсциссой, <b>делённой на <i>k</i></b>. При <i>k</i> &gt; 1 это <b>сжатие в <i>k</i> раз к оси ординат</b>, при 0 &lt; <i>k</i> &lt; 1 — <b>растяжение в 1/<i>k</i> раз от оси ординат</b>.</p></div>
+<figure><img src="assets/fig/mal6_kx.png" alt="Точка (4; 2) графика y = √x переходит в (2; 2) на y = √(2x) и в (8; 2) на y = √(x/2)"><figcaption>Точка (4; 2) графика y = √x переходит в (2; 2) на y = √(2x) и в (8; 2) на y = √(x/2)</figcaption></figure>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>При <i>k</i> = 2 график <b>сжимается</b> (абсциссы делятся на 2), а не растягивается. Проверка на одной точке спасает: √<i>x</i> = 2 при <i>x</i> = 4, а √(2<i>x</i>) = 2 при <i>x</i> = 2 — точка приблизилась к оси <i>Oy</i>.</p></div>
+<h3>График y = f(−x)</h3>
+<p>Если (<i>x</i>₀; <i>y</i>₀) лежит на графике <i>y</i> = <i>f</i>(<i>x</i>), то (−<i>x</i>₀; <i>y</i>₀) лежит на графике <i>y</i> = <i>f</i>(−<i>x</i>): ведь <i>f</i>(−(−<i>x</i>₀)) = <i>f</i>(<i>x</i>₀) = <i>y</i>₀.</p>
+<div class="thm"><span class="lbl">Правило</span><p>График <i>y</i> = <i>f</i>(−<i>x</i>) симметричен графику <i>y</i> = <i>f</i>(<i>x</i>) <b>относительно оси ординат</b>.</p></div>
+<figure><img src="assets/fig/mal6_mx.png" alt="y = √(−x) — зеркальное отражение y = √x в оси Oy"><figcaption>y = √(−x) — зеркальное отражение y = √x в оси Oy</figcaption></figure>
+<p>При <i>k</i> &lt; 0 график <i>y</i> = <i>f</i>(<i>k</i><i>x</i>) строят в два шага: <i>f</i>(<i>k</i><i>x</i>) = <i>f</i>(−|<i>k</i>|<i>x</i>) — сжатие/растяжение в |<i>k</i>| раз и симметрия относительно <i>Oy</i>.</p>
+<h3>Цепочки преобразований</h3>
+<div class="ex"><span class="lbl">Пример 1 · y = √(2x − 4)</span><p>Построй график функции <i>y</i> = √(2<i>x</i> − 4).</p><div class="ex-sol"><span class="ex-h">Решение</span><p><b>Схема 1.</b> √<i>x</i> → √(<i>x</i> − 4) (вправо на 4) → √(2<i>x</i> − 4) (вместо <i>x</i> подставили 2<i>x</i>: сжатие в 2 раза к оси <i>Oy</i>).</p><figure><img src="assets/fig/mal6_ex1.png" alt="построение графика"></figure><p>Начальная точка (4; 0) после сжатия переходит в (2; 0), точка (8; 2) — в (4; 2).</p><p><b>Схема 2.</b> Запишем <i>y</i> = √(2(<i>x</i> − 2)): √<i>x</i> → √(2<i>x</i>) (сжатие) → √(2(<i>x</i> − 2)) (вправо на <b>2</b>, а не на 4!). Результат тот же.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если сначала сжимать, то сдвигать нужно на 2, а не на 4: 2<i>x</i> − 4 = 2(<i>x</i> − 2). Ошибка — сжать, а потом сдвинуть на 4. Чтобы не путаться, проверяй, где у получившегося графика «начало»: 2<i>x</i> − 4 = 0 при <i>x</i> = 2.</p></div>
+<div class="ex"><span class="lbl">Пример 2 · y = √(2 − x)</span><p>Построй график функции <i>y</i> = √(2 − <i>x</i>).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>√<i>x</i> → √(<i>x</i> + 2) (влево на 2) → √(−<i>x</i> + 2) (вместо <i>x</i> подставили −<i>x</i>: симметрия относительно <i>Oy</i>).</p><figure><img src="assets/fig/mal6_ex2.png" alt="построение графика"></figure><p>Проверка: область определения 2 − <i>x</i> ≥ 0, то есть <i>x</i> ≤ 2, — график «начинается» в точке (2; 0) и уходит влево. Верно.</p></div></div>
+<h3>График y = f(|x|)</h3>
+<p>По определению модуля <i>f</i>(|<i>x</i>|) = <i>f</i>(<i>x</i>) при <i>x</i> ≥ 0 и <i>f</i>(−<i>x</i>) при <i>x</i> &lt; 0. Кроме того, функция <i>f</i>(|<i>x</i>|) чётная. Отсюда правило:</p>
+<ol class="steps"><li>оставляем часть графика <i>y</i> = <i>f</i>(<i>x</i>) при <i>x</i> ≥ 0 (правую), а левую стираем;</li><li>отражаем правую часть симметрично относительно оси <i>Oy</i>.</li></ol>
+<figure><img src="assets/fig/mal6_absx.png" alt="y = (|x| − 2)² − 1: правая половина параболы и её зеркальная копия"><figcaption>y = (|x| − 2)² − 1: правая половина параболы и её зеркальная копия</figcaption></figure>
+<h3>График y = |f(x)|</h3>
+<p>|<i>f</i>(<i>x</i>)| = <i>f</i>(<i>x</i>), где <i>f</i>(<i>x</i>) ≥ 0, и −<i>f</i>(<i>x</i>), где <i>f</i>(<i>x</i>) &lt; 0. Отсюда правило:</p>
+<ol class="steps"><li>часть графика <i>y</i> = <i>f</i>(<i>x</i>), лежащую не ниже оси <i>Ox</i>, оставляем;</li><li>часть, лежащую ниже оси <i>Ox</i>, отражаем симметрично относительно оси <i>Ox</i> (вверх).</li></ol>
+<figure><img src="assets/fig/mal6_absf.png" alt="y = |x² − 2x − 3|: «яму» между −1 и 3 переворачиваем вверх"><figcaption>y = |x² − 2x − 3|: «яму» между −1 и 3 переворачиваем вверх</figcaption></figure>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не перепутай: у <i>f</i>(|<i>x</i>|) модуль <b>внутри</b> — отражают <b>правую часть влево</b>, у |<i>f</i>(<i>x</i>)| модуль <b>снаружи</b> — отражают <b>нижнюю часть вверх</b>. График |<i>f</i>(<i>x</i>)| не имеет точек ниже оси <i>Ox</i>; график <i>f</i>(|<i>x</i>|) всегда симметричен относительно <i>Oy</i>.</p></div>
+<h2>Разбираем вместе: уравнения с параметром</h2>
+<p>Графики помогают ответить на вопрос «сколько корней у уравнения <i>f</i>(<i>x</i>) = <i>a</i>?». Число корней — это число точек пересечения графика <i>y</i> = <i>f</i>(<i>x</i>) с горизонтальной прямой <i>y</i> = <i>a</i>. Двигаем прямую снизу вверх и считаем точки.</p>
+<div class="ex"><span class="lbl">Пример 3 · ||x| − 2| = a</span><p>Сколько корней имеет уравнение ||<i>x</i>| − 2| = <i>a</i> в зависимости от <i>a</i>?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Строим: <i>y</i> = <i>x</i> − 2 → <i>y</i> = |<i>x</i>| − 2 (правую часть отражаем влево) → <i>y</i> = ||<i>x</i>| − 2| (нижние части отражаем вверх). Получилась «буква W».</p><figure><img src="assets/fig/mal6_param.png" alt="график y = ||x| − 2| и прямые y = a"></figure><ul><li><i>a</i> &lt; 0 — прямая ниже графика: <b>корней нет</b>;</li><li><i>a</i> = 0 — касается «дна» в точках ±2: <b>2 корня</b>;</li><li>0 &lt; <i>a</i> &lt; 2 — <b>4 корня</b> (при <i>a</i> = 1 это ±1 и ±3);</li><li><i>a</i> = 2 — проходит через вершину (0; 2): <b>3 корня</b> (0 и ±4);</li><li><i>a</i> &gt; 2 — <b>2 корня</b>.</li></ul></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Точка (4; 2) лежит на графике <i>y</i> = √<i>x</i>. Найди точку с той же ординатой на графике: а) <i>y</i> = √(4<i>x</i>); б) <i>y</i> = √(−<i>x</i>); в) <i>y</i> = √(<i>x</i>/2).</div><div class="task"><span class="task-no">№&nbsp;2</span>Опиши построение графика <i>y</i> = (2<i>x</i> − 4)² из графика <i>y</i> = <i>x</i>² и найди вершину.</div><div class="task"><span class="task-no">№&nbsp;3</span>Построй график <i>y</i> = |<i>x</i>² − 4|. Найди его нули и значение при <i>x</i> = 0.</div><div class="task"><span class="task-no">№&nbsp;4</span>Построй график <i>y</i> = <i>x</i>² − 4|<i>x</i>| + 3. Найди его нули и наименьшее значение.</div><div class="task"><span class="task-no">№&nbsp;5</span>Сколько корней имеет уравнение |<i>x</i>² − 4| = <i>a</i> в зависимости от <i>a</i>?</div><div class="task"><span class="task-no">№&nbsp;6</span>Построй график <i>y</i> = √(4 − 2<i>x</i>). Найди область определения и <i>y</i>(0).</div><div class="task"><span class="task-no">№&nbsp;7</span>Построй график <i>y</i> = |√<i>x</i> − 2|. Найди его нуль и значение при <i>x</i> = 0.</div><div class="task"><span class="task-no">№&nbsp;8</span>Найди корни уравнения ||<i>x</i>| − 3| = 2 с помощью графика и проверь подстановкой.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 6.1, 6.2</b> — Графики вида y = f(kx) и y = f(−x).</li><li><b>№ 6.5, 6.6</b> — Цепочки преобразований с корнем и квадратом.</li><li><b>№ 6.8, 6.9</b> — Графики с модулем: f(|x|) и |f(x)|.</li><li><b>№ 6.11</b> — Число корней уравнения с параметром по графику.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma6a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 6</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 6.2, 6.6, 6.9 (1, 2), 6.12 (1) из учебника письменно. Для каждого графика выписать схему преобразований стрелками, как в примерах урока.</p></div>
+<div class="pager"><a href="ma5.html">← Урок 5</a><a href="ma7.html">Урок 7 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
