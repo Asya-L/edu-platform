@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 16. Иррациональные неравенства</title>
+<script>document.documentElement.dataset.page="ma16";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 16 · равносильные переходы: √f > √g, √f < g, √f > g; неравенства с произведением">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 16</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 16</div>
+  <h1>Иррациональные неравенства</h1>
+  <p class="lede">§ 16 · равносильные переходы: √f > √g, √f < g, √f > g; неравенства с произведением</p>
+  <div class="btns">
+    <a class="btn" href="sma16.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma16.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>С уравнениями мы могли перейти к следствию и потом сделать проверку. С неравенствами так нельзя: решений обычно бесконечно много, все не проверишь. Поэтому иррациональные неравенства решают <b>только равносильными переходами</b>. Два неравенства <b>равносильны</b>, если множества их решений совпадают.</p>
+<ul><li>Прибавление к обеим частям одного числа и умножение на положительное число дают равносильное неравенство (теоремы 16.1, 16.2);</li><li>умножение на отрицательное число — тоже, если сменить знак неравенства (теорема 16.3);</li><li>корень <b>нечётной</b> степени возрастает и определён везде: <sup>3</sup>√<i>f</i>(<i>x</i>) &lt; <sup>3</sup>√<i>g</i>(<i>x</i>) ⇔ <i>f</i>(<i>x</i>) &lt; <i>g</i>(<i>x</i>), &nbsp; <sup>3</sup>√<i>f</i>(<i>x</i>) &lt; <i>g</i>(<i>x</i>) ⇔ <i>f</i>(<i>x</i>) &lt; (<i>g</i>(<i>x</i>))³.</li></ul>
+<p>С корнями чётной степени возникают две трудности: корень существует только при <i>f</i>(<i>x</i>) ≥ 0, и возводить в квадрат можно лишь неотрицательные части. Отсюда три основные теоремы.</p>
+<div class="thm"><span class="lbl">Теорема 16.4 · корень больше корня</span><p>√<i>f</i>(<i>x</i>) &gt; √<i>g</i>(<i>x</i>) ⇔ { <i>f</i>(<i>x</i>) &gt; <i>g</i>(<i>x</i>), &nbsp; <i>g</i>(<i>x</i>) ≥ 0 }.</p></div>
+<p>Условие <i>f</i>(<i>x</i>) ≥ 0 писать не нужно: оно следует из <i>f</i>(<i>x</i>) &gt; <i>g</i>(<i>x</i>) ≥ 0.</p>
+<div class="thm"><span class="lbl">Теорема 16.5 · корень меньше выражения</span><p>√<i>f</i>(<i>x</i>) &lt; <i>g</i>(<i>x</i>) ⇔ { <i>f</i>(<i>x</i>) &lt; (<i>g</i>(<i>x</i>))², &nbsp; <i>g</i>(<i>x</i>) &gt; 0, &nbsp; <i>f</i>(<i>x</i>) ≥ 0 }.</p></div>
+<p>Здесь нужны все три условия: корень должен существовать (<i>f</i>(<i>x</i>) ≥ 0), неотрицательный корень меньше <i>g</i>(<i>x</i>) только при <i>g</i>(<i>x</i>) &gt; 0, а для неотрицательных чисел сравнение не меняется при возведении в квадрат.</p>
+<div class="thm"><span class="lbl">Теорема 16.6 · корень больше выражения</span><p>√<i>f</i>(<i>x</i>) &gt; <i>g</i>(<i>x</i>) ⇔ совокупности двух систем: { <i>g</i>(<i>x</i>) &lt; 0, &nbsp; <i>f</i>(<i>x</i>) ≥ 0 } &nbsp; или &nbsp; { <i>g</i>(<i>x</i>) ≥ 0, &nbsp; <i>f</i>(<i>x</i>) &gt; (<i>g</i>(<i>x</i>))² }.</p></div>
+<p>Логика: если правая часть отрицательна, неравенство верно, как только корень существует (неотрицательное больше отрицательного). Если правая часть неотрицательна — возводим в квадрат.</p>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · два корня</span><p>Реши неравенство √(<i>x</i>² − 4<i>x</i>) &gt; √(<i>x</i> − 4).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>По теореме 16.4: <i>x</i>² − 4<i>x</i> &gt; <i>x</i> − 4 и <i>x</i> − 4 ≥ 0. Первое: <i>x</i>² − 5<i>x</i> + 4 &gt; 0, <i>x</i> &lt; 1 или <i>x</i> &gt; 4. Со вторым (<i>x</i> ≥ 4): <b>(4; +∞)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · корень меньше</span><p>Реши неравенство √(<i>x</i> + 2) &lt; <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Система по теореме 16.5: <i>x</i> + 2 &lt; <i>x</i>², <i>x</i> &gt; 0, <i>x</i> + 2 ≥ 0. Первое: <i>x</i>² − <i>x</i> − 2 &gt; 0, <i>x</i> &lt; −1 или <i>x</i> &gt; 2. С условием <i>x</i> &gt; 0 получаем <b>(2; +∞)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · корень больше</span><p>Реши неравенство √(<i>x</i> + 2) &gt; <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>По теореме 16.6 — совокупность:</p><ul><li><i>x</i> &lt; 0 и <i>x</i> + 2 ≥ 0: [−2; 0);</li><li><i>x</i> ≥ 0 и <i>x</i> + 2 &gt; <i>x</i>²: −1 &lt; <i>x</i> &lt; 2, с <i>x</i> ≥ 0 — [0; 2).</li></ul><p>Объединяем: <b>[−2; 2)</b>. На графике это те <i>x</i>, где кривая y = √(x + 2) лежит выше прямой y = x.</p><figure><img src="assets/fig/mal16_cmp.png" alt="графики"></figure><p>Сравни с примером 2: вместе с точкой <i>x</i> = 2 (где √4 = 2) ответы покрывают всю область определения [−2; +∞).</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В теореме 16.6 часто теряют первую систему — случай <i>g</i>(<i>x</i>) &lt; 0. В примере 3 без неё пропал бы целый промежуток [−2; 0).</p></div>
+<div class="ex"><span class="lbl">Пример 4 · нестрогое</span><p>Реши неравенство √(<i>x</i>² − <i>x</i> − 6) ≥ <i>x</i> − 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Корень существует при (<i>x</i> − 3)(<i>x</i> + 2) ≥ 0: <i>x</i> ≤ −2 или <i>x</i> ≥ 3.</p><ul><li><i>x</i> − 2 &lt; 0 (то есть <i>x</i> &lt; 2) и корень существует: <i>x</i> ≤ −2;</li><li><i>x</i> ≥ 2: возводим в квадрат: <i>x</i>² − <i>x</i> − 6 ≥ <i>x</i>² − 4<i>x</i> + 4, 3<i>x</i> ≥ 10, <i>x</i> ≥ 10/3.</li></ul><p>Ответ: <b>(−∞; −2] ∪ [10/3; +∞)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · произведение</span><p>Реши неравенство (<i>x</i> − 4)√(<i>x</i> + 1) ≤ 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Область определения: <i>x</i> ≥ −1. В точке <i>x</i> = −1 корень равен 0 — неравенство верно. При <i>x</i> &gt; −1 корень положителен, на него можно разделить: <i>x</i> − 4 ≤ 0. Ответ: <b>[−1; 4]</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В неравенствах вида (…)√<i>f</i>(<i>x</i>) ≥ 0 или ≤ 0 нули корня (где <i>f</i>(<i>x</i>) = 0) входят в ответ всегда — даже если другой множитель там «неправильного» знака. Например, (<i>x</i> − 5)√(<i>x</i> + 1) ≥ 0: ответ {−1} ∪ [5; +∞), и изолированную точку −1 легко потерять.</p></div>
+<div class="ex"><span class="lbl">Пример 6 · кубический корень</span><p>Реши неравенство <sup>3</sup>√(<i>x</i>² − 1) &lt; <sup>3</sup>√(<i>x</i> + 5).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Кубический корень возрастает на всей прямой: <i>x</i>² − 1 &lt; <i>x</i> + 5, <i>x</i>² − <i>x</i> − 6 &lt; 0, <b>(−2; 3)</b>. Никаких дополнительных условий.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши неравенство √(<i>x</i> − 3) &lt; 2.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши неравенство √(2<i>x</i> + 1) &gt; √(<i>x</i> + 4).</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши неравенство √(5 − <i>x</i>) &lt; <i>x</i> + 1.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши неравенство √(<i>x</i> + 4) &gt; <i>x</i> − 2.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши неравенство √(<i>x</i>² − 9) ≥ <i>x</i> − 1.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши неравенство (<i>x</i> + 2)√(<i>x</i> − 1) ≥ 0.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши неравенство (<i>x</i> − 3)√(<i>x</i> + 2) &lt; 0.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши неравенство <sup>3</sup>√(2<i>x</i> − 1) &gt; −1.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 16.1</b> — Корень больше корня; корень меньше выражения.</li><li><b>№ 16.3</b> — Неравенства вида √f(x) < g(x).</li><li><b>№ 16.5</b> — Неравенства вида √f(x) > g(x).</li><li><b>№ 16.7</b> — Произведение с корнем.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma16a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 16</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 16.2, 16.4, 16.6, 16.8 из учебника письменно. Перед каждым решением записать, по какой теореме (16.4, 16.5 или 16.6) делается переход.</p></div>
+<div class="pager"><a href="ma15.html">← Урок 15</a><a href="algebra-m.html">Все уроки →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 15. Приёмы решения иррациональных уравнений и систем</title>
+<script>document.documentElement.dataset.page="ma15";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 15 · замена переменной, две новые переменные, системы с корнями, монотонность">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 15</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 15</div>
+  <h1>Приёмы решения иррациональных уравнений и систем</h1>
+  <p class="lede">§ 15 · замена переменной, две новые переменные, системы с корнями, монотонность</p>
+  <div class="btns">
+    <a class="btn" href="sma15.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma15.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>В § 14 мы решали уравнения «в лоб» — возведением в степень. Это работает не всегда: после возведения часто получается уравнение четвёртой степени. Сегодня — приёмы, которые сводят задачу к простой.</p>
+<h3>Приём 1. Замена переменной</h3>
+<p>Если в уравнении несколько раз встречается одно и то же выражение (или выражения, связанные простой формулой), его обозначают новой буквой. Главное правило: <b>сразу записать ограничения на новую переменную</b>. Для <i>t</i> = √(…) или <i>t</i> = <sup>4</sup>√(…) это <i>t</i> ≥ 0; для <i>t</i> = <sup>3</sup>√(…) ограничений нет.</p>
+<div class="ex"><span class="lbl">Пример 1 · выражение повторяется</span><p>Реши уравнение <i>x</i>² − 3<i>x</i> + √(<i>x</i>² − 3<i>x</i> + 5) = 7.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть <i>t</i> = √(<i>x</i>² − 3<i>x</i> + 5), <i>t</i> ≥ 0. Тогда <i>x</i>² − 3<i>x</i> = <i>t</i>² − 5, и уравнение принимает вид <i>t</i>² + <i>t</i> − 12 = 0: <i>t</i> = 3 или <i>t</i> = −4. Условию <i>t</i> ≥ 0 отвечает <i>t</i> = 3.</p><p>√(<i>x</i>² − 3<i>x</i> + 5) = 3, <i>x</i>² − 3<i>x</i> − 4 = 0, <b><i>x</i> = 4 или <i>x</i> = −1</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · корни разных степеней</span><p>Реши уравнение √<i>x</i> − 3<sup>4</sup>√<i>x</i> + 2 = 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>√<i>x</i> = (<sup>4</sup>√<i>x</i>)². Пусть <i>t</i> = <sup>4</sup>√<i>x</i> ≥ 0: <i>t</i>² − 3<i>t</i> + 2 = 0, <i>t</i> = 1 или <i>t</i> = 2. Отсюда <b><i>x</i> = 1 или <i>x</i> = 16</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · взаимно обратные дроби</span><p>Реши уравнение √((<i>x</i> + 1)/<i>x</i>) + 2√(<i>x</i>/(<i>x</i> + 1)) = 3.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Подкоренные выражения взаимно обратны. Пусть <i>t</i> = √((<i>x</i> + 1)/<i>x</i>), <i>t</i> &gt; 0; тогда второй корень равен 1/<i>t</i>: <i>t</i> + 2/<i>t</i> = 3, <i>t</i>² − 3<i>t</i> + 2 = 0, <i>t</i> = 1 или <i>t</i> = 2.</p><p><i>t</i> = 1: (<i>x</i> + 1)/<i>x</i> = 1 — корней нет. <i>t</i> = 2: (<i>x</i> + 1)/<i>x</i> = 4, <b><i>x</i> = 1/3</b>. Проверка: √4 + 2√(1/4) = 2 + 1 = 3.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Забыть условие <i>t</i> ≥ 0 — значит получить лишние «корни». В примере 1 при <i>t</i> = −4 пришлось бы решать √(…) = −4, у которого решений нет.</p></div>
+<h3>Приём 2. Две новые переменные</h3>
+<p>Если в уравнении два разных корня, удобно обозначить их <i>a</i> и <i>b</i> и найти связь между ними, не содержащую <i>x</i>. Получается система двух уравнений с двумя неизвестными — обычно симметричная.</p>
+<div class="ex"><span class="lbl">Пример 4 · куб и квадрат</span><p>Реши уравнение <sup>3</sup>√(2 − <i>x</i>) + √(<i>x</i> − 1) = 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть <i>a</i> = <sup>3</sup>√(2 − <i>x</i>), <i>b</i> = √(<i>x</i> − 1) ≥ 0. Тогда <i>a</i>³ + <i>b</i>² = (2 − <i>x</i>) + (<i>x</i> − 1) = 1. Система: <i>a</i> + <i>b</i> = 1, <i>a</i>³ + <i>b</i>² = 1.</p><p>Подставим <i>a</i> = 1 − <i>b</i>: (1 − <i>b</i>)³ + <i>b</i>² = 1, то есть −<i>b</i>³ + 4<i>b</i>² − 3<i>b</i> = 0, <i>b</i>(<i>b</i> − 1)(<i>b</i> − 3) = 0. <i>b</i> = 0, 1, 3 — все ≥ 0, значит, <i>x</i> = <i>b</i>² + 1: <b><i>x</i> = 1, 2, 10</b>.</p><p>Проверка: <sup>3</sup>√1 + 0 = 1; 0 + 1 = 1; <sup>3</sup>√(−8) + 3 = 1. Все подходят.</p></div></div>
+<h3>Системы с корнями</h3>
+<div class="ex"><span class="lbl">Пример 5 · система</span><p>Реши систему √<i>x</i> + √<i>y</i> = 5, <i>x</i> + <i>y</i> = 13.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть <i>a</i> = √<i>x</i> ≥ 0, <i>b</i> = √<i>y</i> ≥ 0: <i>a</i> + <i>b</i> = 5, <i>a</i>² + <i>b</i>² = 13. Так как <i>a</i>² + <i>b</i>² = (<i>a</i> + <i>b</i>)² − 2<i>ab</i>, то <i>ab</i> = 6. Значит, <i>a</i> и <i>b</i> — корни уравнения <i>z</i>² − 5<i>z</i> + 6 = 0: {2; 3}. Ответ: <b>(4; 9), (9; 4)</b>.</p></div></div>
+<h3>Приём 3. Монотонность</h3>
+<p>Если левая часть уравнения возрастает, а правая — постоянна (или убывает), корень не больше одного. Его угадывают и доказывают, что других нет.</p>
+<div class="ex"><span class="lbl">Пример 6 · угадать корень</span><p>Реши уравнение √<i>x</i> + √(<i>x</i> + 7) = 7.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Функция <i>y</i> = √<i>x</i> + √(<i>x</i> + 7) возрастает на [0; +∞) как сумма возрастающих, поэтому значение 7 она принимает не более одного раза. Подбором: <i>x</i> = 9, √9 + √16 = 3 + 4 = 7. Ответ: <b>9</b>.</p><figure><img src="assets/fig/mal15_mono.png" alt="график"></figure></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В монотонном способе обязательна фраза «функция возрастает, поэтому корень единственный». Угаданный корень без неё — не решение.</p></div>
+<p>Ещё один приём из учебника — <b>умножение на сопряжённое выражение</b>: например, умножив обе части на √(1 + <i>x</i>) − 1, можно избавиться от корня в одном из множителей. При этом получается уравнение-следствие, так что проверка обязательна.</p>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши уравнение <i>x</i> + √<i>x</i> − 6 = 0.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши уравнение <sup>3</sup>√<i>x</i>² + <sup>3</sup>√<i>x</i> − 2 = 0.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши уравнение <i>x</i>² + 2<i>x</i> + √(<i>x</i>² + 2<i>x</i> + 8) = 12.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши уравнение √(<i>x</i>/(<i>x</i> − 1)) + √((<i>x</i> − 1)/<i>x</i>) = 5/2.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши систему √<i>x</i> + √<i>y</i> = 4, <i>x</i><i>y</i> = 9.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши систему <sup>3</sup>√<i>x</i> + <sup>3</sup>√<i>y</i> = 3, <i>x</i> + <i>y</i> = 9.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнение √<i>x</i> + √(<i>x</i> + 9) = 9.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши уравнение <sup>3</sup>√(9 − <i>x</i>) + √(<i>x</i> − 1) = 2.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 15.1, 15.2</b> — Замена переменной.</li><li><b>№ 15.3, 15.4</b> — Замена с квадратным трёхчленом под корнем.</li><li><b>№ 15.5, 15.6</b> — Системы иррациональных уравнений.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma15a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 15</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 15.2, 15.4 (1, 2), 15.6 (1, 2) из учебника письменно. В каждой замене выписывать ограничение на новую переменную.</p></div>
+<div class="pager"><a href="ma14.html">← Урок 14</a><a href="ma16.html">Урок 16 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

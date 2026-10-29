@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 17. Многогранный угол. Трёхгранный угол</title>
+<script>document.documentElement.dataset.page="mg17";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 17 · многогранный угол и его элементы, выпуклость, теорема косинусов для трёхгранного угла, неравенства для плоских углов">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 17</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 17</div>
+  <h1>Многогранный угол. Трёхгранный угол</h1>
+  <p class="lede">§ 17 · многогранный угол и его элементы, выпуклость, теорема косинусов для трёхгранного угла, неравенства для плоских углов</p>
+  <div class="btns">
+    <a class="btn" href="smg17.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg17.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Многогранный угол</h3>
+<p>Возьми многоугольник <i>A</i>₁<i>A</i>₂…<i>A</i><sub>n</sub> и точку <i>S</i> вне его плоскости и соедини <i>S</i> со всеми вершинами. Углы <i>A</i>₁<i>SA</i>₂, <i>A</i>₂<i>SA</i>₃, …, <i>A</i><sub>n</sub><i>SA</i>₁ ограничивают часть пространства, содержащую многоугольник. Эту часть вместе с углами называют <b>многогранным углом</b>. Вершина пирамиды — пример многогранного угла.</p>
+<figure><img src="assets/fig/mg17_mnogo.png" alt="Пятигранный угол SA₁A₂A₃A₄A₅; выделена грань A₁SA₂"><figcaption>Пятигранный угол SA₁A₂A₃A₄A₅; выделена грань A₁SA₂</figcaption></figure>
+<ul><li><b>вершина</b> — точка <i>S</i>; <b>рёбра</b> — лучи <i>SA</i>₁, <i>SA</i>₂, …;</li><li><b>грани</b>, или <b>плоские углы</b>, — углы <i>A</i>₁<i>SA</i>₂, <i>A</i>₂<i>SA</i>₃, …;</li><li><b>двугранный угол при ребре</b> <i>SA</i> — двугранный угол, грани которого содержат две соседние грани с общим ребром <i>SA</i>.</li></ul>
+<p>По числу граней углы бывают трёхгранные, четырёхгранные, пятигранные… Обозначают их буквой вершины и буквами на рёбрах: <i>SABC</i>, <i>SABCDE</i>.</p>
+<div class="def"><span class="lbl">Выпуклый многогранный угол</span><p>Многогранный угол называют <b>выпуклым</b>, если он лежит по одну сторону от плоскости каждой своей грани. <b>Любой трёхгранный угол выпуклый.</b></p></div>
+<h3>Теорема косинусов для трёхгранного угла</h3>
+<p>В трёхгранном угле шесть величин: три плоских угла и три двугранных. Они связаны так же, как стороны и углы треугольника, — теоремой косинусов.</p>
+<div class="thm"><span class="lbl">Теорема 17.1 (первая теорема косинусов)</span><p>Если плоские углы трёхгранного угла равны <i>α</i>, <i>β</i>, <i>γ</i>, а двугранный угол при ребре, противолежащем плоскому углу <i>γ</i>, равен <i>φ</i>, то <b>cos <i>φ</i> = (cos <i>γ</i> − cos <i>α</i> cos <i>β</i>) / (sin <i>α</i> sin <i>β</i>)</b>.</p></div>
+<figure><img src="assets/fig/mg17_tri.png" alt="C₁A₁ ⊥ SC и C₁B₁ ⊥ SC: ∠A₁C₁B₁ = φ — линейный угол при ребре SC"><figcaption>C₁A₁ ⊥ SC и C₁B₁ ⊥ SC: ∠A₁C₁B₁ = φ — линейный угол при ребре SC</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть ∠<i>CSB</i> = <i>α</i>, ∠<i>ASC</i> = <i>β</i>, ∠<i>ASB</i> = <i>γ</i> (<i>α</i>, <i>β</i> острые). На ребре <i>SC</i> возьмём точку <i>C</i>₁, <i>SC</i>₁ = <i>a</i>, и проведём в гранях <i>C</i>₁<i>A</i>₁ ⊥ <i>SC</i>, <i>C</i>₁<i>B</i>₁ ⊥ <i>SC</i> (<i>A</i>₁ ∈ <i>SA</i>, <i>B</i>₁ ∈ <i>SB</i>). ∠<i>A</i>₁<i>C</i>₁<i>B</i>₁ = <i>φ</i>.</p><p>Из прямоугольных треугольников: <i>C</i>₁<i>A</i>₁ = <i>a</i> tg <i>β</i>, <i>SA</i>₁ = <i>a</i>/cos <i>β</i>, <i>C</i>₁<i>B</i>₁ = <i>a</i> tg <i>α</i>, <i>SB</i>₁ = <i>a</i>/cos <i>α</i>.</p><p>Запишем теорему косинусов для <i>A</i>₁<i>B</i>₁ в двух треугольниках — <i>A</i>₁<i>C</i>₁<i>B</i>₁ (угол <i>φ</i>) и <i>A</i>₁<i>SB</i>₁ (угол <i>γ</i>) — и приравняем. После сокращения на <i>a</i>² и упрощения (используя 1 + tg² = 1/cos²) получится нужная формула. ∎</p></div>
+<p>Самый частый случай: если два плоских угла прямые (<i>α</i> = <i>β</i> = 90°), то cos <i>φ</i> = cos <i>γ</i>, то есть <b>двугранный угол равен третьему плоскому углу</b>. Так и должно быть: тогда ребро <i>SC</i> перпендикулярно плоскости <i>ASB</i>, и ∠<i>ASB</i> сам является линейным углом.</p>
+<h3>Неравенства для плоских углов</h3>
+<div class="thm"><span class="lbl">Теорема 17.2</span><p>Каждый плоский угол трёхгранного угла меньше суммы двух других его плоских углов.</p></div>
+<p>Почему: из теоремы косинусов и cos <i>φ</i> &lt; 1 следует cos <i>γ</i> &lt; cos <i>α</i> cos <i>β</i> + sin <i>α</i> sin <i>β</i> = cos(<i>α</i> − <i>β</i>), откуда <i>γ</i> &gt; <i>α</i> − <i>β</i>. Это пространственный аналог неравенства треугольника.</p>
+<div class="thm"><span class="lbl">Теорема 17.3</span><p>Сумма плоских углов трёхгранного угла меньше 360°.</p></div>
+<p>Идея: продлим ребро <i>SA</i> за вершину лучом <i>SA</i>₁. В трёхгранном угле <i>SA</i>₁<i>BC</i> плоские углы равны <i>α</i>, 180° − <i>β</i>, 180° − <i>γ</i>, и по теореме 17.2 <i>α</i> &lt; 360° − <i>β</i> − <i>γ</i>. Это верно и для любого выпуклого многогранного угла: сумма его плоских углов меньше 360°. Наглядно: если разрезать бумажную «вершину» и развернуть её на стол, получится угол меньше полного.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Перед вычислениями проверь, существует ли такой трёхгранный угол: каждый плоский угол меньше суммы двух других, а сумма всех меньше 360°. Например, углов 50°, 60°, 120° не бывает: 120° &gt; 50° + 60°.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · двугранный угол правильного тетраэдра</span><p>Все плоские углы трёхгранного угла равны 60°. Найдите косинус его двугранных углов.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>cos <i>φ</i> = (cos 60° − cos²60°)/sin²60° = (1/2 − 1/4)/(3/4) = <b>1/3</b>. Это и есть двугранный угол правильного тетраэдра (примерно 70,5°).</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · два прямых плоских угла</span><p>Плоские углы трёхгранного угла равны 90°, 90° и 60°. Найдите двугранный угол при ребре, противолежащем углу 60°.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>cos <i>φ</i> = (cos 60° − 0 · 0)/(1 · 1) = 1/2, <i>φ</i> = <b>60°</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · бывает ли такой угол</span><p>Существует ли трёхгранный угол с плоскими углами: а) 50°, 60°, 120°; б) 100°, 120°, 150°; в) 40°, 70°, 100°?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Нет: 120° &gt; 50° + 60° (теорема 17.2). б) Нет: 100° + 120° + 150° = 370° &gt; 360° (теорема 17.3). в) Да: 100° &lt; 110° и сумма 210° &lt; 360°.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Плоские углы <i>ASB</i> и <i>BSC</i> трёхгранного угла <i>SABC</i> равны 45°, двугранный угол при ребре <i>SB</i> прямой. Найди плоский угол <i>ASC</i>.</div><div class="task"><span class="task-no">№&nbsp;2</span>Плоские углы трёхгранного угла 90°, 90° и 40°. Найди двугранный угол при ребре, противолежащем углу 40°.</div><div class="task"><span class="task-no">№&nbsp;3</span>Существует ли трёхгранный угол с плоскими углами 30°, 40°, 80°?</div><div class="task"><span class="task-no">№&nbsp;4</span>Существует ли трёхгранный угол с плоскими углами 100°, 120°, 140°?</div><div class="task"><span class="task-no">№&nbsp;5</span>Два плоских угла трёхгранного угла равны 50° и 60°. Какое наибольшее целое число градусов может быть в третьем?</div><div class="task"><span class="task-no">№&nbsp;6</span>Все плоские углы трёхгранного угла прямые. Найди его двугранные углы.</div><div class="task"><span class="task-no">№&nbsp;7</span>Может ли у выпуклого четырёхгранного угла каждый плоский угол быть равен 95°?</div><div class="task"><span class="task-no">№&nbsp;8</span>Найди косинус двугранного угла правильного тетраэдра.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg17a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 17</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Из учебника: № 17.4, 17.6, 17.12, 17.14. Выучить элементы многогранного угла, теорему косинусов для трёхгранного угла и теоремы 17.2, 17.3.</p></div>
+<div class="task"><span class="task-no">Д1</span>Плоские углы трёхгранного угла равны 90°, 90° и 75°. Найди двугранный угол при ребре, противолежащем углу 75°.</div><div class="task"><span class="task-no">Д2</span>Существует ли трёхгранный угол с плоскими углами 40°, 70°, 100°? А с углами 20°, 30°, 60°?</div><div class="task"><span class="task-no">Д3</span>Плоские углы <i>ASC</i> и <i>BSC</i> равны 60°, двугранный угол при ребре <i>SC</i> прямой. Найди косинус плоского угла <i>ASB</i>.</div><div class="task"><span class="task-no">Д4</span>Плоские углы трёхгранного угла равны 60°, 60°, 60°. Найди косинус двугранного угла.</div><div class="task"><span class="task-no">Д5</span>Плоские углы <i>ASB</i> и <i>BSC</i> трёхгранного угла прямые, ∠<i>ASC</i> = <i>φ</i>. Докажи, что двугранный угол при ребре <i>SB</i> равен <i>φ</i>.</div><div class="task"><span class="task-no">Д6</span>Трёхгранный угол с вершиной <i>A</i> куба образован лучами <i>AB</i>, <i>AD</i> и <i>AC</i>₁. Найди двугранный угол при ребре <i>AC</i>₁.</div>
+<div class="pager"><a href="mg16.html">← Урок 16</a><a href="mg18.html">Урок 18 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

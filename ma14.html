@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 14. Иррациональные уравнения</title>
+<script>document.documentElement.dataset.page="ma14";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 14 · равносильность и уравнения-следствия, посторонние корни, возведение в степень, равносильные системы">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 14</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 14</div>
+  <h1>Иррациональные уравнения</h1>
+  <p class="lede">§ 14 · равносильность и уравнения-следствия, посторонние корни, возведение в степень, равносильные системы</p>
+  <div class="btns">
+    <a class="btn" href="sma14.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma14.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Равносильность и уравнения-следствия</h3>
+<p>Уравнение, в котором переменная стоит под знаком корня, называют <b>иррациональным</b>: √(<i>x</i> − 3) = 2, <sup>3</sup>√(<i>x</i>² − 2) = <sup>3</sup>√<i>x</i> и т. п. Решая уравнение, мы заменяем его более простым. Важно понимать, что происходит с корнями при каждой замене.</p>
+<div class="def"><span class="lbl">Определения</span><p><b>Область определения уравнения</b> <i>f</i>(<i>x</i>) = <i>g</i>(<i>x</i>) — множество <i>D</i>(<i>f</i>) ∩ <i>D</i>(<i>g</i>). Уравнения <b>равносильны</b>, если множества их корней равны. Если множество корней первого уравнения — подмножество корней второго, второе называют <b>следствием</b> первого.</p></div>
+<p>Корни уравнения-следствия, не являющиеся корнями исходного уравнения, называют <b>посторонними</b>. Переход к следствию допустим, но тогда <b>проверка обязательна</b> — это часть решения, а не «по желанию».</p>
+<ul><li>Прибавить к обеим частям число или умножить их на число, не равное нулю, — равносильные преобразования (теоремы 14.1, 14.2).</li><li><b>Теорема 14.3.</b> Возведение обеих частей в <b>нечётную</b> степень даёт равносильное уравнение: функция <i>t</i><sup>2<i>k</i>+1</sup> обратима, из <i>p</i>³ = <i>q</i>³ следует <i>p</i> = <i>q</i>.</li><li><b>Теорема 14.4.</b> Возведение в <b>чётную</b> степень даёт уравнение-<b>следствие</b>: из <i>p</i>² = <i>q</i>² следует только |<i>p</i>| = |<i>q</i>|. Возможны посторонние корни.</li></ul>
+<div class="ex"><span class="lbl">Пример 1 · нечётная степень</span><p>Реши уравнение <sup>5</sup>√(<i>x</i>² − 6) = <sup>5</sup>√<i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Возведём в пятую степень — получим равносильное уравнение: <i>x</i>² − 6 = <i>x</i>, <i>x</i>² − <i>x</i> − 6 = 0, <b><i>x</i> = −2 или <i>x</i> = 3</b>. Проверка не нужна.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · откуда берутся посторонние корни</span><p>Реши уравнение √(<i>x</i> + 2) = <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Возведём в квадрат: <i>x</i> + 2 = <i>x</i>², <i>x</i>² − <i>x</i> − 2 = 0, <i>x</i> = 2 или <i>x</i> = −1.</p><p>Проверка: √4 = 2 — верно; √1 = 1 ≠ −1 — <b>−1 посторонний корень</b>. Ответ: <b>2</b>.</p><figure><img src="assets/fig/mal14_extra.png" alt="графики"><figcaption>После возведения в квадрат к графику √(x + 2) «добавилась» нижняя ветвь −√(x + 2) — её пересечение с прямой y = x и дало посторонний корень</figcaption></figure></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Посторонний корень −1 из примера 2 <b>принадлежит</b> области определения уравнения (−1 + 2 ≥ 0). Поэтому проверки «по ОДЗ» недостаточно — нужно подставлять в исходное уравнение или следить за знаком правой части.</p></div>
+<h3>Равносильные системы — без проверки</h3>
+<p>Иногда проверка трудна: корень вроде (−2 + √61)/2 подставлять неудобно. Тогда пользуются равносильными переходами.</p>
+<div class="thm"><span class="lbl">Теорема 14.5</span><p>√<i>f</i>(<i>x</i>) = √<i>g</i>(<i>x</i>) ⇔ { <i>f</i>(<i>x</i>) = <i>g</i>(<i>x</i>), &nbsp; <i>f</i>(<i>x</i>) ≥ 0 } (вместо <i>f</i>(<i>x</i>) ≥ 0 можно взять <i>g</i>(<i>x</i>) ≥ 0 — какое проще).</p></div>
+<div class="thm"><span class="lbl">Теорема 14.6</span><p>√<i>f</i>(<i>x</i>) = <i>g</i>(<i>x</i>) ⇔ { <i>f</i>(<i>x</i>) = (<i>g</i>(<i>x</i>))², &nbsp; <i>g</i>(<i>x</i>) ≥ 0 }.</p></div>
+<p>Почему в 14.6 условие <i>g</i>(<i>x</i>) ≥ 0, а условие <i>f</i>(<i>x</i>) ≥ 0 не нужно? Арифметический корень неотрицателен, поэтому правая часть обязана быть ≥ 0. А <i>f</i>(<i>x</i>) = (<i>g</i>(<i>x</i>))² ≥ 0 выполняется автоматически.</p>
+<div class="thm"><span class="lbl">Теорема 14.7</span><p>Если на множестве <i>M</i> обе части уравнения неотрицательны, то на <i>M</i> уравнения <i>f</i>(<i>x</i>) = <i>g</i>(<i>x</i>) и (<i>f</i>(<i>x</i>))<sup>2<i>k</i></sup> = (<i>g</i>(<i>x</i>))<sup>2<i>k</i></sup> равносильны.</p></div>
+<div class="ex"><span class="lbl">Пример 3 · теорема 14.5</span><p>Реши уравнение √(<i>x</i>² − 4<i>x</i>) = √(<i>x</i> − 4).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Равносильно системе <i>x</i>² − 4<i>x</i> = <i>x</i> − 4, <i>x</i> − 4 ≥ 0. Из уравнения <i>x</i>² − 5<i>x</i> + 4 = 0: <i>x</i> = 1 или <i>x</i> = 4. Условию <i>x</i> ≥ 4 удовлетворяет только <b><i>x</i> = 4</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · теорема 14.6</span><p>Реши уравнение √(<i>x</i> + 5) = <i>x</i> − 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Система: <i>x</i> + 5 = (<i>x</i> − 1)², <i>x</i> ≥ 1. Уравнение: <i>x</i>² − 3<i>x</i> − 4 = 0, <i>x</i> = 4 или <i>x</i> = −1. Условию <i>x</i> ≥ 1 отвечает <b><i>x</i> = 4</b>.</p></div></div>
+<h3>Два корня: уединяем и возводим дважды</h3>
+<div class="ex"><span class="lbl">Пример 5 · сумма корней</span><p>Реши уравнение √(<i>x</i> + 3) + √(<i>x</i> − 2) = 5.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Область определения: <i>x</i> ≥ 2. Обе части неотрицательны, по теореме 14.7 возводим в квадрат: 2<i>x</i> + 1 + 2√((<i>x</i> + 3)(<i>x</i> − 2)) = 25, то есть √((<i>x</i> + 3)(<i>x</i> − 2)) = 12 − <i>x</i>.</p><p>Правая часть должна быть ≥ 0: <i>x</i> ≤ 12. Снова в квадрат: <i>x</i>² + <i>x</i> − 6 = 144 − 24<i>x</i> + <i>x</i>², 25<i>x</i> = 150, <b><i>x</i> = 6</b> (2 ≤ 6 ≤ 12). Проверка: 3 + 2 = 5.</p></div></div>
+<div class="ex"><span class="lbl">Пример 6 · разность корней</span><p>Реши уравнение √(2<i>x</i> − 3) − √(<i>x</i> − 2) = 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>x</i> ≥ 2. Уединим корень: √(2<i>x</i> − 3) = 1 + √(<i>x</i> − 2) — обе части неотрицательны. Квадрат: 2<i>x</i> − 3 = 1 + <i>x</i> − 2 + 2√(<i>x</i> − 2), откуда <i>x</i> − 2 = 2√(<i>x</i> − 2). Пусть <i>t</i> = √(<i>x</i> − 2) ≥ 0: <i>t</i>² = 2<i>t</i>, <i>t</i> = 0 или <i>t</i> = 2, <b><i>x</i> = 2 или <i>x</i> = 6</b>.</p><p>Проверка: <i>x</i> = 2: 1 − 0 = 1; <i>x</i> = 6: 3 − 2 = 1. Оба корня подходят.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Перед возведением в квадрат уединяй корень так, чтобы обе части были неотрицательны. Если оставить разность корней слева, квадрат может «склеить» уравнение с уравнением √(2<i>x</i> − 3) − √(<i>x</i> − 2) = −1 и дать лишние корни.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши уравнение <sup>3</sup>√(<i>x</i>² − 2<i>x</i>) = <sup>3</sup>√3.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши уравнение √(3<i>x</i> − 2) = 4.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши уравнение √(<i>x</i> + 7) = <i>x</i> + 1.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши уравнение √(2<i>x</i>² − 3<i>x</i>) = √(<i>x</i> + 6).</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши уравнение √(5 − <i>x</i>) = <i>x</i> − 3.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши уравнение √(<i>x</i> + 4) + 2 = <i>x</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнение √(<i>x</i> + 5) + √<i>x</i> = 5.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши уравнение √(<i>x</i> + 1) − √(<i>x</i> − 4) = 1.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 14.1, 14.2</b> — Уравнения вида ⁿ√f(x) = ⁿ√g(x).</li><li><b>№ 14.3</b> — Уравнения вида √f(x) = g(x).</li><li><b>№ 14.5</b> — Произведение, содержащее корень.</li><li><b>№ 14.8</b> — Разность двух корней.</li><li><b>№ 14.10</b> — Сумма двух корней.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma14a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 14</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 14.2, 14.4, 14.9, 14.11 из учебника письменно. В каждом уравнении указать, какой переход сделан: равносильный или к следствию (и где выполнена проверка).</p></div>
+<div class="pager"><a href="ma13.html">← Урок 13</a><a href="ma15.html">Урок 15 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

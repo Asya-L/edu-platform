@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 15. Перпендикулярные плоскости</title>
+<script>document.documentElement.dataset.page="mg15";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 15 · определение, признак (теорема 15.1), свойство (теорема 15.2), две ключевые задачи, отрезок между перпендикулярными плоскостями">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 15</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 15</div>
+  <h1>Перпендикулярные плоскости</h1>
+  <p class="lede">§ 15 · определение, признак (теорема 15.1), свойство (теорема 15.2), две ключевые задачи, отрезок между перпендикулярными плоскостями</p>
+  <div class="btns">
+    <a class="btn" href="smg15.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg15.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<div class="def"><span class="lbl">Определение</span><p>Две плоскости называют <b>перпендикулярными</b>, если угол между ними равен 90°. Обозначение: <i>α</i> ⊥ <i>β</i>.</p></div>
+<p>Примеры: стена и потолок, дверь и пол, сетка и теннисный корт. Перпендикулярные плоскости образуют при пересечении четыре прямых двугранных угла.</p>
+<h3>Признак перпендикулярности плоскостей</h3>
+<div class="thm"><span class="lbl">Теорема 15.1 (признак)</span><p>Если одна из двух плоскостей проходит через прямую, перпендикулярную другой плоскости, то эти плоскости перпендикулярны.</p></div>
+<figure><img src="assets/fig/mg15_def.png" alt="a ⊂ α, a ⊥ β ⟹ α ⊥ β"><figcaption>a ⊂ α, a ⊥ β ⟹ α ⊥ β</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ⊂ <i>α</i>, <i>a</i> ⊥ <i>β</i>, плоскости пересекаются по прямой <i>b</i>, <i>a</i> ∩ <i>b</i> = <i>B</i>. Возьмём на <i>a</i> точку <i>A</i> ≠ <i>B</i>. Так как <i>a</i> ⊥ <i>β</i>, то <i>AB</i> ⊥ <i>b</i>. В плоскости <i>β</i> проведём <i>BC</i> ⊥ <i>b</i>. Угол <i>ABC</i> — линейный угол двугранного угла с ребром <i>b</i>. Но <i>AB</i> ⊥ <i>β</i>, поэтому <i>AB</i> ⊥ <i>BC</i>: ∠<i>ABC</i> = 90°. Значит, <i>α</i> ⊥ <i>β</i>. ∎</p></div>
+<p>Пример: грань <i>AA</i>₁<i>B</i>₁<i>B</i> прямоугольного параллелепипеда перпендикулярна основанию <i>ABCD</i>, потому что проходит через ребро <i>AA</i>₁ ⊥ (<i>ABC</i>). Так проверяют вертикальность стены: отвес, приложенный к стене, должен прилегать к ней по всей длине.</p>
+<h3>Свойства перпендикулярных плоскостей</h3>
+<div class="thm"><span class="lbl">Теорема 15.2</span><p>Если две плоскости перпендикулярны, то прямая, проведённая в одной плоскости перпендикулярно прямой их пересечения, перпендикулярна другой плоскости.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>α</i> ⊥ <i>β</i>, <i>α</i> ∩ <i>β</i> = <i>a</i>, в <i>α</i> проведена <i>AB</i> ⊥ <i>a</i> (<i>B</i> ∈ <i>a</i>). В <i>β</i> проведём <i>BC</i> ⊥ <i>a</i>. ∠<i>ABC</i> — линейный угол, он равен 90°. Тогда <i>AB</i> перпендикулярна двум пересекающимся прямым плоскости <i>β</i> — <i>a</i> и <i>BC</i>, и по признаку 10.1 <i>AB</i> ⊥ <i>β</i>. ∎</p></div>
+<div class="thm"><span class="lbl">Ключевая задача 1</span><p>Если две плоскости перпендикулярны и через точку одной из них проведена прямая, перпендикулярная другой, то эта прямая лежит в первой плоскости.</p></div>
+<div class="thm"><span class="lbl">Ключевая задача 2</span><p>Если каждая из двух пересекающихся плоскостей перпендикулярна третьей плоскости, то прямая их пересечения перпендикулярна этой третьей плоскости.</p></div>
+<p>Ключевая задача 2 очень полезна в пирамидах: если две боковые грани перпендикулярны основанию, то их общее ребро — высота пирамиды.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не всякая прямая одной из перпендикулярных плоскостей перпендикулярна другой! Только та, что перпендикулярна <b>линии пересечения</b> (теорема 15.2). Например, диагональ стены не перпендикулярна полу.</p></div>
+<h3>Отрезок между перпендикулярными плоскостями</h3>
+<figure><img src="assets/fig/mg15_seg.png" alt="A ∈ α, B ∈ β, AC ⊥ l, BD ⊥ l: AB² = AC² + CD² + BD²"><figcaption>A ∈ α, B ∈ β, AC ⊥ l, BD ⊥ l: AB² = AC² + CD² + BD²</figcaption></figure>
+<p>Пусть точки <i>A</i> и <i>B</i> лежат в перпендикулярных плоскостях, <i>AC</i> и <i>BD</i> — перпендикуляры к линии пересечения <i>l</i>. По теореме 15.2 <i>AC</i> ⊥ <i>β</i>, значит, <i>AC</i> ⊥ <i>CB</i>. В плоскости <i>β</i> треугольник <i>CDB</i> прямоугольный: <i>CB</i>² = <i>CD</i>² + <i>DB</i>². В итоге <b><i>AB</i>² = <i>AC</i>² + <i>CD</i>² + <i>DB</i>²</b> — как диагональ «коробки».</p>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · отрезок между плоскостями</span><p>Плоскости <i>α</i> и <i>β</i> перпендикулярны и пересекаются по прямой <i>l</i>. Из точек <i>A</i> ∈ <i>α</i> и <i>B</i> ∈ <i>β</i> опущены перпендикуляры <i>AC</i> = 3 и <i>BD</i> = 4 на прямую <i>l</i>, <i>CD</i> = 12. Найдите <i>AB</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>AB</i>² = <i>AC</i>² + <i>CD</i>² + <i>DB</i>² = 9 + 144 + 16 = 169, <i>AB</i> = <b>13</b>.</p></div></div>
+<figure><img src="assets/fig/mg15_tri.png" alt="DM ⊥ AB, плоскости перпендикулярны ⟹ DM ⊥ (ABC)"><figcaption>DM ⊥ AB, плоскости перпендикулярны ⟹ DM ⊥ (ABC)</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 2 · два правильных треугольника</span><p>Правильные треугольники <i>ABC</i> и <i>ABD</i> со стороной 6 лежат в перпендикулярных плоскостях. Найдите <i>CD</i> и угол между прямой <i>CD</i> и плоскостью <i>ABC</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) <i>M</i> — середина <i>AB</i>, <i>DM</i> ⊥ <i>AB</i> — линии пересечения, по теореме 15.2 <i>DM</i> ⊥ (<i>ABC</i>), значит, <i>DM</i> ⊥ <i>MC</i>.</p><p>2) <i>DM</i> = <i>CM</i> = 3√3, <i>CD</i> = √(27 + 27) = <b>3√6</b>.</p><p>3) <i>MC</i> — проекция <i>DC</i> на (<i>ABC</i>), треугольник <i>DMC</i> равнобедренный прямоугольный: угол <b>45°</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · перпендикулярные плоскости в кубе</span><p>Докажите, что диагональные сечения <i>AA</i>₁<i>C</i>₁<i>C</i> и <i>BB</i>₁<i>D</i>₁<i>D</i> куба перпендикулярны.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>BD</i> ⊥ <i>AC</i> (диагонали квадрата), <i>BD</i> ⊥ <i>AA</i>₁ (<i>AA</i>₁ ⊥ основанию). По признаку 10.1 <i>BD</i> ⊥ (<i>AA</i>₁<i>C</i>₁). Плоскость <i>BB</i>₁<i>D</i>₁ проходит через <i>BD</i>, по признаку 15.1 плоскости перпендикулярны. ∎</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Перпендикулярны ли плоскости <i>AA</i>₁<i>B</i>₁ и <i>ABC</i> куба? А плоскости <i>ABC</i> и <i>A</i>₁<i>B</i>₁<i>C</i>₁?</div><div class="task"><span class="task-no">№&nbsp;2</span>Плоскости <i>α</i> ⊥ <i>β</i> пересекаются по прямой <i>l</i>, <i>A</i> ∈ <i>α</i>, <i>B</i> ∈ <i>β</i>, перпендикуляры к <i>l</i>: <i>AC</i> = 2, <i>BD</i> = 6, <i>CD</i> = 3. Найди <i>AB</i>.</div><div class="task"><span class="task-no">№&nbsp;3</span>В условии задачи 2: <i>AB</i> = 17, <i>AC</i> = 9, <i>CD</i> = 12. Найди <i>BD</i>.</div><div class="task"><span class="task-no">№&nbsp;4</span>Квадраты <i>ABCD</i> и <i>ABEF</i> со стороной 4 лежат в перпендикулярных плоскостях. Найди <i>DE</i>.</div><div class="task"><span class="task-no">№&nbsp;5</span>Правильные треугольники <i>ABC</i> и <i>ABD</i> со стороной 2 лежат в перпендикулярных плоскостях. Найди <i>CD</i>.</div><div class="task"><span class="task-no">№&nbsp;6</span>Плоскости <i>α</i> ⊥ <i>β</i>. Прямая <i>m</i> лежит в <i>α</i> и перпендикулярна линии пересечения. Как расположены <i>m</i> и <i>β</i>?</div><div class="task"><span class="task-no">№&nbsp;7</span>Плоскости <i>α</i> ⊥ <i>β</i>. Точка <i>A</i> ∈ <i>α</i> удалена от линии их пересечения на 5. Найди расстояние от <i>A</i> до плоскости <i>β</i>.</div><div class="task"><span class="task-no">№&nbsp;8</span>Квадрат <i>ABCD</i> со стороной 6 перегнули по диагонали <i>AC</i> так, что плоскости <i>ABC</i> и <i>ADC</i> стали перпендикулярны. Найди <i>BD</i>.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg15a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 15</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — рисунок. Из учебника: № 15.2, 15.5, 15.14, 15.29. Выучить признак 15.1 и теорему 15.2 с доказательствами, формулировки ключевых задач 1 и 2.</p></div>
+<div class="task"><span class="task-no">Д1</span>Плоскости <i>α</i> ⊥ <i>β</i>, <i>A</i> ∈ <i>α</i>, <i>B</i> ∈ <i>β</i>, перпендикуляры к линии пересечения <i>AC</i> = 6, <i>BD</i> = 7, <i>CD</i> = 6. Найди <i>AB</i>.</div><div class="task"><span class="task-no">Д2</span>Плоскости <i>α</i> ⊥ <i>β</i>, <i>A</i> ∈ <i>α</i>, <i>B</i> ∈ <i>β</i>, <i>AB</i> = 25, перпендикуляры к линии пересечения <i>AC</i> = 12, <i>BD</i> = 9. Найди <i>CD</i>.</div><div class="task"><span class="task-no">Д3</span>Квадраты <i>ABCD</i> и <i>ABEF</i> со стороной 5 лежат в перпендикулярных плоскостях. Найди <i>CF</i>.</div><div class="task"><span class="task-no">Д4</span>Правильные треугольники <i>ABC</i> и <i>ABD</i> со стороной 4 лежат в перпендикулярных плоскостях. Найди <i>CD</i>.</div><div class="task"><span class="task-no">Д5</span>Основание пирамиды <i>MABCD</i> — прямоугольник, грани <i>MAB</i> и <i>MCB</i> перпендикулярны основанию. Докажи, что <i>MB</i> — высота пирамиды.</div><div class="task"><span class="task-no">Д6</span>Квадрат со стороной 10 перегнули по диагонали так, что его половины оказались в перпендикулярных плоскостях. Найди расстояние между вершинами, не лежащими на диагонали.</div>
+<div class="pager"><a href="mg14.html">← Урок 14</a><a href="mg16.html">Урок 16 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

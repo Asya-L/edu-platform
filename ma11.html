@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 11. Корень n-й степени. Функция y = ⁿ√x</title>
+<script>document.documentElement.dataset.page="ma11";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 11 · корень и арифметический корень, уравнение xⁿ = a, свойства и график y = ⁿ√x">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 11</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 11</div>
+  <h1>Корень n-й степени. Функция y = ⁿ√x</h1>
+  <p class="lede">§ 11 · корень и арифметический корень, уравнение xⁿ = a, свойства и график y = ⁿ√x</p>
+  <div class="btns">
+    <a class="btn" href="sma11.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma11.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Корень n-й степени</h3>
+<p>Квадратный корень из числа <i>a</i> — это число, квадрат которого равен <i>a</i>. Так же определяют корень любой степени.</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Корнем <i>n</i>-й степени</b> из числа <i>a</i>, где <i>n</i> ∈ <b><i>N</i></b>, <i>n</i> &gt; 1, называют число, <i>n</i>-я степень которого равна <i>a</i>.</p></div>
+<p>Корень пятой степени из 32 — число 2, так как 2⁵ = 32. Корень третьей степени из −64 — число −4: (−4)³ = −64. А корней четвёртой степени из 81 два: 3 и −3, ведь 3⁴ = (−3)⁴ = 81. Получается, что искать корни <i>n</i>-й степени из <i>a</i> — то же самое, что решать уравнение <i>x</i><sup><i>n</i></sup> = <i>a</i>.</p>
+<div class="figrow"><figure><img src="assets/fig/mal11_count.png" alt="x⁴ = a: при a &gt; 0 два корня, при a = 0 один, при a &lt; 0 нет"><figcaption>x⁴ = a: при a > 0 два корня, при a = 0 один, при a < 0 нет</figcaption></figure></div>
+<ul><li><b><i>n</i> нечётное.</b> Функция <i>y</i> = <i>x</i><sup><i>n</i></sup> возрастает и принимает все значения, поэтому корень <i>n</i>-й степени из <b>любого</b> числа существует и <b>единственный</b>. Его обозначают <sup><i>n</i></sup>√<i>a</i>: <sup>5</sup>√32 = 2, <sup>3</sup>√(−64) = −4, <sup>7</sup>√0 = 0.</li><li><b><i>n</i> чётное.</b> При <i>a</i> &lt; 0 корня нет, при <i>a</i> = 0 он один — 0, при <i>a</i> &gt; 0 их два, противоположных.</li></ul>
+<div class="def"><span class="lbl">Определение</span><p><b>Арифметическим корнем <i>n</i>-й степени</b> из неотрицательного числа <i>a</i> называют <b>неотрицательное</b> число, <i>n</i>-я степень которого равна <i>a</i>. Обозначение: <sup><i>n</i></sup>√<i>a</i>.</p></div>
+<p><sup>4</sup>√81 = 3, так как 3 ≥ 0 и 3⁴ = 81; <sup>6</sup>√64 = 2; <sup>10</sup>√0 = 0. Знак <sup><i>n</i></sup>√ называют <b>радикалом</b>, выражение под ним — <b>подкоренным</b>. Корень третьей степени называют <b>кубическим</b>.</p>
+<p>Обрати внимание на договорённость: запись <sup><i>n</i></sup>√<i>a</i> при <b>нечётном</b> <i>n</i> означает единственный корень из любого числа, а при <b>чётном</b> <i>n</i> — только арифметический корень из <i>a</i> ≥ 0. Отрицательный корень чётной степени отдельного обозначения не имеет — его пишут как −<sup><i>n</i></sup>√<i>a</i>.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p><sup>4</sup>√16 = 2, а не ±2: знак корня чётной степени — всегда неотрицательное число. Запись <sup>4</sup>√(−16) смысла не имеет, а <sup>3</sup>√(−8) = −2 — имеет.</p></div>
+<h3>Уравнение xⁿ = a</h3>
+<div class="tablewrap"><table><thead><tr><th></th><th><i>a</i> &lt; 0</th><th><i>a</i> = 0</th><th><i>a</i> &gt; 0</th></tr></thead><tbody><tr><td><i>n</i> нечётное</td><td><i>x</i> = <sup><i>n</i></sup>√<i>a</i></td><td><i>x</i> = 0</td><td><i>x</i> = <sup><i>n</i></sup>√<i>a</i></td></tr><tr><td><i>n</i> чётное</td><td>корней нет</td><td><i>x</i> = 0</td><td><i>x</i> = ±<sup><i>n</i></sup>√<i>a</i></td></tr></tbody></table></div>
+<p>Из определения сразу следуют полезные равенства: (<sup><i>n</i></sup>√<i>a</i>)<sup><i>n</i></sup> = <i>a</i> (для чётного <i>n</i> — при <i>a</i> ≥ 0) и <sup><i>n</i></sup>√(−<i>a</i>) = −<sup><i>n</i></sup>√<i>a</i> для нечётного <i>n</i>. Например, <sup>3</sup>√(−2) = −<sup>3</sup>√2.</p>
+<h3>Функция y = ⁿ√x</h3>
+<p>Для нечётного <i>n</i> функция <i>y</i> = <sup><i>n</i></sup>√<i>x</i> — обратная к <i>y</i> = <i>x</i><sup><i>n</i></sup> на <b><i>R</i></b>. Для чётного <i>n</i> — обратная к <i>y</i> = <i>x</i><sup><i>n</i></sup>, рассматриваемой на [0; +∞). Поэтому её график получают отражением в прямой <i>y</i> = <i>x</i> (теорема 7.2).</p>
+<div class="figrow"><figure><img src="assets/fig/mal11_odd.png" alt="y = ∛x — отражение y = x³"><figcaption>y = ∛x — отражение y = x³</figcaption></figure><figure><img src="assets/fig/mal11_even.png" alt="y = ⁴√x — отражение y = x⁴, x ≥ 0"><figcaption>y = ⁴√x — отражение y = x⁴, x ≥ 0</figcaption></figure></div>
+<div class="tablewrap"><table><thead><tr><th>Свойство</th><th>n — чётное</th><th>n — нечётное</th></tr></thead><tbody><tr><td>Область определения</td><td>[0; +∞)</td><td><b><i>R</i></b></td></tr><tr><td>Область значений</td><td>[0; +∞)</td><td><b><i>R</i></b></td></tr><tr><td>Нули</td><td><i>x</i> = 0</td><td><i>x</i> = 0</td></tr><tr><td>Знак</td><td><i>y</i> &gt; 0 на (0; +∞)</td><td><i>y</i> &lt; 0 на (−∞; 0), <i>y</i> &gt; 0 на (0; +∞)</td></tr><tr><td>Чётность</td><td>ни чётная, ни нечётная</td><td>нечётная</td></tr><tr><td>Монотонность</td><td>возрастает</td><td>возрастает</td></tr></tbody></table></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · вычислить</span><p>Вычисли: <sup>4</sup>√81; <sup>3</sup>√(−125); <sup>5</sup>√(−1/32); (<sup>7</sup>√5)⁷; <sup>3</sup>√(−0,008).</p><div class="ex-sol"><span class="ex-h">Решение</span><p><sup>4</sup>√81 = <b>3</b> (3⁴ = 81); <sup>3</sup>√(−125) = <b>−5</b>; <sup>5</sup>√(−1/32) = <b>−1/2</b>; (<sup>7</sup>√5)⁷ = <b>5</b>; <sup>3</sup>√(−0,008) = <b>−0,2</b>, так как 0,2³ = 0,008.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · уравнения</span><p>Реши: а) <i>x</i>⁴ = 5; б) <i>x</i>³ = −27; в) <i>x</i>⁶ = −1; г) <sup>4</sup>√<i>x</i> = −2; д) <sup>3</sup>√<i>x</i> = −2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <b><i>x</i> = ±<sup>4</sup>√5</b>; б) <b><i>x</i> = −3</b>; в) <b>корней нет</b>; г) <b>корней нет</b> — арифметический корень не бывает отрицательным; д) возведём в куб: <b><i>x</i> = −8</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · область определения</span><p>Найди область определения: а) <i>y</i> = <sup>4</sup>√(<i>x</i> − 1); б) <i>y</i> = <sup>3</sup>√(<i>x</i> − 1); в) <i>y</i> = <sup>6</sup>√(<i>x</i>² − 9).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Корень чётной степени: <i>x</i> − 1 ≥ 0, <b>[1; +∞)</b>. б) Корень нечётной степени определён всегда: <b><b><i>R</i></b></b>. в) <i>x</i>² − 9 ≥ 0: <b>(−∞; −3] ∪ [3; +∞)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · оценить корень</span><p>Между какими соседними целыми числами лежит <sup>3</sup>√30?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>3³ = 27 &lt; 30 &lt; 64 = 4³, а функция <sup>3</sup>√<i>x</i> возрастает, поэтому <b>3 &lt; <sup>3</sup>√30 &lt; 4</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · неравенства</span><p>Реши неравенства: а) <sup>4</sup>√(<i>x</i> − 2) &lt; 1; б) <sup>6</sup>√(<i>x</i>² − 4) &gt; <sup>6</sup>√(3<i>x</i>); в) <sup>3</sup>√(<i>x</i>² − 4) &gt; <sup>3</sup>√(3<i>x</i>).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Функция <sup>4</sup>√t возрастает и определена при <i>t</i> ≥ 0, поэтому неравенство равносильно системе 0 ≤ <i>x</i> − 2 &lt; 1: <b>[2; 3)</b>.</p><p>б) Обе части должны существовать, а большее подкоренное выражение даёт больший корень: <i>x</i>² − 4 &gt; 3<i>x</i> и 3<i>x</i> ≥ 0. Первое: <i>x</i> &lt; −1 или <i>x</i> &gt; 4; со вторым — <b>(4; +∞)</b>.</p><p>в) Кубический корень определён везде и возрастает: просто <i>x</i>² − 4 &gt; 3<i>x</i>, <b>(−∞; −1) ∪ (4; +∞)</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) <sup>3</sup>√(−27); б) <sup>4</sup>√625; в) <sup>5</sup>√(1/243); г) (<sup>3</sup>√7)³; д) −<sup>4</sup>√16.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши уравнения: а) <i>x</i>⁵ = −32; б) <i>x</i>⁶ = 64; в) <i>x</i>⁴ = −81; г) <i>x</i>³ = 5.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши уравнения: а) <sup>3</sup>√<i>x</i> = −3; б) <sup>4</sup>√<i>x</i> = 2; в) <sup>4</sup>√<i>x</i> = −1; г) <sup>3</sup>√(2<i>x</i> + 1) = 3.</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди область определения: а) <i>y</i> = <sup>6</sup>√(<i>x</i> + 4); б) <i>y</i> = <sup>5</sup>√(<i>x</i> − 7); в) <i>y</i> = <sup>4</sup>√(4 − <i>x</i>²).</div><div class="task"><span class="task-no">№&nbsp;5</span>Между какими соседними целыми числами лежит: а) <sup>3</sup>√50; б) <sup>4</sup>√100; в) −<sup>3</sup>√20?</div><div class="task"><span class="task-no">№&nbsp;6</span>Найди область значений: а) <i>y</i> = <sup>4</sup>√<i>x</i> + 3; б) <i>y</i> = <sup>3</sup>√<i>x</i> − 1.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши неравенство <sup>4</sup>√(<i>x</i> + 1) &lt; 2.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши неравенство <sup>3</sup>√(<i>x</i> − 3) &gt; −1.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 11.1, 11.3</b> — Вычисление корней n-й степени.</li><li><b>№ 11.5, 11.7</b> — Область определения и область значений.</li><li><b>№ 11.9</b> — Между какими целыми числами лежит корень.</li><li><b>№ 11.11</b> — Уравнения xⁿ = a и ⁿ√x = a.</li><li><b>№ 11.22</b> — Неравенства с корнем.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma11a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 11</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 11.2, 11.6, 11.10, 11.12, 11.23 (1, 2) из учебника письменно. Построить в одной системе координат y = x³, y = ∛x и прямую y = x.</p></div>
+<div class="pager"><a href="ma10.html">← Урок 10</a><a href="ma12.html">Урок 12 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

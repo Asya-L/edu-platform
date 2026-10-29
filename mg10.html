@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 10. Перпендикулярность прямой и плоскости</title>
+<script>document.documentElement.dataset.page="mg10";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 10 · определение, признак (теорема 10.1), теоремы 10.2–10.5, симметрия относительно плоскости">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 10</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 10</div>
+  <h1>Перпендикулярность прямой и плоскости</h1>
+  <p class="lede">§ 10 · определение, признак (теорема 10.1), теоремы 10.2–10.5, симметрия относительно плоскости</p>
+  <div class="btns">
+    <a class="btn" href="smg10.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg10.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Что значит «прямая перпендикулярна плоскости»</h3>
+<p>Флагшток перпендикулярен земле, мачта — палубе, шуруп вкручивают перпендикулярно доске. Что общего? Прямая «стоит» так, что с <b>любой</b> линией, проведённой на поверхности, она образует прямой угол.</p>
+<div class="def"><span class="lbl">Определение</span><p>Прямую называют <b>перпендикулярной плоскости</b>, если она перпендикулярна <b>любой</b> прямой, лежащей в этой плоскости. Обозначение: <i>a</i> ⊥ <i>α</i>.</p></div>
+<figure><img src="assets/fig/mg10_def.png" alt="a ⊥ α: a перпендикулярна прямым b, c, x и любой другой прямой плоскости"><figcaption>a ⊥ α: a перпендикулярна прямым b, c, x и любой другой прямой плоскости</figcaption></figure>
+<p>Такая прямая обязательно <b>пересекает</b> плоскость. Если бы она лежала в плоскости или была ей параллельна, то в плоскости нашлась бы параллельная ей прямая, а угол между параллельными прямыми равен 0°, а не 90°. Отрезок перпендикулярен плоскости, если он лежит на прямой, перпендикулярной плоскости.</p>
+<h3>Признак перпендикулярности прямой и плоскости</h3>
+<p>Проверять все прямые плоскости невозможно — их бесконечно много. Оказывается, хватит <b>двух пересекающихся</b>.</p>
+<div class="thm"><span class="lbl">Теорема 10.1 (признак)</span><p>Если прямая перпендикулярна двум пересекающимся прямым, лежащим в плоскости, то она перпендикулярна самой плоскости.</p></div>
+<figure><img src="assets/fig/mg10_priznak.png" alt="c₁ ⊥ a, c₁ ⊥ b; O — середина MN; доказываем, что c₁ ⊥ x₁"><figcaption>c₁ ⊥ a, c₁ ⊥ b; O — середина MN; доказываем, что c₁ ⊥ x₁</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>c</i> ⊥ <i>a</i>, <i>c</i> ⊥ <i>b</i>, прямые <i>a</i>, <i>b</i> лежат в <i>α</i> и пересекаются в точке <i>O</i>. Возьмём любую прямую <i>x</i> плоскости и докажем, что <i>c</i> ⊥ <i>x</i>. Если <i>x</i> ∥ <i>a</i> или <i>x</i> ∥ <i>b</i>, это следует из определения угла. Иначе проведём через <i>O</i> прямые <i>c</i>₁ ∥ <i>c</i> и <i>x</i>₁ ∥ <i>x</i>; достаточно доказать, что <i>c</i>₁ ⊥ <i>x</i>₁.</p><p>1) Проведём в <i>α</i> прямую, пересекающую <i>b</i>, <i>x</i>₁, <i>a</i> в точках <i>B</i>, <i>X</i>, <i>A</i>. На <i>c</i>₁ отложим <i>OM</i> = <i>ON</i> по разные стороны от <i>α</i>.</p><p>2) <i>BO</i> ⊥ <i>MN</i> и <i>O</i> — середина <i>MN</i>, значит, <i>BM</i> = <i>BN</i> (высота и медиана в треугольнике <i>MBN</i>). Так же <i>AM</i> = <i>AN</i>.</p><p>3) △<i>BMA</i> = △<i>BNA</i> по трём сторонам ⟹ ∠<i>MBX</i> = ∠<i>NBX</i>. Тогда △<i>MBX</i> = △<i>NBX</i> по двум сторонам и углу ⟹ <i>XM</i> = <i>XN</i>.</p><p>4) В равнобедренном треугольнике <i>MXN</i> медиана <i>XO</i> — высота: <i>MN</i> ⊥ <i>XO</i>, то есть <i>c</i>₁ ⊥ <i>x</i>₁. ∎</p></div>
+<p>Пример: в прямоугольном параллелепипеде ребро <i>AA</i>₁ перпендикулярно рёбрам <i>AB</i> и <i>AD</i> (грани — прямоугольники), а они пересекаются. Значит, <i>AA</i>₁ ⊥ (<i>ABC</i>). Так же ставят новогоднюю ёлку: ствол перпендикулярен двум брусьям крестовины — и ёлка стоит вертикально.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Две прямые в плоскости должны <b>пересекаться</b>. Перпендикулярности к двум параллельным прямым мало: прямая может лежать в плоскости и быть перпендикулярной двум параллельным прямым этой плоскости.</p></div>
+<h3>Ещё четыре теоремы</h3>
+<div class="thm"><span class="lbl">Теорема 10.2</span><p>Если одна из двух параллельных прямых перпендикулярна плоскости, то и другая прямая перпендикулярна этой плоскости.</p></div>
+<p>Почему: для любой прямой <i>x</i> плоскости угол между <i>a</i> и <i>x</i> равен 90°, а параллельная прямая <i>b</i> образует с <i>x</i> тот же угол (определение угла через параллельный перенос).</p>
+<div class="thm"><span class="lbl">Теорема 10.3</span><p>Если две прямые перпендикулярны одной и той же плоскости, то они параллельны.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> ⊥ <i>α</i>, <i>b</i> ⊥ <i>α</i>, но <i>a</i> ∦ <i>b</i>. Через точку <i>M</i> ∈ <i>b</i> (вне <i>α</i>) проведём <i>b</i>₁ ∥ <i>a</i>; по теореме 10.2 <i>b</i>₁ ⊥ <i>α</i>. Прямые <i>b</i> и <i>b</i>₁ пересекают <i>α</i> в разных точках <i>B</i> и <i>B</i>₁, и обе перпендикулярны <i>BB</i>₁. В плоскости <i>MBB</i>₁ через точку <i>M</i> проходят два перпендикуляра к прямой <i>BB</i>₁ — противоречие. Значит, <i>a</i> ∥ <i>b</i>. ∎</p></div>
+<div class="thm"><span class="lbl">Теорема 10.4</span><p>Через данную точку можно провести прямую, перпендикулярную данной плоскости, и притом только одну.</p></div>
+<div class="thm"><span class="lbl">Теорема 10.5</span><p>Если две плоскости перпендикулярны одной и той же прямой, то они параллельны.</p></div>
+<p>Идея доказательства 10.5: если бы плоскости пересекались по прямой <i>c</i>, возьмём точку <i>A</i> на <i>c</i> и плоскость через <i>a</i> и <i>A</i>. В ней через <i>A</i> прошли бы две разные прямые, перпендикулярные <i>a</i>, — так не бывает.</p>
+<h3>Симметрия относительно плоскости</h3>
+<div class="def"><span class="lbl">Определение</span><p>Точки <i>M</i> и <i>M</i>₁ называют <b>симметричными относительно плоскости</b> <i>α</i>, если отрезок <i>MM</i>₁ перпендикулярен <i>α</i> и делится ею пополам. Каждая точка плоскости симметрична сама себе.</p></div>
+<figure><img src="assets/fig/mg10_sym.png" alt="M и M₁ симметричны относительно α: MM₁ ⊥ α, OM = OM₁"><figcaption>M и M₁ симметричны относительно α: MM₁ ⊥ α, OM = OM₁</figcaption></figure>
+<p>Это «зеркальная» симметрия: плоскость работает как зеркало. Она сохраняет расстояния (является движением), поэтому симметричные фигуры равны. Если фигура переходит сама в себя, плоскость называют её <b>плоскостью симметрии</b>. Плоскости симметрии есть у прямоугольного параллелепипеда, конуса, шара; в природе — у бабочки, в архитектуре — у фасадов многих зданий.</p>
+<h2>Разбор примеров</h2>
+<figure><img src="assets/fig/mg10_tet.png" alt="AB ⊥ DM и AB ⊥ CM ⟹ AB ⊥ (DMC) ⟹ AB ⊥ DC"><figcaption>AB ⊥ DM и AB ⊥ CM ⟹ AB ⊥ (DMC) ⟹ AB ⊥ DC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 1 · рёбра правильного тетраэдра</span><p>Все рёбра тетраэдра <i>DABC</i> равны. Докажите, что его противоположные рёбра <i>AB</i> и <i>DC</i> перпендикулярны.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) Пусть <i>M</i> — середина <i>AB</i>. В равносторонних треугольниках <i>ADB</i> и <i>ACB</i> медианы <i>DM</i> и <i>CM</i> являются высотами: <i>AB</i> ⊥ <i>DM</i>, <i>AB</i> ⊥ <i>CM</i>.</p><p>2) <i>DM</i> и <i>CM</i> пересекаются, по признаку <i>AB</i> ⊥ (<i>DMC</i>).</p><p>3) Прямая <i>DC</i> лежит в плоскости <i>DMC</i>, поэтому <i>AB</i> ⊥ <i>DC</i>. ∎</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · перпендикуляр через центр</span><p>Через центр <i>O</i> правильного треугольника <i>ABC</i> со стороной 6√3 проведена прямая <i>DO</i> ⊥ (<i>ABC</i>), <i>DA</i> = 10. Найдите <i>DO</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>OA</i> — радиус описанной окружности: <i>OA</i> = 6√3/√3 = 6. <i>DO</i> ⊥ (<i>ABC</i>) ⟹ <i>DO</i> ⊥ <i>OA</i>, треугольник <i>DOA</i> прямоугольный: <i>DO</i> = √(100 − 36) = <b>8</b>.</p></div></div>
+<figure><img src="assets/fig/mg10_cube_sec.png" alt="Сечение через середину M ребра AD, перпендикулярное прямой AC"><figcaption>Сечение через середину M ребра AD, перпендикулярное прямой AC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 3 · сечение, перпендикулярное прямой</span><p>Ребро куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ равно 4, <i>M</i> — середина <i>AD</i>. Постройте сечение куба плоскостью, проходящей через <i>M</i> перпендикулярно прямой <i>AC</i>, и найдите его площадь.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) Проведём <i>MN</i> ∥ <i>BD</i> (<i>N</i> — середина <i>AB</i>) и вертикальные отрезки <i>MM</i>₁ ∥ <i>AA</i>₁, <i>NN</i>₁ ∥ <i>AA</i>₁. Получим прямоугольник <i>MNN</i>₁<i>M</i>₁.</p><p>2) Почему он перпендикулярен <i>AC</i>: <i>MN</i> ∥ <i>BD</i> ⊥ <i>AC</i> (диагонали квадрата); <i>MM</i>₁ ∥ <i>AA</i>₁ ⊥ (<i>ABC</i>), значит, <i>MM</i>₁ ⊥ <i>AC</i>. Прямая <i>AC</i> перпендикулярна двум пересекающимся прямым плоскости сечения — признак 10.1.</p><p>3) <i>MN</i> = <i>BD</i>/2 = 2√2, <i>MM</i>₁ = 4. Площадь <b>8√2</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Чтобы доказать перпендикулярность прямой и плоскости, ищи в плоскости <b>две пересекающиеся</b> прямые, перпендикулярные данной. Чаще всего помогают: диагонали ромба (квадрата), медиана-высота равнобедренного треугольника и ребро, перпендикулярное грани.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Каким граням куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ перпендикулярна прямая <i>AA</i>₁?</div><div class="task"><span class="task-no">№&nbsp;2</span>Сколько рёбер куба перпендикулярны плоскости грани <i>BB</i>₁<i>C</i>₁<i>C</i>?</div><div class="task"><span class="task-no">№&nbsp;3</span>Через центр <i>O</i> квадрата <i>ABCD</i> со стороной 6√2 проведена прямая <i>MO</i> ⊥ (<i>ABC</i>), <i>MO</i> = 8. Найди <i>MA</i>.</div><div class="task"><span class="task-no">№&nbsp;4</span><i>ABCD</i> — прямоугольник, <i>MA</i> ⊥ (<i>ABC</i>). Докажи, что <i>CD</i> ⊥ (<i>MAD</i>).</div><div class="task"><span class="task-no">№&nbsp;5</span>Отрезок <i>AB</i> не пересекает плоскость <i>α</i>. Перпендикуляры <i>AA</i>₁ и <i>BB</i>₁ к <i>α</i> равны 3 и 11, <i>A</i>₁<i>B</i>₁ = 15. Найди <i>AB</i>.</div><div class="task"><span class="task-no">№&nbsp;6</span>Точка <i>C</i> лежит на отрезке <i>AB</i>, не пересекающем <i>α</i>, <i>AC</i> : <i>CB</i> = 1 : 3. Перпендикуляры к <i>α</i>: <i>AA</i>₁ = 4, <i>BB</i>₁ = 12. Найди <i>CC</i>₁.</div><div class="task"><span class="task-no">№&nbsp;7</span>Сколько плоскостей симметрии у куба?</div><div class="task"><span class="task-no">№&nbsp;8</span>Сколько плоскостей симметрии у прямоугольного параллелепипеда с измерениями 2, 3, 4?</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg10a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 10</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — рисунок. Из учебника: № 10.4, 10.6, 10.12, 10.26. Выучить определение и признак 10.1 (доказательство — по рисунку), формулировки теорем 10.2–10.5.</p></div>
+<div class="task"><span class="task-no">Д1</span>Сколько рёбер куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ перпендикулярны плоскости <i>ABC</i>? Назови их.</div><div class="task"><span class="task-no">Д2</span>Через центр <i>O</i> правильного треугольника <i>ABC</i> со стороной 12√3 проведена прямая <i>DO</i> ⊥ (<i>ABC</i>), <i>DO</i> = 5. Найди <i>DA</i>.</div><div class="task"><span class="task-no">Д3</span>Отрезок <i>AB</i> не пересекает плоскость <i>α</i>, перпендикуляры <i>AA</i>₁ = 5, <i>BB</i>₁ = 13, <i>A</i>₁<i>B</i>₁ = 6. Найди <i>AB</i>.</div><div class="task"><span class="task-no">Д4</span>Отрезок <i>AB</i> пересекает плоскость <i>α</i>, перпендикуляры <i>AA</i>₁ = 5, <i>BB</i>₁ = 3, <i>A</i>₁<i>B</i>₁ = 15. Найди <i>AB</i>.</div><div class="task"><span class="task-no">Д5</span><i>ABCD</i> — квадрат, прямая <i>MC</i> ⊥ (<i>ABC</i>). Докажи, что <i>BD</i> ⊥ (<i>MAC</i>).</div><div class="task"><span class="task-no">Д6</span>Ребро куба равно 6, <i>M</i> — середина <i>AD</i>. Построй сечение плоскостью через <i>M</i>, перпендикулярной прямой <i>AC</i>, и найди его площадь.</div>
+<div class="pager"><a href="mg9.html">← Урок 9</a><a href="mg11.html">Урок 11 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

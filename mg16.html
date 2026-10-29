@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 16. Площадь ортогональной проекции многоугольника</title>
+<script>document.documentElement.dataset.page="mg16";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 16 · теорема 16.1: S_пр = S · cos φ, следствие, угол между плоскостями через площади">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 16</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 16</div>
+  <h1>Площадь ортогональной проекции многоугольника</h1>
+  <p class="lede">§ 16 · теорема 16.1: S_пр = S · cos φ, следствие, угол между плоскостями через площади</p>
+  <div class="btns">
+    <a class="btn" href="smg16.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg16.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Положи лист бумаги на стол — его тень (проекция на стол) совпадает с ним. Начни поднимать один край: тень становится уже, а при вертикальном листе превращается в отрезок. Площадь тени уменьшается — и уменьшается по очень простому закону.</p>
+<div class="thm"><span class="lbl">Теорема 16.1</span><p>Площадь проекции выпуклого многоугольника равна произведению его площади на косинус угла <i>φ</i> между плоскостью многоугольника и плоскостью проекции: <b><i>S</i>пр = <i>S</i> · cos <i>φ</i></b> (0° ≤ <i>φ</i> ≤ 90°).</p></div>
+<figure><img src="assets/fig/mg16_tri.png" alt="AC ⊂ π, BB₁ ⊥ π, BD ⊥ AC ⟹ B₁D ⊥ AC; ∠BDB₁ = φ"><figcaption>AC ⊂ π, BB₁ ⊥ π, BD ⊥ AC ⟹ B₁D ⊥ AC; ∠BDB₁ = φ</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p><b>Шаг 1: треугольник, у которого сторона лежит в плоскости проекции.</b> Плоскость проекции можно заменить параллельной (проекции на параллельные плоскости равны), поэтому пусть сторона <i>AC</i> треугольника <i>ABC</i> лежит в плоскости <i>π</i>. Опустим <i>BB</i>₁ ⊥ <i>π</i> и высоту <i>BD</i> треугольника. По теореме о трёх перпендикулярах <i>B</i>₁<i>D</i> ⊥ <i>AC</i>, значит, ∠<i>BDB</i>₁ — линейный угол, он равен <i>φ</i>.</p><p>Из прямоугольного треугольника <i>BDB</i>₁: <i>B</i>₁<i>D</i> = <i>BD</i> · cos <i>φ</i>. Тогда <i>S</i>(<i>AB</i>₁<i>C</i>) = ½ <i>AC</i> · <i>B</i>₁<i>D</i> = ½ <i>AC</i> · <i>BD</i> · cos <i>φ</i> = <i>S</i>(<i>ABC</i>) · cos <i>φ</i>.</p><p><b>Шаг 2: любой треугольник.</b> Проведём через вершину прямую, параллельную линии пересечения плоскостей, — она разрежет треугольник на два, для каждого из которых шаг 1 уже доказан. Сложим площади.</p><p><b>Шаг 3: выпуклый многоугольник</b> разобьём диагоналями из одной вершины на треугольники и снова сложим: (<i>S</i>₁ + … + <i>S</i><sub>n</sub>) cos <i>φ</i> = <i>S</i> cos <i>φ</i>. ∎</p></div>
+<div class="thm"><span class="lbl">Следствие</span><p>Площадь проекции многоугольника не превосходит площади самого многоугольника (так как cos <i>φ</i> ≤ 1).</p></div>
+<p>Формулу удобно читать и в обратную сторону: <b>cos <i>φ</i> = <i>S</i>пр / <i>S</i></b>. Это способ найти угол между плоскостями, не строя линейный угол: достаточно знать площадь фигуры и площадь её проекции.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Проекция обязательно <b>ортогональная</b> (на плоскость, вдоль перпендикуляра к ней). Для косой параллельной проекции формула не работает.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · прямое применение</span><p>Площадь многоугольника 20, угол между его плоскостью и плоскостью проекции 60°. Найдите площадь проекции.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>S</i>пр = 20 · cos 60° = <b>10</b>.</p></div></div>
+<figure><img src="assets/fig/mg16_cube.png" alt="Проекция треугольника AB₁C на плоскость ABC — треугольник ABC"><figcaption>Проекция треугольника AB₁C на плоскость ABC — треугольник ABC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 2 · угол через площади</span><p>Найдите косинус угла между плоскостями <i>AB</i>₁<i>C</i> и <i>ABC</i> куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть ребро <i>a</i>. Треугольник <i>AB</i>₁<i>C</i> равносторонний со стороной <i>a</i>√2, его площадь (<i>a</i>√2)² · √3/4 = <i>a</i>²√3/2. Его проекция на (<i>ABC</i>) — треугольник <i>ABC</i> (<i>B</i>₁ проектируется в <i>B</i>), площадь <i>a</i>²/2. cos <i>φ</i> = (<i>a</i>²/2) : (<i>a</i>²√3/2) = 1/√3 = <b>√3/3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · площадь наклонного треугольника</span><p>В треугольнике <i>ABC</i> ∠<i>C</i> = 90°, <i>AC</i> = 6, <i>BC</i> = 8, <i>DC</i> ⊥ (<i>ABC</i>). Угол между плоскостями <i>ABC</i> и <i>ABD</i> равен 60°. Найдите площадь треугольника <i>ABD</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Проекция треугольника <i>ABD</i> на плоскость <i>ABC</i> — треугольник <i>ABC</i>, его площадь 24. <i>S</i>(<i>ABD</i>) = 24 / cos 60° = <b>48</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Площадь многоугольника 30, угол между его плоскостью и плоскостью проекции 60°. Найди площадь проекции.</div><div class="task"><span class="task-no">№&nbsp;2</span>Площадь проекции многоугольника 12, угол между плоскостями 60°. Найди площадь многоугольника.</div><div class="task"><span class="task-no">№&nbsp;3</span>Площадь многоугольника 10, площадь его проекции 5√2. Найди угол между плоскостями.</div><div class="task"><span class="task-no">№&nbsp;4</span>Площадь многоугольника 40, площадь проекции 20√3. Найди угол между плоскостями.</div><div class="task"><span class="task-no">№&nbsp;5</span>Основания равнобедренной трапеции 6 и 14, боковая сторона 5. Найди площадь её проекции на плоскость, образующую с плоскостью трапеции угол 60°.</div><div class="task"><span class="task-no">№&nbsp;6</span>Квадрат со стороной 4 спроектирован на плоскость, образующую с плоскостью квадрата угол 30°. Найди площадь проекции.</div><div class="task"><span class="task-no">№&nbsp;7</span>Угол между плоскостью многоугольника и плоскостью проекции 60°, сумма площадей многоугольника и проекции равна 36. Найди площадь многоугольника.</div><div class="task"><span class="task-no">№&nbsp;8</span>В треугольнике <i>ABC</i> ∠<i>C</i> = 90°, <i>AC</i> = 5, <i>BC</i> = 12, <i>DC</i> ⊥ (<i>ABC</i>), угол между плоскостями <i>ABC</i> и <i>ABD</i> равен 30°. Найди площадь <i>ABD</i>.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg16a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 16</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже. Из учебника: № 16.3, 16.5, 16.8, 16.10. Выучить теорему 16.1 и уметь доказать её для треугольника, одна сторона которого лежит в плоскости проекции.</p></div>
+<div class="task"><span class="task-no">Д1</span>Площадь многоугольника 50, угол между его плоскостью и плоскостью проекции 45°. Найди площадь проекции.</div><div class="task"><span class="task-no">Д2</span>Площадь проекции многоугольника 9, угол между плоскостями 60°. Найди площадь многоугольника.</div><div class="task"><span class="task-no">Д3</span>Площадь многоугольника 24, площадь его проекции 12. Найди угол между плоскостями.</div><div class="task"><span class="task-no">Д4</span>Диагонали ромба 10 и 24. Найди площадь его проекции на плоскость, образующую с плоскостью ромба угол 60°.</div><div class="task"><span class="task-no">Д5</span>В треугольнике <i>ABC</i> ∠<i>C</i> = 90°, <i>AC</i> = 6, <i>BC</i> = 8, <i>DC</i> ⊥ (<i>ABC</i>), угол между плоскостями <i>ABC</i> и <i>ABD</i> равен 45°. Найди площадь треугольника <i>ABD</i>.</div><div class="task"><span class="task-no">Д6</span>Ребро куба равно 2. С помощью теоремы о площади проекции найди площадь треугольника <i>AB</i>₁<i>C</i>, если известно, что cos угла между плоскостями <i>AB</i>₁<i>C</i> и <i>ABC</i> равен √3/3.</div>
+<div class="pager"><a href="mg15.html">← Урок 15</a><a href="mg17.html">Урок 17 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

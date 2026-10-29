@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Рабочий лист · алгебра, § 11</title>
+<script>document.documentElement.dataset.page="wsma11";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · <a href="ma11.html">Урок 11</a> · Рабочий лист</div></div><main class="wrap narrow"><div class="toolbar"><a class="pill" href="files/wsma11-student.pdf">Скачать PDF</a></div><style>
+.wsbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  background:var(--paper);border:1.5px solid var(--edge);border-radius:16px;padding:10px 14px;margin:14px 0;box-shadow:var(--sh-sm)}
+.wsbar .st{font-size:14px;font-weight:700;color:var(--ink-soft);flex:1;min-width:180px}
+.wsbar .st.ok{color:var(--mint-d)} .wsbar .st.err{color:var(--rose-d)}
+.wsbar button,.wsbar select{font:inherit;font-weight:800;font-size:14px;border-radius:999px;padding:8px 14px;border:1.5px solid var(--edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.wsbar button.go{background:var(--ink);color:#fff;border-color:var(--ink)}
+.wsbar button:disabled{opacity:.55;cursor:default}
+input.wsf{font:inherit;border:0;border-bottom:1.5px solid var(--lav-d);background:rgba(230,224,255,.35);border-radius:6px 6px 0 0;padding:2px 6px;min-width:120px;width:auto;margin:0 4px;color:var(--ink)}
+.calc input.wsf{min-width:70px;width:110px}
+textarea.wsf{display:block;width:100%;box-sizing:border-box;font:inherit;min-height:84px;margin:10px 0 4px;padding:10px 12px;border:1.5px solid var(--edge);border-radius:12px;
+  background:repeating-linear-gradient(transparent,transparent 29px,var(--edge) 30px);line-height:30px;resize:vertical;color:var(--ink)}
+.wsf:focus{outline:2px solid var(--lav-d);outline-offset:1px}
+.wsf[readonly]{background:var(--sky)}
+.wstf{display:inline-flex;gap:6px} .wstf button{font:inherit;font-weight:900;width:38px;height:34px;border-radius:10px;border:1.5px solid var(--edge);background:var(--paper);cursor:pointer;color:var(--ink)}
+.wstf button.on{background:var(--lav-d);border-color:var(--lav-d);color:#fff}
+.wstf button:disabled{cursor:default}
+.wsmark{display:inline-block;font-size:12.5px;font-weight:900;border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:middle}
+.wsmark.y{background:var(--mint);color:var(--mint-d)} .wsmark.n{background:var(--peach);color:var(--peach-d)}
+@media print{.wsbar{display:none}}
+</style><div id="wsBar" class="wsbar no-print" hidden></div>
+<script>
+(function(){
+var WS = 'wsma11', K = window.KABINET, bar = document.getElementById('wsBar');
+if (!K || !K.state || !bar) return;
+var sheet = null;
+function esc(s){ return K.esc(s); }
+function hhmm(t){ var d = new Date(t); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+function ddmm(t){ var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2); }
+function norm(s){ return String(s || '').replace(/<[^>]+>/g, '').replace(/&nbsp;|\s+/g, '').replace(/[−–]/g, '-').replace(/,/g, '.').replace(/^→/, '').toLowerCase(); }
+// поля листа: пропуски, «верно/неверно», строки для решения — по порядку
+var fields = [];
+function build(readonly){
+  sheet.querySelectorAll('.blank, td.box, .lines').forEach(function(node, i){
+    var k = String(i), f;
+    if (node.classList.contains('blank')) {
+      f = document.createElement('input'); f.className = 'wsf'; f.type = 'text'; f.autocomplete = 'off'; f.setAttribute('aria-label', 'Ответ ' + (i + 1));
+      node.replaceWith(f); fields.push({k: k, el: f, kind: 'in'});
+    } else if (node.classList.contains('lines')) {
+      f = document.createElement('textarea'); f.className = 'wsf'; f.rows = Math.max(2, node.children.length); f.setAttribute('aria-label', 'Решение');
+      node.replaceWith(f); fields.push({k: k, el: f, kind: 'ta'});
+    } else {
+      var key = node.querySelector('.teacher.ans'), box = document.createElement('span'); box.className = 'wstf';
+      ['В', 'Н'].forEach(function(v){ var b = document.createElement('button'); b.type = 'button'; b.textContent = v; b.setAttribute('aria-pressed', 'false'); box.appendChild(b); });
+      node.textContent = ''; node.appendChild(box); if (key) node.appendChild(key);
+      var item = {k: k, el: box, kind: 'tf', key: key ? (key.textContent.indexOf('В') >= 0 ? 'В' : 'Н') : ''};
+      box.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ if (item.ro) return;
+        var on = !b.classList.contains('on'); box.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); x.setAttribute('aria-pressed', 'false'); });
+        if (on) { b.classList.add('on'); b.setAttribute('aria-pressed', 'true'); } changed(); }); });
+      fields.push(item);
+    }
+    if (f) f.addEventListener('input', function(){ changed(); });
+  });
+  setRO(readonly);
+}
+function setRO(ro){ fields.forEach(function(f){ f.ro = ro; if (f.kind === 'tf') f.el.querySelectorAll('button').forEach(function(b){ b.disabled = ro; }); else f.el.readOnly = ro; }); }
+function collect(){ var a = {}; fields.forEach(function(f){
+  var v = f.kind === 'tf' ? ((f.el.querySelector('button.on') || {}).textContent || '') : f.el.value.trim(); if (v) a[f.k] = v.slice(0, 2000); }); return a; }
+function fill(a){ a = a || {}; fields.forEach(function(f){ var v = a[f.k] || '';
+  if (f.kind === 'tf') f.el.querySelectorAll('button').forEach(function(b){ var on = b.textContent === v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  else f.el.value = v; }); }
+var changed = function(){};
+
+K.state.then(async function(st){
+  if (!st || !st.session || !K.sb) return;
+  if (document.readyState === 'loading') await new Promise(function(r){ document.addEventListener('DOMContentLoaded', r); });
+  sheet = bar.parentNode.querySelector('.sheet'); if (!sheet) return;
+  if (st.role === 'teacher' && !st.asStudent) return teacher();
+  if (st.role === 'teacher') { build(false); bar.hidden = false; bar.innerHTML = '<span class="st">Режим «глазами ученика»: ответы учителя не сохраняются.</span>'; return; }
+  student();
+});
+
+// ── ученик ──
+async function student(){
+  build(false); bar.hidden = false;
+  bar.innerHTML = '<span class="st" id="wsSt">Заполняй прямо здесь — ответы сохраняются сами.</span><button type="button" class="go" id="wsSend">Сдать лист учителю</button>';
+  var end = document.createElement('div'); end.className = 'wsbar no-print'; end.innerHTML = '<span class="st" id="wsSt2">Закончил? Отправь лист учителю.</span><button type="button" class="go" id="wsSend2">Сдать лист учителю</button>';
+  sheet.after(end);
+  var stEl = document.getElementById('wsSt'), stEl2 = document.getElementById('wsSt2'), send = document.getElementById('wsSend'), LS = 'ws.draft.' + WS, timer = null, submitted = null, busy = false, dirty = false;
+  function status(t, cls){ [stEl, stEl2].forEach(function(e){ e.textContent = t; e.className = 'st' + (cls ? ' ' + cls : ''); }); }
+  try { var loc = JSON.parse(localStorage.getItem(LS) || 'null'); } catch(e) { loc = null; }
+  var r = await K.sb.rpc('edu_ws_mine', {p_ws: WS});
+  var srv = r.data || null;
+  if (srv && srv.answers) { fill(srv.answers); submitted = srv.submitted_at; }
+  if (loc && loc.a && (!srv || new Date(loc.t) > new Date(srv.updated_at))) { fill(loc.a); dirty = true; }
+  if (submitted) status('Лист сдан в ' + hhmm(submitted) + ' (' + ddmm(submitted) + '). Можно поправить и сдать ещё раз.', 'ok');
+  async function save(submit){
+    if (busy) { dirty = true; return; } busy = true; dirty = false; var a = collect();
+    try { localStorage.setItem(LS, JSON.stringify({a: a, t: new Date().toISOString()})); } catch(e) {}
+    var res = await K.sb.rpc('edu_ws_save', {p_ws: WS, p_answers: a, p_submit: !!submit}); busy = false;
+    if (res.error && /could not find the function|PGRST202|does not exist/i.test((res.error.message || '') + ' ' + (res.error.code || ''))) { status('Сдача листа на сайте ещё не включена — ответы пока хранятся только в этом браузере.', 'err'); return false; }
+    if (res.error) { status(/no student/.test(res.error.message || '') ? 'Не сохраняется: учитель ещё не добавил тебя в журнал. Ответы пока хранятся в этом браузере.' : 'Нет связи — ответы сохранены в этом браузере, отправлю, когда появится интернет.', 'err'); return false; }
+    try { localStorage.removeItem(LS); } catch(e) {}
+    if (res.data && res.data.submitted_at) submitted = res.data.submitted_at;
+    status(submit ? 'Лист сдан учителю в ' + hhmm(res.data.submitted_at) + '. Можно поправить и сдать ещё раз.' : 'Сохранено в ' + hhmm(res.data.updated_at) + (submitted ? ' · лист уже сдан, учитель увидит изменения' : ' · учитель видит ответы, когда откроет лист'), submit || submitted ? 'ok' : '');
+    if (dirty) { dirty = false; save(false); }
+    return true;
+  }
+  changed = function(){ status('Сохраняю…'); clearTimeout(timer); timer = setTimeout(function(){ save(false); }, 1200); };
+  if (dirty) save(false);
+  document.getElementById('wsSend2').addEventListener('click', function(){ send.click(); });
+  send.addEventListener('click', async function(){
+    var a = collect(), n = Object.keys(a).length;
+    if (!n) { status('Лист пустой — сначала заполни хотя бы что-нибудь.', 'err'); return; }
+    if (n < fields.length && !send.dataset.sure) { send.dataset.sure = '1'; status('Заполнено ' + n + ' из ' + fields.length + '. Нажми «Сдать» ещё раз, чтобы отправить так.'); return; }
+    delete send.dataset.sure; clearTimeout(timer); send.disabled = true; await save(true); send.disabled = false;
+  });
+  window.addEventListener('beforeunload', function(){ if (timer) { clearTimeout(timer); save(false); } });
+}
+
+// ── учитель: ответы учеников на этот лист ──
+async function teacher(){
+  var rs = await K.sb.from('edu_students').select('id,name'); var rw = await K.sb.from('edu_ws_answers').select('*').eq('ws', WS);
+  if (rw.error) return;
+  var names = {}; (rs.data || []).forEach(function(s){ names[s.id] = s.name; });
+  var rows = (rw.data || []).sort(function(a, b){ return new Date(b.updated_at) - new Date(a.updated_at); });
+  bar.hidden = false;
+  if (!rows.length) { bar.innerHTML = '<span class="st">Ответов учеников на этот лист пока нет. Ученик заполняет лист на сайте — ответы появятся здесь.</span>'; return; }
+  var want = null; try { want = localStorage.getItem('ws.student'); localStorage.removeItem('ws.student'); } catch(e) {}
+  var opts = '<option value="">— лист с ответами —</option>' + rows.map(function(w){
+    return '<option value="' + esc(w.student_id) + '">' + esc(names[w.student_id] || 'Ученик') + ' · ' + (w.submitted_at ? 'сдан ' + ddmm(w.submitted_at) : 'черновик ' + ddmm(w.updated_at)) + '</option>'; }).join('');
+  bar.innerHTML = '<label class="st" for="wsWho" style="flex:0 0 auto;min-width:0">Ответы ученика:</label><select id="wsWho">' + opts + '</select><span class="st" id="wsInfo"></span>';
+  var sel = document.getElementById('wsWho'), info = document.getElementById('wsInfo'), built = false;
+  async function show(id){
+    sheet.querySelectorAll('.wsmark').forEach(function(m){ m.remove(); });
+    if (!id) { if (built) fill({}); info.textContent = ''; return; }
+    if (!built) { build(true); built = true; }
+    var w = rows.find(function(x){ return x.student_id === id; }); fill(w.answers);
+    var ok = 0, tot = 0, filled = Object.keys(w.answers || {}).length;
+    fields.forEach(function(f){ var v = (w.answers || {})[f.k];
+      if (f.kind === 'tf') { if (!f.key) return; tot++; if (v === f.key) ok++;
+        if (v) { var m = document.createElement('span'); m.className = 'wsmark ' + (v === f.key ? 'y' : 'n'); m.textContent = v === f.key ? 'верно' : 'неверно'; f.el.after(m); } return; }
+      if (f.kind === 'in' && v) { var host = f.el.closest('li, .calc > div'); var key = host && host.querySelector('.teacher.ans');
+        if (key && norm(key.textContent) === norm(v)) { var m2 = document.createElement('span'); m2.className = 'wsmark y'; m2.textContent = 'совпало'; f.el.after(m2); } } });
+    info.textContent = 'Заполнено ' + filled + ' из ' + fields.length + (tot ? ' · «верно/неверно»: ' + ok + ' из ' + tot : '') +
+      (w.submitted_at ? ' · сдан ' + ddmm(w.submitted_at) + ' в ' + hhmm(w.submitted_at) : ' · ещё не сдан, последнее сохранение ' + hhmm(w.updated_at));
+    document.body.classList.remove('hide-ans'); document.querySelectorAll('[data-mode]').forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-mode') === 'teacher'); });
+    if (w.submitted_at && (!w.seen_at || new Date(w.seen_at) < new Date(w.submitted_at))) {
+      var now = new Date().toISOString(); w.seen_at = now; await K.sb.from('edu_ws_answers').update({seen_at: now}).eq('student_id', id).eq('ws', WS); }
+  }
+  sel.addEventListener('change', function(){ show(sel.value); });
+  if (want && rows.some(function(w){ return w.student_id === want; })) { sel.value = want; show(want); }
+}
+})();
+</script><div class="sheet"><div class="sheet-head"><div><div class="kicker">Рабочий лист · алгебра · урок 11</div><h2>Корень n-й степени. Функция y = ⁿ√x</h2></div><div class="fields"><span>Имя</span><span>Дата</span></div></div><div class="sec"><h3><span class="n">1</span>Вспомни и допиши</h3><ol><li>Корнем <i>n</i>-й степени из числа <i>a</i> называют <span class="blank"></span></li><li>Арифметический корень <i>n</i>-й степени — это <span class="blank"></span> число, <i>n</i>-я степень которого равна <i>a</i>.</li><li>При чётном <i>n</i> выражение <sup><i>n</i></sup>√<i>a</i> имеет смысл только при <span class="blank"></span></li><li>Функция <i>y</i> = <sup>3</sup>√<i>x</i> является обратной к функции <span class="blank"></span></li></ol></div><div class="sec"><h3><span class="n">2</span>Верно или неверно?</h3><table class="tf"><tr><td><sup>4</sup>√16 = ±2.</td><td class="box">В &nbsp;/&nbsp; Н </td></tr><tr><td><sup>3</sup>√(−8) = −2.</td><td class="box">В &nbsp;/&nbsp; Н </td></tr><tr><td>Уравнение <i>x</i>⁴ = 3 имеет два корня.</td><td class="box">В &nbsp;/&nbsp; Н </td></tr><tr><td><sup>6</sup>√(−64) = −2.</td><td class="box">В &nbsp;/&nbsp; Н </td></tr><tr><td>Функция <i>y</i> = <sup>4</sup>√<i>x</i> возрастает.</td><td class="box">В &nbsp;/&nbsp; Н </td></tr></table></div><div class="sec"><h3><span class="n">3</span>Вычисли</h3><div class="calc"><div><sup>3</sup>√125 = <span class="blank"></span> </div><div><sup>4</sup>√0,0016 = <span class="blank"></span> </div><div><sup>5</sup>√(−32) = <span class="blank"></span> </div><div><sup>3</sup>√(−1/8) = <span class="blank"></span> </div><div>(<sup>4</sup>√9)⁴ = <span class="blank"></span> </div><div><sup>6</sup>√729 = <span class="blank"></span> </div></div></div><div class="sec"><h3><span class="n">4</span>Реши</h3><ol><li>Реши уравнение <i>x</i>⁶ = 7.<div class="lines"><div></div><div></div></div></li><li>Реши уравнение <sup>4</sup>√(<i>x</i> − 2) = 3.<div class="lines"><div></div><div></div></div></li><li>Реши неравенство <sup>4</sup>√(3<i>x</i> − 2) &lt; 1.<div class="lines"><div></div><div></div><div></div></div></li><li>Найди область определения функции <i>y</i> = <sup>4</sup>√(<i>x</i>² − 5<i>x</i> + 6).<div class="lines"><div></div><div></div><div></div></div></li></ol></div></div><div class="pager"><a href="ma11.html">← К уроку 11</a><a href="sma11.html">Презентация →</a></div></main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 12. Теорема о трёх перпендикулярах</title>
+<script>document.documentElement.dataset.page="mg12";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 12 · теорема 12.1 (прямая и обратная), расстояние от точки до прямой, точка, равноудалённая от сторон многоугольника">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 12</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 12</div>
+  <h1>Теорема о трёх перпендикулярах</h1>
+  <p class="lede">§ 12 · теорема 12.1 (прямая и обратная), расстояние от точки до прямой, точка, равноудалённая от сторон многоугольника</p>
+  <div class="btns">
+    <a class="btn" href="smg12.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg12.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Вспомним картинку прошлого урока: из точки <i>A</i> к плоскости проведены перпендикуляр <i>AB</i> и наклонная <i>AC</i>, <i>BC</i> — проекция наклонной. Возьмём в плоскости прямую <i>a</i>, проходящую через основание наклонной <i>C</i>. Когда она перпендикулярна наклонной? Ответ поразительно простой: тогда и только тогда, когда она перпендикулярна <b>проекции</b>. А проекцию мы видим прямо в плоскости — и можем проверить «по-плоскому».</p>
+<div class="thm"><span class="lbl">Теорема 12.1 (о трёх перпендикулярах)</span><p>Если прямая, лежащая в плоскости, перпендикулярна проекции наклонной к этой плоскости, то она перпендикулярна и самой наклонной. И наоборот: если прямая, лежащая в плоскости, перпендикулярна наклонной, то она перпендикулярна и её проекции.</p></div>
+<figure><img src="assets/fig/mg12_ttp.png" alt="AB ⊥ α, a ⊂ α; a ⊥ BC ⟺ a ⊥ AC"><figcaption>AB ⊥ α, a ⊂ α; a ⊥ BC ⟺ a ⊥ AC</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p><b>Прямая теорема.</b> Пусть <i>a</i> ⊂ <i>α</i>, <i>a</i> ⊥ <i>BC</i>. Так как <i>AB</i> ⊥ <i>α</i>, то <i>AB</i> ⊥ <i>a</i>. Значит, <i>a</i> перпендикулярна двум пересекающимся прямым <i>AB</i> и <i>BC</i> плоскости <i>ABC</i>, и по признаку 10.1 <i>a</i> ⊥ (<i>ABC</i>). Наклонная <i>AC</i> лежит в этой плоскости, поэтому <i>a</i> ⊥ <i>AC</i>.</p><p><b>Обратная теорема</b> — так же: <i>a</i> ⊥ <i>AC</i> и <i>a</i> ⊥ <i>AB</i> ⟹ <i>a</i> ⊥ (<i>ABC</i>) ⟹ <i>a</i> ⊥ <i>BC</i>. ∎</p></div>
+<p>Обе теоремы объединяют словами «<b>тогда и только тогда</b>»: прямая плоскости перпендикулярна наклонной тогда и только тогда, когда она перпендикулярна её проекции. Почему «трёх перпендикуляров»: на рисунке три прямых угла — <i>AB</i> ⊥ <i>α</i>, <i>a</i> ⊥ <i>BC</i>, <i>a</i> ⊥ <i>AC</i>. Два из них дают третий.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Теорема работает только для прямой, лежащей <b>в плоскости</b>, и только если <i>AB</i> — именно <b>перпендикуляр</b> к плоскости. Если <i>AB</i> просто «торчит вверх» без доказанной перпендикулярности, применять теорему нельзя.</p></div>
+<h3>Главное применение: расстояние от точки до прямой</h3>
+<p>Как найти расстояние от точки <i>M</i> вне плоскости до прямой этой плоскости? Нужно провести перпендикуляр из <i>M</i> к прямой. Строить его «в пространстве» трудно, а с теоремой — легко: опусти перпендикуляр из основания <i>A</i> на прямую <i>BC</i> в плоскости, получишь точку <i>K</i>. По теореме <i>MK</i> ⊥ <i>BC</i>, и <i>MK</i> — искомое расстояние.</p>
+<ol class="steps"><li>Найди перпендикуляр <i>MA</i> к плоскости.</li><li>В плоскости опусти перпендикуляр <i>AK</i> на прямую <i>BC</i>.</li><li>Соедини <i>M</i> и <i>K</i>: <i>MK</i> ⊥ <i>BC</i> по теореме о трёх перпендикулярах.</li><li>Посчитай <i>MK</i> из прямоугольного треугольника <i>MAK</i>.</li></ol>
+<div class="thm"><span class="lbl">Ключевая задача 1</span><p>Если точка вне плоскости выпуклого многоугольника равноудалена от прямых, содержащих его стороны, и её проекция лежит внутри многоугольника, то эта проекция — центр вписанной окружности.</p></div>
+<figure><img src="assets/fig/mg12_incenter.png" alt="MN, MK, ME — расстояния до сторон; ON = OK = OE = r"><figcaption>MN, MK, ME — расстояния до сторон; ON = OK = OE = r</figcaption></figure>
+<p>Доказательство: опустим из проекции <i>O</i> перпендикуляры <i>ON</i>, <i>OK</i>, <i>OE</i> на стороны. По теореме о трёх перпендикулярах <i>MN</i>, <i>MK</i>, <i>ME</i> — перпендикуляры к сторонам, то есть расстояния. Они равны, катет <i>MO</i> общий, значит, <i>ON</i> = <i>OK</i> = <i>OE</i>: точка <i>O</i> равноудалена от сторон и лежит внутри — это центр вписанной окружности. Отсюда формула: расстояние до сторон <i>d</i> = √(<i>h</i>² + <i>r</i>²), где <i>h</i> = <i>MO</i>, <i>r</i> — радиус вписанной окружности.</p>
+<h2>Разбор примеров</h2>
+<figure><img src="assets/fig/mg12_tri.png" alt="MA ⊥ (ABC), AK ⊥ BC ⟹ MK ⊥ BC"><figcaption>MA ⊥ (ABC), AK ⊥ BC ⟹ MK ⊥ BC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 1 · расстояние от точки до прямой</span><p>В треугольнике <i>ABC</i> <i>AB</i> = <i>AC</i> = 17, <i>BC</i> = 16, <i>MA</i> ⊥ (<i>ABC</i>), <i>MA</i> = 8. Найдите расстояние от <i>M</i> до прямой <i>BC</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) Высота равнобедренного треугольника <i>AK</i> падает в середину <i>BC</i>: <i>AK</i> = √(17² − 8²) = 15.</p><p>2) <i>AK</i> — проекция наклонной <i>MK</i>, <i>AK</i> ⊥ <i>BC</i> ⟹ <i>MK</i> ⊥ <i>BC</i> (теорема о трёх перпендикулярах).</p><p>3) <i>MK</i> = √(8² + 15²) = <b>17</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · точка, равноудалённая от сторон</span><p>Стороны треугольника равны 13, 14 и 15. Точка <i>M</i> удалена от его плоскости на 3, а её проекция лежит внутри треугольника, причём <i>M</i> равноудалена от прямых, содержащих стороны. Найдите это расстояние.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) Проекция — центр вписанной окружности (ключевая задача 1). Найдём <i>r</i> = <i>S</i>/<i>p</i>: <i>p</i> = 21, по формуле Герона <i>S</i> = √(21 · 8 · 7 · 6) = 84, <i>r</i> = 4.</p><p>2) <i>d</i> = √(3² + 4²) = <b>5</b>.</p></div></div>
+<figure><img src="assets/fig/mg12_cube.png" alt="Проекция A₁C на плоскость ABC — AC ⊥ BD, поэтому A₁C ⊥ BD"><figcaption>Проекция A₁C на плоскость ABC — AC ⊥ BD, поэтому A₁C ⊥ BD</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 3 · диагональ куба</span><p>Докажите, что диагональ <i>A</i>₁<i>C</i> куба перпендикулярна диагонали грани <i>BD</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>A</i>₁<i>A</i> ⊥ (<i>ABC</i>), поэтому <i>AC</i> — проекция наклонной <i>A</i>₁<i>C</i>. Диагонали квадрата перпендикулярны: <i>BD</i> ⊥ <i>AC</i>. Прямая <i>BD</i> лежит в плоскости и перпендикулярна проекции — значит, <i>BD</i> ⊥ <i>A</i>₁<i>C</i>. ∎ (Так же <i>A</i>₁<i>C</i> ⊥ <i>BC</i>₁, и потому <i>A</i>₁<i>C</i> ⊥ плоскости <i>C</i>₁<i>BD</i>.)</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span><i>ABCD</i> — квадрат, <i>MA</i> ⊥ (<i>ABC</i>). Докажи, что <i>MB</i> ⊥ <i>BC</i>.</div><div class="task"><span class="task-no">№&nbsp;2</span><i>ABCD</i> — прямоугольник, <i>AB</i> = 6, <i>AD</i> = 8, <i>MA</i> ⊥ (<i>ABC</i>), <i>MA</i> = 6. Найди расстояние от <i>M</i> до прямой <i>CD</i>.</div><div class="task"><span class="task-no">№&nbsp;3</span>В треугольнике <i>ABC</i> <i>AB</i> = <i>AC</i> = 13, <i>BC</i> = 10, <i>MA</i> ⊥ (<i>ABC</i>), <i>MA</i> = 9. Найди расстояние от <i>M</i> до <i>BC</i>.</div><div class="task"><span class="task-no">№&nbsp;4</span>Сторона правильного треугольника <i>ABC</i> равна 6, <i>DA</i> ⊥ (<i>ABC</i>), расстояние от <i>D</i> до прямой <i>BC</i> равно 6. Найди <i>DA</i>.</div><div class="task"><span class="task-no">№&nbsp;5</span>Катеты прямоугольного треугольника 8 и 15. Точка удалена от его плоскости на 4 и равноудалена от прямых, содержащих стороны (проекция внутри треугольника). Найди это расстояние.</div><div class="task"><span class="task-no">№&nbsp;6</span>Сторона квадрата 6. Точка удалена от каждой прямой, содержащей сторону квадрата, на 5, её проекция внутри квадрата. Найди расстояние от точки до плоскости квадрата.</div><div class="task"><span class="task-no">№&nbsp;7</span>Докажи, что в кубе <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ <i>B</i>₁<i>D</i> ⊥ <i>AC</i>.</div><div class="task"><span class="task-no">№&nbsp;8</span>В треугольнике <i>ABC</i> ∠<i>C</i> = 90°, <i>BD</i> ⊥ (<i>ABC</i>), <i>BC</i> = 5, <i>BD</i> = 12. Найди расстояние от <i>D</i> до прямой <i>AC</i>.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg12a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 12</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — рисунок с тремя значками прямого угла. Из учебника: № 12.1, 12.6, 12.10, 12.17. Выучить теорему о трёх перпендикулярах (прямую и обратную) с доказательством.</p></div>
+<div class="task"><span class="task-no">Д1</span>В треугольнике <i>ABC</i> <i>AB</i> = <i>AC</i> = 25, <i>BC</i> = 14, <i>MA</i> ⊥ (<i>ABC</i>), <i>MA</i> = 7. Найди расстояние от <i>M</i> до прямой <i>BC</i>.</div><div class="task"><span class="task-no">Д2</span>Сторона правильного треугольника 12√3. Точка удалена на 10 от прямых, содержащих его стороны (проекция внутри). Найди расстояние от точки до плоскости треугольника.</div><div class="task"><span class="task-no">Д3</span><i>ABCD</i> — прямоугольник, <i>AB</i> = 5, <i>AD</i> = 12, <i>MA</i> ⊥ (<i>ABC</i>), <i>MA</i> = 9. Найди расстояние от <i>M</i> до прямой <i>CD</i>.</div><div class="task"><span class="task-no">Д4</span>Стороны треугольника 13, 14, 15. Точка удалена на 5 от прямых, содержащих стороны (проекция внутри треугольника). Найди расстояние от точки до плоскости.</div><div class="task"><span class="task-no">Д5</span>Докажи, что в кубе <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ <i>A</i>₁<i>C</i> ⊥ <i>B</i>₁<i>D</i>₁.</div><div class="task"><span class="task-no">Д6</span>В треугольнике <i>ABC</i> ∠<i>C</i> = 90°, <i>BD</i> ⊥ (<i>ABC</i>), <i>BC</i> = 9, <i>BD</i> = 12. Найди расстояние от <i>D</i> до прямой <i>AC</i>.</div>
+<div class="pager"><a href="mg11.html">← Урок 11</a><a href="mg13.html">Урок 13 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

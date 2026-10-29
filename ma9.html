@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 9. Степенная функция с натуральным показателем</title>
+<script>document.documentElement.dataset.page="ma9";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 9 · y = xⁿ, n ∈ N: чётный и нечётный показатель, сравнение степеней, наибольшее и наименьшее значения">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 9</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 9</div>
+  <h1>Степенная функция с натуральным показателем</h1>
+  <p class="lede">§ 9 · y = xⁿ, n ∈ N: чётный и нечётный показатель, сравнение степеней, наибольшее и наименьшее значения</p>
+  <div class="btns">
+    <a class="btn" href="sma9.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma9.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Функции <i>y</i> = <i>x</i> и <i>y</i> = <i>x</i>² ты знаешь давно. Обе — частные случаи функции <i>y</i> = <i>x</i><sup><i>n</i></sup>, <i>n</i> ∈ <b><i>N</i></b>, которую называют <b>степенной функцией с натуральным показателем</b>. Выражение <i>x</i><sup><i>n</i></sup> имеет смысл при любом <i>x</i>, поэтому <b>область определения — <b><i>R</i></b></b>. Нуль у функции один: <i>x</i> = 0. Остальные свойства зависят от того, чётный показатель или нечётный.</p>
+<h3>Чётный показатель: n = 2k</h3>
+<ul><li><b>Область значений [0; +∞)</b>: чётная степень любого числа неотрицательна, и любое <i>a</i> ≥ 0 получается (при <i>x</i> = <sup><i>n</i></sup>√<i>a</i>, см. § 11);</li><li><b>знак</b>: <i>y</i> &gt; 0 на (−∞; 0) и на (0; +∞);</li><li><b>чётная функция</b>: (−<i>x</i>)<sup>2<i>k</i></sup> = <i>x</i><sup>2<i>k</i></sup>, график симметричен относительно оси <i>Oy</i>;</li><li><b>убывает</b> на (−∞; 0], <b>возрастает</b> на [0; +∞).</li></ul>
+<p>Почему возрастает на [0; +∞)? Если 0 ≤ <i>x</i>₁ &lt; <i>x</i>₂, то, перемножив неравенство само на себя <i>n</i> раз (все части неотрицательны), получим <i>x</i>₁<sup><i>n</i></sup> &lt; <i>x</i>₂<sup><i>n</i></sup>. А на (−∞; 0] работает симметрия: чем дальше от нуля, тем больше значение.</p>
+<div class="figrow"><figure><img src="assets/fig/mal9_even.png" alt="n чётное: все графики проходят через (−1; 1), (0; 0), (1; 1)"><figcaption>n чётное: все графики проходят через (−1; 1), (0; 0), (1; 1)</figcaption></figure></div>
+<h3>Нечётный показатель: n = 2k + 1</h3>
+<ul><li><b>Область значений <b><i>R</i></b></b>;</li><li><b>знак</b>: <i>y</i> &lt; 0 на (−∞; 0), <i>y</i> &gt; 0 на (0; +∞) — знак степени совпадает со знаком основания;</li><li><b>нечётная функция</b>: (−<i>x</i>)<sup>2<i>k</i>+1</sup> = −<i>x</i><sup>2<i>k</i>+1</sup>, график симметричен относительно начала координат;</li><li><b>возрастает на всей прямой</b>.</li></ul>
+<div class="figrow"><figure><img src="assets/fig/mal9_odd.png" alt="n нечётное: графики проходят через (−1; −1), (0; 0), (1; 1)"><figcaption>n нечётное: графики проходят через (−1; −1), (0; 0), (1; 1)</figcaption></figure></div>
+<div class="tablewrap"><table><thead><tr><th>Свойство</th><th>n — чётное</th><th>n — нечётное</th></tr></thead><tbody><tr><td>Область определения</td><td><b><i>R</i></b></td><td><b><i>R</i></b></td></tr><tr><td>Область значений</td><td>[0; +∞)</td><td><b><i>R</i></b></td></tr><tr><td>Нули</td><td><i>x</i> = 0</td><td><i>x</i> = 0</td></tr><tr><td>Знак</td><td><i>y</i> &gt; 0 на (−∞; 0) и (0; +∞)</td><td><i>y</i> &lt; 0 на (−∞; 0), <i>y</i> &gt; 0 на (0; +∞)</td></tr><tr><td>Чётность</td><td>чётная</td><td>нечётная</td></tr><tr><td>Монотонность</td><td>убывает на (−∞; 0], возрастает на [0; +∞)</td><td>возрастает</td></tr></tbody></table></div>
+<h2>Разбор примеров</h2>
+<h3>Сравнение степеней</h3>
+<p>Монотонность позволяет сравнивать значения, не вычисляя их. Для <b>нечётного</b> <i>n</i>: <i>x</i>₁ &lt; <i>x</i>₂ ⇔ <i>x</i>₁<sup><i>n</i></sup> &lt; <i>x</i>₂<sup><i>n</i></sup> при любых числах. Для <b>чётного</b> <i>n</i> сравнивают модули: |<i>x</i>₁| &lt; |<i>x</i>₂| ⇔ <i>x</i>₁<sup><i>n</i></sup> &lt; <i>x</i>₂<sup><i>n</i></sup>.</p>
+<div class="ex"><span class="lbl">Пример 1 · сравнить</span><p>а) Сравни (−3,5)⁸ и 2,9⁸. б) Сравни (−2)⁷ и (−1,5)⁷.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Показатель чётный — сравниваем модули: 3,5 &gt; 2,9, значит, <b>(−3,5)⁸ &gt; 2,9⁸</b>.</p><p>б) Показатель нечётный, функция возрастает: −2 &lt; −1,5, значит, <b>(−2)⁷ &lt; (−1,5)⁷</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Для чётной степени из <i>x</i>₁ &lt; <i>x</i>₂ <b>не</b> следует <i>x</i>₁<sup><i>n</i></sup> &lt; <i>x</i>₂<sup><i>n</i></sup>: −3 &lt; 2, но (−3)² = 9 &gt; 2² = 4. Смотри на модули или на то, по одну ли сторону от нуля лежат числа.</p></div>
+<h3>Наибольшее и наименьшее значения</h3>
+<div class="ex"><span class="lbl">Пример 2 · на промежутке</span><p>Найди наибольшее и наименьшее значения <i>f</i>(<i>x</i>) = <i>x</i>⁴ на а) [−3; −1]; б) [−2; 1]; в) (−2; 1).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) На [−3; −1] функция убывает: наибольшее <i>f</i>(−3) = <b>81</b>, наименьшее <i>f</i>(−1) = <b>1</b>.</p><p>б) Внутри отрезка есть точка 0, где функция меняет монотонность: наименьшее <i>f</i>(0) = <b>0</b>; наибольшее — на одном из концов: <i>f</i>(−2) = 16, <i>f</i>(1) = 1, значит, <b>16</b>.</p><p>в) Наименьшее по-прежнему 0. А наибольшего <b>нет</b>: значения сколь угодно близки к 16, но точка −2 в промежуток не входит.</p></div></div>
+<h3>Уравнения</h3>
+<div class="ex"><span class="lbl">Пример 3 · простейшие</span><p>Реши уравнения: а) <i>x</i>⁷ = −128; б) <i>x</i>⁴ = 81; в) <i>x</i>⁶ = −1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Показатель нечётный, функция возрастает и принимает каждое значение ровно один раз: (−2)⁷ = −128, <b><i>x</i> = −2</b>.</p><p>б) Показатель чётный: 81 &gt; 0, корней два, противоположных: <b><i>x</i> = ±3</b>.</p><p>в) Чётная степень не бывает отрицательной: <b>корней нет</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · угадать и доказать единственность</span><p>Реши уравнение <i>x</i>⁵ + <i>x</i>³ = 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Корень 1 угадывается: 1 + 1 = 2. Других нет: функции <i>x</i>⁵ и <i>x</i>³ возрастают, их сумма тоже возрастает, а возрастающая функция каждое значение принимает только один раз. Ответ: <b>1</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В примере 4 мало угадать корень — нужно объяснить, почему других нет. Без фразы про возрастание решение неполное.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span><i>f</i>(<i>x</i>) = <i>x</i>¹⁰. Сравни: а) <i>f</i>(−1,3) и <i>f</i>(1,2); б) <i>f</i>(−4) и <i>f</i>(4); в) <i>f</i>(0,5) и <i>f</i>(−0,6).</div><div class="task"><span class="task-no">№&nbsp;2</span><i>f</i>(<i>x</i>) = <i>x</i>⁹. Сравни: а) <i>f</i>(−1,3) и <i>f</i>(1,2); б) <i>f</i>(−2) и <i>f</i>(−2,1).</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди наибольшее и наименьшее значения <i>y</i> = <i>x</i>⁶ на отрезке [−1; 2].</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди наибольшее и наименьшее значения <i>y</i> = <i>x</i>⁵ на отрезке [−2; 1].</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди наибольшее и наименьшее значения <i>y</i> = <i>x</i>⁴ на промежутке [1; +∞).</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши уравнения: а) <i>x</i>⁶ = 64; б) <i>x</i>⁵ = −32; в) <i>x</i>⁴ = −16.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнение <i>x</i>⁷ + 3<i>x</i> = 4.</div><div class="task"><span class="task-no">№&nbsp;8</span>Для функции <i>f</i>(<i>x</i>) = <i>x</i><sup><i>n</i></sup> известно, что <i>f</i>(−3) &lt; <i>f</i>(2). Чётное или нечётное <i>n</i>?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 9.1, 9.2</b> — Сравнение значений степенной функции.</li><li><b>№ 9.3, 9.4</b> — Следует ли из неравенства степеней неравенство оснований и наоборот.</li><li><b>№ 9.5</b> — Графики с модулем.</li><li><b>№ 9.7</b> — Наибольшее и наименьшее значения на промежутках.</li><li><b>№ 9.10</b> — Уравнения, решаемые через монотонность.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma9a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 9</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 9.2, 9.6, 9.8, 9.11 из учебника письменно. Нарисовать в одной системе координат y = x², x⁴ и в другой y = x³, x⁵ и подписать общие точки.</p></div>
+<div class="pager"><a href="ma8.html">← Урок 8</a><a href="ma10.html">Урок 10 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

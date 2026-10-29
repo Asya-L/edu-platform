@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 13. Степень с рациональным показателем</title>
+<script>document.documentElement.dataset.page="ma13";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 13 · a^(m/n) = ⁿ√aᵐ, свойства степеней, функция y = xʳ, преобразования выражений">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 13</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 13</div>
+  <h1>Степень с рациональным показателем</h1>
+  <p class="lede">§ 13 · a^(m/n) = ⁿ√aᵐ, свойства степеней, функция y = xʳ, преобразования выражений</p>
+  <div class="btns">
+    <a class="btn" href="sma13.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma13.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Что мы уже знаем о степенях</h3>
+<p>Для натурального показателя <i>a</i><sup><i>n</i></sup> — произведение <i>n</i> множителей. Потом появились <i>a</i><sup>0</sup> = 1 и <i>a</i><sup>−<i>n</i></sup> = 1/<i>a</i><sup><i>n</i></sup> (<i>a</i> ≠ 0). Эти определения выбраны так, чтобы сохранились пять свойств:</p>
+<ul><li><i>a</i><sup><i>m</i></sup> · <i>a</i><sup><i>n</i></sup> = <i>a</i><sup><i>m</i>+<i>n</i></sup>;</li><li><i>a</i><sup><i>m</i></sup> : <i>a</i><sup><i>n</i></sup> = <i>a</i><sup><i>m</i>−<i>n</i></sup>;</li><li>(<i>a</i><sup><i>m</i></sup>)<sup><i>n</i></sup> = <i>a</i><sup><i>mn</i></sup>;</li><li>(<i>a</i><i>b</i>)<sup><i>n</i></sup> = <i>a</i><sup><i>n</i></sup><i>b</i><sup><i>n</i></sup>;</li><li>(<i>a</i>/<i>b</i>)<sup><i>n</i></sup> = <i>a</i><sup><i>n</i></sup>/<i>b</i><sup><i>n</i></sup>.</li></ul>
+<h3>Дробный показатель</h3>
+<p>Хотим, чтобы свойства сохранились и для дробей. Пусть <i>x</i> = 2<sup>2/3</sup>. Если свойство (<i>a</i><sup>p</sup>)<sup>q</sup> = <i>a</i><sup>pq</sup> верно, то <i>x</i>³ = (2<sup>2/3</sup>)³ = 2² = 4, то есть <i>x</i> = <sup>3</sup>√4. Это подсказывает определение.</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Степенью положительного числа <i>a</i> с рациональным показателем</b> <i>r</i> = <i>m</i>/<i>n</i> (<i>m</i> ∈ <b><i>Z</i></b>, <i>n</i> ∈ <b><i>N</i></b>, <i>n</i> &gt; 1) называют число <sup><i>n</i></sup>√<i>a</i><sup><i>m</i></sup>: &nbsp; <i>a</i><sup><i>m</i>/<i>n</i></sup> = <sup><i>n</i></sup>√<i>a</i><sup><i>m</i></sup>.</p><p>Для нуля: 0<sup><i>m</i>/<i>n</i></sup> = 0 при <i>m</i>/<i>n</i> &gt; 0.</p></div>
+<p>Примеры: 5<sup>3/4</sup> = <sup>4</sup>√5³, 3<sup>−1/5</sup> = <sup>5</sup>√3⁻¹ = <sup>5</sup>√(1/3), 8<sup>2/3</sup> = <sup>3</sup>√64 = 4. Значение не зависит от того, какой дробью записан показатель: 8<sup>4/6</sup> = <sup>6</sup>√8⁴ = <sup>3</sup>√8² = 4 (теорема 12.6).</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Степень с дробным показателем определена только для <b>положительного</b> основания (и для нуля — при положительном показателе). Запись (−8)<sup>1/3</sup> не определена, хотя <sup>3</sup>√(−8) = −2 существует. Если бы мы разрешили (−8)<sup>1/3</sup> = −2, то получили бы противоречие: (−8)<sup>1/3</sup> = (−8)<sup>2/6</sup> = <sup>6</sup>√(−8)² = <sup>6</sup>√64 = 2. А 0<sup>−1/2</sup> не имеет смысла: делить на ноль нельзя.</p></div>
+<h3>Функция y = xʳ</h3>
+<p>Функцию <i>y</i> = <i>x</i><sup>r</sup>, <i>r</i> ∈ <b><i>Q</i></b>, называют <b>степенной функцией с рациональным показателем</b>. При <i>r</i> = <i>m</i>/<i>n</i> &gt; 0 (дробь несократимая, <i>n</i> &gt; 1) область определения [0; +∞), при <i>r</i> &lt; 0 — (0; +∞).</p>
+<div class="figrow"><figure><img src="assets/fig/mal13_rat.png" alt="y = x^(1/2), x^(1/3), x^(1/4): все проходят через (0; 0) и (1; 1)"><figcaption>y = x^(1/2), x^(1/3), x^(1/4): все проходят через (0; 0) и (1; 1)</figcaption></figure><figure><img src="assets/fig/mal13_cbrt.png" alt="y = ∛x определена на R, y = x^(1/3) — только при x ≥ 0"><figcaption>y = ∛x определена на R, y = x^(1/3) — только при x ≥ 0</figcaption></figure></div>
+<p>Функции <i>y</i> = <sup>3</sup>√<i>x</i> и <i>y</i> = <i>x</i><sup>1/3</sup> совпадают на [0; +∞), но первая определена ещё и для отрицательных <i>x</i>.</p>
+<h3>Свойства степени с рациональным показателем</h3>
+<div class="thm"><span class="lbl">Теоремы 13.1–13.4</span><p>Для любых <i>a</i> &gt; 0, <i>b</i> &gt; 0 и рациональных <i>p</i>, <i>q</i>:</p><p><i>a</i><sup><i>p</i></sup> · <i>a</i><sup><i>q</i></sup> = <i>a</i><sup><i>p</i>+<i>q</i></sup>; &nbsp; <i>a</i><sup><i>p</i></sup> : <i>a</i><sup><i>q</i></sup> = <i>a</i><sup><i>p</i>−<i>q</i></sup>; &nbsp; (<i>a</i><sup><i>p</i></sup>)<sup><i>q</i></sup> = <i>a</i><sup><i>pq</i></sup>; &nbsp; (<i>a</i><i>b</i>)<sup><i>p</i></sup> = <i>a</i><sup><i>p</i></sup><i>b</i><sup><i>p</i></sup>; &nbsp; (<i>a</i>/<i>b</i>)<sup><i>p</i></sup> = <i>a</i><sup><i>p</i></sup>/<i>b</i><sup><i>p</i></sup>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Докажем первое. Приведём показатели к общему знаменателю: <i>p</i> = <i>m</i>/<i>n</i>, <i>q</i> = <i>k</i>/<i>n</i>. Тогда <i>a</i><sup><i>p</i></sup> · <i>a</i><sup><i>q</i></sup> = <sup><i>n</i></sup>√<i>a</i><sup><i>m</i></sup> · <sup><i>n</i></sup>√<i>a</i><sup><i>k</i></sup> = <sup><i>n</i></sup>√<i>a</i><sup><i>m</i>+<i>k</i></sup> = <i>a</i><sup>(<i>m</i>+<i>k</i>)/<i>n</i></sup> = <i>a</i><sup><i>p</i>+<i>q</i></sup>.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · вычислить</span><p>Вычисли: 27<sup>2/3</sup>; 16<sup>−3/4</sup>; 0,04<sup>−1/2</sup>; (1/32)<sup>−0,4</sup>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>27<sup>2/3</sup> = (<sup>3</sup>√27)² = <b>9</b>; 16<sup>−3/4</sup> = 1/(<sup>4</sup>√16)³ = <b>1/8</b>; 0,04<sup>−1/2</sup> = 1/√0,04 = 1/0,2 = <b>5</b>; (1/32)<sup>−0,4</sup> = 32<sup>2/5</sup> = (<sup>5</sup>√32)² = <b>4</b>.</p><p>Удобно сначала извлечь корень, потом возводить в степень — числа получаются меньше.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · упростить</span><p>Упрости: а) <i>a</i><sup>1/3</sup> · <i>a</i><sup>1/2</sup>; б) (<i>a</i><sup>3/4</sup>)<sup>8/3</sup>; в) <i>a</i><sup>2/3</sup> · <i>a</i><sup>1/6</sup> : <i>a</i><sup>1/2</sup>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <i>a</i><sup>1/3 + 1/2</sup> = <b><i>a</i><sup>5/6</sup></b>; б) <i>a</i><sup>3/4 · 8/3</sup> = <b><i>a</i>²</b>; в) <i>a</i><sup>2/3 + 1/6 − 1/2</sup> = <b><i>a</i><sup>1/3</sup></b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · сократить дробь</span><p>Сократи дробь (<i>a</i> − 4<i>b</i>) / (<i>a</i><sup>1/2</sup> + 2<i>b</i><sup>1/2</sup>).</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>a</i> = (<i>a</i><sup>1/2</sup>)², 4<i>b</i> = (2<i>b</i><sup>1/2</sup>)². Числитель — разность квадратов: (<i>a</i><sup>1/2</sup> − 2<i>b</i><sup>1/2</sup>)(<i>a</i><sup>1/2</sup> + 2<i>b</i><sup>1/2</sup>). Ответ: <b><i>a</i><sup>1/2</sup> − 2<i>b</i><sup>1/2</sup></b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · уравнение</span><p>Реши уравнения: а) <i>x</i><sup>2/3</sup> = 4; б) <sup>3</sup>√<i>x</i>² = 4.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <i>x</i><sup>2/3</sup> определено только при <i>x</i> ≥ 0. Возведём в степень 3/2: <i>x</i> = 4<sup>3/2</sup> = <b>8</b>.</p><p>б) <sup>3</sup>√<i>x</i>² определено при всех <i>x</i>: <i>x</i>² = 64, <b><i>x</i> = ±8</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Записи <sup>3</sup>√<i>x</i>² и <i>x</i><sup>2/3</sup> равны только при <i>x</i> ≥ 0. Заменяя корень дробной степенью, следи, чтобы не потерять отрицательные значения.</p></div>
+<div class="ex"><span class="lbl">Пример 5 · сравнить</span><p>Что больше: 2<sup>1/2</sup> или 3<sup>1/3</sup>?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Возведём оба положительных числа в шестую степень (функция <i>t</i><sup>6</sup> возрастает при <i>t</i> &gt; 0): (2<sup>1/2</sup>)⁶ = 8, (3<sup>1/3</sup>)⁶ = 9. Значит, <b>3<sup>1/3</sup> &gt; 2<sup>1/2</sup></b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) 8<sup>2/3</sup>; б) 81<sup>0,75</sup>; в) 32<sup>−0,2</sup>; г) (1/16)<sup>−3/4</sup>.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли: а) 5<sup>1/3</sup> · 5<sup>2/3</sup>; б) (7<sup>2/3</sup>)<sup>3/2</sup>; в) 12<sup>1/3</sup> · 18<sup>1/3</sup>.</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди область определения: а) <i>y</i> = <i>x</i><sup>2/5</sup>; б) <i>y</i> = (<i>x</i> − 3)<sup>−1/4</sup>; в) <i>y</i> = (<i>x</i>² − 9)<sup>1/3</sup>.</div><div class="task"><span class="task-no">№&nbsp;4</span>Упрости <i>a</i><sup>2/3</sup> · <i>a</i><sup>1/6</sup> : <i>a</i><sup>1/2</sup> · <i>a</i><sup>1/6</sup>.</div><div class="task"><span class="task-no">№&nbsp;5</span>Сократи дробь (<i>a</i> − <i>b</i>) / (<i>a</i><sup>1/2</sup> − <i>b</i><sup>1/2</sup>).</div><div class="task"><span class="task-no">№&nbsp;6</span>Сократи дробь (<i>x</i><sup>2/3</sup> − 9) / (<i>x</i><sup>1/3</sup> + 3).</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнения: а) <i>x</i><sup>1/4</sup> = 2; б) <i>x</i><sup>2/3</sup> = 9; в) <i>x</i><sup>−1/2</sup> = 1/3.</div><div class="task"><span class="task-no">№&nbsp;8</span>Что больше: 3<sup>1/2</sup> или 5<sup>1/3</sup>?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 13.1, 13.2</b> — Вычисление степеней с дробным показателем.</li><li><b>№ 13.3</b> — Область определения функции y = xʳ.</li><li><b>№ 13.5</b> — Вычисления по свойствам степени.</li><li><b>№ 13.9</b> — Раскрытие скобок.</li><li><b>№ 13.11</b> — Сокращение дробей.</li><li><b>№ 13.17</b> — Уравнения со степенями.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma13a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 13</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 13.2, 13.4, 13.6, 13.10 (1, 2), 13.18 из учебника письменно. Записать в тетрадь пять свойств степени и пример на каждое с дробным показателем.</p></div>
+<div class="pager"><a href="ma12.html">← Урок 12</a><a href="ma14.html">Урок 14 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

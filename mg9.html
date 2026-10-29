@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 9. Угол между прямыми в пространстве</title>
+<script>document.documentElement.dataset.page="mg9";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 9 · угол между пересекающимися, параллельными и скрещивающимися прямыми, теорема 9.1, перпендикулярные прямые">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 9</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 9</div>
+  <h1>Угол между прямыми в пространстве</h1>
+  <p class="lede">§ 9 · угол между пересекающимися, параллельными и скрещивающимися прямыми, теорема 9.1, перпендикулярные прямые</p>
+  <div class="btns">
+    <a class="btn" href="smg9.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg9.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<h3>Пересекающиеся и параллельные прямые</h3>
+<p>Две пересекающиеся прямые лежат в одной плоскости, поэтому угол между ними определяется так же, как в планиметрии. При пересечении получается четыре угла: либо все прямые, либо два равных острых и два равных тупых. В любом случае среди них есть угол, не больший 90°, — его и берут.</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Углом между двумя пересекающимися прямыми</b> называют величину того из образовавшихся углов, который не превосходит 90°.</p><p>Угол между двумя <b>параллельными</b> прямыми считают равным 0°.</p></div>
+<p>Итак, угол между прямыми всегда лежит в пределах от 0° до 90°. Тупых углов между прямыми не бывает: если в задаче получился угол 120°, то угол между прямыми равен 180° − 120° = 60°.</p>
+<h3>Скрещивающиеся прямые</h3>
+<p>Скрещивающиеся прямые не пересекаются, и «увидеть» угол между ними нельзя. Идея простая: <b>сдвинем прямые параллельно, пока они не встретятся</b>.</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Углом между двумя скрещивающимися прямыми</b> называют угол между пересекающимися прямыми, соответственно параллельными данным скрещивающимся прямым.</p></div>
+<figure><img src="assets/fig/mg9_skew.png" alt="Прямые a и b скрещиваются; через точку M прямой b проведена a₁ ∥ a; φ — угол между a и b"><figcaption>Прямые a и b скрещиваются; через точку M прямой b проведена a₁ ∥ a; φ — угол между a и b</figcaption></figure>
+<p>Возникает вопрос: а не зависит ли результат от того, через какую точку мы провели параллельные прямые? Ответ даёт теорема.</p>
+<div class="thm"><span class="lbl">Теорема 9.1</span><p>Угол между двумя пересекающимися прямыми равен углу между двумя другими пересекающимися прямыми, соответственно параллельными данным.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть прямые <i>a</i> и <i>b</i> пересекаются в точке <i>M</i>, прямые <i>a</i>₁ и <i>b</i>₁ — в точке <i>M</i>₁, <i>a</i> ∥ <i>a</i>₁, <i>b</i> ∥ <i>b</i>₁. Если все четыре прямые в одной плоскости — это знакомая планиметрия (соответственные углы при параллельных). Пусть плоскости (<i>a</i>, <i>b</i>) и (<i>a</i>₁, <i>b</i>₁) различны.</p><p>1) В плоскости параллельных прямых <i>a</i> и <i>a</i>₁ проведём <i>AA</i>₁ ∥ <i>MM</i>₁ (<i>A</i> ∈ <i>a</i>, <i>A</i>₁ ∈ <i>a</i>₁), а в плоскости прямых <i>b</i> и <i>b</i>₁ — <i>BB</i>₁ ∥ <i>MM</i>₁.</p><p>2) <i>AA</i>₁<i>M</i>₁<i>M</i> и <i>BB</i>₁<i>M</i>₁<i>M</i> — параллелограммы, поэтому отрезки <i>AA</i>₁ и <i>BB</i>₁ равны и параллельны <i>MM</i>₁, а значит, равны и параллельны друг другу (теорема 5.4). Тогда и <i>AA</i>₁<i>B</i>₁<i>B</i> — параллелограмм.</p><p>3) Из трёх параллелограммов: <i>AM</i> = <i>A</i>₁<i>M</i>₁, <i>BM</i> = <i>B</i>₁<i>M</i>₁, <i>AB</i> = <i>A</i>₁<i>B</i>₁. Треугольники <i>AMB</i> и <i>A</i>₁<i>M</i>₁<i>B</i>₁ равны по трём сторонам, ∠<i>AMB</i> = ∠<i>A</i>₁<i>M</i>₁<i>B</i>₁. ∎</p></div>
+<p>Следствие, которым пользуются в задачах: <b>достаточно сдвинуть только одну прямую</b>. Угол между скрещивающимися <i>a</i> и <i>b</i> равен углу между <i>a</i> и прямой <i>b</i>₁ ∥ <i>b</i>, пересекающей <i>a</i>. Удобно выбирать <i>b</i>₁ так, чтобы получился «хороший» треугольник.</p>
+<div class="def"><span class="lbl">Перпендикулярные прямые</span><p>Две прямые в пространстве называют <b>перпендикулярными</b>, если угол между ними равен 90°. Обозначение: <i>a</i> ⊥ <i>b</i>. Перпендикулярные прямые могут пересекаться, а могут скрещиваться. Два отрезка перпендикулярны, если они лежат на перпендикулярных прямых.</p></div>
+<p>Пример: в кубе рёбра <i>AD</i> и <i>CC</i>₁ скрещиваются, но <i>CC</i>₁ ∥ <i>DD</i>₁, а ∠<i>ADD</i>₁ = 90°. Значит, <i>AD</i> ⊥ <i>CC</i>₁.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не путай «перпендикулярны» и «пересекаются под прямым углом». В пространстве перпендикулярные прямые часто вообще не имеют общих точек.</p></div>
+<h2>Разбор примеров</h2>
+<figure><img src="assets/fig/mg9_cube.png" alt="AB₁ ∥ DC₁, треугольник BDC₁ — равносторонний"><figcaption>AB₁ ∥ DC₁, треугольник BDC₁ — равносторонний</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 1 · углы в кубе</span><p>В кубе <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ найдите угол между прямыми: а) <i>B</i>₁<i>C</i> и <i>AD</i>; б) <i>AB</i>₁ и <i>BC</i>₁; в) <i>AC</i> и <i>B</i>₁<i>D</i>₁.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <i>AD</i> ∥ <i>BC</i>, поэтому ищем угол между <i>B</i>₁<i>C</i> и <i>BC</i>: это угол <i>B</i>₁<i>CB</i> между диагональю квадрата и его стороной, <b>45°</b>.</p><p>б) <i>AB</i>₁ ∥ <i>DC</i>₁ (<i>AB</i>₁<i>C</i>₁<i>D</i> — параллелограмм). Ищем угол между <i>DC</i>₁ и <i>BC</i>₁. Треугольник <i>BDC</i>₁ равносторонний — его стороны диагонали равных квадратов. Угол <b>60°</b>.</p><p>в) <i>B</i>₁<i>D</i>₁ ∥ <i>BD</i>, а диагонали квадрата <i>AC</i> и <i>BD</i> перпендикулярны: <b>90°</b>.</p></div></div>
+<figure><img src="assets/fig/mg9_tet.png" alt="M, N, K — середины AB, BC, CD: MN ∥ AC, NK ∥ BD"><figcaption>M, N, K — середины AB, BC, CD: MN ∥ AC, NK ∥ BD</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 2 · угол через средние линии</span><p>В тетраэдре <i>DABC</i> <i>AC</i> = 10, <i>BD</i> = 24. Точки <i>M</i>, <i>N</i>, <i>K</i> — середины рёбер <i>AB</i>, <i>BC</i>, <i>CD</i>, <i>MK</i> = 13. Найдите угол между прямыми <i>AC</i> и <i>BD</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1) <i>MN</i> — средняя линия треугольника <i>ABC</i>: <i>MN</i> ∥ <i>AC</i>, <i>MN</i> = 5. <i>NK</i> — средняя линия треугольника <i>BCD</i>: <i>NK</i> ∥ <i>BD</i>, <i>NK</i> = 12.</p><p>2) Прямые <i>MN</i> и <i>NK</i> пересекаются и параллельны <i>AC</i> и <i>BD</i>, поэтому искомый угол — это угол между <i>MN</i> и <i>NK</i>.</p><p>3) В треугольнике <i>MNK</i>: 5² + 12² = 169 = 13², по теореме, обратной теореме Пифагора, ∠<i>MNK</i> = 90°. Ответ: <b>90°</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если угол треугольника получился тупым (например, 120°), угол между прямыми равен 180° минус он. Не забывай этот последний шаг.</p></div>
+<div class="ex"><span class="lbl">Пример 3 · косинус угла</span><p>В кубе <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ с ребром 2 точка <i>M</i> — середина <i>A</i>₁<i>B</i>₁. Найдите косинус угла между прямыми <i>AM</i> и <i>BC</i>₁.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Сдвинем <i>BC</i>₁ в <i>AD</i>₁ (<i>ABC</i>₁<i>D</i>₁ — прямоугольник). Ищем угол <i>MAD</i>₁ в треугольнике <i>AMD</i>₁: <i>AM</i> = √(4 + 1) = √5, <i>AD</i>₁ = 2√2, <i>MD</i>₁ = √(1 + 4) = √5.</p><p>По теореме косинусов: cos ∠<i>MAD</i>₁ = (5 + 8 − 5) / (2 · √5 · 2√2) = 8/(4√10) = 2/√10 = <b>√10/5</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Найди угол между прямыми <i>AA</i>₁ и <i>CD</i> куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁.</div><div class="task"><span class="task-no">№&nbsp;2</span>Найди угол между прямыми <i>B</i>₁<i>C</i> и <i>AD</i> куба.</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди угол между прямыми <i>AB</i>₁ и <i>BC</i>₁ куба.</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди угол между прямыми <i>A</i>₁<i>B</i> и <i>B</i>₁<i>D</i>₁ куба.</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди угол между прямыми <i>AC</i> и <i>B</i>₁<i>D</i>₁ куба.</div><div class="task"><span class="task-no">№&nbsp;6</span>В тетраэдре <i>DABC</i> <i>AC</i> = <i>BD</i> = 8, <i>M</i>, <i>N</i>, <i>K</i> — середины <i>AB</i>, <i>BC</i>, <i>CD</i>, <i>MK</i> = 4. Найди угол между <i>AC</i> и <i>BD</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>То же при <i>AC</i> = <i>BD</i> = 10, <i>MK</i> = 5√3.</div><div class="task"><span class="task-no">№&nbsp;8</span>Точка <i>M</i> не лежит в плоскости квадрата <i>ABCD</i>, ∠<i>MBA</i> = 110°. Найди угол между прямыми <i>MB</i> и <i>CD</i>.</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg9a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 9</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — рисунок. Из учебника: № 9.2, 9.4, 9.10, 9.12. Выучить определения угла между прямыми (всех трёх случаев) и формулировку теоремы 9.1.</p></div>
+<div class="task"><span class="task-no">Д1</span>Найди угол между прямыми куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁: а) <i>A</i>₁<i>D</i> и <i>BC</i>₁; б) <i>AD</i>₁ и <i>A</i>₁<i>C</i>₁.</div><div class="task"><span class="task-no">Д2</span>В прямоугольном параллелепипеде <i>AB</i> = <i>AD</i> = 4, <i>AA</i>₁ = 4√3. Найди угол между прямыми <i>AA</i>₁ и <i>BC</i>₁.</div><div class="task"><span class="task-no">Д3</span>В тетраэдре <i>DABC</i> <i>AC</i> = 12, <i>BD</i> = 16, <i>M</i>, <i>N</i>, <i>K</i> — середины <i>AB</i>, <i>BC</i>, <i>CD</i>, <i>MK</i> = 10. Найди угол между <i>AC</i> и <i>BD</i>.</div><div class="task"><span class="task-no">Д4</span>В тетраэдре <i>DABC</i> <i>AC</i> = <i>BD</i> = 10, <i>M</i>, <i>N</i>, <i>K</i> — середины <i>AB</i>, <i>BC</i>, <i>CD</i>, <i>MK</i> = 5. Найди угол между <i>AC</i> и <i>BD</i>.</div><div class="task"><span class="task-no">Д5</span>Точка <i>M</i> не лежит в плоскости прямоугольника <i>ABCD</i>, ∠<i>MAB</i> = 130°. Найди угол между прямыми <i>MA</i> и <i>CD</i>.</div><div class="task"><span class="task-no">Д6</span>В кубе с ребром 2 точка <i>M</i> — середина ребра <i>A</i>₁<i>B</i>₁. Найди косинус угла между прямыми <i>AM</i> и <i>BC</i>₁.</div>
+<div class="pager"><a href="mg8.html">← Урок 8</a><a href="mg10.html">Урок 10 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

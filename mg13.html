@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Геометрия · § 13. Угол между прямой и плоскостью</title>
+<script>document.documentElement.dataset.page="mg13";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 13 · определение, равные наклонные и равные углы, формула трёх косинусов cos γ = cos α · cos β">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="on">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="geometry-m.html">Геометрия · Мерзляк</a> · Урок 13</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Геометрия · § 13</div>
+  <h1>Угол между прямой и плоскостью</h1>
+  <p class="lede">§ 13 · определение, равные наклонные и равные углы, формула трёх косинусов cos γ = cos α · cos β</p>
+  <div class="btns">
+    <a class="btn" href="smg13.html">▶ Презентация</a>
+    <a class="btn lime" href="wsmg13.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Штурманы когда-то определяли положение корабля по углу между лучом на звезду и плоскостью горизонта. Строители говорят об «уклоне» крыши и пандуса. Нужно понятие угла между прямой и плоскостью. Естественная идея: сравнить прямую с её «тенью» на плоскости.</p>
+<div class="def"><span class="lbl">Определение</span><ul><li>Если прямая параллельна плоскости или лежит в ней, угол между ними равен <b>0°</b>.</li><li>Если прямая перпендикулярна плоскости, угол равен <b>90°</b>.</li><li>Если прямая пересекает плоскость и не перпендикулярна ей, углом между прямой и плоскостью называют <b>угол между прямой и её проекцией</b> на плоскость.</li></ul></div>
+<figure><img src="assets/fig/mg13_def.png" alt="HM — проекция наклонной AM, φ = ∠AMH — угол между прямой AM и плоскостью"><figcaption>HM — проекция наклонной AM, φ = ∠AMH — угол между прямой AM и плоскостью</figcaption></figure>
+<p>Итак, 0° ≤ <i>φ</i> ≤ 90°. Угол между отрезком и плоскостью — это угол между прямой, содержащей отрезок, и плоскостью. В прямоугольном треугольнике <i>AHM</i>: sin <i>φ</i> = <i>AH</i>/<i>AM</i> (расстояние до плоскости делить на наклонную), cos <i>φ</i> = <i>HM</i>/<i>AM</i>, tg <i>φ</i> = <i>AH</i>/<i>HM</i>.</p>
+<p>Пример: в кубе прямая <i>AB</i> — проекция диагонали грани <i>AB</i>₁ на плоскость <i>ABC</i>, поэтому угол между <i>AB</i>₁ и плоскостью <i>ABC</i> равен ∠<i>B</i>₁<i>AB</i> = 45°.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Угол берут между прямой и её <b>проекцией</b>, а не между прямой и какой-нибудь другой прямой плоскости. С другими прямыми плоскости угол может быть больше.</p></div>
+<div class="thm"><span class="lbl">Ключевая задача 1</span><p>Если из одной точки к плоскости проведены наклонные, образующие с плоскостью равные углы, то проекция точки равноудалена от оснований наклонных.</p></div>
+<p>Почему: прямоугольные треугольники <i>MOA</i> и <i>MOB</i> имеют общий катет <i>MO</i> и равные противолежащие ему углы, значит, равны, и <i>OA</i> = <i>OB</i>. Обратное тоже верно: равные наклонные образуют с плоскостью равные углы.</p>
+<h3>Формула трёх косинусов</h3>
+<div class="thm"><span class="lbl">Ключевая задача 2</span><p>Прямая <i>a</i> образует с плоскостью <i>π</i> угол <i>α</i> (0° &lt; <i>α</i> &lt; 90°). Прямая <i>b</i> плоскости <i>π</i> образует с прямой <i>a</i> угол <i>γ</i>, а с проекцией прямой <i>a</i> — угол <i>β</i>. Тогда <b>cos <i>γ</i> = cos <i>α</i> · cos <i>β</i></b>.</p></div>
+<figure><img src="assets/fig/mg13_cos.png" alt="AA₁ ⊥ π, A₁D ⊥ b, AD ⊥ b; cos γ = cos α · cos β"><figcaption>AA₁ ⊥ π, A₁D ⊥ b, AD ⊥ b; cos γ = cos α · cos β</figcaption></figure>
+<div class="proof"><span class="lbl">Доказательство</span><p>Пусть <i>a</i> пересекает <i>π</i> в точке <i>B</i>, <i>A</i> ∈ <i>a</i>, <i>A</i>₁ — проекция <i>A</i>, <i>b</i> проходит через <i>B</i>. Опустим <i>AD</i> ⊥ <i>b</i>; по теореме о трёх перпендикулярах <i>A</i>₁<i>D</i> ⊥ <i>b</i>.</p><p>Из трёх прямоугольных треугольников: cos <i>γ</i> = <i>BD</i>/<i>AB</i>, cos <i>α</i> = <i>BA</i>₁/<i>AB</i>, cos <i>β</i> = <i>BD</i>/<i>BA</i>₁. Перемножим два последних: cos <i>α</i> · cos <i>β</i> = <i>BD</i>/<i>AB</i> = cos <i>γ</i>. ∎ (Случаи <i>β</i> = 0° и <i>β</i> = 90° проверяются отдельно.)</p></div>
+<p>Так как cos <i>β</i> ≤ 1, то cos <i>γ</i> ≤ cos <i>α</i>, то есть <i>γ</i> ≥ <i>α</i>. Вывод: <b>угол между прямой и плоскостью — наименьший</b> из углов между этой прямой и прямыми плоскости.</p>
+<h2>Разбор примеров</h2>
+<figure><img src="assets/fig/mg13_cube.png" alt="AC — проекция AC₁ на плоскость ABC"><figcaption>AC — проекция AC₁ на плоскость ABC</figcaption></figure>
+<div class="ex"><span class="lbl">Пример 1 · диагональ куба и основание</span><p>Найдите угол между диагональю <i>AC</i>₁ куба и плоскостью его основания <i>ABC</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>CC</i>₁ ⊥ (<i>ABC</i>), значит, <i>AC</i> — проекция <i>AC</i>₁, искомый угол — ∠<i>C</i>₁<i>AC</i>. Пусть ребро равно <i>a</i>: <i>AC</i> = <i>a</i>√2, tg ∠<i>C</i>₁<i>AC</i> = <i>a</i>/(<i>a</i>√2) = √2/2. Ответ: <b>arctg (√2/2)</b> (примерно 35°).</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · две наклонные</span><p><i>MA</i> ⊥ плоскости <i>ABC</i>, <i>MA</i> = 4√3, <i>AB</i> = 4, <i>AC</i> = 12. Найдите углы, которые образуют с плоскостью <i>ABC</i> прямые <i>MB</i> и <i>MC</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>AB</i> и <i>AC</i> — проекции. tg ∠<i>MBA</i> = 4√3/4 = √3 ⟹ <b>60°</b>; tg ∠<i>MCA</i> = 4√3/12 = √3/3 ⟹ <b>30°</b>. Чем дальше основание наклонной от основания перпендикуляра, тем «положе» наклонная.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · три косинуса</span><p>Прямая образует с плоскостью угол 45°. Прямая плоскости проведена через точку пересечения и образует с проекцией данной прямой угол 60°. Найдите косинус угла между этими прямыми.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>cos <i>γ</i> = cos 45° · cos 60° = (√2/2) · (1/2) = <b>√2/4</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не путай: в формуле cos <i>γ</i> = cos <i>α</i> cos <i>β</i> угол <i>α</i> — с <b>плоскостью</b>, <i>β</i> — между прямой плоскости и <b>проекцией</b>, <i>γ</i> — между прямой плоскости и <b>самой</b> наклонной.</p></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради, к каждой задаче — чертёж. Разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Из точки к плоскости проведены перпендикуляр длиной 5 и наклонная длиной 10. Найди угол между наклонной и плоскостью.</div><div class="task"><span class="task-no">№&nbsp;2</span>Проекция наклонной равна 7, расстояние от точки до плоскости тоже 7. Найди угол между наклонной и плоскостью.</div><div class="task"><span class="task-no">№&nbsp;3</span>Наклонная длиной 8 образует с плоскостью угол 60°. Найди её проекцию.</div><div class="task"><span class="task-no">№&nbsp;4</span>Точка удалена от плоскости на 6. Из неё проведены наклонные под углами 30° и 45° к плоскости. Найди длину большей наклонной.</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди угол между прямой <i>DC</i>₁ и плоскостью <i>ABC</i> куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁.</div><div class="task"><span class="task-no">№&nbsp;6</span><i>O</i> — центр правильного треугольника <i>ABC</i> со стороной 6, <i>MO</i> ⊥ (<i>ABC</i>), <i>MO</i> = 2√3. Найди угол между <i>MA</i> и плоскостью <i>ABC</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Прямая образует с плоскостью угол 60°, прямая плоскости — угол 45° с её проекцией. Найди косинус угла между прямыми.</div><div class="task"><span class="task-no">№&nbsp;8</span>Может ли прямая, проходящая через вершину прямого угла, образовывать с каждой его стороной угол 45° и не лежать в плоскости угла?</div>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-mg13a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 13</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>Задачи Д1–Д6 ниже, к каждой — рисунок с проекцией наклонной. Из учебника: № 13.1, 13.7, 13.12, 13.27. Выучить определение угла между прямой и плоскостью и формулу трёх косинусов (с выводом).</p></div>
+<div class="task"><span class="task-no">Д1</span>Из точки к плоскости проведены перпендикуляр длиной 9 и наклонная длиной 18. Найди угол между наклонной и плоскостью.</div><div class="task"><span class="task-no">Д2</span>Наклонная длиной 10 образует с плоскостью угол 45°. Найди её проекцию.</div><div class="task"><span class="task-no">Д3</span><i>ABCD</i> — квадрат со стороной 4, <i>MB</i> ⊥ (<i>ABC</i>), <i>MB</i> = 4. Найди угол между прямой <i>MA</i> и плоскостью квадрата.</div><div class="task"><span class="task-no">Д4</span>Точка <i>M</i> равноудалена от вершин квадрата со стороной 6√2, прямая <i>MA</i> образует с плоскостью квадрата угол 60°. Найди <i>MA</i>.</div><div class="task"><span class="task-no">Д5</span>Прямая образует с плоскостью угол 30°, прямая плоскости — угол 30° с её проекцией. Найди косинус угла между прямыми.</div><div class="task"><span class="task-no">Д6</span>В прямоугольном параллелепипеде <i>AB</i> = 3, <i>AD</i> = 4, <i>AA</i>₁ = 5. Найди угол между прямой <i>B</i>₁<i>D</i> и плоскостью <i>ABC</i>.</div>
+<div class="pager"><a href="mg12.html">← Урок 12</a><a href="mg14.html">Урок 14 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 12. Свойства корня n-й степени</title>
+<script>document.documentElement.dataset.page="ma12";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=3a337338"></script><script src="assets/auth.js?v=3a337338"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 12 · корень из степени, произведения и частного, степень корня, корень из корня; преобразования">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 12</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 12</div>
+  <h1>Свойства корня n-й степени</h1>
+  <p class="lede">§ 12 · корень из степени, произведения и частного, степень корня, корень из корня; преобразования</p>
+  <div class="btns">
+    <a class="btn" href="sma12.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma12.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Все свойства этого урока доказываются одним приёмом. Чтобы проверить, что <sup><i>n</i></sup>√<i>x</i> = <i>y</i>, достаточно убедиться, что <i>y</i><sup><i>n</i></sup> = <i>x</i> (а для чётного <i>n</i> — ещё и что <i>y</i> ≥ 0). Запомни этот приём: так ты сможешь «восстановить» любую формулу, если забудешь её.</p>
+<div class="thm"><span class="lbl">Теорема 12.1 · корень из степени</span><p>Для любого <i>a</i> и <i>k</i> ∈ <b><i>N</i></b>: &nbsp; <sup>2<i>k</i>+1</sup>√<i>a</i><sup>2<i>k</i>+1</sup> = <i>a</i>, &nbsp; <sup>2<i>k</i></sup>√<i>a</i><sup>2<i>k</i></sup> = |<i>a</i>|.</p></div>
+<p>Почему во втором случае модуль? Корень чётной степени — неотрицательное число, а <i>a</i> может быть отрицательным. Число |<i>a</i>| неотрицательно и (|<i>a</i>|)<sup>2<i>k</i></sup> = <i>a</i><sup>2<i>k</i></sup> — значит, это и есть корень. Например, <sup>4</sup>√(−3)⁴ = 3.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p><sup>4</sup>√<i>a</i>⁴ = |<i>a</i>|, а не <i>a</i>. Ошибка «<sup>4</sup>√(−3)⁴ = −3» — самая частая на этом уроке: корень чётной степени отрицательным не бывает.</p></div>
+<div class="thm"><span class="lbl">Теорема 12.2 · корень из произведения</span><p>Если <i>a</i> ≥ 0 и <i>b</i> ≥ 0, то <sup><i>n</i></sup>√(<i>a</i><i>b</i>) = <sup><i>n</i></sup>√<i>a</i> · <sup><i>n</i></sup>√<i>b</i>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p><sup><i>n</i></sup>√<i>a</i> · <sup><i>n</i></sup>√<i>b</i> ≥ 0 и (<sup><i>n</i></sup>√<i>a</i> · <sup><i>n</i></sup>√<i>b</i>)<sup><i>n</i></sup> = (<sup><i>n</i></sup>√<i>a</i>)<sup><i>n</i></sup> · (<sup><i>n</i></sup>√<i>b</i>)<sup><i>n</i></sup> = <i>a</i><i>b</i>.</p></div>
+<p>Если <i>a</i> ≤ 0 и <i>b</i> ≤ 0, то <sup><i>n</i></sup>√(<i>a</i><i>b</i>) = <sup><i>n</i></sup>√(−<i>a</i>) · <sup><i>n</i></sup>√(−<i>b</i>). Для нечётного <i>n</i> формула верна при любых <i>a</i> и <i>b</i>.</p>
+<div class="thm"><span class="lbl">Теорема 12.3 · корень из частного</span><p>Если <i>a</i> ≥ 0 и <i>b</i> &gt; 0, то <sup><i>n</i></sup>√(<i>a</i>/<i>b</i>) = <sup><i>n</i></sup>√<i>a</i> / <sup><i>n</i></sup>√<i>b</i>.</p></div>
+<div class="thm"><span class="lbl">Теорема 12.4 · степень корня</span><p>Если <i>a</i> ≥ 0, то (<sup><i>n</i></sup>√<i>a</i>)<sup><i>k</i></sup> = <sup><i>n</i></sup>√<i>a</i><sup><i>k</i></sup>.</p></div>
+<div class="thm"><span class="lbl">Теорема 12.5 · корень из корня</span><p>Если <i>a</i> ≥ 0, то <sup><i>k</i></sup>√(<sup><i>n</i></sup>√<i>a</i>) = <sup><i>nk</i></sup>√<i>a</i>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p><sup><i>n</i></sup>√<i>a</i> ≥ 0, значит, и левая часть ≥ 0; а (<sup><i>k</i></sup>√(<sup><i>n</i></sup>√<i>a</i>))<sup><i>nk</i></sup> = ((<sup><i>k</i></sup>√(<sup><i>n</i></sup>√<i>a</i>))<sup><i>k</i></sup>)<sup><i>n</i></sup> = (<sup><i>n</i></sup>√<i>a</i>)<sup><i>n</i></sup> = <i>a</i>.</p></div>
+<div class="thm"><span class="lbl">Теорема 12.6 · сокращение показателей</span><p>Если <i>a</i> ≥ 0, то <sup><i>nk</i></sup>√<i>a</i><sup><i>k</i></sup> = <sup><i>n</i></sup>√<i>a</i>. Например, <sup>6</sup>√27² = <sup>3</sup>√27 = 3.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · вычислить</span><p>Вычисли: <sup>3</sup>√16 · <sup>3</sup>√4; <sup>4</sup>√2 · <sup>4</sup>√8; <sup>5</sup>√96 : <sup>5</sup>√3; <sup>4</sup>√(5⁴ · 3⁸).</p><div class="ex-sol"><span class="ex-h">Решение</span><p><sup>3</sup>√(16 · 4) = <sup>3</sup>√64 = <b>4</b>; <sup>4</sup>√16 = <b>2</b>; <sup>5</sup>√32 = <b>2</b>; <sup>4</sup>√5⁴ · <sup>4</sup>√(3²)⁴ = 5 · 9 = <b>45</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · модули</span><p>Упрости: а) <sup>6</sup>√<i>a</i>⁶ при <i>a</i> &lt; 0; б) <sup>3</sup>√<i>a</i>³; в) <sup>4</sup>√(<i>x</i>⁴<i>y</i>⁸) при <i>x</i> &lt; 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <sup>6</sup>√<i>a</i>⁶ = |<i>a</i>| = <b>−<i>a</i></b> (при <i>a</i> &lt; 0 это положительное число!). б) Степень нечётная: <b><i>a</i></b>. в) <sup>4</sup>√(<i>x</i><i>y</i>²)⁴ = |<i>x</i><i>y</i>²| = |<i>x</i>| · <i>y</i>² = <b>−<i>x</i><i>y</i>²</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · вынести множитель</span><p>Вынеси множитель из-под знака корня: <sup>3</sup>√54; <sup>4</sup>√162; <sup>4</sup>√<i>a</i>⁵.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><sup>3</sup>√(27 · 2) = <b>3<sup>3</sup>√2</b>; <sup>4</sup>√(81 · 2) = <b>3<sup>4</sup>√2</b>; в <sup>4</sup>√<i>a</i>⁵ обязательно <i>a</i> ≥ 0 (иначе корень не существует), поэтому <sup>4</sup>√(<i>a</i>⁴ · <i>a</i>) = <b><i>a</i><sup>4</sup>√<i>a</i></b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · внести множитель</span><p>Внеси множитель под знак корня: 2<sup>3</sup>√3; <i>a</i><sup>4</sup>√2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2<sup>3</sup>√3 = <sup>3</sup>√(8 · 3) = <b><sup>3</sup>√24</b> (для нечётной степени знак множителя не важен).</p><p><i>a</i><sup>4</sup>√2: если <i>a</i> ≥ 0, то <b><sup>4</sup>√(2<i>a</i>⁴)</b>; если <i>a</i> &lt; 0, то значение отрицательно, и пишут <b>−<sup>4</sup>√(2<i>a</i>⁴)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Под корень чётной степени можно вносить только неотрицательный множитель. Отрицательный множитель оставляют снаружи знаком «минус».</p></div>
+<div class="ex"><span class="lbl">Пример 5 · сократить дробь</span><p>Сократи дробь (√<i>a</i> − √<i>b</i>) / (<sup>4</sup>√<i>a</i> − <sup>4</sup>√<i>b</i>).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>√<i>a</i> = (<sup>4</sup>√<i>a</i>)², √<i>b</i> = (<sup>4</sup>√<i>b</i>)². Числитель — разность квадратов: (<sup>4</sup>√<i>a</i> − <sup>4</sup>√<i>b</i>)(<sup>4</sup>√<i>a</i> + <sup>4</sup>√<i>b</i>). Ответ: <b><sup>4</sup>√<i>a</i> + <sup>4</sup>√<i>b</i></b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 6 · вложенные корни</span><p>Докажи, что <sup>3</sup>√(5 + 2√13) + <sup>3</sup>√(5 − 2√13) = 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Обозначим сумму через <i>x</i> и возведём в куб по формуле (<i>p</i> + <i>q</i>)³ = <i>p</i>³ + <i>q</i>³ + 3<i>pq</i>(<i>p</i> + <i>q</i>):</p><p><i>x</i>³ = 10 + 3 · <sup>3</sup>√(25 − 52) · <i>x</i> = 10 − 9<i>x</i>.</p><p><i>x</i>³ + 9<i>x</i> − 10 = 0, (<i>x</i> − 1)(<i>x</i>² + <i>x</i> + 10) = 0. У второй скобки нет корней, значит, <b><i>x</i> = 1</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) <sup>3</sup>√2 · <sup>3</sup>√32; б) <sup>4</sup>√3 · <sup>4</sup>√27; в) <sup>5</sup>√(3⁵ · 2¹⁰); г) <sup>3</sup>√(−250) : <sup>3</sup>√2.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли: а) <sup>4</sup>√(−7)⁴; б) <sup>6</sup>√(√2 − 2)⁶.</div><div class="task"><span class="task-no">№&nbsp;3</span>Вынеси множитель из-под знака корня: а) <sup>3</sup>√81; б) <sup>4</sup>√48; в) <sup>3</sup>√(−128); г) <sup>3</sup>√(16<i>a</i>⁴).</div><div class="task"><span class="task-no">№&nbsp;4</span>Внеси множитель под знак корня: а) 3<sup>3</sup>√2; б) −2<sup>4</sup>√3; в) <i>b</i><sup>4</sup>√5 при <i>b</i> &lt; 0.</div><div class="task"><span class="task-no">№&nbsp;5</span>Упрости <sup>4</sup>√<i>a</i>⁴ + <sup>3</sup>√<i>a</i>³ при <i>a</i> &lt; 0.</div><div class="task"><span class="task-no">№&nbsp;6</span>Запиши одним корнем: а) <sup>3</sup>√√7; б) <sup>8</sup>√<i>a</i>⁶ (<i>a</i> ≥ 0).</div><div class="task"><span class="task-no">№&nbsp;7</span>Сократи дробь (√<i>x</i> − 9) / (<sup>4</sup>√<i>x</i> − 3).</div><div class="task"><span class="task-no">№&nbsp;8</span>Вычисли <sup>3</sup>√(7 + 5√2) + <sup>3</sup>√(7 − 5√2).</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 12.1</b> — Вычисления по свойствам корня.</li><li><b>№ 12.3</b> — Вынесение множителя из-под знака корня.</li><li><b>№ 12.5</b> — Внесение множителя под знак корня.</li><li><b>№ 12.7</b> — Упрощение выражений с корнями.</li><li><b>№ 12.11</b> — Сокращение дробей.</li><li><b>№ 12.17</b> — Упрощение с учётом знака переменной.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma12a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 12</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 12.2, 12.4, 12.6, 12.8, 12.12 (1–3) из учебника письменно. Выписать в тетрадь шесть свойств корня и к каждому — свой пример.</p></div>
+<div class="pager"><a href="ma11.html">← Урок 11</a><a href="ma13.html">Урок 13 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
