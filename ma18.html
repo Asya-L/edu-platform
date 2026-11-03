@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 18. Тригонометрические функции числового аргумента</title>
+<script>document.documentElement.dataset.page="ma18";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 18 · sin, cos, tg, ctg угла поворота, таблица значений, области определения и значений">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 18</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 18</div>
+  <h1>Тригонометрические функции числового аргумента</h1>
+  <p class="lede">§ 18 · sin, cos, tg, ctg угла поворота, таблица значений, области определения и значений</p>
+  <div class="btns">
+    <a class="btn" href="sma18.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma18.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>В 9 классе по геометрии ты находил синус и косинус углов от 0° до 180° с помощью полуокружности. Теперь угол поворота может быть любым, поэтому возьмём всю единичную окружность.</p>
+<h3>Синус и косинус</h3>
+<div class="def"><span class="lbl">Определение</span><p>Пусть точка <i>P</i>(<i>x</i>; <i>y</i>) единичной окружности получена поворотом точки <i>P</i>₀(1; 0) на угол <i>α</i>. <b>Косинусом</b> угла <i>α</i> называют абсциссу <i>x</i> этой точки, <b>синусом</b> — её ординату <i>y</i>: &nbsp; <b>cos <i>α</i> = <i>x</i>, &nbsp; sin <i>α</i> = <i>y</i></b>.</p></div>
+<figure><img src="assets/fig/mal18_def.png" alt="cos α — «сколько вправо», sin α — «сколько вверх»"><figcaption>cos α — «сколько вправо», sin α — «сколько вверх»</figcaption></figure>
+<p>Запомни образ: <b>косинус — абсцисса</b> (по горизонтали), <b>синус — ордината</b> (по вертикали). Больше ничего учить не нужно: любое значение можно «прочитать» с окружности.</p>
+<p>Точки на осях дают первые значения:</p>
+<div class="tablewrap"><table><thead><tr><th><i>α</i></th><th>0</th><th>π/2</th><th>π</th><th>3π/2</th><th>2π</th></tr></thead><tbody><tr><td>cos <i>α</i></td><td>1</td><td>0</td><td>−1</td><td>0</td><td>1</td></tr><tr><td>sin <i>α</i></td><td>0</td><td>1</td><td>0</td><td>−1</td><td>0</td></tr></tbody></table></div>
+<p>Для углов π/6, π/4, π/3 координаты знакомы по прямоугольным треугольникам с углами 30°, 45°, 60°:</p>
+<figure><img src="assets/fig/mal18_table.png" alt="координаты точек — это (cos α; sin α)"><figcaption>координаты точек — это (cos α; sin α)</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th><i>α</i></th><th>0</th><th>π/6 (30°)</th><th>π/4 (45°)</th><th>π/3 (60°)</th><th>π/2 (90°)</th></tr></thead><tbody><tr><td>sin <i>α</i></td><td>0</td><td>1/2</td><td>√2/2</td><td>√3/2</td><td>1</td></tr><tr><td>cos <i>α</i></td><td>1</td><td>√3/2</td><td>√2/2</td><td>1/2</td><td>0</td></tr><tr><td>tg <i>α</i></td><td>0</td><td>√3/3</td><td>1</td><td>√3</td><td>—</td></tr><tr><td>ctg <i>α</i></td><td>—</td><td>√3</td><td>1</td><td>√3/3</td><td>0</td></tr></tbody></table></div>
+<h3>Тангенс и котангенс</h3>
+<div class="def"><span class="lbl">Определение</span><p><b>Тангенсом</b> угла <i>α</i> называют отношение синуса к косинусу: tg <i>α</i> = sin <i>α</i> / cos <i>α</i>. <b>Котангенсом</b> — отношение косинуса к синусу: ctg <i>α</i> = cos <i>α</i> / sin <i>α</i>.</p></div>
+<p>Делить на ноль нельзя, поэтому tg <i>α</i> определён, только если cos <i>α</i> ≠ 0, а ctg <i>α</i> — если sin <i>α</i> ≠ 0.</p>
+<div class="ex"><span class="lbl">Пример 1 · где синус или косинус равен нулю</span><p>Найди все <i>α</i>, при которых а) sin <i>α</i> = 0; б) cos <i>α</i> = 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Ордината равна нулю у двух точек окружности: (1; 0) и (−1; 0). Они получаются поворотами на 0, π, 2π, −π, … — то есть на <b><i>α</i> = π<i>k</i>, <i>k</i> ∈ <b><i>Z</i></b></b>.</p><p>б) Абсцисса равна нулю у точек (0; 1) и (0; −1): углы π/2, 3π/2, −π/2, … — <b><i>α</i> = π/2 + π<i>k</i>, <i>k</i> ∈ <b><i>Z</i></b></b>.</p><p>Отсюда области определения: tg <i>α</i> — при <i>α</i> ≠ π/2 + π<i>k</i>, ctg <i>α</i> — при <i>α</i> ≠ π<i>k</i>.</p></div></div>
+<h3>Функции числового аргумента и их значения</h3>
+<p>Каждому числу <i>x</i> поставим в соответствие угол в <i>x</i> радиан. Так получаются функции <i>y</i> = sin <i>x</i>, <i>y</i> = cos <i>x</i>, <i>y</i> = tg <i>x</i>, <i>y</i> = ctg <i>x</i>. Запись sin 2 означает синус угла в 2 радиана (а не в 2 градуса!).</p>
+<div class="tablewrap"><table><thead><tr><th>Функция</th><th>Область определения</th><th>Область значений</th></tr></thead><tbody><tr><td><i>y</i> = sin <i>x</i></td><td><b><i>R</i></b></td><td>[−1; 1]</td></tr><tr><td><i>y</i> = cos <i>x</i></td><td><b><i>R</i></b></td><td>[−1; 1]</td></tr><tr><td><i>y</i> = tg <i>x</i></td><td><i>x</i> ≠ π/2 + π<i>k</i>, <i>k</i> ∈ <b><i>Z</i></b></td><td><b><i>R</i></b></td></tr><tr><td><i>y</i> = ctg <i>x</i></td><td><i>x</i> ≠ π<i>k</i>, <i>k</i> ∈ <b><i>Z</i></b></td><td><b><i>R</i></b></td></tr></tbody></table></div>
+<p>Почему sin и cos лежат в [−1; 1]: это координаты точек окружности радиуса 1, дальше чем на 1 от осей они не уходят. А вот tg принимает любые значения: проведём прямую <i>x</i> = 1 — <b>ось тангенсов</b>. Луч <i>OP</i> пересекает её в точке с ординатой tg <i>α</i>, и эта точка может оказаться сколь угодно высоко или низко.</p>
+<figure><img src="assets/fig/mal18_tan.png" alt="tg α — ордината точки пересечения прямой OP с осью тангенсов"><figcaption>tg α — ордината точки пересечения прямой OP с осью тангенсов</figcaption></figure>
+<p>Углам <i>α</i> и <i>α</i> + 2π<i>k</i> соответствует одна точка, поэтому <b>sin(<i>α</i> + 2π<i>k</i>) = sin <i>α</i>, cos(<i>α</i> + 2π<i>k</i>) = cos <i>α</i></b>. Для тангенса и котангенса повтор происходит уже через π: <b>tg(<i>α</i> + π<i>k</i>) = tg <i>α</i>, ctg(<i>α</i> + π<i>k</i>) = ctg <i>α</i></b>.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>sin <i>α</i> и cos <i>α</i> никогда не бывают больше 1 или меньше −1. Если в задаче получилось sin <i>x</i> = 1,2 — у уравнения нет решений. А tg и ctg могут быть любыми.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 2 · вычислить</span><p>Вычисли: а) sin 0 + cos π − tg π/4; б) 2sin π/6 + cos² π/4; в) sin 3π/2 · cos 2π + ctg π/2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 0 + (−1) − 1 = <b>−2</b>; б) 2 · 1/2 + (√2/2)² = 1 + 1/2 = <b>3/2</b>; в) (−1) · 1 + 0 = <b>−1</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · наибольшее и наименьшее</span><p>Найди наибольшее и наименьшее значения выражения 1 − 4cos <i>α</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>−1 ≤ cos <i>α</i> ≤ 1. Умножим на −4 (знаки неравенства меняются): −4 ≤ −4cos <i>α</i> ≤ 4. Прибавим 1: −3 ≤ 1 − 4cos <i>α</i> ≤ 5.</p><p>Наименьшее значение <b>−3</b> (при cos <i>α</i> = 1), наибольшее <b>5</b> (при cos <i>α</i> = −1).</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · возможно ли равенство</span><p>а) Возможно ли sin <i>α</i> = √3? б) При каких <i>a</i> возможно cos <i>x</i> = <i>a</i>² − 1?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) √3 ≈ 1,73 &gt; 1 — <b>невозможно</b>.</p><p>б) Нужно −1 ≤ <i>a</i>² − 1 ≤ 1, то есть 0 ≤ <i>a</i>² ≤ 2: <b>−√2 ≤ <i>a</i> ≤ √2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · все углы</span><p>Найди все <i>x</i>, при которых а) sin <i>x</i> = 1; б) cos <i>x</i> = −1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Ордината 1 только у точки (0; 1): <b><i>x</i> = π/2 + 2π<i>k</i></b>. б) Абсцисса −1 только у точки (−1; 0): <b><i>x</i> = π + 2π<i>k</i></b>, <i>k</i> ∈ <b><i>Z</i></b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) sin π/2 + cos 0; б) cos π − sin 3π/2; в) tg π/4 · ctg π/4.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли: а) 2cos π/3 − tg 0; б) 4sin² π/6 + cos² π/6; в) sin π/4 · cos π/4.</div><div class="task"><span class="task-no">№&nbsp;3</span>Вычисли: tg π/3 · ctg π/6 − 2.</div><div class="task"><span class="task-no">№&nbsp;4</span>Возможно ли равенство: а) cos <i>α</i> = −0,9; б) sin <i>α</i> = π/3; в) tg <i>α</i> = −40?</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди наибольшее и наименьшее значения: а) 3 − 2sin <i>α</i>; б) 5cos <i>α</i> + 1; в) sin² <i>α</i>.</div><div class="task"><span class="task-no">№&nbsp;6</span>При каких <i>a</i> возможно равенство sin <i>x</i> = <i>a</i> − 2?</div><div class="task"><span class="task-no">№&nbsp;7</span>Найди все <i>x</i>, при которых cos <i>x</i> = 1.</div><div class="task"><span class="task-no">№&nbsp;8</span>Найди область определения функции <i>y</i> = tg 2<i>x</i>.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 18.1, 18.2</b> — Вычисление значений выражений.</li><li><b>№ 18.3, 18.4</b> — Возможно ли равенство.</li><li><b>№ 18.5</b> — Наибольшее и наименьшее значения выражения.</li><li><b>№ 18.7</b> — Все x, при которых sin x = ±1.</li><li><b>№ 18.9</b> — При каких a возможно равенство.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma18a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 18</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 18.2, 18.6, 18.8, 18.10 из учебника письменно. Выписать таблицу значений sin, cos, tg, ctg для 0, π/6, π/4, π/3, π/2 и выучить её.</p></div>
+<div class="pager"><a href="ma17.html">← Урок 17</a><a href="ma19.html">Урок 19 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

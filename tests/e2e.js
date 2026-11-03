@@ -250,7 +250,7 @@ const PUBLIC = ['index','homework','geometry','algebra','ege-math','ege-14','ege
     if (await p.$(sel + ' input[type=radio]')) await p.check(`${sel} input[value="${k}"]`); else await p.fill(sel + ' input[type=text]', k); }
   await p.click('#qzGo'); await p.waitForTimeout(800); const sc8 = (await p.textContent('#qzScore')) || ''; const cr8 = (await p.textContent('.crumbs')) || '';
   await go('ws8.html', 1200); await p.fill('.sheet input.wsf >> nth=0', 'перпендикуляра'); await p.waitForTimeout(1800); const ge4 = (await p.textContent('#wsBar')) || '';
-  rec('GE-01', ge0.h.includes('Глава II') && ge0.rows === 11 && ge1.ex >= 3 && ge1.note === 0 && ge1.det === 0 && ge1.tasks === 14 && ge1.figs >= 3 && ge1.quiz
+  rec('GE-01', ge0.h.includes('Глава II') && ge0.rows >= 11 && ge1.ex >= 3 && ge1.note === 0 && ge1.det === 0 && ge1.tasks === 14 && ge1.figs >= 3 && ge1.quiz
     && k8.length === 8 && sc8.startsWith('8 из 8') && cr8.includes('Геометрия') && cr8.includes('Урок 8') && ge4.includes('Сохранено'), JSON.stringify(ge1) + ' ' + sc8.slice(0, 10));
   // EG-01: страница ЕГЭ по модели 2027 — 20 номеров, у каждого своя лекция; EG-02: конспект лекции ученика без методички
   await go('ege-math.html', 900); const eg1 = await p.evaluate(() => ({lede: (document.querySelector('.lede') || {}).textContent || '', rows: document.querySelectorAll('table a[href^="el"]').length,

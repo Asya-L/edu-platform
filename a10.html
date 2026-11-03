@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 10. Иррациональные неравенства</title>
+<script>document.documentElement.dataset.page="a10";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 10* · область определения, когда можно возводить в квадрат, разбор случаев и графики">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 10</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 10</div>
+  <h1>Иррациональные неравенства</h1>
+  <p class="lede">§ 10* · область определения, когда можно возводить в квадрат, разбор случаев и графики</p>
+  <div class="btns">
+    <a class="btn" href="sa10.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa10.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Неравенства, в которых неизвестное стоит под знаком корня, называют <b>иррациональными</b>: √(5 − <i>x</i>) &lt; 4, √(<i>x</i> + 3) &gt; <i>x</i> + 1, √(<i>x</i>² − 3<i>x</i>) ≤ 2. Решать их будем так же, как уравнения из урока 9, — избавляясь от корня возведением в квадрат. Но у неравенств есть подвох, и с него начнём.</p>
+<div class="def"><span class="lbl">Определение</span><p>Неравенство, в котором неизвестное содержится под знаком корня, называется <b>иррациональным</b>.</p></div>
+<h3>Когда неравенство можно возводить в квадрат</h3>
+<p>Верно −3 &lt; 2. Возведём в квадрат: 9 &lt; 4 — неверно! Знак неравенства «сломался», потому что левая часть была отрицательной.</p>
+<div class="thm"><span class="lbl">Правило</span><p>Если обе части неравенства <b>неотрицательны</b>, то при возведении в квадрат получается равносильное неравенство с тем же знаком: для <i>a</i> ≥ 0, <i>b</i> ≥ 0 неравенства <i>a</i> &lt; <i>b</i> и <i>a</i>² &lt; <i>b</i>² равносильны.</p></div>
+<p><b>Почему.</b> Функция <i>y</i> = <i>t</i>² на промежутке [0; +∞) возрастает: большему неотрицательному числу соответствует больший квадрат, и наоборот. Для отрицательных чисел это уже не так — отсюда и пример с −3 и 2.</p>
+<p>И ещё два факта из урока 9 работают здесь постоянно: корень существует, только если подкоренное выражение ≥ 0 (<b>область определения</b> неравенства), и сам корень всегда ≥ 0.</p>
+<h3>Тип 1. Корень меньше положительного числа: √<i>f</i> &lt; <i>c</i></h3>
+<p>Обе части неотрицательны (там, где корень определён), значит, можно возводить в квадрат. Но условие «корень определён» обязательно записать отдельно:</p>
+<div class="thm"><span class="lbl">Схема</span><p>√<i>f</i> &lt; <i>c</i> (<i>c</i> &gt; 0) &nbsp;⇔&nbsp; { <i>f</i> ≥ 0; &nbsp;<i>f</i> &lt; <i>c</i>² }.</p></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>Реши неравенство √(<i>x</i> − 3) &lt; 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Область определения: <i>x</i> − 3 ≥ 0, <i>x</i> ≥ 3. Возводим в квадрат: <i>x</i> − 3 &lt; 4, <i>x</i> &lt; 7.</p><p>Оба условия вместе: 3 ≤ <i>x</i> &lt; 7. Ответ: <b>[3; 7)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Самая частая ошибка — потерять область определения и записать ответ <i>x</i> &lt; 7. Проверь: при <i>x</i> = 0 получаем √(−3) — такого числа нет, значит, 0 не может быть решением. В неравенствах «корень меньше…» система с <i>f</i> ≥ 0 обязательна.</p></div>
+<div class="ex"><span class="lbl">Пример 2 · квадратный трёхчлен под корнем</span><p>Реши неравенство √(<i>x</i>² − 5<i>x</i>) &lt; 6.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Система: <i>x</i>² − 5<i>x</i> ≥ 0 и <i>x</i>² − 5<i>x</i> &lt; 36.</p><p>Первое: <i>x</i>(<i>x</i> − 5) ≥ 0, то есть <i>x</i> ≤ 0 или <i>x</i> ≥ 5. Второе: <i>x</i>² − 5<i>x</i> − 36 &lt; 0, (<i>x</i> − 9)(<i>x</i> + 4) &lt; 0, −4 &lt; <i>x</i> &lt; 9.</p><p>Пересекаем на числовой прямой: (−4; 0] и [5; 9). Ответ: <b>(−4; 0] ∪ [5; 9)</b>.</p></div></div>
+<h3>Тип 2. Корень больше неотрицательного числа: √<i>f</i> &gt; <i>c</i></h3>
+<div class="thm"><span class="lbl">Схема</span><p>√<i>f</i> &gt; <i>c</i> (<i>c</i> ≥ 0) &nbsp;⇔&nbsp; <i>f</i> &gt; <i>c</i>².</p></div>
+<p><b>Почему здесь не нужно отдельно писать <i>f</i> ≥ 0.</b> Если <i>f</i> &gt; <i>c</i>², а <i>c</i>² ≥ 0, то <i>f</i> автоматически положительно — область определения выполнится сама.</p>
+<div class="ex"><span class="lbl">Пример 3</span><p>Реши неравенство √(2<i>x</i> + 1) &gt; 3.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2<i>x</i> + 1 &gt; 9, <i>x</i> &gt; 4. Ответ: <b>(4; +∞)</b>.</p></div></div>
+<h3>Если справа отрицательное число или ноль</h3>
+<ul><li>√<i>f</i> &lt; −2 — <b>решений нет</b>: неотрицательное число не может быть меньше отрицательного.</li><li>√<i>f</i> &gt; −2 — верно для <b>всех</b> <i>x</i> из области определения: решение <i>f</i> ≥ 0.</li><li>√<i>f</i> ≤ 0 — только когда √<i>f</i> = 0, то есть <i>f</i> = 0.</li></ul>
+<div class="ex"><span class="lbl">Пример 4</span><p>Реши неравенства: а) √(3<i>x</i> − 6) &lt; −1; б) √(<i>x</i> + 6) ≥ −3.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Корень не бывает отрицательным — <b>решений нет</b>.</p><p>б) Неравенство верно везде, где корень определён: <i>x</i> + 6 ≥ 0. Ответ: <b>[−6; +∞)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не возводи в квадрат, если справа отрицательное число: из √(<i>x</i> + 6) ≥ −3 «получится» <i>x</i> + 6 ≥ 9, <i>x</i> ≥ 3 — и потеряются все решения от −6 до 3.</p></div>
+<h3>Тип 3. Корень меньше выражения: √<i>f</i> &lt; <i>g</i></h3>
+<p>Теперь справа стоит выражение с <i>x</i>, его знак заранее неизвестен. Рассуждаем: слева число ≥ 0, и оно меньше <i>g</i>. Значит, <i>g</i> обязано быть положительным. А когда обе части неотрицательны, можно возводить в квадрат.</p>
+<div class="thm"><span class="lbl">Схема</span><p>√<i>f</i> &lt; <i>g</i> &nbsp;⇔&nbsp; { <i>f</i> ≥ 0; &nbsp;<i>g</i> &gt; 0; &nbsp;<i>f</i> &lt; <i>g</i>² }.</p></div>
+<div class="ex"><span class="lbl">Пример 5</span><p>Реши неравенство √(<i>x</i> + 4) &lt; <i>x</i> + 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Система: <i>x</i> + 4 ≥ 0 (<i>x</i> ≥ −4); <i>x</i> + 2 &gt; 0 (<i>x</i> &gt; −2); <i>x</i> + 4 &lt; (<i>x</i> + 2)², то есть <i>x</i>² + 3<i>x</i> &gt; 0, <i>x</i> &lt; −3 или <i>x</i> &gt; 0.</p><p>Все три условия вместе: <i>x</i> &gt; 0. Ответ: <b>(0; +∞)</b>.</p></div></div>
+<div class="figrow"><figure><img src="assets/fig/a10_lt.png" alt="√(x + 4) &lt; x + 2: график корня ниже прямой при x &gt; 0"><figcaption>√(x + 4) < x + 2: график корня ниже прямой при x > 0</figcaption></figure></div>
+<h3>Тип 4. Корень больше выражения: √<i>f</i> &gt; <i>g</i></h3>
+<p>Здесь два случая — смотря какой знак у правой части.</p>
+<ol><li><b><i>g</i> &lt; 0.</b> Тогда неравенство верно само: неотрицательный корень больше отрицательного числа. Нужно только, чтобы корень существовал: <i>f</i> ≥ 0.</li><li><b><i>g</i> ≥ 0.</b> Обе части неотрицательны — возводим в квадрат: <i>f</i> &gt; <i>g</i>².</li></ol>
+<div class="thm"><span class="lbl">Схема</span><p>√<i>f</i> &gt; <i>g</i> &nbsp;⇔&nbsp; { <i>g</i> &lt; 0; <i>f</i> ≥ 0 } &nbsp;или&nbsp; { <i>g</i> ≥ 0; <i>f</i> &gt; <i>g</i>² }. Ответ — объединение решений двух систем.</p></div>
+<div class="ex"><span class="lbl">Пример 6</span><p>Реши неравенство √(<i>x</i> + 2) &gt; <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Случай 1: <i>x</i> &lt; 0 и <i>x</i> + 2 ≥ 0 — получаем [−2; 0).</p><p>Случай 2: <i>x</i> ≥ 0 и <i>x</i> + 2 &gt; <i>x</i>², то есть <i>x</i>² − <i>x</i> − 2 &lt; 0, −1 &lt; <i>x</i> &lt; 2. С учётом <i>x</i> ≥ 0: [0; 2).</p><p>Объединяем: [−2; 0) ∪ [0; 2) = [−2; 2). Ответ: <b>[−2; 2)</b>.</p></div></div>
+<div class="figrow"><figure><img src="assets/fig/a10_gt.png" alt="√(x + 2) &gt; x: график корня выше прямой на [−2; 2)"><figcaption>√(x + 2) > x: график корня выше прямой на [−2; 2)</figcaption></figure></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В типе 4 часто забывают случай <i>g</i> &lt; 0 и сразу возводят в квадрат: получается только (−1; 2), а решения от −2 до −1 теряются. Проверь: при <i>x</i> = −1,5 слева √0,5 ≈ 0,7, справа −1,5 — неравенство верно.</p></div>
+<h3>Корень меньше корня: √<i>f</i> &lt; √<i>g</i></h3>
+<p>Обе части неотрицательны, возводим в квадрат: <i>f</i> &lt; <i>g</i>. Остаётся условие существования меньшего корня: <i>f</i> ≥ 0 (тогда и <i>g</i> &gt; <i>f</i> ≥ 0). Итог: √<i>f</i> &lt; √<i>g</i> ⇔ 0 ≤ <i>f</i> &lt; <i>g</i>.</p>
+<h3>Графический способ</h3>
+<p>Рисуем графики левой и правой частей. Решения неравенства «левая &lt; правой» — те <i>x</i>, при которых график левой части лежит <b>ниже</b>. Так сразу видно ответ примеров 5 и 6 на рисунках выше: точку пересечения находим из уравнения, а промежуток — по рисунку.</p>
+<div class="tablewrap"><table><thead><tr><th>Неравенство</th><th>Равносильно</th><th>Почему</th></tr></thead><tbody><tr><td>√<i>f</i> &lt; <i>c</i>, <i>c</i> &gt; 0</td><td><i>f</i> ≥ 0, <i>f</i> &lt; <i>c</i>²</td><td>обе части ≥ 0; корень должен существовать</td></tr><tr><td>√<i>f</i> &gt; <i>c</i>, <i>c</i> ≥ 0</td><td><i>f</i> &gt; <i>c</i>²</td><td><i>f</i> ≥ 0 выполнится само</td></tr><tr><td>√<i>f</i> &lt; <i>c</i>, <i>c</i> ≤ 0</td><td>решений нет</td><td>корень ≥ 0</td></tr><tr><td>√<i>f</i> &lt; <i>g</i></td><td><i>f</i> ≥ 0, <i>g</i> &gt; 0, <i>f</i> &lt; <i>g</i>²</td><td>корень меньше <i>g</i> ⇒ <i>g</i> &gt; 0</td></tr><tr><td>√<i>f</i> &gt; <i>g</i></td><td>{<i>g</i> &lt; 0, <i>f</i> ≥ 0} или {<i>g</i> ≥ 0, <i>f</i> &gt; <i>g</i>²}</td><td>знак <i>g</i> неизвестен — два случая</td></tr><tr><td>√<i>f</i> &lt; √<i>g</i></td><td>0 ≤ <i>f</i> &lt; <i>g</i></td><td>обе части ≥ 0</td></tr></tbody></table></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши неравенство √<i>x</i> &lt; 3.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши неравенство √(<i>x</i> − 1) ≥ 2.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши неравенство √(5 − 2<i>x</i>) ≤ 3.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши неравенство √(<i>x</i> + 6) &gt; −1.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши неравенство √(<i>x</i>² − 9) &lt; 4.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши неравенство √(<i>x</i> + 1) &lt; <i>x</i> − 1.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши неравенство √(<i>x</i> + 7) &gt; <i>x</i> + 1.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши неравенство √(2<i>x</i> − 3) ≤ √(<i>x</i> + 1).</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 165</b> — Повторение: системы неравенств.</li><li><b>№ 166</b> — Корень больше или меньше числа — простейшие.</li><li><b>№ 167, 168</b> — Корень и число; не забыть область определения.</li><li><b>№ 169</b> — Квадратный трёхчлен под корнем; отрицательная правая часть.</li><li><b>№ 170</b> — Корень и выражение с <i>x</i>; корень и корень.</li><li><b>№ 172, 173</b> — Решить неравенство графически.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a10a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 10</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 167 (1–4), 169 (1–4), 170 (1, 2) из учебника письменно; № 172 (1) — графически. К каждому неравенству записать, какой это тип и почему можно (или нельзя) сразу возводить в квадрат.</p></div>
+<div class="pager"><a href="a9.html">← Урок 9</a><a href="a11.html">Урок 11 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
