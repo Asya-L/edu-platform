@@ -113,6 +113,7 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
       <button type="button" class="bd-b" id="bdSlNext" title="Следующий слайд" aria-label="Следующий слайд" hidden><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="10" height="8" rx="1.2"/><path d="M14 9h4m-2-2l2 2-2 2"/></svg></button>
       <button type="button" class="bd-b" id="bdFigBtn" title="Чертёж из урока" aria-label="Чертёж из урока"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l6 4v6l-6 4-6-4V7z M4 7l6 4 6-4M10 11v6"/></svg></button>
       <button type="button" class="bd-b" id="bdLinkBtn" title="Ссылка: ученик откроет её прямо с доски" aria-label="Вставить ссылку"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 11.5a3.2 3.2 0 0 0 4.6 0l2.6-2.6a3.2 3.2 0 0 0-4.6-4.6l-1 1"/><path d="M11.5 8.5a3.2 3.2 0 0 0-4.6 0l-2.6 2.6a3.2 3.2 0 0 0 4.6 4.6l1-1"/></svg></button>
+      <button type="button" class="bd-b" id="bdTaskBtn" title="Задача из теста или рабочего листа — с ответом ученика" aria-label="Задача из теста или листа" hidden><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h10v14H5z"/><path d="M8 7h4M8 10h4M8 13h2"/><path d="M13.5 12.5l1.5 1.5 3-3"/></svg></button>
       <button type="button" class="bd-b" id="bdTplBtn" title="Шаблоны: координатная плоскость, числовая прямая, тригонометрический круг" aria-label="Шаблоны"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h14M3 17V3M3 3l-1.5 2.2M3 3l1.5 2.2M17 17l-2.2-1.5M17 17l-2.2 1.5"/><path d="M5 14c2.5-7 6-9 10-9" stroke-dasharray="0"/></svg></button>
       <button type="button" class="bd-b" id="bdBg" title="Клетка / чистый лист (G)" aria-label="Фон"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg></button>
     </div>
@@ -142,6 +143,13 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
       <div class="bd-row"><button type="button" class="bd-t dark" id="bdLinkOk">Готово</button><button type="button" class="bd-t ghost" id="bdLinkX">Отмена</button></div>
       <p class="bd-mhint">На доске появится плашка со стрелкой ↗ — по ней ссылка откроется в новой вкладке. Двойной клик по плашке — изменить.</p>
     </div>
+    <div class="bd-math" id="bdGraph" hidden>
+      <label class="bd-lbl" for="bdGraphF">Графики на этой плоскости — по одной функции в строке (до трёх)</label>
+      <textarea id="bdGraphF" rows="3" spellcheck="false" autocomplete="off" placeholder="x^2 − 4x + 3&#10;2x + 1&#10;|x − 2|" style="width:100%;font:500 16px var(--f-body);border:1.5px solid var(--edge);border-radius:10px;padding:8px 10px;resize:vertical"></textarea>
+      <p class="bd-mhint" id="bdGraphErr" hidden style="color:#C0392B"></p>
+      <div class="bd-row"><button type="button" class="bd-t dark" id="bdGraphOk">Построить</button><button type="button" class="bd-t ghost" id="bdGraphX">Отмена</button></div>
+      <p class="bd-mhint">Пишите как в калькуляторе: <b>x^2</b>, <b>2x+1</b>, <b>sqrt(x)</b>, <b>|x−2|</b>, <b>1/x</b>, <b>sin x</b>, <b>2^x</b>, <b>log_2(x)</b>, <b>lg x</b>, <b>pi</b>. Пустое поле — убрать графики.</p>
+    </div>
     <textarea id="bdText" hidden spellcheck="false" aria-label="Текст на доске"></textarea>
     <div class="bd-syms" id="bdSyms" hidden><button type="button" tabindex="-1">²</button><button type="button" tabindex="-1">³</button><button type="button" tabindex="-1">√</button><button type="button" tabindex="-1">π</button><button type="button" tabindex="-1">°</button><button type="button" tabindex="-1">∠</button><button type="button" tabindex="-1">△</button><button type="button" tabindex="-1">⊥</button><button type="button" tabindex="-1">∥</button><button type="button" tabindex="-1">≠</button><button type="button" tabindex="-1">≈</button><button type="button" tabindex="-1">≤</button><button type="button" tabindex="-1">≥</button><button type="button" tabindex="-1">±</button><button type="button" tabindex="-1">·</button><button type="button" tabindex="-1">∈</button><button type="button" tabindex="-1">∉</button><button type="button" tabindex="-1">⊂</button><button type="button" tabindex="-1">∩</button><button type="button" tabindex="-1">∪</button><button type="button" tabindex="-1">⇒</button><button type="button" tabindex="-1">⇔</button><button type="button" tabindex="-1">α</button><button type="button" tabindex="-1">β</button><button type="button" tabindex="-1">γ</button><button type="button" tabindex="-1">φ</button><button type="button" tabindex="-1">Δ</button><button type="button" tabindex="-1">∞</button><button type="button" tabindex="-1">½</button><button type="button" tabindex="-1">⅓</button><button type="button" tabindex="-1">¼</button></div>
     <div class="bd-math" id="bdMath" hidden>
@@ -159,6 +167,7 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
   <div class="bd-pop bd-figs" id="bdFigs" hidden></div>
   <div class="bd-pop bd-figs" id="bdSl" hidden></div>
   <div class="bd-pop bd-figs" id="bdTpl" hidden></div>
+  <div class="bd-pop bd-figs" id="bdTask" hidden></div>
   <div class="bd-empty" id="bdEmpty"><p>Загружаю доску…</p></div>
   <div class="bd-toast" id="bdToast" hidden></div>
 </div>
@@ -306,6 +315,89 @@ var MF = (function(){
   return {parse: parse, size: size, draw: draw};
 })();
 
+
+/* ── графики функций: разбор формулы без eval ── */
+var FN = (function(){
+  var FUN = {sin: Math.sin, cos: Math.cos, tg: Math.tan, tan: Math.tan, ctg: function(t){ return 1 / Math.tan(t); }, cot: function(t){ return 1 / Math.tan(t); },
+    sqrt: Math.sqrt, abs: Math.abs, ln: Math.log, lg: Math.log10, log: Math.log10, exp: Math.exp,
+    arcsin: Math.asin, arccos: Math.acos, arctg: Math.atan, arctan: Math.atan, cbrt: Math.cbrt};
+  var CONST = {pi: Math.PI, e: Math.E};
+  function norm(s){
+    s = String(s || '').toLowerCase().replace(/\s+/g, ' ').trim()
+      .replace(/[−–—]/g, '-').replace(/[·×∙]/g, '*').replace(/:/g, '/').replace(/,/g, '.')
+      .replace(/²/g, '^2').replace(/³/g, '^3').replace(/√/g, 'sqrt').replace(/π/g, 'pi').replace(/∛/g, 'cbrt');
+    s = s.replace(/^(y|f\s*\(\s*x\s*\))\s*=\s*/, '');
+    return s;
+  }
+  function lex(s){
+    var t = [], i = 0;
+    while (i < s.length) { var c = s[i];
+      if (c === ' ') { i++; continue; }
+      if (/[0-9.]/.test(c)) { var j = i; while (j < s.length && /[0-9.]/.test(s[j])) j++; var v = parseFloat(s.slice(i, j)); if (isNaN(v)) throw 'число «' + s.slice(i, j) + '»'; t.push({k: 'n', v: v}); i = j; continue; }
+      if (/[a-zа-яё]/.test(c)) { var j2 = i; while (j2 < s.length && /[a-zа-яё]/.test(s[j2])) j2++; var w = s.slice(i, j2);
+        while (w.length) { var hit = null; ['arcsin', 'arccos', 'arctan', 'arctg', 'sqrt', 'cbrt', 'sin', 'cos', 'tan', 'ctg', 'cot', 'abs', 'exp', 'log', 'tg', 'ln', 'lg', 'pi', 'x', 'e'].some(function(k){ if (w.indexOf(k) === 0) { hit = k; return true; } });
+          if (!hit) throw 'непонятное «' + w + '»'; t.push(FUN[hit] ? {k: 'f', v: hit} : {k: 'id', v: hit}); w = w.slice(hit.length); }
+        i = j2; continue; }
+      if ('+-*/^()|_'.indexOf(c) >= 0) { t.push({k: c}); i++; continue; }
+      throw 'символ «' + c + '»';
+    }
+    return t;
+  }
+  function parse(src){
+    var t = lex(norm(src)), p = 0, absD = 0;
+    function peek(){ return t[p]; } function eat(k){ var x = t[p]; if (!x || x.k !== k) throw 'ожидалось «' + k + '»'; p++; return x; }
+    function startsAtom(x){ return x && (x.k === 'n' || x.k === 'id' || x.k === 'f' || x.k === '(' || (x.k === '|' && absD === 0)); }
+    function bin(op, l, r){ return op === '+' ? function(v){ return l(v) + r(v); } : op === '-' ? function(v){ return l(v) - r(v); }
+      : op === '*' ? function(v){ return l(v) * r(v); } : function(v){ return l(v) / r(v); }; }
+    function expr(){ var a = term(); while (peek() && (peek().k === '+' || peek().k === '-')) { var op = t[p++].k; a = bin(op, a, term()); } return a; }
+    function term(){ var a = unary(); for (;;) { var x = peek();
+      if (x && (x.k === '*' || x.k === '/')) { p++; a = bin(x.k, a, unary()); continue; }
+      if (startsAtom(x)) { a = bin('*', a, power()); continue; }
+      return a; } }
+    function unary(){ var x = peek(); if (x && (x.k === '-' || x.k === '+')) { p++; var a = unary(); return x.k === '-' ? function(v){ return -a(v); } : a; } return power(); }
+    function power(){ var a = atom(); if (peek() && peek().k === '^') { p++; var b = unary(), l = a;
+        return function(v){ var base = l(v), ex = b(v); if (base < 0 && Math.abs(ex - Math.round(ex)) > 1e-12) { var q = 1 / ex, qi = Math.round(q);
+          if (Math.abs(q - qi) < 1e-9 && qi % 2) return -Math.pow(-base, ex); return NaN; } return Math.pow(base, ex); }; } return a; }
+    function atom(){ var x = t[p++]; if (!x) throw 'формула оборвалась';
+      if (x.k === 'n') { var v = x.v; return function(){ return v; }; }
+      if (x.k === 'id') { if (x.v === 'x') return function(v){ return v; }; var c = CONST[x.v]; return function(){ return c; }; }
+      if (x.k === '(') { var e = expr(); eat(')'); return e; }
+      if (x.k === '|') { absD++; var e2 = expr(); absD--; eat('|'); return function(v){ return Math.abs(e2(v)); }; }
+      if (x.k === 'f') { var f = FUN[x.v];
+        if (x.v === 'log' && peek() && peek().k === '_') { p++; var bt = t[p++]; if (!bt || bt.k !== 'n') throw 'после log_ нужно основание'; var bs = bt.v, ar = power();
+          return function(v){ return Math.log(ar(v)) / Math.log(bs); }; }
+        var arg = power(); return function(v){ return f(arg(v)); }; }
+      throw 'лишний знак «' + x.k + '»'; }
+    var res = expr(); if (p < t.length) throw 'лишнее в конце: «' + (t[p].v || t[p].k) + '»';
+    return res;
+  }
+  var cache = {};
+  function compile(s){ var k = String(s); if (cache[k]) return cache[k]; var out;
+    try { var f = parse(s); f(0.5); out = {f: f}; } catch (e) { out = {err: typeof e === 'string' ? e : 'не получилось разобрать'}; } return (cache[k] = out); }
+  function pretty(s){ return 'y = ' + norm(s).replace(/\*/g, '·'); }
+  return {compile: compile, pretty: pretty};
+})();
+var GRAPH_C = ['#3E6FD8', '#D0563B', '#2F8A66'];
+function drawGraphs(c, e, G){
+  var o = e.o || {}, fs = o.f || []; if (!fs.length) return;
+  c.save(); c.beginPath(); c.rect(e.x, e.y, e.ww, e.hh); c.clip(); c.lineJoin = 'round'; c.lineCap = 'round';
+  var n = Math.max(400, Math.round(e.ww * 1.5)), lim = (o.y1 - o.y0) * 4;
+  fs.forEach(function(g, gi){ var r = FN.compile(g.s); if (r.err) return;
+    c.strokeStyle = GRAPH_C[gi % 3]; c.lineWidth = Math.max(2, Math.min(G.ux, G.uy) * .07); c.beginPath(); var pen = false, py = null;
+    for (var i = 0; i <= n; i++) { var x = o.x0 + (o.x1 - o.x0) * i / n, y = r.f(x);
+      if (!isFinite(y) || Math.abs(y) > 1e6) { pen = false; py = null; continue; }
+      var yc = Math.max(o.y0 - lim, Math.min(o.y1 + lim, y));
+      if (pen && py !== null && Math.abs(yc - py) > (o.y1 - o.y0) * 1.5) pen = false;
+      if (pen) c.lineTo(G.X(x), G.Y(yc)); else c.moveTo(G.X(x), G.Y(yc)); pen = true; py = yc; }
+    c.stroke(); });
+  c.restore();
+  var fsz = Math.max(13, Math.min(22, Math.min(G.ux, G.uy) * .45)), lx = e.x + fsz * .5, ly = e.y + fsz * .4;
+  fs.forEach(function(g, gi){ var r = FN.compile(g.s), lab = r.err ? 'не понял: ' + g.s : FN.pretty(g.s), sz = MF.size(lab, fsz);
+    c.save(); c.fillStyle = 'rgba(255,255,255,.88)'; c.fillRect(lx - 4, ly - 2, sz.w + fsz * 1.6, sz.h + 4);
+    c.fillStyle = GRAPH_C[gi % 3]; c.fillRect(lx, ly + sz.h / 2 - 2, fsz * .9, 4); c.restore();
+    MF.draw(c, lab, fsz, lx + fsz * 1.2, ly, r.err ? '#C0392B' : GRAPH_C[gi % 3]); ly += sz.h + fsz * .35; });
+}
+
 /* ── шаблоны: координатная плоскость, числовая прямая, тригонометрический круг ── */
 function radLabel(deg){ var g = function(a, b){ return b ? g(b, a % b) : a; }, q = 180 / g(deg, 180), p = deg / g(deg, 180);
   if (deg === 0) return '0'; var s = (p === 1 ? '' : p) + 'π'; return q === 1 ? s : (p === 1 ? 'π/' + q : '(' + s + ')/' + q); }
@@ -335,6 +427,7 @@ function drawTpl(c, e){
       if ((o.n && a % stepN === 0 && a < o.x1) || a === 1) { c.textAlign = 'center'; c.fillText(a < 0 ? '−' + (-a) : String(a), G.X(a), oy + fs * 1.05); } }
     for (var b = o.y0; b <= o.y1; b++) { if (!b) continue; c.beginPath(); c.moveTo(ox - 3, G.Y(b)); c.lineTo(ox + 3, G.Y(b)); c.stroke();
       if ((o.n && b % stepN === 0 && b < o.y1) || b === 1) { c.textAlign = 'right'; c.fillText(b < 0 ? '−' + (-b) : String(b), ox - fs * .3, G.Y(b) + fs * .35); } }
+    drawGraphs(c, e, G);
   } else if (e.kind === 'numline') {
     var fs2 = Math.max(12, Math.min(20, G.u * .45)), L2 = 12, every = Math.max(1, Math.ceil(fs2 * 1.6 / G.u)); c.lineWidth = 1.8;
     c.beginPath(); c.moveTo(e.x, G.Y); c.lineTo(e.x + e.ww - 2, G.Y); c.stroke(); arrowHead(c, e.x + e.ww + L2 * .4, G.Y, 0, L2);
@@ -666,7 +759,10 @@ window.addEventListener('pointerup', function(ev){
 function eraseAt(p){ var h = topHit(p, true); if (!h) return; act.gone.push(clone(h)); var op = {k: 'del', ids: [h.id]}; apply(op, false); send('op', op); }
 function laserAt(p){ lasers.push({x: p.x, y: p.y, t: Date.now(), by: me.uid}); act.buf.push([r1(p.x), r1(p.y)]);
   if (act.buf.length > 4) { send('laser', {by: me.uid, pts: act.buf}); act.buf = []; } draw(); }
-cv.addEventListener('dblclick', function(ev){ var h = topHit(W2(ev), true); if (!h) return; if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); else if (h.t === 'math') openMath(h); else if (h.t === 'link') openLinkEd(h); });
+cv.addEventListener('dblclick', function(ev){ var pw = W2(ev), h = topHit(pw, true);
+  if (!h || ['text', 'pt', 'math', 'link'].indexOf(h.t) < 0) {
+    for (var gi = els.length - 1; gi >= 0; gi--) if (els[gi].t === 'tpl' && els[gi].kind === 'coord' && hit(els[gi], pw)) { openGraphEd(els[gi]); return; }
+    if (!h) return; } if (h.t === 'text') openText(h); else if (h.t === 'pt') openText(h, null, true); else if (h.t === 'math') openMath(h); else if (h.t === 'link') openLinkEd(h); });
 stage.addEventListener('wheel', function(ev){
   ev.preventDefault(); if (ev.ctrlKey || ev.metaKey) { var r = cv.getBoundingClientRect(); zoomAt(view.z * Math.exp(-ev.deltaY * .0025), ev.clientX - r.left, ev.clientY - r.top); }
   else { view.x += (ev.shiftKey ? ev.deltaY : ev.deltaX) / view.z; view.y += (ev.shiftKey ? 0 : ev.deltaY) / view.z; draw(); }
@@ -780,12 +876,36 @@ function tplEl(kind){
   if (kind === 'coord') { var x0 = intv('tcX0', -6), x1 = intv('tcX1', 6), y0 = intv('tcY0', -5), y1 = intv('tcY1', 5);
     if (!(x0 < 0 && x1 > 0 && y0 < 0 && y1 > 0)) return {err: 'Начало координат должно быть внутри: x и y — от отрицательного числа до положительного'};
     var span = Math.max(x1 - x0, y1 - y0); if (span > 40) return {err: 'Слишком большой диапазон: не больше 40 клеток по каждой оси'};
-    var u = span <= 14 ? 48 : span <= 28 ? 24 : 12; return {t: 'tpl', kind: 'coord', ww: (x1 - x0) * u, hh: (y1 - y0) * u, o: {x0: x0, x1: x1, y0: y0, y1: y1, n: $('tcN').checked ? 1 : 0}}; }
+    var u = span <= 14 ? 48 : span <= 28 ? 24 : 12, gf = graphList($('tcF') ? $('tcF').value : ''); if (gf.err) return gf;
+    var oo = {x0: x0, x1: x1, y0: y0, y1: y1, n: $('tcN').checked ? 1 : 0}; if (gf.f.length) oo.f = gf.f;
+    return {t: 'tpl', kind: 'coord', ww: (x1 - x0) * u, hh: (y1 - y0) * u, o: oo}; }
   if (kind === 'numline') { var a = intv('tnA', -5), b = intv('tnB', 5); if (b <= a) return {err: '«До» должно быть больше, чем «от»'};
     if (b - a > 40) return {err: 'Слишком длинная прямая: не больше 40 делений'}; var un = b - a <= 16 ? 48 : 24;
     return {t: 'tpl', kind: 'numline', ww: (b - a + 1) * un, hh: 72, o: {a: a, b: b}}; }
   return {t: 'tpl', kind: 'unit', ww: 480, hh: 480, o: {m: $('tuM').value}};
 }
+function graphList(txt){
+  var list = String(txt || '').split(/[;\n]/).map(function(x){ return x.trim(); }).filter(Boolean);
+  if (list.length > 3) return {err: 'Не больше трёх графиков на одной плоскости'};
+  for (var i = 0; i < list.length; i++) { var r = FN.compile(list[i]); if (r.err) return {err: 'В формуле «' + list[i] + '»: ' + r.err}; if (list[i].length > 80) return {err: 'Слишком длинная формула'}; }
+  return {f: list.map(function(x){ return {s: x}; })};
+}
+var graphEd = null;
+function openGraphEd(e){
+  if (editing) commitText(); if (mathEd) commitMath(); closePops(); closeLinkEd(); graphEd = e; var box = $('bdGraph');
+  $('bdGraphF').value = ((e.o && e.o.f) || []).map(function(g){ return g.s; }).join('\n'); $('bdGraphErr').hidden = true; box.hidden = false;
+  var sx = (e.x - view.x) * view.z, sy = (e.y - view.y) * view.z;
+  box.style.left = Math.max(8, Math.min(stage.clientWidth - box.offsetWidth - 8, sx)) + 'px'; box.style.top = Math.max(8, Math.min(stage.clientHeight - box.offsetHeight - 8, sy)) + 'px';
+  $('bdGraphF').focus();
+}
+function closeGraphEd(){ graphEd = null; $('bdGraph').hidden = true; }
+function commitGraphEd(){
+  if (!graphEd) return; var g = graphList($('bdGraphF').value); if (g.err) { $('bdGraphErr').textContent = g.err; $('bdGraphErr').hidden = false; return; }
+  var e = graphEd, n = clone(e); n.o = Object.assign({}, e.o); if (g.f.length) n.o.f = g.f; else delete n.o.f; closeGraphEd();
+  commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); draw();
+}
+$('bdGraphOk').addEventListener('click', commitGraphEd); $('bdGraphX').addEventListener('click', closeGraphEd);
+$('bdGraphF').addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && (ev.ctrlKey || ev.metaKey)) { ev.preventDefault(); commitGraphEd(); } else if (ev.key === 'Escape') { ev.preventDefault(); closeGraphEd(); } ev.stopPropagation(); });
 function renderTpl(){
   var f = $('bdTpl'); if (!f.dataset.done) { f.dataset.done = 1;
     f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Шаблоны</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
@@ -793,7 +913,10 @@ function renderTpl(){
       '<div class="bd-tpl"><canvas data-pv="coord"></canvas><h4>Координатная плоскость</h4>' +
         '<div class="tf">x от <input type="number" id="tcX0" value="-6"> до <input type="number" id="tcX1" value="6"></div>' +
         '<div class="tf">y от <input type="number" id="tcY0" value="-5"> до <input type="number" id="tcY1" value="5"></div>' +
-        '<label class="tf"><input type="checkbox" id="tcN"> числа на осях</label><button type="button" class="bd-t dark" data-tpl="coord">Вставить</button></div>' +
+        '<label class="tf"><input type="checkbox" id="tcN"> числа на осях</label>' +
+        '<div class="tf" style="display:block">график y = <input type="text" id="tcF" placeholder="x^2 − 4x + 3" style="width:100%;margin-top:4px" spellcheck="false" autocomplete="off"></div>' +
+        '<p class="muted" style="margin:2px 0 6px;font-size:12px">можно несколько через «;» · двойной клик по плоскости на доске — изменить графики</p>' +
+        '<button type="button" class="bd-t dark" data-tpl="coord">Вставить</button></div>' +
       '<div class="bd-tpl"><canvas data-pv="numline"></canvas><h4>Числовая прямая</h4>' +
         '<div class="tf">от <input type="number" id="tnA" value="-5"> до <input type="number" id="tnB" value="5"></div><button type="button" class="bd-t dark" data-tpl="numline">Вставить</button></div>' +
       '<div class="bd-tpl"><canvas data-pv="unit"></canvas><h4>Тригонометрический круг</h4>' +
@@ -813,6 +936,94 @@ function insertTpl(kind){
   if (el.ww * view.z > cv.clientWidth - 40 || el.hh * view.z > cv.clientHeight - 40) showArea(el.x - 30, el.y - 30, el.ww + 60, el.hh + 60); draw();
 }
 $('bdTplBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdTpl'); if (!f.hidden) { f.hidden = true; return; } closePops(); f.hidden = false; renderTpl(); });
+
+/* ── задача из теста или рабочего листа (только учителю): банк лежит зашифрованным в t/boardtasks.bin ── */
+var TB = null, tbP = null, tk = {sel: '', res: null, wsRes: null, sid: null, showSt: true, showKey: false};
+function b64u(x){ var b = atob(x), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+function loadTB(){
+  if (!tbP) tbP = (async function(){
+    var r = await sb.from('edu_secrets').select('value').eq('name', 'content_key').maybeSingle(); if (!r.data) throw new Error('nokey');
+    var k = await crypto.subtle.importKey('raw', b64u(r.data.value), 'AES-GCM', false, ['decrypt']);
+    var res = await fetch('t/boardtasks.bin', {cache: 'no-cache'}); if (!res.ok) throw new Error('nofile');
+    var buf = new Uint8Array(await res.arrayBuffer()); var d = await crypto.subtle.decrypt({name: 'AES-GCM', iv: buf.slice(0, 12)}, k, buf.slice(12));
+    return JSON.parse(new TextDecoder().decode(d)); })();
+  tbP.catch(function(){ tbP = null; }); return tbP;
+}
+async function loadStudentRes(sid){
+  tk.sid = sid; tk.res = []; tk.wsRes = [];   // каждый раз заново: ученик мог только что пройти тест
+  if (!sid) return;
+  var a = await sb.from('edu_quiz_results').select('quiz,score,total,answers,wrong,created_at').eq('student_id', sid).order('created_at', {ascending: false}).limit(300);
+  var b = await sb.from('edu_ws_answers').select('ws,answers,updated_at,submitted_at').eq('student_id', sid);
+  tk.res = a.data || []; tk.wsRes = (b.data || []).sort(function(x, y){ return (y.updated_at || '') < (x.updated_at || '') ? -1 : 1; });
+}
+function ddmmS(t){ var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2); }
+function keyText(it){ var k = String(it.k || '').split('|')[0]; if (it.o && /^[a-d]$/.test(k)) { var i = k.charCodeAt(0) - 97; return 'абвг'[i] + ') ' + it.o[i]; } return k; }
+function givenText(it, v){ if (v == null || v === '') return ''; if (it.o && /^[a-d]$/.test(v)) { var i = v.charCodeAt(0) - 97; return 'абвг'[i] + ') ' + (it.o[i] || ''); } return String(v); }
+async function renderTask(){
+  var f = $('bdTask'); f.innerHTML = '<p class="muted">Загружаю задачи…</p>';
+  try { TB = TB || await loadTB(); } catch (e) { f.innerHTML = '<p class="muted">Банк задач открывается только учителю. Обновите страницу и попробуйте ещё раз.</p>'; return; }
+  var sid = board && board.student_id; await loadStudentRes(sid);
+  var st = students.find(function(x){ return x.id === sid; }), opts = '';
+  var done = tk.res.map(function(r){ var q = TB.quizzes.find(function(x){ return x.id === r.quiz; }); return q ? '<option value="q:' + r.quiz + '|' + r.created_at + '">' + esc(q.t) + ' — ' + r.score + '/' + r.total + ' · ' + ddmmS(r.created_at) + '</option>' : ''; }).join('');
+  var wsd = tk.wsRes.map(function(r){ var w = TB.ws.find(function(x){ return x.id === r.ws; }); return w ? '<option value="w:' + r.ws + '">' + esc(w.t) + (r.submitted_at ? ' · сдан ' + ddmmS(r.submitted_at) : ' · черновик') + '</option>' : ''; }).join('');
+  if (done) opts += '<optgroup label="Тесты, которые прошёл ученик">' + done + '</optgroup>';
+  if (wsd) opts += '<optgroup label="Рабочие листы ученика">' + wsd + '</optgroup>';
+  var groups = {}; TB.quizzes.forEach(function(q){ (groups['Тесты · ' + q.g] = groups['Тесты · ' + q.g] || []).push('<option value="q:' + q.id + '">' + esc(q.t) + '</option>'); });
+  TB.ws.forEach(function(w){ (groups['Листы · ' + w.g] = groups['Листы · ' + w.g] || []).push('<option value="w:' + w.id + '">' + esc(w.t) + '</option>'); });
+  Object.keys(groups).forEach(function(g){ opts += '<optgroup label="' + esc(g) + '">' + groups[g].join('') + '</optgroup>'; });
+  f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><b style="font:900 18px var(--f-head)">Задача из теста или листа</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
+    '<p class="muted" style="margin:6px 0 8px;font-size:13px">' + (st ? 'Ученик: <b>' + esc(st.name) + '</b>. Сверху — его тесты и листы, ошибки отмечены красным.' : 'Доска без ученика — доступны все тесты и листы, без ответов ученика.') + '</p>' +
+    '<select id="bdTaskSel" style="width:100%;font:600 14px var(--f-body);padding:8px;border-radius:10px;border:1.5px solid var(--edge)"><option value="">— выберите тест или лист —</option>' + opts + '</select>' +
+    '<div style="display:flex;gap:14px;flex-wrap:wrap;margin:8px 0;font-size:13px"><label><input type="checkbox" id="bdTaskSt"' + (tk.showSt ? ' checked' : '') + '> ответ ученика</label><label><input type="checkbox" id="bdTaskKey"' + (tk.showKey ? ' checked' : '') + '> верный ответ (ученик тоже увидит)</label></div>' +
+    '<div id="bdTaskList"></div>';
+  if (tk.sel) { $('bdTaskSel').value = tk.sel; taskList(); }
+}
+function curSel(){
+  var v = tk.sel; if (!v) return null;
+  if (v[0] === 'q') { var id = v.slice(2).split('|')[0], at = v.split('|')[1], q = TB.quizzes.find(function(x){ return x.id === id; });
+    var r = at ? tk.res.find(function(x){ return x.quiz === id && x.created_at === at; }) : tk.res.find(function(x){ return x.quiz === id; });
+    return {kind: 'q', d: q, r: r}; }
+  var w = TB.ws.find(function(x){ return x.id === v.slice(2); }); return {kind: 'w', d: w, r: tk.wsRes.find(function(x){ return x.ws === w.id; })};
+}
+function itemState(cs, it, i){
+  if (cs.kind === 'q') { if (!cs.r) return {g: '', st: ''}; var v = (cs.r.answers || {})[String(i + 1)], bad = (cs.r.wrong || []).indexOf(i + 1) >= 0;
+    return {g: givenText(it, v), st: bad ? (v ? 'n' : 'e') : 'y'}; }
+  if (!cs.r) return {g: '', st: ''}; var a = cs.r.answers || {}, vals = it.f.map(function(k){ return a[String(k)] || ''; });
+  var g = vals.filter(Boolean).join('; '); if (!g) return {g: '', st: 'e'};
+  if (it.tf) return {g: g, st: g === it.a ? 'y' : 'n'};
+  var nrm = function(x){ return String(x).toLowerCase().replace(/[\s.,;]+/g, '').replace(/−/g, '-'); };
+  return {g: g, st: nrm(g) === nrm(it.a) ? 'y' : ''};
+}
+function taskList(){
+  var cs = curSel(), box = $('bdTaskList'); if (!cs || !cs.d) { box.innerHTML = ''; return; }
+  var list = cs.kind === 'q' ? cs.d.q : cs.d.items;
+  box.innerHTML = list.map(function(it, i){ var s = itemState(cs, it, i), mark = s.st === 'n' ? '<b style="color:#C0392B">✗</b>' : s.st === 'e' ? '<b style="color:#9A92AD">—</b>' : s.st === 'y' ? '<b style="color:#2F8A66">✓</b>' : '';
+    return '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--edge)"><div style="min-width:30px;font-weight:800">' + (i + 1) + ' ' + mark + '</div>' +
+      '<div style="flex:1;font-size:14px">' + (it.sec ? '<span class="muted" style="font-size:12px">' + esc(it.sec) + '</span><br>' : '') + esc(it.s).slice(0, 240) +
+      (s.g ? '<br><span style="color:' + (s.st === 'n' ? '#C0392B' : '#5F5A70') + ';font-size:13px">ученик: ' + esc(s.g).slice(0, 120) + '</span>' : '') + '</div>' +
+      '<button type="button" class="bd-t" data-ins="' + i + '">На доску</button></div>'; }).join('');
+}
+function wrapLines(t, n){ var out = []; String(t).split('\n').forEach(function(par){ var line = ''; par.split(' ').forEach(function(w){ if ((line + ' ' + w).trim().length > n && line) { out.push(line); line = w; } else line = (line ? line + ' ' : '') + w; }); out.push(line); }); return out.join('\n'); }
+function insertTask(i){
+  var cs = curSel(); if (!cs) return; var it = (cs.kind === 'q' ? cs.d.q : cs.d.items)[i], s = itemState(cs, it, i), c = centerWorld(), list = [];
+  var x0 = Math.round(c.x - 380), y = Math.round(c.y - 160), add = function(txt, fs, col){ var e = {id: nid(), t: 'text', x: x0, y: y, s: txt, fs: fs, c: col, by: me.uid}; list.push(e); y += textSize(e).h + fs * .5; };
+  add((cs.kind === 'q' ? 'Тест' : 'Рабочий лист') + ' · ' + cs.d.t + ' · №' + (i + 1), 16, '#7A7390');
+  add(wrapLines(it.s, 52), 26, '#2B2440');
+  if (it.o) add(it.o.map(function(o, j){ return 'абвг'[j] + ') ' + o; }).join('\n'), 24, '#2B2440');
+  if (tk.showSt && cs.r) add('Ответ ученика: ' + (s.g || 'нет ответа'), 24, s.st === 'y' ? '#2F8A66' : '#C0392B');
+  if (tk.showKey) add('Верный ответ: ' + wrapLines(cs.kind === 'q' ? keyText(it) : it.a, 48), 24, '#2F8A66');
+  var right = Math.max.apply(null, list.map(function(e){ return e.x + textSize(e).w; }));
+  if (it.fig) { var im = new Image(); im.src = 'assets/fig/' + it.fig; list.push({id: nid(), t: 'img', src: 'fig:' + it.fig, x: Math.round(right + 40), y: list[1].y, ww: 360, hh: 270, by: me.uid});
+    im.onload = function(){ var e = find(list[list.length - 1].id); if (!e) return; var n = clone(e); n.hh = Math.round(360 * im.naturalHeight / Math.max(1, im.naturalWidth)); commit({k: 'upd', els: [n]}, {k: 'upd', els: [e]}); draw(); }; }
+  closePops(); commit({k: 'add', els: list}, {k: 'del', ids: list.map(function(e){ return e.id; })});
+  var b = [x0, list[0].y, Math.max(right, it.fig ? right + 400 : 0), y]; showArea(b[0] - 30, b[1] - 30, b[2] - b[0] + 60, b[3] - b[1] + 60 + (it.fig ? 120 : 0)); setTool('pen');
+}
+$('bdTask').addEventListener('change', function(ev){
+  if (ev.target.id === 'bdTaskSel') { tk.sel = ev.target.value; taskList(); }
+  if (ev.target.id === 'bdTaskSt') tk.showSt = ev.target.checked; if (ev.target.id === 'bdTaskKey') tk.showKey = ev.target.checked; });
+$('bdTask').addEventListener('click', function(ev){ ev.stopPropagation(); if (ev.target.closest('[data-x]')) { closePops(); return; }
+  var b = ev.target.closest('[data-ins]'); if (b) insertTask(+b.dataset.ins); });
+$('bdTaskBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdTask'); if (!f.hidden) { f.hidden = true; return; } closePops(); f.hidden = false; renderTask(); });
 
 /* ── панель ── */
 function setTool(t){ tool = t; stage.dataset.tool = t; document.querySelectorAll('[data-tool]').forEach(function(b){ b.classList.toggle('on', b.dataset.tool === t); });
@@ -871,10 +1082,10 @@ function exportPng(){
 }
 
 /* ── доски: список, создание, открытие ── */
-function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; $('bdSl').hidden = true; $('bdTpl').hidden = true; }
+function closePops(){ $('bdMenu').hidden = true; $('bdFigs').hidden = true; $('bdSl').hidden = true; $('bdTpl').hidden = true; $('bdTask').hidden = true; }
 $('bdPick').addEventListener('click', function(ev){ ev.stopPropagation(); var m = $('bdMenu'); if (!m.hidden) { m.hidden = true; return; } closePops(); renderMenu(); m.hidden = false; });
 $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var f = $('bdFigs'); if (!f.hidden) { f.hidden = true; return; } closePops(); renderFigs(); f.hidden = false; });
-document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn')) closePops(); });
+document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn') && !ev.target.closest('#bdTaskBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
@@ -1012,6 +1223,7 @@ window.__board = {els: function(){ return els; }, board: function(){ return boar
 K.state.then(async function(st){
   if (!st || !st.session || !K.sb) return; sb = K.sb; document.body.classList.add('board-page');
   me.uid = st.session.user.id; isT = st.role === 'teacher' && !st.asStudent; me.role = isT ? 'teacher' : 'student'; me.name = isT ? 'Учитель' : 'Ученик';
+  if (isT) fetch('t/boardtasks.bin', {method: 'HEAD', cache: 'no-cache'}).then(function(r){ $('bdTaskBtn').hidden = !r.ok; }).catch(function(){});   // кнопка появляется, когда банк задач выложен
   setTool('pen'); document.querySelector('[data-color]').classList.add('on'); document.querySelector('[data-w="2"]').classList.add('on');
   var q = new URLSearchParams(location.search), b = q.get('b'), s = q.get('s');
   if (isT) {
