@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 12. Показательные уравнения</title>
+<script>document.documentElement.dataset.page="a12";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 12 · одно основание, вынесение за скобки, деление на степень, замена переменной">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 12</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 12</div>
+  <h1>Показательные уравнения</h1>
+  <p class="lede">§ 12 · одно основание, вынесение за скобки, деление на степень, замена переменной</p>
+  <div class="btns">
+    <a class="btn" href="sa12.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa12.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>В уравнениях 2<sup><i>x</i></sup> = 16, 3<sup><i>x</i> + 1</sup> − 3<sup><i>x</i></sup> = 54, 4<sup><i>x</i></sup> − 5·2<sup><i>x</i></sup> + 4 = 0 неизвестное стоит <b>в показателе степени</b>. Такие уравнения называют <b>показательными</b>.</p>
+<div class="def"><span class="lbl">Определение</span><p>Уравнение, в котором неизвестное содержится в показателе степени, называется <b>показательным</b>.</p></div>
+<h3>Главное свойство</h3>
+<div class="thm"><span class="lbl">Свойство</span><p>Если <i>a</i> &gt; 0 и <i>a</i> ≠ 1, то <i>a</i><sup><i>x</i>₁</sup> = <i>a</i><sup><i>x</i>₂</sup> тогда и только тогда, когда <i>x</i><sub>1</sub> = <i>x</i><sub>2</sub>.</p></div>
+<p><b>Почему.</b> Из урока 11: показательная функция при <i>a</i> &gt; 1 возрастает, при 0 &lt; <i>a</i> &lt; 1 убывает. Монотонная функция каждое своё значение принимает ровно один раз. Поэтому если степени с одним основанием равны, то равны и показатели. А при <i>a</i> = 1 свойство ломается: 1² = 1⁵, хотя 2 ≠ 5.</p>
+<p>Отсюда главная идея почти всех показательных уравнений: <b>записать обе части как степени с одним и тем же основанием и приравнять показатели</b>. Такой переход равносилен — посторонних корней не появляется, проверка не обязательна (если нет ошибок в вычислениях).</p>
+<h3>Способ 1. Привести к одному основанию</h3>
+<div class="ex"><span class="lbl">Пример 1</span><p>Реши уравнение 9·3<sup><i>x</i></sup> = 1/3.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Слева 9·3<sup><i>x</i></sup> = 3²·3<sup><i>x</i></sup> = 3<sup><i>x</i> + 2</sup>, справа 1/3 = 3<sup>−1</sup>. Получаем 3<sup><i>x</i> + 2</sup> = 3<sup>−1</sup>, откуда <i>x</i> + 2 = −1.</p><p>Ответ: <b><i>x</i> = −3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · разные, но «родственные» основания</span><p>Реши уравнение 25<sup><i>x</i></sup> = (1/5)<sup><i>x</i> − 3</sup>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>25 = 5², 1/5 = 5<sup>−1</sup>. Тогда 5<sup>2<i>x</i></sup> = 5<sup>−(<i>x</i> − 3)</sup>, 2<i>x</i> = −<i>x</i> + 3, 3<i>x</i> = 3.</p><p>Ответ: <b><i>x</i> = 1</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Скобки в показателе: (1/5)<sup><i>x</i> − 3</sup> = 5<sup>−(<i>x</i> − 3)</sup> = 5<sup>−<i>x</i> + 3</sup>, а не 5<sup>−<i>x</i> − 3</sup>. Минус умножается на <b>весь</b> показатель.</p></div>
+<div class="ex"><span class="lbl">Пример 3 · квадратный трёхчлен в показателе</span><p>Реши уравнение 2<sup><i>x</i>² − 3<i>x</i></sup> = 1/4.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1/4 = 2<sup>−2</sup>, значит, <i>x</i>² − 3<i>x</i> = −2, <i>x</i>² − 3<i>x</i> + 2 = 0, <i>x</i> = 1 или <i>x</i> = 2.</p><p>Переход равносильный — оба корня подходят. Ответ: <b><i>x</i> = 1, <i>x</i> = 2</b>.</p></div></div>
+<h3>Способ 2. Вынести общий множитель за скобки</h3>
+<p>Если в уравнении стоит сумма или разность степеней с одним основанием, но с разными показателями (<i>x</i> + 2, <i>x</i>, <i>x</i> − 1…), выносят за скобки степень с <b>наименьшим</b> показателем. В скобках остаются обычные числа.</p>
+<div class="ex"><span class="lbl">Пример 4</span><p>Реши уравнение 2<sup><i>x</i> + 2</sup> − 2<sup><i>x</i></sup> = 24.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>2<sup><i>x</i> + 2</sup> = 2<sup><i>x</i></sup>·2² = 4·2<sup><i>x</i></sup>. Выносим 2<sup><i>x</i></sup>: 2<sup><i>x</i></sup>(4 − 1) = 24, 2<sup><i>x</i></sup> = 8 = 2³.</p><p>Ответ: <b><i>x</i> = 3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5</span><p>Реши уравнение 3<sup><i>x</i> + 1</sup> + 3<sup><i>x</i> − 1</sup> = 30.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Наименьший показатель <i>x</i> − 1. Выносим 3<sup><i>x</i> − 1</sup>: 3<sup><i>x</i> − 1</sup>(3² + 1) = 30, 3<sup><i>x</i> − 1</sup>·10 = 30, 3<sup><i>x</i> − 1</sup> = 3.</p><p><i>x</i> − 1 = 1. Ответ: <b><i>x</i> = 2</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Ошибка: «2<sup><i>x</i> + 2</sup> − 2<sup><i>x</i></sup> = 2²». Вычитать показатели можно при <b>делении</b> степеней (2<sup><i>x</i> + 2</sup> : 2<sup><i>x</i></sup> = 2²), а не при вычитании. Сумма и разность степеней так не упрощаются — для них и нужно вынесение за скобки.</p></div>
+<h3>Способ 3. Разные основания, одинаковые показатели</h3>
+<p>Пригодится свойство <i>a<sup>x</sup></i>·<i>b<sup>x</sup></i> = (<i>ab</i>)<sup><i>x</i></sup> и деление на степень. Делить обе части на <i>a<sup>x</sup></i> можно всегда: <i>a<sup>x</sup></i> &gt; 0 и никогда не равно нулю, поэтому корни не теряются.</p>
+<div class="ex"><span class="lbl">Пример 6</span><p>Реши уравнения: а) 2<sup><i>x</i></sup>·5<sup><i>x</i></sup> = 1000; б) 5<sup><i>x</i></sup> = 3<sup><i>x</i></sup>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 2<sup><i>x</i></sup>·5<sup><i>x</i></sup> = 10<sup><i>x</i></sup> = 10³. Ответ: <b><i>x</i> = 3</b>.</p><p>б) Делим на 3<sup><i>x</i></sup> &gt; 0: (5/3)<sup><i>x</i></sup> = 1 = (5/3)<sup>0</sup>. Ответ: <b><i>x</i> = 0</b>.</p></div></div>
+<h3>Способ 4. Замена переменной</h3>
+<p>Если в уравнении есть <i>a</i><sup>2<i>x</i></sup> и <i>a<sup>x</sup></i>, то <i>a</i><sup>2<i>x</i></sup> = (<i>a<sup>x</sup></i>)², и замена <i>t</i> = <i>a<sup>x</sup></i> даёт квадратное уравнение. Например, 4<sup><i>x</i></sup> = (2²)<sup><i>x</i></sup> = (2<sup><i>x</i></sup>)², 9<sup><i>x</i></sup> = (3<sup><i>x</i></sup>)². Главное условие: <b><i>t</i> &gt; 0</b>, ведь <i>a<sup>x</sup></i> всегда положительно.</p>
+<div class="ex"><span class="lbl">Пример 7</span><p>Реши уравнение 4<sup><i>x</i></sup> − 3·2<sup><i>x</i></sup> − 4 = 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть <i>t</i> = 2<sup><i>x</i></sup> &gt; 0. Тогда 4<sup><i>x</i></sup> = <i>t</i>², и <i>t</i>² − 3<i>t</i> − 4 = 0, <i>t</i> = 4 или <i>t</i> = −1.</p><p><i>t</i> = −1 не подходит: 2<sup><i>x</i></sup> не бывает отрицательным. 2<sup><i>x</i></sup> = 4, <i>x</i> = 2.</p><p>Ответ: <b><i>x</i> = 2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 8</span><p>Реши уравнение 9<sup><i>x</i></sup> − 10·3<sup><i>x</i></sup> + 9 = 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>t</i> = 3<sup><i>x</i></sup> &gt; 0: <i>t</i>² − 10<i>t</i> + 9 = 0, <i>t</i> = 1 или <i>t</i> = 9. Оба положительны: 3<sup><i>x</i></sup> = 1 ⇒ <i>x</i> = 0; 3<sup><i>x</i></sup> = 9 ⇒ <i>x</i> = 2.</p><p>Ответ: <b><i>x</i> = 0, <i>x</i> = 2</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Две частые ошибки при замене: записать 4<sup><i>x</i></sup> = 2·2<sup><i>x</i></sup> (на самом деле 4<sup><i>x</i></sup> = (2<sup><i>x</i></sup>)²) и забыть, что <i>t</i> &gt; 0, оставив «корень» из уравнения 2<sup><i>x</i></sup> = −1. И не останавливайся на <i>t</i>: ответ — значения <i>x</i>, а не <i>t</i>.</p></div>
+<h3>Графически: когда корень угадывается</h3>
+<div class="figrow"><figure><img src="assets/fig/a12_graph.png" alt="2ˣ = 3 − x: возрастающая и убывающая функции пересекаются один раз"><figcaption>2ˣ = 3 − x: возрастающая и убывающая функции пересекаются один раз</figcaption></figure></div>
+<div class="ex"><span class="lbl">Пример 9</span><p>Реши уравнение 2<sup><i>x</i></sup> = 3 − <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Подбором: <i>x</i> = 1 — корень, 2¹ = 2 = 3 − 1.</p><p>Других корней нет: левая часть возрастает, правая убывает. При <i>x</i> &gt; 1 слева больше 2, справа меньше 2; при <i>x</i> &lt; 1 — наоборот. Графики «расходятся» по обе стороны от точки (1; 2).</p><p>Ответ: <b><i>x</i> = 1</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши уравнение 3<sup><i>x</i> − 1</sup> = 27.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши уравнение (1/2)<sup><i>x</i></sup> = 32.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши уравнение 4<sup><i>x</i></sup> = 8.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши уравнение 7<sup><i>x</i>² − 5<i>x</i> + 6</sup> = 1.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши уравнение 5<sup><i>x</i> + 1</sup> − 5<sup><i>x</i></sup> = 100.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши уравнение 3<sup><i>x</i></sup>·4<sup><i>x</i></sup> = 144.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнение 9<sup><i>x</i></sup> − 2·3<sup><i>x</i></sup> − 3 = 0.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши уравнение 4<sup><i>x</i></sup> − 5·2<sup><i>x</i></sup> + 4 = 0.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 208, 209</b> — Простейшие: привести к одному основанию.</li><li><b>№ 210</b> — Произведение степеней с одним основанием.</li><li><b>№ 211</b> — Вынесение общего множителя за скобки.</li><li><b>№ 212</b> — Разные основания, одинаковые показатели — деление на степень.</li><li><b>№ 213</b> — Замена переменной, квадратное уравнение.</li><li><b>№ 214, 215</b> — Квадратный трёхчлен в показателе.</li><li><b>№ 227</b> — Доказать, что корень единственный.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a12a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 12</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 210 (1–4), 211, 213 из учебника письменно; № 208 и 209 — устно. Около каждого уравнения подписать способ: одно основание, за скобки, деление на степень или замена.</p></div>
+<div class="pager"><a href="a11.html">← Урок 11</a><a href="a13.html">Урок 13 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

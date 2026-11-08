@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 13. Показательные неравенства</title>
+<script>document.documentElement.dataset.page="a13";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 13 · знак сохраняется при a &gt; 1 и меняется при 0 &lt; a &lt; 1; вынесение за скобки, замена, графики">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 13</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 13</div>
+  <h1>Показательные неравенства</h1>
+  <p class="lede">§ 13 · знак сохраняется при a > 1 и меняется при 0 < a < 1; вынесение за скобки, замена, графики</p>
+  <div class="btns">
+    <a class="btn" href="sa13.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa13.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Неравенства, в которых неизвестное стоит в показателе степени, называют <b>показательными</b>: 2<sup><i>x</i></sup> &gt; 8, (1/3)<sup><i>x</i></sup> ≤ 9, 4<sup><i>x</i></sup> − 2<sup><i>x</i></sup> − 2 &gt; 0. Приёмы те же, что для уравнений на уроке 12 (одно основание, за скобки, замена), но появляется один новый вопрос — <b>сохранится ли знак неравенства</b>.</p>
+<h3>Главное правило</h3>
+<div class="thm"><span class="lbl">Правило</span><p>Если <i>a</i> &gt; 1, то <i>a</i><sup><i>f</i></sup> &gt; <i>a</i><sup><i>g</i></sup> ⇔ <i>f</i> &gt; <i>g</i> — знак <b>сохраняется</b>.</p><p>Если 0 &lt; <i>a</i> &lt; 1, то <i>a</i><sup><i>f</i></sup> &gt; <i>a</i><sup><i>g</i></sup> ⇔ <i>f</i> &lt; <i>g</i> — знак <b>меняется</b> на противоположный.</p></div>
+<p><b>Почему.</b> При <i>a</i> &gt; 1 функция <i>y</i> = <i>a<sup>x</sup></i> возрастает: большему показателю соответствует большая степень, и наоборот. При 0 &lt; <i>a</i> &lt; 1 она убывает: большей степени соответствует <b>меньший</b> показатель. Проверь на числах: (1/2)¹ = 0,5 &gt; (1/2)³ = 0,125, хотя 1 &lt; 3.</p>
+<div class="figrow"><figure><img src="assets/fig/a11_eq.png" alt="a = 2 &gt; 1: 2ˣ &gt; 8 при x &gt; 3"><figcaption>a = 2 > 1: 2ˣ > 8 при x > 3</figcaption></figure><figure><img src="assets/fig/a13_dec.png" alt="a = 1/2 &lt; 1: (1/2)ˣ &gt; 4 при x &lt; −2"><figcaption>a = 1/2 < 1: (1/2)ˣ > 4 при x < −2</figcaption></figure></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Главная ошибка темы — «снять» основание и забыть посмотреть, больше оно единицы или меньше. Возьми за правило: прежде чем сравнивать показатели, вслух скажи «основание больше единицы — знак тот же» или «основание меньше единицы — знак меняю».</p></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>Реши неравенство 3<sup><i>x</i></sup> ≤ 1/9.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1/9 = 3<sup>−2</sup>: 3<sup><i>x</i></sup> ≤ 3<sup>−2</sup>. Основание 3 &gt; 1, знак сохраняем: <i>x</i> ≤ −2.</p><p>Ответ: <b>(−∞; −2]</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · основание меньше единицы</span><p>Реши неравенство (1/3)<sup><i>x</i></sup> &gt; 27.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>27 = (1/3)<sup>−3</sup>: (1/3)<sup><i>x</i></sup> &gt; (1/3)<sup>−3</sup>. Основание 1/3 &lt; 1, знак меняем: <i>x</i> &lt; −3.</p><p>Можно и через основание 3: 3<sup>−<i>x</i></sup> &gt; 3³, −<i>x</i> &gt; 3, <i>x</i> &lt; −3 — тот же ответ. Ответ: <b>(−∞; −3)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3</span><p>Реши неравенство 0,5<sup><i>x</i> − 1</sup> ≥ 0,25.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>0,25 = 0,5². Основание 0,5 &lt; 1, знак меняем: <i>x</i> − 1 ≤ 2, <i>x</i> ≤ 3.</p><p>Ответ: <b>(−∞; 3]</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · квадратный трёхчлен в показателе</span><p>Реши неравенство 2<sup><i>x</i>² − 2<i>x</i></sup> &lt; 8.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>8 = 2³, основание 2 &gt; 1: <i>x</i>² − 2<i>x</i> &lt; 3, <i>x</i>² − 2<i>x</i> − 3 &lt; 0, (<i>x</i> − 3)(<i>x</i> + 1) &lt; 0.</p><p>Ответ: <b>(−1; 3)</b>.</p></div></div>
+<h3>Правая часть не степень: отрицательное число и ноль</h3>
+<ul><li><i>a<sup>x</sup></i> &gt; −3 — верно при <b>всех</b> <i>x</i>: положительное число больше отрицательного.</li><li><i>a<sup>x</sup></i> &lt; 0 и <i>a<sup>x</sup></i> ≤ −1 — <b>решений нет</b>.</li></ul>
+<div class="ex"><span class="lbl">Пример 5</span><p>Реши неравенства: а) 5<sup><i>x</i></sup> &gt; −2; б) 0,3<sup><i>x</i></sup> ≤ 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 5<sup><i>x</i></sup> &gt; 0 &gt; −2 при любом <i>x</i>. Ответ: <b>(−∞; +∞)</b>.</p><p>б) 0,3<sup><i>x</i></sup> &gt; 0 всегда. Ответ: <b>решений нет</b>.</p></div></div>
+<h3>Вынесение за скобки</h3>
+<div class="ex"><span class="lbl">Пример 6</span><p>Реши неравенство 3<sup><i>x</i> + 1</sup> − 3<sup><i>x</i> − 1</sup> &gt; 24.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Выносим 3<sup><i>x</i> − 1</sup>: 3<sup><i>x</i> − 1</sup>(3² − 1) &gt; 24, 8·3<sup><i>x</i> − 1</sup> &gt; 24, 3<sup><i>x</i> − 1</sup> &gt; 3.</p><p>Основание 3 &gt; 1: <i>x</i> − 1 &gt; 1. Ответ: <b>(2; +∞)</b>.</p></div></div>
+<h3>Замена переменной</h3>
+<div class="ex"><span class="lbl">Пример 7</span><p>Реши неравенство 4<sup><i>x</i></sup> − 3·2<sup><i>x</i></sup> − 4 &lt; 0.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Пусть <i>t</i> = 2<sup><i>x</i></sup> &gt; 0: <i>t</i>² − 3<i>t</i> − 4 &lt; 0, (<i>t</i> − 4)(<i>t</i> + 1) &lt; 0, −1 &lt; <i>t</i> &lt; 4.</p><p>С учётом <i>t</i> &gt; 0: 0 &lt; 2<sup><i>x</i></sup> &lt; 4. Левая часть верна всегда, остаётся 2<sup><i>x</i></sup> &lt; 2², <i>x</i> &lt; 2.</p><p>Ответ: <b>(−∞; 2)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>После замены получается неравенство для <i>t</i>, а не ответ. Нужно вернуться к <i>x</i>: решить 2<sup><i>x</i></sup> &lt; 4. А часть «<i>t</i> &gt; −1» при этом ничего не отрезает — 2<sup><i>x</i></sup> и так положительно.</p></div>
+<h3>Графический способ</h3>
+<p>Если в неравенстве смешаны показательная функция и, например, линейная, алгебраически его не решить. Тогда находят корень соответствующего уравнения (часто подбором) и смотрят по графикам, где одна функция выше другой.</p>
+<div class="figrow"><figure><img src="assets/fig/a13_graph.png" alt="(1/2)ˣ &gt; x + 1 при x &lt; 0"><figcaption>(1/2)ˣ > x + 1 при x < 0</figcaption></figure></div>
+<div class="ex"><span class="lbl">Пример 8</span><p>Реши неравенство (1/2)<sup><i>x</i></sup> &gt; <i>x</i> + 1.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Уравнение (1/2)<sup><i>x</i></sup> = <i>x</i> + 1 имеет корень <i>x</i> = 0: 1 = 1. Левая часть убывает, правая возрастает, поэтому корень единственный, а левее него убывающая функция выше возрастающей.</p><p>Ответ: <b>(−∞; 0)</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши неравенство 2<sup><i>x</i></sup> &lt; 16.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши неравенство (1/5)<sup><i>x</i></sup> ≥ 25.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши неравенство 0,3<sup><i>x</i> + 2</sup> &gt; 0,09.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши неравенство 3<sup><i>x</i>² − <i>x</i></sup> ≤ 9.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши неравенство 2<sup><i>x</i> + 2</sup> + 2<sup><i>x</i></sup> &gt; 40.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши неравенство 9<sup><i>x</i></sup> − 10·3<sup><i>x</i></sup> + 9 ≤ 0.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши неравенства: а) 7<sup><i>x</i></sup> &gt; −1; б) 0,2<sup><i>x</i></sup> ≤ 0.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши неравенство 3<sup><i>x</i></sup> &lt; 4 − <i>x</i>.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 228, 229</b> — Простейшие неравенства: одно основание, знак по основанию.</li><li><b>№ 230</b> — Решить уравнение графически.</li><li><b>№ 231</b> — Квадратный трёхчлен в показателе.</li><li><b>№ 232</b> — Вынесение общего множителя за скобки.</li><li><b>№ 233</b> — Замена переменной; целые решения на отрезке.</li><li><b>№ 236</b> — Решить неравенство графически.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a13a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 13</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 228, 231, 232 (1, 2) из учебника письменно; № 229 — устно. У каждого неравенства подписать: основание больше или меньше единицы, сохраняется ли знак.</p></div>
+<div class="pager"><a href="a12.html">← Урок 12</a><a href="a14.html">Урок 14 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

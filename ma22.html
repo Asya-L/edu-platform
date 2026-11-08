@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 22. Свойства и графики функций y = tg x и y = ctg x</title>
+<script>document.documentElement.dataset.page="ma22";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 22 · тангенсоида и котангенсоида, асимптоты, монотонность, ограниченные функции">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 22</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 22</div>
+  <h1>Свойства и графики функций y = tg x и y = ctg x</h1>
+  <p class="lede">§ 22 · тангенсоида и котангенсоида, асимптоты, монотонность, ограниченные функции</p>
+  <div class="btns">
+    <a class="btn" href="sma22.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma22.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Действуем по тому же плану, что и для синуса: изучаем функцию на промежутке длиной в период и сдвигаем. Главный период тангенса и котангенса — π.</p>
+<h3>Функция y = tg x на (−π/2; π/2)</h3>
+<p>Возьмём интервал (−π/2; π/2) — он длиной π, а на его концах тангенс не определён (там cos <i>x</i> = 0). Вспомни ось тангенсов из § 18: когда угол растёт от −π/2 до π/2, точка пересечения луча <i>OP</i> с прямой <i>x</i> = 1 поднимается снизу вверх и проходит всю прямую.</p>
+<ul><li>тангенс <b>возрастает</b> на (−π/2; π/2);</li><li>принимает <b>все</b> значения: область значений <b><i>R</i></b>;</li><li>нуль один: <i>x</i> = 0; при <i>x</i> ∈ (−π/2; 0) tg <i>x</i> &lt; 0, при <i>x</i> ∈ (0; π/2) tg <i>x</i> &gt; 0;</li><li>при приближении <i>x</i> к ±π/2 значения неограниченно растут по модулю: график прижимается к вертикальным прямым <i>x</i> = ±π/2, но не пересекает их.</li></ul>
+<p>Такие прямые, к которым график неограниченно приближается, называют <b>асимптотами</b>. Сдвигая построенную ветвь на π<i>n</i>, получаем весь график — <b>тангенсоиду</b>.</p>
+<figure><img src="assets/fig/mal22_tan.png" alt="y = tg x: ветви повторяются через π, асимптоты x = π/2 + πn"><figcaption>y = tg x: ветви повторяются через π, асимптоты x = π/2 + πn</figcaption></figure>
+<h3>Функция y = ctg x на (0; π)</h3>
+<p>Котангенс не определён там, где sin <i>x</i> = 0, поэтому берём интервал (0; π). При росте угла от 0 до π котангенс <b>убывает</b>, принимает все значения, нуль — <i>x</i> = π/2; ctg <i>x</i> &gt; 0 на (0; π/2) и &lt; 0 на (π/2; π). Асимптоты: <i>x</i> = π<i>n</i>.</p>
+<figure><img src="assets/fig/mal22_cot.png" alt="y = ctg x: убывает на каждом интервале (πn; π + πn)"><figcaption>y = ctg x: убывает на каждом интервале (πn; π + πn)</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>Свойство</th><th>y = tg x</th><th>y = ctg x</th></tr></thead><tbody><tr><td>Область определения</td><td><i>x</i> ≠ π/2 + π<i>n</i></td><td><i>x</i> ≠ π<i>n</i></td></tr><tr><td>Область значений</td><td><b><i>R</i></b></td><td><b><i>R</i></b></td></tr><tr><td>Главный период</td><td>π</td><td>π</td></tr><tr><td>Нули</td><td>π<i>n</i></td><td>π/2 + π<i>n</i></td></tr><tr><td>&gt; 0</td><td>(π<i>n</i>; π/2 + π<i>n</i>)</td><td>(π<i>n</i>; π/2 + π<i>n</i>)</td></tr><tr><td>&lt; 0</td><td>(−π/2 + π<i>n</i>; π<i>n</i>)</td><td>(π/2 + π<i>n</i>; π + π<i>n</i>)</td></tr><tr><td>Чётность</td><td>нечётная</td><td>нечётная</td></tr><tr><td>Монотонность</td><td>возрастает на каждом (−π/2 + π<i>n</i>; π/2 + π<i>n</i>)</td><td>убывает на каждом (π<i>n</i>; π + π<i>n</i>)</td></tr><tr><td>Наибольшее/наименьшее</td><td>нет</td><td>нет</td></tr></tbody></table></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Тангенс возрастает на <b>каждом</b> интервале, но не на всей области определения: π/4 &lt; 3π/4, а tg π/4 = 1 &gt; tg 3π/4 = −1. Сравнивать по монотонности можно только аргументы из одного интервала (−π/2 + π<i>n</i>; π/2 + π<i>n</i>).</p></div>
+<h3>Ограниченные функции</h3>
+<div class="def"><span class="lbl">Определение</span><p>Функцию <i>f</i> называют <b>ограниченной</b>, если существует число <i>M</i> такое, что |<i>f</i>(<i>x</i>)| ≤ <i>M</i> для всех <i>x</i> из области определения.</p></div>
+<p>sin и cos ограничены (|sin <i>x</i>| ≤ 1, |cos <i>x</i>| ≤ 1), а tg и ctg — нет: их значения бывают сколь угодно большими по модулю.</p>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · сравнить</span><p>Сравни: а) tg 1 и tg 1,5; б) tg 130° и tg 150°; в) ctg 2 и ctg 3; г) tg(−38°) и tg(−42°).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) −π/2 &lt; 1 &lt; 1,5 &lt; π/2 ≈ 1,57 — один интервал, тангенс возрастает: <b>tg 1 &lt; tg 1,5</b>.</p><p>б) 130° и 150° лежат в (90°; 270°) — тоже один интервал: <b>tg 130° &lt; tg 150°</b>.</p><p>в) 2 и 3 лежат в (0; π), котангенс убывает: <b>ctg 2 &gt; ctg 3</b>.</p><p>г) −42° &lt; −38°, оба в (−90°; 90°): <b>tg(−38°) &gt; tg(−42°)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · область определения</span><p>Найди область определения функции <i>y</i> = tg 2<i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Нужно 2<i>x</i> ≠ π/2 + π<i>n</i>, то есть <b><i>x</i> ≠ π/4 + π<i>n</i>/2, <i>n</i> ∈ <b><i>Z</i></b></b>. Асимптоты расположены вдвое чаще, а период равен π/2.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · необычный график</span><p>Построй график функции <i>y</i> = |ctg <i>x</i>| · tg <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Область определения: нужны и tg <i>x</i>, и ctg <i>x</i>, то есть <i>x</i> ≠ π<i>n</i>/2. Так как tg <i>x</i> = 1/ctg <i>x</i>, выражение равно |ctg <i>x</i>|/ctg <i>x</i>: это <b>1</b>, если ctg <i>x</i> &gt; 0, и <b>−1</b>, если ctg <i>x</i> &lt; 0.</p><p>ctg <i>x</i> &gt; 0 на (π<i>n</i>; π/2 + π<i>n</i>) и &lt; 0 на (π/2 + π<i>n</i>; π + π<i>n</i>). График — отрезки с выколотыми концами:</p><figure><img src="assets/fig/mal22_step.png" alt="график"></figure></div></div>
+<div class="ex"><span class="lbl">Пример 4 · возможно ли</span><p>Возможно ли равенство sin α = tg 80°?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>tg 80° &gt; tg 45° = 1 (тангенс возрастает на (−90°; 90°)), а sin α ≤ 1. <b>Невозможно.</b></p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Сравни: а) tg 20° и tg 40°; б) tg 100° и tg 170°; в) ctg 40° и ctg 60°.</div><div class="task"><span class="task-no">№&nbsp;2</span>Сравни: а) tg 0,5 и tg 1,2; б) ctg 1 и ctg 2; в) tg(−1) и tg(−1,2).</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди нули функции <i>y</i> = tg <i>x</i> на отрезке [−π; 2π].</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди область определения функции <i>y</i> = ctg 3<i>x</i>.</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди наибольшее и наименьшее значения <i>y</i> = tg <i>x</i> на отрезке [−π/4; π/3].</div><div class="task"><span class="task-no">№&nbsp;6</span>Найди наибольшее и наименьшее значения <i>y</i> = ctg <i>x</i> на отрезке [π/4; π/2].</div><div class="task"><span class="task-no">№&nbsp;7</span>Найди главный период функции <i>y</i> = tg(<i>x</i>/3).</div><div class="task"><span class="task-no">№&nbsp;8</span>Возможно ли равенство cos α = ctg 40°?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 22.1, 22.2</b> — Сравнение значений тангенса и котангенса.</li><li><b>№ 22.3, 22.4</b> — Построение графиков с помощью преобразований.</li><li><b>№ 22.5</b> — Графики со сдвигами и растяжениями.</li><li><b>№ 22.7</b> — Возможно ли равенство.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma22a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 22</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 22.2, 22.4, 22.6 из учебника письменно. Построить тангенсоиду и котангенсоиду на [−π; π] с асимптотами; выписать сводную таблицу свойств tg и ctg.</p></div>
+<div class="pager"><a href="ma21.html">← Урок 21</a><a href="algebra-m.html">Все уроки →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

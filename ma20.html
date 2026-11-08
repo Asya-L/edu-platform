@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 20. Периодические функции</title>
+<script>document.documentElement.dataset.page="ma20";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 20 · период и главный период, периоды sin, cos, tg, ctg, период функции f(kx + b), общий период">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 20</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 20</div>
+  <h1>Периодические функции</h1>
+  <p class="lede">§ 20 · период и главный период, периоды sin, cos, tg, ctg, период функции f(kx + b), общий период</p>
+  <div class="btns">
+    <a class="btn" href="sma20.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma20.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Многое в жизни повторяется через равные промежутки: дни недели — через 7 дней, времена года — через год, положение стрелки часов — через 12 часов. Функции, описывающие такие процессы, называют <b>периодическими</b>.</p>
+<p>Ты уже знаешь пример: углам <i>x</i> и <i>x</i> + 2π соответствует одна и та же точка единичной окружности, поэтому sin(<i>x</i> + 2π) = sin <i>x</i> и cos(<i>x</i> + 2π) = cos <i>x</i>. Значения синуса и косинуса повторяются каждые 2π.</p>
+<div class="def"><span class="lbl">Определение</span><p>Функцию <i>f</i> называют <b>периодической</b>, если существует число <i>T</i> ≠ 0 такое, что для любого <i>x</i> из области определения выполняются равенства <i>f</i>(<i>x</i> − <i>T</i>) = <i>f</i>(<i>x</i>) = <i>f</i>(<i>x</i> + <i>T</i>). Число <i>T</i> называют <b>периодом</b> функции <i>f</i>.</p></div>
+<p>Обрати внимание на две вещи. Во-первых, вместе с <i>x</i> в области определения должны лежать и <i>x</i> ± <i>T</i> — область «тоже повторяется». Во-вторых, график периодической функции состоит из одинаковых кусков: достаточно нарисовать его на одном отрезке длиной <i>T</i> и «размножить» сдвигами вдоль оси <i>Ox</i>.</p>
+<figure><img src="assets/fig/mal20_period.png" alt="Кусок графика на [0; T] повторяется сдвигами на T, 2T, −T, …"><figcaption>Кусок графика на [0; T] повторяется сдвигами на T, 2T, −T, …</figcaption></figure>
+<h3>Сколько периодов у функции</h3>
+<ul><li><b>Теорема 20.1.</b> Если <i>T</i> — период, то и −<i>T</i> — период.</li><li><b>Теорема 20.2.</b> Если <i>T</i>₁ и <i>T</i>₂ — периоды и <i>T</i>₁ + <i>T</i>₂ ≠ 0, то <i>T</i>₁ + <i>T</i>₂ — тоже период.</li><li><b>Следствие.</b> Если <i>T</i> — период, то любое число <i>n</i><i>T</i>, <i>n</i> ∈ <b><i>Z</i></b>, <i>n</i> ≠ 0, тоже период. Значит, у периодической функции <b>бесконечно много периодов</b>.</li></ul>
+<div class="def"><span class="lbl">Определение</span><p>Если среди положительных периодов функции есть наименьший, его называют <b>главным периодом</b>.</p></div>
+<div class="thm"><span class="lbl">Теорема 20.4</span><p>Главный период функций <i>y</i> = sin <i>x</i> и <i>y</i> = cos <i>x</i> равен <b>2π</b>; главный период функций <i>y</i> = tg <i>x</i> и <i>y</i> = ctg <i>x</i> равен <b>π</b>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Докажем для синуса. Пусть <i>T</i> — период <i>y</i> = sin <i>x</i>. Тогда sin(<i>x</i> + <i>T</i>) = sin <i>x</i> при всех <i>x</i>, в частности при <i>x</i> = −<i>T</i>/2: sin(<i>T</i>/2) = sin(−<i>T</i>/2) = −sin(<i>T</i>/2), откуда sin(<i>T</i>/2) = 0, <i>T</i>/2 = π<i>k</i>, <i>T</i> = 2π<i>k</i>. Наименьшее положительное число такого вида — 2π, и оно действительно период.</p></div>
+<p>Ещё пример: дробная часть {<i>x</i>} — периодическая функция с главным периодом 1 (вспомни «пилу» из § 5). А вот у постоянной функции <i>y</i> = 5 любое число ≠ 0 — период, и наименьшего положительного нет: <b>главного периода может и не быть</b>.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Возрастающая (или убывающая) функция не может быть периодической: при сдвиге на <i>T</i> &gt; 0 её значение меняется, а должно остаться прежним. Поэтому <i>y</i> = <i>x</i>³ или <i>y</i> = √<i>x</i> не периодичны.</p></div>
+<h3>Период функции f(kx + b)</h3>
+<div class="thm"><span class="lbl">Теорема 20.3</span><p>Если <i>T</i> — период функции <i>y</i> = <i>f</i>(<i>x</i>), то <i>T</i>/<i>k</i> (<i>k</i> ≠ 0) — период функции <i>y</i> = <i>f</i>(<i>k</i><i>x</i> + <i>b</i>).</p></div>
+<p>Почему: <i>f</i>(<i>k</i>(<i>x</i> + <i>T</i>/<i>k</i>) + <i>b</i>) = <i>f</i>((<i>k</i><i>x</i> + <i>b</i>) + <i>T</i>) = <i>f</i>(<i>k</i><i>x</i> + <i>b</i>). Сдвиг <i>b</i> период не меняет, а множитель <i>k</i> «сжимает» период в |<i>k</i>| раз. Отсюда удобные формулы:</p>
+<div class="tablewrap"><table><thead><tr><th>Функция</th><th>Главный период</th></tr></thead><tbody><tr><td>sin(<i>k</i><i>x</i> + <i>b</i>), cos(<i>k</i><i>x</i> + <i>b</i>)</td><td>2π/|<i>k</i>|</td></tr><tr><td>tg(<i>k</i><i>x</i> + <i>b</i>), ctg(<i>k</i><i>x</i> + <i>b</i>)</td><td>π/|<i>k</i>|</td></tr></tbody></table></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Период <i>y</i> = sin 3<i>x</i> равен 2π/3, а не 6π: множитель при <i>x</i> <b>делит</b> период. А <i>y</i> = 3 sin <i>x</i> (множитель снаружи) имеет прежний период 2π.</p></div>
+<h3>Общий период суммы</h3>
+<p>Число, которое является периодом и функции <i>f</i>, и функции <i>g</i>, называют их <b>общим периодом</b>. Тогда оно — период и суммы <i>f</i> + <i>g</i>. Если периоды кратны общему числу (соизмеримы), общий период находят, как наименьшее общее кратное.</p>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · отбрасываем периоды</span><p>Вычисли: а) sin 750°; б) cos(−13π/3); в) tg 225°; г) ctg 17π/4.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 750° = 2 · 360° + 30°: sin 750° = sin 30° = <b>1/2</b>.</p><p>б) −13π/3 = −4π − π/3: cos(−13π/3) = cos(−π/3) = cos π/3 = <b>1/2</b>.</p><p>в) Период тангенса 180°: tg 225° = tg(45° + 180°) = tg 45° = <b>1</b>.</p><p>г) 17π/4 = 4π + π/4: ctg 17π/4 = ctg π/4 = <b>1</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · главный период</span><p>Найди главный период: а) <i>y</i> = cos 4<i>x</i>; б) <i>y</i> = sin(<i>x</i>/3 − 1); в) <i>y</i> = tg(2<i>x</i> + π/5); г) <i>y</i> = 5 ctg(<i>x</i>/2).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 2π/4 = <b>π/2</b>; б) 2π : (1/3) = <b>6π</b>; в) π/2 = <b>π/2</b>; г) π : (1/2) = <b>2π</b> (множитель 5 снаружи на период не влияет).</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · период суммы</span><p>Найди период функции <i>y</i> = sin(<i>x</i>/2) + cos(<i>x</i>/3).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Период первого слагаемого 2π : (1/2) = 4π, второго 2π : (1/3) = 6π. Нужно число, кратное и 4π, и 6π: НОК(4, 6) = 12, значит, <b><i>T</i> = 12π</b>. Проверка: 12π = 3 · 4π = 2 · 6π.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · доказать период</span><p>Докажи, что число π — период функции <i>y</i> = sin² <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Область определения <b><i>R</i></b> — вместе с <i>x</i> содержит <i>x</i> ± π. sin(<i>x</i> + π) = −sin <i>x</i> (точки окружности при поворотах на <i>x</i> и <i>x</i> + π симметричны относительно начала координат), поэтому sin²(<i>x</i> + π) = (−sin <i>x</i>)² = sin² <i>x</i>. Так же для <i>x</i> − π. Значит, π — период.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) cos 390°; б) sin(−690°); в) tg 13π/4; г) cos 25π/3.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли: а) sin 9π/2; б) ctg(−7π/4); в) sin 1110°.</div><div class="task"><span class="task-no">№&nbsp;3</span>Найди главный период: а) <i>y</i> = sin 5<i>x</i>; б) <i>y</i> = cos(<i>x</i>/4); в) <i>y</i> = tg 3<i>x</i>; г) <i>y</i> = ctg(<i>x</i>/2 + 1).</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди главный период функции <i>y</i> = 4 cos(2<i>x</i> − 1) + 3.</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди период функции <i>y</i> = sin 2<i>x</i> + tg 3<i>x</i>.</div><div class="task"><span class="task-no">№&nbsp;6</span>Найди период функции <i>y</i> = cos(<i>x</i>/2) + sin(<i>x</i>/5).</div><div class="task"><span class="task-no">№&nbsp;7</span>Докажи, что 2π/3 — период функции <i>y</i> = cos 3<i>x</i>.</div><div class="task"><span class="task-no">№&nbsp;8</span>Является ли периодической функция <i>y</i> = 2<i>x</i> + 1?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 20.1, 20.2</b> — Значения тригонометрических функций с отбрасыванием периодов.</li><li><b>№ 20.3, 20.4</b> — Доказать, что число является периодом.</li><li><b>№ 20.5, 20.6</b> — Главный период функции.</li><li><b>№ 20.12</b> — Период суммы функций.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma20a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 20</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 20.2, 20.4, 20.6, 20.13 (1) из учебника письменно. Выписать в тетрадь главные периоды sin, cos, tg, ctg и формулы для периода f(kx + b).</p></div>
+<div class="pager"><a href="ma19.html">← Урок 19</a><a href="ma21.html">Урок 21 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

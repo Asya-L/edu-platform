@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 21. Свойства и графики функций y = sin x и y = cos x</title>
+<script>document.documentElement.dataset.page="ma21";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 21 · синусоида и косинусоида: нули, знаки, монотонность, наибольшее и наименьшее значения">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 21</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 21</div>
+  <h1>Свойства и графики функций y = sin x и y = cos x</h1>
+  <p class="lede">§ 21 · синусоида и косинусоида: нули, знаки, монотонность, наибольшее и наименьшее значения</p>
+  <div class="btns">
+    <a class="btn" href="sma21.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma21.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Периодичность сильно упрощает работу: функцию достаточно изучить на одном отрезке длиной в период, а потом «размножить» результат. План такой:</p>
+<ol class="steps"><li>взять отрезок длиной в период, например [0; 2π];</li><li>изучить свойства функции на нём с помощью единичной окружности;</li><li>построить график на этом отрезке;</li><li>сдвинуть построенный кусок на 2π<i>n</i> вправо и влево.</li></ol>
+<h3>Функция y = sin x на отрезке [0; 2π]</h3>
+<p>sin <i>x</i> — ордината точки окружности. Пусть точка проходит окружность против часовой стрелки, от поворота на 0 до поворота на 2π, и следи, как меняется её высота:</p>
+<ul><li>от 0 до π/2 точка поднимается: синус <b>возрастает</b> от 0 до 1;</li><li>от π/2 до 3π/2 точка опускается: синус <b>убывает</b> от 1 до −1;</li><li>от 3π/2 до 2π снова поднимается: синус <b>возрастает</b> от −1 до 0.</li></ul>
+<p>Нули на [0; 2π]: 0, π, 2π. Синус положителен на (0; π) и отрицателен на (π; 2π). Наибольшее значение 1 — при <i>x</i> = π/2, наименьшее −1 — при <i>x</i> = 3π/2.</p>
+<figure><img src="assets/fig/mal21_sin0.png" alt="y = sin x на [0; 2π]: пять опорных точек 0, π/2, π, 3π/2, 2π"><figcaption>y = sin x на [0; 2π]: пять опорных точек 0, π/2, π, 3π/2, 2π</figcaption></figure>
+<p>Сдвигая этот кусок на 2π<i>n</i>, получаем график на всей прямой. Его называют <b>синусоидой</b>.</p>
+<figure><img src="assets/fig/mal21_sinfull.png" alt="выделенный кусок повторяется с периодом 2π"><figcaption>выделенный кусок повторяется с периодом 2π</figcaption></figure>
+<h3>Функция y = cos x</h3>
+<p>cos <i>x</i> — абсцисса точки. На [0; π] точка движется влево — косинус <b>убывает</b> от 1 до −1; на [π; 2π] движется вправо — <b>возрастает</b> от −1 до 1. Нули: π/2 и 3π/2. Наибольшее значение 1 — при <i>x</i> = 0 и 2π, наименьшее −1 — при <i>x</i> = π.</p>
+<figure><img src="assets/fig/mal21_cos0.png" alt="y = cos x на [0; 2π]"><figcaption>y = cos x на [0; 2π]</figcaption></figure>
+<p>График косинуса называют <b>косинусоидой</b>. Так как cos <i>x</i> = sin(<i>x</i> + π/2) (пример 2 из § 18), косинусоида — это синусоида, сдвинутая на π/2 влево. Графики синуса и косинуса — <b>одинаковые фигуры</b>.</p>
+<figure><img src="assets/fig/mal21_shift.png" alt="cos x = sin(x + π/2): косинусоида — сдвинутая синусоида"><figcaption>cos x = sin(x + π/2): косинусоида — сдвинутая синусоида</figcaption></figure>
+<h3>Свойства на всей прямой</h3>
+<div class="tablewrap"><table><thead><tr><th>Свойство</th><th>y = sin x</th><th>y = cos x</th></tr></thead><tbody><tr><td>Область определения</td><td><b><i>R</i></b></td><td><b><i>R</i></b></td></tr><tr><td>Область значений</td><td>[−1; 1]</td><td>[−1; 1]</td></tr><tr><td>Главный период</td><td>2π</td><td>2π</td></tr><tr><td>Нули</td><td>π<i>n</i></td><td>π/2 + π<i>n</i></td></tr><tr><td>&gt; 0</td><td>(2π<i>n</i>; π + 2π<i>n</i>)</td><td>(−π/2 + 2π<i>n</i>; π/2 + 2π<i>n</i>)</td></tr><tr><td>&lt; 0</td><td>(π + 2π<i>n</i>; 2π + 2π<i>n</i>)</td><td>(π/2 + 2π<i>n</i>; 3π/2 + 2π<i>n</i>)</td></tr><tr><td>Чётность</td><td>нечётная</td><td>чётная</td></tr><tr><td>Возрастает</td><td>[−π/2 + 2π<i>n</i>; π/2 + 2π<i>n</i>]</td><td>[π + 2π<i>n</i>; 2π + 2π<i>n</i>]</td></tr><tr><td>Убывает</td><td>[π/2 + 2π<i>n</i>; 3π/2 + 2π<i>n</i>]</td><td>[2π<i>n</i>; π + 2π<i>n</i>]</td></tr><tr><td>Наибольшее значение 1</td><td>при π/2 + 2π<i>n</i></td><td>при 2π<i>n</i></td></tr><tr><td>Наименьшее значение −1</td><td>при −π/2 + 2π<i>n</i></td><td>при π + 2π<i>n</i></td></tr></tbody></table></div>
+<p>Здесь везде <i>n</i> ∈ <b><i>Z</i></b>. Таблицу не нужно заучивать — каждую строку можно «прочитать» с графика или с единичной окружности.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>«Синус возрастает» — неверно без уточнения промежутка: синус возрастает только на отрезках вида [−π/2 + 2π<i>n</i>; π/2 + 2π<i>n</i>]. Сравнивать значения по монотонности можно, лишь когда оба аргумента лежат на одном таком отрезке.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · сравнить</span><p>Сравни: а) sin 20° и sin 21°; б) cos 5 и cos 5,1; в) sin 40° и cos 40°.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 20° и 21° лежат в [−90°; 90°], где синус возрастает: <b>sin 20° &lt; sin 21°</b>.</p><p>б) π ≈ 3,14 &lt; 5 &lt; 5,1 &lt; 2π ≈ 6,28 — на [π; 2π] косинус возрастает: <b>cos 5 &lt; cos 5,1</b>.</p><p>в) sin 40° &lt; sin 45° = √2/2, а cos 40° &gt; cos 45° = √2/2 (на [0°; 180°] косинус убывает). Значит, <b>sin 40° &lt; cos 40°</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · возможно ли</span><p>Возможно ли равенство sin α = 2 sin 31°?</p><div class="ex-sol"><span class="ex-h">Решение</span><p>sin 31° &gt; sin 30° = 1/2, поэтому 2 sin 31° &gt; 1. Синус больше 1 не бывает — <b>равенство невозможно</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · на отрезке</span><p>Найди наибольшее и наименьшее значения <i>y</i> = sin <i>x</i> на отрезке [π/6; 4π/3].</p><div class="ex-sol"><span class="ex-h">Решение</span><p>На [π/6; π/2] синус возрастает, на [π/2; 4π/3] убывает. Наибольшее — в точке поворота: sin π/2 = <b>1</b>. Наименьшее — на одном из концов: sin π/6 = 1/2, sin 4π/3 = −√3/2. Значит, наименьшее <b>−√3/2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · преобразования графика</span><p>Построй графики <i>y</i> = 2 sin <i>x</i> + 1 и <i>y</i> = sin 2<i>x</i>. Найди их области значений и главные периоды.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>y</i> = 2 sin <i>x</i> + 1: растяжение от оси <i>Ox</i> в 2 раза и сдвиг вверх на 1. Значения от 2 · (−1) + 1 = −1 до 2 · 1 + 1 = 3: <b><i>E</i> = [−1; 3]</b>, период <b>2π</b>.</p><p><i>y</i> = sin 2<i>x</i>: сжатие к оси <i>Oy</i> в 2 раза (§ 6). <b><i>E</i> = [−1; 1]</b>, период <b>π</b>.</p><figure><img src="assets/fig/mal21_trans.png" alt="графики"></figure></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Найди нули функции <i>y</i> = sin <i>x</i> на отрезке [−2π; 2π].</div><div class="task"><span class="task-no">№&nbsp;2</span>Сравни: а) sin 50° и sin 80°; б) cos 100° и cos 120°; в) sin 2 и sin 2,5.</div><div class="task"><span class="task-no">№&nbsp;3</span>Сравни: а) cos π/7 и cos π/8; б) sin(−π/5) и sin(−π/7).</div><div class="task"><span class="task-no">№&nbsp;4</span>Найди наибольшее и наименьшее значения <i>y</i> = cos <i>x</i> на отрезке [−π/3; π/2].</div><div class="task"><span class="task-no">№&nbsp;5</span>Найди наибольшее и наименьшее значения <i>y</i> = sin <i>x</i> на отрезке [π/4; π].</div><div class="task"><span class="task-no">№&nbsp;6</span>Найди область значений: а) <i>y</i> = 3 cos <i>x</i> − 2; б) <i>y</i> = 1 − sin <i>x</i>.</div><div class="task"><span class="task-no">№&nbsp;7</span>Возможно ли равенство cos α = 2 cos 59°?</div><div class="task"><span class="task-no">№&nbsp;8</span>Сколько корней имеет уравнение sin <i>x</i> = 1/2 на отрезке [0; 2π]?</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 21.1, 21.2</b> — Промежутки возрастания и убывания.</li><li><b>№ 21.3, 21.4</b> — Сравнение значений синуса и косинуса.</li><li><b>№ 21.5, 21.6</b> — Построение графиков с помощью преобразований.</li><li><b>№ 21.13</b> — Возможно ли равенство.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma21a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 21</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 21.2, 21.4, 21.6, 21.8 из учебника письменно. Построить в тетради синусоиду и косинусоиду на отрезке [−2π; 2π] (π = 6 клеток) и подписать нули, максимумы и минимумы.</p></div>
+<div class="pager"><a href="ma20.html">← Урок 20</a><a href="ma22.html">Урок 22 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

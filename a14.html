@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 14. Системы показательных уравнений и неравенств</title>
+<script>document.documentElement.dataset.page="a14";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 14 · переход к показателям, подстановка, новые переменные, умножение уравнений, системы с неравенствами">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 14</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 14</div>
+  <h1>Системы показательных уравнений и неравенств</h1>
+  <p class="lede">§ 14 · переход к показателям, подстановка, новые переменные, умножение уравнений, системы с неравенствами</p>
+  <div class="btns">
+    <a class="btn" href="sa14.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa14.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Система — это несколько уравнений (или неравенств), которые должны выполняться <b>одновременно</b>. Решение системы с двумя неизвестными — это <b>пара чисел</b> (<i>x</i>; <i>y</i>), которая обращает в верное равенство каждое уравнение. Например, пара (3; 2) — решение системы { <i>x</i> + <i>y</i> = 5; <i>x</i> − <i>y</i> = 1 }, а пара (2; 3) — нет: 2 − 3 ≠ 1. Порядок чисел в паре важен.</p>
+<p>В показательной системе неизвестные стоят в показателях. Новых идей почти нет: каждое уравнение решаем приёмами урока 12, а получившуюся обычную систему — подстановкой или сложением, как в 7–9 классах.</p>
+<h3>Способ 1. Каждое уравнение — к одному основанию</h3>
+<div class="ex"><span class="lbl">Пример 1</span><p>Реши систему { 2<sup><i>x</i> + <i>y</i></sup> = 32; &nbsp;3<sup><i>x</i> − <i>y</i></sup> = 3 }.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>32 = 2⁵, 3 = 3¹. По свойству из урока 12 (одно основание — равные показатели): <i>x</i> + <i>y</i> = 5, <i>x</i> − <i>y</i> = 1.</p><p>Складываем: 2<i>x</i> = 6, <i>x</i> = 3, тогда <i>y</i> = 2. Проверка: 2⁵ = 32 ✓, 3¹ = 3 ✓. Ответ: <b>(3; 2)</b>.</p></div></div>
+<p>Если в одном уравнении стоит произведение или частное степеней с одним основанием, сначала собираем их в одну степень: <i>a<sup>x</sup></i>·<i>a<sup>y</sup></i> = <i>a</i><sup><i>x</i> + <i>y</i></sup>, &nbsp;<i>a<sup>x</sup></i> : <i>a<sup>y</sup></i> = <i>a</i><sup><i>x</i> − <i>y</i></sup>.</p>
+<h3>Способ 2. Подстановка из линейного уравнения</h3>
+<div class="ex"><span class="lbl">Пример 2</span><p>Реши систему { <i>x</i> + <i>y</i> = 3; &nbsp;2<sup><i>x</i></sup> + 2<sup><i>y</i></sup> = 6 }.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Из первого <i>y</i> = 3 − <i>x</i>, тогда 2<sup><i>y</i></sup> = 2<sup>3 − <i>x</i></sup> = 8/2<sup><i>x</i></sup>. Получаем 2<sup><i>x</i></sup> + 8/2<sup><i>x</i></sup> = 6.</p><p>Пусть <i>t</i> = 2<sup><i>x</i></sup> &gt; 0: <i>t</i> + 8/<i>t</i> = 6, <i>t</i>² − 6<i>t</i> + 8 = 0, <i>t</i> = 2 или <i>t</i> = 4. Значит, <i>x</i> = 1 или <i>x</i> = 2, и <i>y</i> = 2 или <i>y</i> = 1 соответственно.</p><p>Ответ: <b>(1; 2), (2; 1)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Ответ системы — пары, а не отдельные числа. Запись «<i>x</i> = 1; 2, <i>y</i> = 2; 1» неверна: из неё непонятно, что пара (1; 1) не подходит. Каждое найденное <i>x</i> сразу подставляй и находи своё <i>y</i>.</p></div>
+<h3>Способ 3. Новые переменные</h3>
+<p>Если в обоих уравнениях повторяются одни и те же степени, например 2<sup><i>x</i></sup> и 3<sup><i>y</i></sup>, обозначаем <i>u</i> = 2<sup><i>x</i></sup>, <i>v</i> = 3<sup><i>y</i></sup>. Получается обычная алгебраическая система. Не забываем: <b><i>u</i> &gt; 0, <i>v</i> &gt; 0</b>.</p>
+<div class="ex"><span class="lbl">Пример 3</span><p>Реши систему { 2<sup><i>x</i></sup> + 3<sup><i>y</i></sup> = 7; &nbsp;4<sup><i>x</i></sup> − 9<sup><i>y</i></sup> = 7 }.</p><div class="ex-sol"><span class="ex-h">Решение</span><p><i>u</i> = 2<sup><i>x</i></sup>, <i>v</i> = 3<sup><i>y</i></sup>; 4<sup><i>x</i></sup> = <i>u</i>², 9<sup><i>y</i></sup> = <i>v</i>². Система: <i>u</i> + <i>v</i> = 7, <i>u</i>² − <i>v</i>² = 7.</p><p>Разность квадратов: (<i>u</i> − <i>v</i>)(<i>u</i> + <i>v</i>) = 7, значит, <i>u</i> − <i>v</i> = 1. Отсюда <i>u</i> = 4, <i>v</i> = 3 — оба положительны.</p><p>2<sup><i>x</i></sup> = 4 ⇒ <i>x</i> = 2; 3<sup><i>y</i></sup> = 3 ⇒ <i>y</i> = 1. Ответ: <b>(2; 1)</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Если после замены получилось, например, <i>u</i> = −2, это значение отбрасываем: 2<sup><i>x</i></sup> = −2 не имеет решений. Так в учебнике (задача 2) из двух решений вспомогательной системы остаётся одно.</p></div>
+<h3>Способ 4. Перемножить или разделить уравнения</h3>
+<p>Когда в уравнениях стоят произведения степеней с <b>разными</b> основаниями, помогает перемножить или разделить уравнения почленно. Это законно: правые части не равны нулю, и мы умножаем верное равенство на верное.</p>
+<div class="ex"><span class="lbl">Пример 4</span><p>Реши систему { 2<sup><i>x</i></sup>·3<sup><i>y</i></sup> = 12; &nbsp;2<sup><i>y</i></sup>·3<sup><i>x</i></sup> = 18 }.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Перемножим: 2<sup><i>x</i> + <i>y</i></sup>·3<sup><i>x</i> + <i>y</i></sup> = 216, то есть 6<sup><i>x</i> + <i>y</i></sup> = 6³, <i>x</i> + <i>y</i> = 3.</p><p>Разделим первое на второе: 2<sup><i>x</i> − <i>y</i></sup>·3<sup><i>y</i> − <i>x</i></sup> = 12/18, то есть (2/3)<sup><i>x</i> − <i>y</i></sup> = 2/3, <i>x</i> − <i>y</i> = 1.</p><p><i>x</i> = 2, <i>y</i> = 1. Проверка: 4·3 = 12 ✓, 2·9 = 18 ✓. Ответ: <b>(2; 1)</b>.</p></div></div>
+<h3>Системы с неравенствами</h3>
+<p>Если в систему входят неравенства, решаем каждое отдельно (урок 13) и берём <b>общую часть</b> — пересечение решений. Если там есть и уравнение, находим его корни и оставляем те, что удовлетворяют неравенству.</p>
+<div class="ex"><span class="lbl">Пример 5 · два неравенства</span><p>Реши систему { 2<sup><i>x</i></sup> &gt; 4; &nbsp;(1/3)<sup><i>x</i></sup> ≥ 1/27 }.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Первое: 2 &gt; 1, <i>x</i> &gt; 2. Второе: 1/27 = (1/3)³, основание меньше 1 — знак меняем: <i>x</i> ≤ 3.</p><p>Общая часть: 2 &lt; <i>x</i> ≤ 3. Ответ: <b>(2; 3]</b>.</p></div></div>
+<div class="figrow"><figure><img src="assets/fig/a14_line.png" alt="Решение системы — пересечение решений неравенств"><figcaption>Решение системы — пересечение решений неравенств</figcaption></figure></div>
+<div class="ex"><span class="lbl">Пример 6 · уравнение и неравенство</span><p>Реши систему { 2<sup><i>x</i></sup> &lt; 8; &nbsp;5<sup><i>x</i>² − 2<i>x</i></sup> = 125 }.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Неравенство: <i>x</i> &lt; 3. Уравнение: <i>x</i>² − 2<i>x</i> = 3, <i>x</i> = 3 или <i>x</i> = −1.</p><p><i>x</i> = 3 неравенству не удовлетворяет (3 &lt; 3 неверно). Ответ: <b><i>x</i> = −1</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Реши систему { 3<sup><i>x</i> + <i>y</i></sup> = 81; &nbsp;2<sup><i>x</i> − <i>y</i></sup> = 4 }.</div><div class="task"><span class="task-no">№&nbsp;2</span>Реши систему { <i>x</i> + <i>y</i> = 5; &nbsp;2<sup><i>x</i></sup>·4<sup><i>y</i></sup> = 128 }.</div><div class="task"><span class="task-no">№&nbsp;3</span>Реши систему { 5<sup><i>x</i></sup>·5<sup><i>y</i></sup> = 125; &nbsp;5<sup><i>x</i></sup> : 5<sup><i>y</i></sup> = 5 }.</div><div class="task"><span class="task-no">№&nbsp;4</span>Реши систему { <i>x</i> − <i>y</i> = 1; &nbsp;2<sup><i>x</i></sup> + 2<sup><i>y</i></sup> = 24 }.</div><div class="task"><span class="task-no">№&nbsp;5</span>Реши систему { 2<sup><i>x</i></sup> + 3<sup><i>y</i></sup> = 5; &nbsp;2<sup><i>x</i></sup> − 3<sup><i>y</i></sup> = −1 }.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши систему { 2<sup><i>x</i></sup> + 2<sup><i>y</i></sup> = 10; &nbsp;<i>x</i> + <i>y</i> = 4 }.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши систему { 2<sup><i>x</i></sup>·3<sup><i>y</i></sup> = 24; &nbsp;2<sup><i>y</i></sup>·3<sup><i>x</i></sup> = 54 }.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши систему неравенств { 3<sup><i>x</i></sup> ≥ 1/9; &nbsp;0,5<sup><i>x</i></sup> &gt; 0,25 }.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 240</b> — Линейное уравнение и показательное: подстановка.</li><li><b>№ 241</b> — Каждое уравнение — к одному основанию.</li><li><b>№ 242</b> — Новые переменные <i>u</i> = <i>a<sup>x</sup></i>, <i>v</i> = <i>b<sup>y</sup></i>.</li><li><b>№ 243</b> — Новые переменные, вынесение за скобки, разные основания.</li><li><b>№ 244, 245</b> — Системы с неравенствами.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a14a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 14</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 240 (1–3), 241, 242 из учебника письменно; № 244 (1) — по желанию. Ответ к каждой системе записать парами (<i>x</i>; <i>y</i>) и сделать проверку хотя бы одной пары.</p></div>
+<div class="pager"><a href="a13.html">← Урок 13</a><a href="algebra.html">Все уроки →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
