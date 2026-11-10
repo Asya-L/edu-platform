@@ -17,6 +17,7 @@
 </div></header>
 
 <style>
+.hwfiles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.hwfiles .hf{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--paper-2,#f1efe8);font-size:13px}.hwfiles .hf button{border:0;background:none;cursor:pointer;font-size:15px;line-height:1;padding:0 2px}.hwfiles a{font-weight:700}
 #jr .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px}
 #jr .grid>*{min-width:0}
 #jr .panel{background:var(--paper);border:1.5px solid var(--edge);border-radius:var(--r);padding:20px;box-shadow:var(--sh-sm)}
@@ -138,6 +139,7 @@
           <div><label for="lHw">Домашнее задание (ученик увидит после «Отправить ученику»)</label><textarea id="lHw" placeholder="№ 18, 23, 27; рабочий лист к уроку 2" style="min-height:52px"></textarea>
             <div class="sug" id="lHwSug" hidden></div></div>
           <div><label for="lQuiz">Тест самопроверки в ДЗ</label><select id="lQuiz"><option value="">без теста</option></select></div>
+          <div><label for="lFiles">Свои материалы к ДЗ: PDF, фото, Word (ученик скачает в «Домашке»)</label><input type="file" id="lFiles" multiple accept=".pdf,.doc,.docx,image/*"><div class="hwfiles" id="lFileList"></div></div>
           <div class="row">
             <div><label for="lHwStatus">ДЗ с прошлого урока</label><select id="lHwStatus"><option value="none">не задавалось</option><option value="set">задано</option>
               <option value="done">сделано</option><option value="part">сделано частично</option><option value="no">не сделано</option></select></div>
@@ -240,7 +242,7 @@ function hwBar(){
   acts.forEach(function(a){ var b = el('button', 'chipbtn', a[0]); b.type = 'button'; b.addEventListener('click', a[1]); bar.appendChild(b); });
 }
 function setHw(t){ $('lHw').value = t; lastAuto = t; sendBtn(); }
-function sendBtn(){ var has = !!($('lHw').value.trim() || $('lQuiz').value), l = editing && lessons.find(function(x){ return x.id === editing; });
+function sendBtn(){ var has = !!($('lHw').value.trim() || $('lQuiz').value || fKeep.length || fNew.length), l = editing && lessons.find(function(x){ return x.id === editing; });
   var sent = !!(l && l.hw_sent_at); $('lSend').hidden = !has || sent; $('lSendHint').hidden = !has || sent;
   $('lSave').textContent = editing ? 'Сохранить изменения' : (has ? 'Записать, ДЗ — черновик' : 'Записать занятие'); }
 $('lHw').addEventListener('input', sendBtn); $('lQuiz').addEventListener('change', sendBtn);
@@ -254,6 +256,27 @@ Object.keys(QUIZ).forEach(function(k){ var o = el('option', null, QUIZ[k]); o.va
 hwBar();
 function quizStat(lid){ var a = quizRes.filter(function(q){ return q.lesson_id === lid; }).sort(function(x, y){ return x.created_at < y.created_at ? -1 : 1; });
   if (!a.length) return null; var best = a.reduce(function(m, q){ return q.score > m.score ? q : m; }, a[0]); return {first: a[0], best: best, n: a.length}; }
+
+// ── свои файлы к ДЗ (хранилище edu-hw-files, путь «id занятия/…») ──
+var HWB = 'edu-hw-files', fKeep = [], fNew = [], fDrop = [], fUrls = {};
+function taskHw(l){ return !!(l.homework || (l.hw_files || []).length); }
+function hasHw(l){ return !!(l.homework || l.quiz || (l.hw_files || []).length); }
+function fmtSize(n){ return n > 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' МБ' : Math.max(1, Math.round(n / 1024)) + ' КБ'; }
+function fileList(){ var box = $('lFileList'); box.innerHTML = '';
+  fKeep.concat(fNew).forEach(function(x){ var isNew = x instanceof File, c = el('span', 'hf', '📎 ' + x.name + ' · ' + fmtSize(x.size)), b = el('button', null, '×'); b.type = 'button'; b.title = 'Убрать файл';
+    b.addEventListener('click', function(){ if (isNew) fNew.splice(fNew.indexOf(x), 1); else { fKeep.splice(fKeep.indexOf(x), 1); fDrop.push(x.path); } fileList(); sendBtn(); });
+    c.appendChild(b); box.appendChild(c); }); }
+$('lFiles').addEventListener('change', function(){ var big = 0; [].forEach.call(this.files, function(f){ if (f.size > 20971520) big++; else fNew.push(f); }); this.value = '';
+  if (big) toast('Файлы больше 20 МБ не прикрепить'); fileList(); sendBtn(); });
+function uid(){ return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){ var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); }); }
+async function uploadFiles(lid){ var out = [];
+  for (var i = 0; i < fNew.length; i++) { var f = fNew[i], ext = (f.name.match(/\.[A-Za-z0-9]{1,5}$/) || [''])[0].toLowerCase(), path = lid + '/' + Date.now() + '-' + i + ext;
+    var r = await sb.storage.from(HWB).upload(path, f, {contentType: f.type || 'application/octet-stream', upsert: false});
+    if (r.error) throw new Error('Файл «' + f.name + '» не загрузился'); out.push({path: path, name: f.name, size: f.size}); }
+  return out; }
+async function signFiles(list){ var need = [].concat.apply([], list.map(function(l){ return (l.hw_files || []).map(function(x){ return x.path; }); })).filter(function(p){ return !fUrls[p]; });
+  if (!need.length) return; var r = await sb.storage.from(HWB).createSignedUrls(need, 6 * 3600); (r.data || []).forEach(function(x){ if (x.signedUrl) fUrls[x.path] = x.signedUrl; }); }
+function filesEl(l){ var d = el('div', 'hwfiles'); (l.hw_files || []).forEach(function(x){ var a = el('a', 'hf', '📎 ' + x.name); a.href = fUrls[x.path] ? fUrls[x.path] + '&download=' + encodeURIComponent(x.name) : '#'; a.target = '_blank'; a.rel = 'noopener'; d.appendChild(a); }); return d; }
 
 async function load(){
   var r1 = await sb.from('edu_students').select('*').order('created_at');
@@ -269,6 +292,7 @@ async function load(){
   if (r1.error || r2.error) { $('status').innerHTML = '<p>Журнал не загрузился. Обновите страницу.</p>'; return; }
   students = r1.data; lessons = r2.data; progress = {}; (r3.data || []).forEach(function(p){ progress[p.student_id] = p.topics || {}; });
   profiles = (r4.data || []).filter(function(p){ return p.role === 'student'; }); quizRes = r5.data || []; boardsAll = r6.data || [];
+  await signFiles(lessons);
   if (!current || !students.some(function(s){ return s.id === current; })) { var sv = recall(); current = students.some(function(s){ return s.id === sv; }) ? sv : (students[0] && students[0].id); }
   render();
 }
@@ -424,46 +448,47 @@ function renderLog(mine){
     if (href) { var a = el('a', null, title); a.href = href; h.appendChild(a); } else h.textContent = title;
     mid.appendChild(h);
     if (l.homework) mid.appendChild(el('div', 'muted', 'ДЗ: ' + l.homework));
+    if ((l.hw_files || []).length) mid.appendChild(filesEl(l));
     if (l.quiz) { var qs = quizStat(l.id); mid.appendChild(el('div', 'muted', 'Тест в ДЗ: ' + (QUIZ[l.quiz] || l.quiz) + (qs ? '' : ' — ещё не пройден'))); }
     var chips = el('div'), hs = HW[l.hw_status] || HW.none; chips.appendChild(el('span', 'chip ' + hs[1], hs[0]));
-    if ((l.homework || l.quiz) && !l.hw_sent_at) chips.appendChild(el('span', 'chip c-no', 'ДЗ не отправлено'));
-    else if (l.homework || l.quiz) chips.appendChild(el('span', 'chip c-done', 'ДЗ отправлено ' + fmtTs(l.hw_sent_at)));
+    if (hasHw(l) && !l.hw_sent_at) chips.appendChild(el('span', 'chip c-no', 'ДЗ не отправлено'));
+    else if (hasHw(l)) chips.appendChild(el('span', 'chip c-done', 'ДЗ отправлено ' + fmtTs(l.hw_sent_at)));
     if (l.mark) chips.appendChild(el('span', 'chip c-mark', 'отметка ' + l.mark));
     var work = (l.photos || []).length || l.student_comment || l.hw_via, quizOnly = l.submitted_at && !work && l.quiz && quizStat(l.id);
     if (l.hw_via) chips.appendChild(el('span', 'chip c-kid', 'сдано ' + l.hw_via + ' ' + fmtTs(l.submitted_at) + ((l.photos || []).length ? ' · ' + l.photos.length + ' фото' : '')));
-    else if (quizOnly && l.homework) chips.appendChild(el('span', 'chip c-part', 'тест пройден · фото задач из тетради нет'));
+    else if (quizOnly && taskHw(l)) chips.appendChild(el('span', 'chip c-part', 'тест пройден · фото задач из тетради нет'));
     else if (quizOnly) chips.appendChild(el('span', 'chip c-kid', 'тест сдан ' + fmtTs(l.submitted_at)));
-    else if ((l.homework || l.quiz) && l.submitted_at) chips.appendChild(el('span', 'chip c-kid', 'сдано ' + fmtTs(l.submitted_at) + ((l.photos || []).length ? ' · ' + l.photos.length + ' фото' : ' · без фото')));
-    else if (l.homework && l.student_done) chips.appendChild(el('span', 'chip c-kid', 'ученик отметил: сделал ✓'));
+    else if (hasHw(l) && l.submitted_at) chips.appendChild(el('span', 'chip c-kid', 'сдано ' + fmtTs(l.submitted_at) + ((l.photos || []).length ? ' · ' + l.photos.length + ' фото' : ' · без фото')));
+    else if (taskHw(l) && l.student_done) chips.appendChild(el('span', 'chip c-kid', 'ученик отметил: сделал ✓'));
     if (l.hw_mark) chips.appendChild(el('span', 'chip c-mark', 'за ДЗ ' + l.hw_mark));
     if (l.quiz) { var qz = quizStat(l.id); if (qz) { var c1 = qz.first.score / qz.first.total;
       chips.appendChild(el('span', 'chip ' + (c1 >= .8 ? 'c-done' : c1 >= .5 ? 'c-part' : 'c-no'), 'тест ' + qz.first.score + ' из ' + qz.first.total + (qz.n > 1 ? ' · лучшая ' + qz.best.score + ' · попыток ' + qz.n : ''))); } }
     boardsAll.filter(function(b){ return b.lesson_id === l.id; }).forEach(function(b){ var a = el('a', 'chip c-set', 'доска: ' + b.title); a.href = 'board.html?b=' + b.id; chips.appendChild(a); });
     mid.appendChild(chips);
-    if (l.homework && ((l.photos || []).length || l.student_comment)) { var sb2 = el('div', 'sub');
+    if (taskHw(l) && ((l.photos || []).length || l.student_comment)) { var sb2 = el('div', 'sub');
       if (l.student_comment) { var sc = el('div', null, 'Ученик: ' + l.student_comment); sc.style.whiteSpace = 'pre-wrap'; sb2.appendChild(sc); }
       if ((l.photos || []).length) { var ph = el('div', 'ph'); l.photos.forEach(function(p){ var a = el('a'); a.setAttribute('data-path', p); a.target = '_blank'; a.rel = 'noopener';
         if (urls[p]) { a.href = urls[p]; a.innerHTML = '<img alt="" loading="lazy" src="' + K.esc(urls[p]) + '">'; } ph.appendChild(a); }); sb2.appendChild(ph); }
       else if (!l.student_comment) sb2.appendChild(el('span', 'muted', 'Сдано без фото.'));
       mid.appendChild(sb2); }
     if (l.feedback && !fbOpen[l.id]) { var fb = el('div', 'fb', 'Ваш ответ: ' + l.feedback); fb.style.whiteSpace = 'pre-wrap'; mid.appendChild(fb); }
-    if ((l.homework || l.quiz) && !l.hw_sent_at) { var sbx = el('button', 'primary', 'Отправить ДЗ ученику'); sbx.type = 'button'; sbx.style.marginTop = '8px';
+    if (hasHw(l) && !l.hw_sent_at) { var sbx = el('button', 'primary', 'Отправить ДЗ ученику'); sbx.type = 'button'; sbx.style.marginTop = '8px';
       sbx.addEventListener('click', function(){ sendHw(l, true, sbx); }); mid.appendChild(sbx); }
-    else if ((l.homework || l.quiz) && !l.submitted_at && !l.student_done) { var ub = el('button', 'ghost', 'Вернуть в черновик'); ub.type = 'button'; ub.style.cssText = 'margin:8px 0 0 0;font-size:13px';
+    else if (hasHw(l) && !l.submitted_at && !l.student_done) { var ub = el('button', 'ghost', 'Вернуть в черновик'); ub.type = 'button'; ub.style.cssText = 'margin:8px 0 0 0;font-size:13px';
       ub.title = 'Ученик перестанет видеть это задание, пока вы не отправите его снова'; ub.addEventListener('click', function(){ sendHw(l, false, ub); }); mid.appendChild(ub); }
-    if ((l.homework || l.quiz) && l.hw_sent_at) {   // ручная отметка сдачи: ученик прислал в мессенджере, показал на занятии
+    if (hasHw(l) && l.hw_sent_at) {   // ручная отметка сдачи: ученик прислал в мессенджере, показал на занятии
       if (viaOpen[l.id]) { var vf = el('form', 'fbform viaform'); vf.innerHTML = '<div class="r"><label style="font-weight:800;font-size:14px">Где сдано</label><select aria-label="Где сдано">' +
           '<option>в мессенджере</option><option>на занятии</option><option>по почте</option><option>в тетради</option></select>' +
           '<button class="primary" type="submit">Отметить сдачу</button><button type="button" class="ghost" data-x>Отмена</button></div>';
         vf.querySelector('[data-x]').addEventListener('click', function(){ delete viaOpen[l.id]; render(); });
         vf.addEventListener('submit', function(ev){ ev.preventDefault(); markVia(l, vf.querySelector('select').value, vf.querySelector('button.primary')); });
         mid.appendChild(vf); }
-      else if (!work && !(l.quiz && !l.homework && l.submitted_at)) { var mb = el('button', null, 'Отметить сдачу'); mb.type = 'button'; mb.style.cssText = 'margin:8px 8px 0 0';
+      else if (!work && !(l.quiz && !taskHw(l) && l.submitted_at)) { var mb = el('button', null, 'Отметить сдачу'); mb.type = 'button'; mb.style.cssText = 'margin:8px 8px 0 0';
         mb.title = 'Ученик сдал не через сайт — например, прислал фото в мессенджере'; mb.addEventListener('click', function(){ viaOpen[l.id] = true; render(); }); mid.appendChild(mb); }
       else if (l.hw_via && !(l.photos || []).length && !l.student_comment) { var ux = el('button', 'ghost', 'Снять отметку'); ux.type = 'button'; ux.style.cssText = 'margin:8px 8px 0 0;font-size:13px';
         ux.addEventListener('click', function(){ markVia(l, null, ux); }); mid.appendChild(ux); }
     }
-    if ((l.homework || l.quiz) && l.hw_sent_at) {
+    if (hasHw(l) && l.hw_sent_at) {
       if (fbOpen[l.id]) { var f = el('form', 'fbform'); f.innerHTML = '<textarea placeholder="Ответ ученику: что хорошо, где ошибка, что переделать" aria-label="Ответ ученику"></textarea>' +
           '<div class="r"><select aria-label="Отметка за ДЗ"><option value="">без отметки</option><option>5</option><option>4</option><option>3</option><option>2</option><option value="зачёт">зачёт</option><option value="переделать">переделать</option></select>' +
           '<button class="primary" type="submit">Отправить ученику</button><button type="button" class="ghost" data-x>Отмена</button></div>';
@@ -503,10 +528,10 @@ function cycle(key){
 }
 
 function resetForm(){ $('lForm').reset(); $('lDate').value = today(); $('lOtherBox').hidden = true; $('fTitle').textContent = 'Новое занятие';
-  $('fCancel').hidden = true; editing = null; lastAuto = ''; lastQuiz = ''; hwBar(); sendBtn(); }
+  $('fCancel').hidden = true; editing = null; lastAuto = ''; lastQuiz = ''; fKeep = []; fNew = []; fDrop = []; fileList(); hwBar(); sendBtn(); }
 function startEdit(l){ editing = l.id; $('fTitle').textContent = 'Правка занятия'; $('lSave').textContent = 'Сохранить изменения'; $('fCancel').hidden = false;
   $('lDate').value = l.date || today(); $('lTopic').value = l.topic || 'other'; $('lOtherBox').hidden = !!l.topic; $('lOther').value = l.topic_text || '';
-  $('lHw').value = l.homework || ''; $('lQuiz').value = l.quiz || ''; hwBar(); sendBtn(); $('lHwStatus').value = l.hw_status || 'none'; $('lMark').value = l.mark || ''; $('lNotes').value = l.notes || '';
+  $('lHw').value = l.homework || ''; $('lQuiz').value = l.quiz || ''; fKeep = (l.hw_files || []).slice(); fNew = []; fDrop = []; fileList(); hwBar(); sendBtn(); $('lHwStatus').value = l.hw_status || 'none'; $('lMark').value = l.mark || ''; $('lNotes').value = l.notes || '';
   $('lForm').scrollIntoView({behavior: 'smooth', block: 'start'}); }
 $('fCancel').addEventListener('click', resetForm);
 
@@ -515,10 +540,13 @@ $('lForm').addEventListener('submit', async function(ev){ ev.preventDefault(); i
   var data = {student_id: current, date: $('lDate').value, topic: topic === 'other' ? null : topic, topic_text: topic === 'other' ? $('lOther').value.trim() : null,
     homework: $('lHw').value.trim() || null, quiz: $('lQuiz').value || null, hw_status: $('lHwStatus').value, mark: $('lMark').value || null, notes: $('lNotes').value.trim() || null,
     updated_at: new Date().toISOString()};
-  if (send && (data.homework || data.quiz)) data.hw_sent_at = new Date().toISOString();
+  var lid = editing || uid(); if (!editing) data.id = lid;
   var b = $('lSave'); b.disabled = true;
+  try { data.hw_files = fKeep.concat(await uploadFiles(lid)); } catch (e) { b.disabled = false; toast(e.message); return; }
+  if (send && (data.homework || data.quiz || data.hw_files.length)) data.hw_sent_at = new Date().toISOString();
   var r = editing ? await sb.from('edu_lessons').update(data).eq('id', editing) : await sb.from('edu_lessons').insert(data).select().single();
   b.disabled = false; if (r.error) { fail(r.error); return; }
+  if (fDrop.length) await sb.storage.from(HWB).remove(fDrop);
   var linked = 0;
   if (!editing && r.data && r.data.id) {   // доски этого дня, ещё не привязанные к занятию, — к новой записи
     var rb = await sb.from('edu_boards').select('id,lesson_id,created_at,student_id').eq('student_id', current);   // свежий список: доску могли создать только что
@@ -526,7 +554,7 @@ $('lForm').addEventListener('submit', async function(ev){ ev.preventDefault(); i
     for (var i = 0; i < free.length; i++) { var u = await sb.from('edu_boards').update({lesson_id: r.data.id}).eq('id', free[i].id); if (!u.error) { free[i].lesson_id = r.data.id; linked++; } }
   }
   var wasSent = editing && (lessons.find(function(x){ return x.id === editing; }) || {}).hw_sent_at;
-  toast((editing ? 'Изменения сохранены' : 'Занятие записано') + (data.hw_sent_at ? ', ДЗ отправлено ученику' : (data.homework || data.quiz) && !wasSent ? ' · ДЗ пока черновик — ученик его не видит' : '')
+  toast((editing ? 'Изменения сохранены' : 'Занятие записано') + (data.hw_sent_at ? ', ДЗ отправлено ученику' : (data.homework || data.quiz || data.hw_files.length) && !wasSent ? ' · ДЗ пока черновик — ученик его не видит' : '')
     + (linked ? ' · доска занятия привязана' : ''));
   resetForm(); if (topic !== 'other' && !(progress[current] || {})[topic]) cycle(topic);
   setTimeout(load, 800); });
@@ -544,7 +572,8 @@ async function sendFeedback(l, text, mark, b){ b.disabled = true;
   if (l.submitted_at && (l.hw_status === 'none' || l.hw_status === 'set')) data.hw_status = mark === 'переделать' ? 'part' : 'done';
   var r = await sb.from('edu_lessons').update(data).eq('id', l.id); b.disabled = false; if (r.error) { fail(r.error); return; }
   Object.assign(l, data); delete fbOpen[l.id]; toast('Ответ отправлен — ученик увидит его в «Домашке»'); render(); }
-async function dropPhotos(list){ var ps = [].concat.apply([], list.map(function(l){ return l.photos || []; })); if (ps.length) await sb.storage.from('edu-hw').remove(ps); }
+async function dropPhotos(list){ var ps = [].concat.apply([], list.map(function(l){ return l.photos || []; })); if (ps.length) await sb.storage.from('edu-hw').remove(ps);
+  var fs = [].concat.apply([], list.map(function(l){ return (l.hw_files || []).map(function(x){ return x.path; }); })); if (fs.length) await sb.storage.from(HWB).remove(fs); }
 async function delLesson(id){ confirmId = null; await dropPhotos(lessons.filter(function(l){ return l.id === id; })); var r = await sb.from('edu_lessons').delete().eq('id', id); if (r.error) { fail(r.error); return; } toast('Запись удалена'); load(); }
 async function dropBoardImgs(sid){ var r = await sb.from('edu_boards').select('id,data').eq('student_id', sid);
   var ps = []; (r.data || []).forEach(function(b){ ((b.data && b.data.els) || []).forEach(function(e){ if (e.t === 'img' && String(e.src).indexOf('st:') === 0) ps.push(e.src.slice(3)); }); });

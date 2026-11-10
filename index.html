@@ -211,13 +211,18 @@ var HWS = {"g1": {"src": "Урок 1, слайд «Дома»", "text": "№ 5, 
 var K = window.KABINET, box = document.getElementById('hwBox'), FULL = box.getAttribute('data-full') === '1';
 var BUCKET = 'edu-hw', uid = null, items = [], urls = {}, edit = {}, busy = {};
 function fmtTs(t){ if (!t) return ''; var d = new Date(t); return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2); }
+function tasks(l){ return !!(l.homework || (l.hw_files || []).length); }
+var furls = {};
+function hwFiles(l){ var fs = l.hw_files || []; if (!fs.length) return '';
+  return '<div class="hw-sub"><div class="me-lbl">Материалы от учителя</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">' + fs.map(function(x){ var u = furls[x.path];
+    return '<a class="hw-btn soft" style="text-decoration:none;display:inline-block" target="_blank" rel="noopener" href="' + K.esc(u ? u + '&download=' + encodeURIComponent(x.name) : '#') + '">📎 ' + K.esc(x.name) + '</a>'; }).join('') + '</div></div>'; }
 function chip(l){
   if (l.feedback || l.hw_mark) return '<span class="hw-chip hw-c-ok">проверено' + (l.hw_mark ? ' · ' + K.esc(l.hw_mark) : '') + '</span>';
   var work = (l.photos || []).length || l.student_comment || l.hw_via;
   if (l.hw_via) return '<span class="hw-chip hw-c-sent">сдано ' + K.esc(l.hw_via) + '</span>';
-  if (l.submitted_at && l.homework && l.quiz_first && !work) return '<span class="hw-chip hw-c-todo">тест сдан · нужны фото задач</span>';
+  if (l.submitted_at && tasks(l) && l.quiz_first && !work) return '<span class="hw-chip hw-c-todo">тест сдан · нужны фото задач</span>';
   if (l.submitted_at) return '<span class="hw-chip hw-c-sent">сдано ' + fmtTs(l.submitted_at) + '</span>';
-  if (l.quiz && !l.quiz_first) return '<span class="hw-chip hw-c-todo">' + (l.homework ? 'не сдано · тест не пройден' : 'тест не пройден') + '</span>';
+  if (l.quiz && !l.quiz_first) return '<span class="hw-chip hw-c-todo">' + (tasks(l) ? 'не сдано · тест не пройден' : 'тест не пройден') + '</span>';
   return '<span class="hw-chip hw-c-todo">не сдано</span>';
 }
 function thumbs(paths, removable){
@@ -234,7 +239,7 @@ function card(l){
   var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
   var h = '<div class="hw-card" id="hw-' + l.id + '" data-id="' + l.id + '"><div class="hw-top"><b>' + fmtDate(l.date) +
     (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' + chip(l) + '</div>' +
-    (l.homework ? '<p class="hw-text">' + hwText(l.homework) + '</p>' : '');
+    (l.homework ? '<p class="hw-text">' + hwText(l.homework) + '</p>' : '') + hwFiles(l);
   if (l.quiz) {
     var qt = QUIZ[l.quiz] || 'Тест', qh = l.quiz + '.html?hw=' + l.id;
     h += '<div class="hw-sub"><div class="me-lbl">Тест в домашке</div><p style="margin:4px 0 8px;font-weight:700">' + K.esc(qt) + '</p>' +
@@ -246,7 +251,7 @@ function card(l){
   if (l.feedback || l.hw_mark) h += '<div class="hw-fb"><b>Учитель' + (l.hw_mark ? ' · отметка ' + K.esc(l.hw_mark) : '') + '</b>' +
     (l.feedback ? '<p style="margin:6px 0 0;white-space:pre-wrap">' + K.esc(l.feedback) + '</p>' : '') + '</div>';
   var e = edit[l.id];
-  if (!l.homework) {}
+  if (!tasks(l)) {}
   else if (e) {
     h += '<form class="hw-sub hw-form" data-form="' + l.id + '"><div class="me-lbl">Сдать работу</div>' +
       '<p class="hw-msg" style="margin:4px 0 0">Сфотографируй решение в тетради — можно несколько страниц (до 10 фото).</p>' +
@@ -293,7 +298,10 @@ async function load(){
   items = r.data; items.forEach(function(l){ l.photos = Array.isArray(l.photos) ? l.photos : []; if (!l.submitted_at && !edit[l.id]) startEdit(l); });
   if (!items.length) { if (FULL) { box.hidden = false; box.innerHTML = '<div class="note"><p>Пока нет домашних заданий. Они появятся здесь после урока.</p></div>'; } return; }
   box.hidden = false; render();
-  await sign([].concat.apply([], items.map(function(l){ return l.photos; }))); render();
+  await sign([].concat.apply([], items.map(function(l){ return l.photos; })));
+  var fneed = [].concat.apply([], items.map(function(l){ return (l.hw_files || []).map(function(x){ return x.path; }); }));
+  if (fneed.length) { var fr = await K.sb.storage.from('edu-hw-files').createSignedUrls(fneed, 6 * 3600); (fr.data || []).forEach(function(x){ if (x.signedUrl) furls[x.path] = x.signedUrl; }); }
+  render();
   if (location.hash && FULL) { var t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
 }
 box.addEventListener('click', function(ev){
