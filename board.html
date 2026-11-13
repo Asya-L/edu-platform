@@ -1289,6 +1289,6 @@ async function forStudentList(sid){ var r = await sb.from('edu_boards').select('
   var l = await sb.from('edu_lessons').select('id,date,topic,topic_text').eq('student_id', sid).order('date', {ascending: false}).limit(30); lessons = l.data || []; }
 })();
 </script>
-<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+<footer><div class="wrap"><span>Кабинет математики · алгебра, геометрия, подготовка к ЕГЭ</span><span>Материалы к нашим занятиям</span></div></footer>
 </body>
 </html>
