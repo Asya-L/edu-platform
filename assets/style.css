@@ -223,3 +223,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 }
 
 .nav a.acct{color:var(--ink-soft)}
+
+/* обозначение вектора: буквы со стрелкой сверху */
+.vec{display:inline-block;position:relative;padding-top:.34em;line-height:1}
+.vec::before{content:"";position:absolute;left:.04em;right:.12em;top:.14em;border-top:.075em solid currentColor}
+.vec::after{content:"";position:absolute;right:0;top:-.01em;border-top:.16em solid transparent;border-bottom:.16em solid transparent;border-left:.3em solid currentColor}
