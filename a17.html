@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 17. Десятичные и натуральные логарифмы</title>
+<script>document.documentElement.dataset.page="a17";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 17 · lg и ln, число e, формула перехода к новому основанию и её следствия, логарифмы на калькуляторе">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 17</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 17</div>
+  <h1>Десятичные и натуральные логарифмы</h1>
+  <p class="lede">§ 17 · lg и ln, число e, формула перехода к новому основанию и её следствия, логарифмы на калькуляторе</p>
+  <div class="btns">
+    <a class="btn" href="sa17.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa17.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Основание логарифма может быть любым допустимым числом, но два основания встречаются так часто, что для них есть короткие обозначения и отдельные кнопки на калькуляторе: <b>10</b> и число <b><i>e</i></b>.</p>
+<h3>Десятичный логарифм</h3>
+<div class="def"><span class="lbl">Определение</span><p><b>Десятичный логарифм</b> — логарифм по основанию 10. Обозначение: lg <i>b</i> = log<sub>10</sub> <i>b</i>.</p></div>
+<div class="ex"><span class="lbl">Пример 1</span><p>Вычисли: а) lg 1000; б) lg 0,01; в) lg 1; г) lg √10.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 10³ = 1000 ⇒ <b>3</b>. &nbsp;б) 0,01 = 10<sup>−2</sup> ⇒ <b>−2</b>. &nbsp;в) 10<sup>0</sup> = 1 ⇒ <b>0</b>. &nbsp;г) √10 = 10<sup>1/2</sup> ⇒ <b>1/2</b>.</p></div></div>
+<p>Десятичный логарифм удобен тем, что он «считает цифры». Если число <i>b</i> записывается <i>n</i> цифрами до запятой, то 10<sup><i>n</i> − 1</sup> ≤ <i>b</i> &lt; 10<sup><i>n</i></sup>, и потому <i>n</i> − 1 ≤ lg <i>b</i> &lt; <i>n</i>. Например, в числе 350 три цифры, значит, 2 ≤ lg 350 &lt; 3 (на калькуляторе lg 350 ≈ 2,544).</p>
+<div class="figrow"><figure><img src="assets/fig/a17_scale.png" alt="Логарифмическая шкала: каждый шаг вправо — умножение на 10"><figcaption>Логарифмическая шкала: каждый шаг вправо — умножение на 10</figcaption></figure></div>
+<h3>Число e и натуральный логарифм</h3>
+<p>Посмотрим, что происходит с выражением (1 + 1/<i>n</i>)<sup><i>n</i></sup>, когда <i>n</i> растёт. Это, например, сумма вклада в 1 рубль под 100 % годовых, если банк начисляет проценты <i>n</i> раз в год.</p>
+<div class="tablewrap"><table><thead><tr><th><i>n</i></th><th>1</th><th>10</th><th>100</th><th>1000</th><th>1 000 000</th></tr></thead><tbody><tr><td>(1 + 1/<i>n</i>)<sup><i>n</i></sup></td><td>2</td><td>≈ 2,594</td><td>≈ 2,705</td><td>≈ 2,717</td><td>≈ 2,718</td></tr></tbody></table></div>
+<div class="figrow"><figure><img src="assets/fig/a17_e.png" alt="Значения (1 + 1/n)ⁿ растут и приближаются к числу e"><figcaption>Значения (1 + 1/n)ⁿ растут и приближаются к числу e</figcaption></figure></div>
+<p>Значения растут, но не бесконечно: они приближаются к числу, которое обозначают буквой <b><i>e</i></b>. <i>e</i> ≈ 2,718 — иррациональное число, как π. Оно постоянно встречается в физике, биологии, экономике — везде, где что-то растёт или убывает «пропорционально самому себе».</p>
+<div class="def"><span class="lbl">Определение</span><p><b>Натуральный логарифм</b> — логарифм по основанию <i>e</i>. Обозначение: ln <i>b</i> = log<sub><i>e</i></sub> <i>b</i>.</p></div>
+<div class="ex"><span class="lbl">Пример 2</span><p>Вычисли: а) ln <i>e</i>; б) ln 1; в) ln <i>e</i>⁵; г) <i>e</i><sup>ln 3</sup>; д) ln (1/√<i>e</i>).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <b>1</b>; б) <b>0</b>; в) <b>5</b>; г) по основному тождеству <b>3</b>; д) 1/√<i>e</i> = <i>e</i><sup>−1/2</sup> ⇒ <b>−1/2</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>ln — это <b>не</b> логарифм по основанию 10, а lg — <b>не</b> по основанию <i>e</i>. Запомнить помогает: lg — «десятичный», ln — «натуральный» (<i>n</i> — <i>natural</i>). И ещё: ln <i>e</i>⁵ = 5, а не 5<i>e</i>.</p></div>
+<h3>Формула перехода к новому основанию</h3>
+<p>На калькуляторе есть только lg и ln. Как найти, например, log<sub>2</sub> 7? Нужно уметь переписать логарифм через логарифмы с другим основанием.</p>
+<div class="thm"><span class="lbl">Формула перехода</span><p>Если <i>a</i>, <i>b</i>, <i>c</i> положительны, <i>a</i> ≠ 1, <i>c</i> ≠ 1, то &nbsp;log<sub><i>a</i></sub> <i>b</i> = log<sub><i>c</i></sub> <i>b</i> / log<sub><i>c</i></sub> <i>a</i>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>По основному тождеству <i>b</i> = <i>a</i><sup>log<sub><i>a</i></sub> <i>b</i></sup>. Возьмём логарифм по основанию <i>c</i> от обеих частей и применим свойство логарифма степени (урок 16): log<sub><i>c</i></sub> <i>b</i> = log<sub><i>a</i></sub> <i>b</i>·log<sub><i>c</i></sub> <i>a</i>. Делим на log<sub><i>c</i></sub> <i>a</i> ≠ 0 (он не равен нулю, потому что <i>a</i> ≠ 1).</p></div>
+<div class="ex"><span class="lbl">Пример 3 · калькулятор</span><p>Найди log<sub>2</sub> 7 с точностью до сотых.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>log<sub>2</sub> 7 = lg 7 / lg 2 ≈ 0,8451 / 0,3010 ≈ 2,807. Ответ: <b>≈ 2,81</b>.</p><p>Проверка на правдоподобие: 2² = 4 &lt; 7 &lt; 8 = 2³ — логарифм между 2 и 3 ✓. С ln получится то же: ln 7 / ln 2 ≈ 1,9459 / 0,6931 ≈ 2,807.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · без калькулятора</span><p>Вычисли log<sub>8</sub> 32.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>8 и 32 — степени двойки, переходим к основанию 2: log<sub>8</sub> 32 = log<sub>2</sub> 32 / log<sub>2</sub> 8 = 5/3.</p><p>Ответ: <b>5/3</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Не путай формулу перехода с логарифмом частного: log<sub><i>c</i></sub> <i>b</i> / log<sub><i>c</i></sub> <i>a</i> — это <b>частное логарифмов</b>, а не log<sub><i>c</i></sub> (<i>b</i>/<i>a</i>). И следи, что где: «<b>число — наверху, основание — внизу</b>»: log<sub>2</sub> 7 = lg 7 / lg 2, а не lg 2 / lg 7.</p></div>
+<h3>Следствия формулы перехода</h3>
+<ul><li>log<sub><i>a</i></sub> <i>b</i> = 1 / log<sub><i>b</i></sub> <i>a</i> &nbsp;(<i>b</i> ≠ 1) — поменять местами число и основание; отсюда log<sub><i>a</i></sub> <i>b</i>·log<sub><i>b</i></sub> <i>a</i> = 1;</li><li>log<sub><i>a</i><sup><i>k</i></sup></sub> <i>b</i> = (1/<i>k</i>)·log<sub><i>a</i></sub> <i>b</i> &nbsp;(<i>k</i> ≠ 0) — показатель основания выносится как 1/<i>k</i>;</li><li>log<sub><i>a</i></sub> <i>b</i>·log<sub><i>b</i></sub> <i>c</i> = log<sub><i>a</i></sub> <i>c</i> — «цепочка» логарифмов.</li></ul>
+<p>Все три получаются, если переписать каждый логарифм как частное lg / lg. Например, log<sub><i>a</i></sub> <i>b</i>·log<sub><i>b</i></sub> <i>c</i> = (lg <i>b</i>/lg <i>a</i>)·(lg <i>c</i>/lg <i>b</i>) = lg <i>c</i>/lg <i>a</i> = log<sub><i>a</i></sub> <i>c</i>.</p>
+<div class="ex"><span class="lbl">Пример 5</span><p>Вычисли: а) log<sub>3</sub> 5·log<sub>5</sub> 9; б) 1/log<sub>2</sub> 6 + 1/log<sub>3</sub> 6; в) log<sub>√3</sub> 9.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Цепочка: log<sub>3</sub> 9 = <b>2</b>.</p><p>б) 1/log<sub>2</sub> 6 = log<sub>6</sub> 2, 1/log<sub>3</sub> 6 = log<sub>6</sub> 3. Сумма: log<sub>6</sub> (2·3) = <b>1</b>.</p><p>в) √3 = 3<sup>1/2</sup>, поэтому log<sub>√3</sub> 9 = 2·log<sub>3</sub> 9 = <b>4</b>.</p></div></div>
+<h3>Показательные уравнения — до конца</h3>
+<div class="ex"><span class="lbl">Пример 6</span><p>Реши уравнение 3<sup><i>x</i></sup> = 20. Ответ найди с точностью до сотых.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Точный ответ: <i>x</i> = log<sub>3</sub> 20. Приближённо: lg 20 / lg 3 ≈ 1,3010 / 0,4771 ≈ 2,727.</p><p>Ответ: <b><i>x</i> = log<sub>3</sub> 20 ≈ 2,73</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 7 · по известным lg 2 и lg 3</span><p>Известно, что lg 2 ≈ 0,301, lg 3 ≈ 0,477. Найди приближённо lg 6, lg 5 и lg 72.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>lg 6 = lg 2 + lg 3 ≈ <b>0,778</b>. &nbsp;lg 5 = lg (10/2) = 1 − lg 2 ≈ <b>0,699</b>.</p><p>72 = 2³·3², поэтому lg 72 = 3lg 2 + 2lg 3 ≈ 0,903 + 0,954 = <b>1,857</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли lg 10 000 − lg 0,001.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли ln (<i>e</i>²·√<i>e</i>).</div><div class="task"><span class="task-no">№&nbsp;3</span>Вычисли log<sub>8</sub> 16.</div><div class="task"><span class="task-no">№&nbsp;4</span>Вычисли log<sub>2</sub> 5·log<sub>5</sub> 32.</div><div class="task"><span class="task-no">№&nbsp;5</span>Вычисли 1/log<sub>3</sub> 12 + 1/log<sub>4</sub> 12.</div><div class="task"><span class="task-no">№&nbsp;6</span>Вычисли log<sub>√2</sub> 8.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнение 2<sup><i>x</i></sup> = 7. Ответ найди с точностью до сотых.</div><div class="task"><span class="task-no">№&nbsp;8</span>Известно, что lg 2 ≈ 0,301, lg 3 ≈ 0,477. Найди приближённо lg 18.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 293, 294</b> — Вычислить десятичные логарифмы степеней 10.</li><li><b>№ 295, 296</b> — Натуральный логарифм, число <i>e</i>.</li><li><b>№ 297–299</b> — Вычислить с помощью калькулятора.</li><li><b>№ 300–303</b> — Формула перехода: вычислить без калькулятора.</li><li><b>№ 304, 305</b> — Решить показательное уравнение, ответ через lg или ln.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a17a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 17</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 294, 300, 302 из учебника письменно; № 297 — с калькулятором. Дополнительно: реши уравнение 7<sup><i>x</i></sup> = 30 и найди ответ с точностью до сотых.</p></div>
+<div class="pager"><a href="a16.html">← Урок 16</a><a href="algebra.html">Все уроки →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

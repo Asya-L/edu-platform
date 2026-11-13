@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 25. Формулы приведения</title>
+<script>document.documentElement.dataset.page="ma25";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 25 · функции углов π/2 ± α, π ± α, 3π/2 ± α, 2π − α: вывод из формул сложения, мнемоническое правило, приведение к острому углу">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 25</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 25</div>
+  <h1>Формулы приведения</h1>
+  <p class="lede">§ 25 · функции углов π/2 ± α, π ± α, 3π/2 ± α, 2π − α: вывод из формул сложения, мнемоническое правило, приведение к острому углу</p>
+  <div class="btns">
+    <a class="btn" href="sma25.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma25.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Как найти sin 240° или cos(11π/6)? Периодичность (§ 21) позволяет отбросить целые обороты и получить угол из [0; 2π). Формулы приведения делают следующий шаг: сводят тригонометрическую функцию <b>любого</b> угла к функции <b>острого</b> угла, значения которой мы знаем или можем найти по таблице.</p>
+<h3>Вывод из формул сложения</h3>
+<p>Рассмотрим аргументы вида π/2 ± α, π ± α, 3π/2 ± α, 2π − α. Значения sin, cos в «опорных» точках π/2, π, 3π/2 — это 0 и ±1, поэтому формулы сложения (§ 24) сильно упрощаются. Например:</p>
+<ul><li>sin(π − α) = sin π cos α − cos π sin α = 0 · cos α − (−1) · sin α = <b>sin α</b>;</li><li>cos(π + α) = cos π cos α − sin π sin α = <b>−cos α</b>;</li><li>sin(3π/2 + α) = sin(3π/2) cos α + cos(3π/2) sin α = <b>−cos α</b>;</li><li>cos(π/2 + α) = cos(π/2) cos α − sin(π/2) sin α = <b>−sin α</b>.</li></ul>
+<p>Для тангенса и котангенса делим синус на косинус: tg(π/2 + α) = sin(π/2 + α)/cos(π/2 + α) = cos α/(−sin α) = <b>−ctg α</b>. А tg(π + α) = tg α просто потому, что π — период тангенса.</p>
+<p>Те же формулы видны и на окружности: точки поворота на α и π − α симметричны относительно оси <i>Oy</i>, на α и π + α — относительно начала координат, на α и −α — относительно оси <i>Ox</i>, а на α и π/2 − α — относительно прямой <i>y</i> = <i>x</i> (абсцисса и ордината меняются местами).</p>
+<div class="figrow"><figure><img src="assets/fig/mal25_sym.png" alt="α, π − α, π + α, −α: симметрии точек"><figcaption>α, π − α, π + α, −α: симметрии точек</figcaption></figure><figure><img src="assets/fig/mal25_half.png" alt="π/2 − α: координаты меняются местами"><figcaption>π/2 − α: координаты меняются местами</figcaption></figure></div>
+<h3>Таблица формул приведения</h3>
+<div class="tablewrap"><table><thead><tr><th>Аргумент</th><th>sin</th><th>cos</th><th>tg</th><th>ctg</th></tr></thead><tbody><tr><td>π/2 − α</td><td>cos α</td><td>sin α</td><td>ctg α</td><td>tg α</td></tr><tr><td>π/2 + α</td><td>cos α</td><td>−sin α</td><td>−ctg α</td><td>−tg α</td></tr><tr><td>π − α</td><td>sin α</td><td>−cos α</td><td>−tg α</td><td>−ctg α</td></tr><tr><td>π + α</td><td>−sin α</td><td>−cos α</td><td>tg α</td><td>ctg α</td></tr><tr><td>3π/2 − α</td><td>−cos α</td><td>−sin α</td><td>ctg α</td><td>tg α</td></tr><tr><td>3π/2 + α</td><td>−cos α</td><td>sin α</td><td>−ctg α</td><td>−tg α</td></tr><tr><td>2π − α</td><td>−sin α</td><td>cos α</td><td>−tg α</td><td>−ctg α</td></tr></tbody></table></div>
+<p>Каждая формула верна при всех α, при которых определены обе её части. Учить таблицу наизусть не нужно — её заменяет правило.</p>
+<h3>Мнемоническое правило</h3>
+<ol class="steps"><li><b>Меняется ли функция?</b> Если в аргументе π/2 или 3π/2 (точки на оси <i>Oy</i>, «киваем головой вверх-вниз: да») — функция меняется на «кофункцию»: sin ↔ cos, tg ↔ ctg. Если π или 2π (точки на оси <i>Ox</i>, «качаем головой: нет») — функция остаётся той же.</li><li><b>Какой знак?</b> Считаем α острым углом, определяем четверть исходного аргумента и ставим тот знак, который имеет <b>исходная</b> функция в этой четверти.</li></ol>
+<p>Пример: cos(3π/2 − α). В аргументе 3π/2 — косинус меняется на синус. При остром α угол 3π/2 − α лежит в III четверти, косинус там отрицателен. Итого cos(3π/2 − α) = −sin α. Сверься с таблицей!</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Знак определяют по <b>исходной</b> функции, а не по новой. sin(3π/2 + α): угол в IV четверти, <i>синус</i> там отрицателен — получаем −cos α, хотя косинус в IV четверти положителен.</p></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Правило выведено для формул и годится при любом α, но знак ищем, <b>мысленно</b> считая α острым. Не надо подставлять конкретное значение α из условия: cos(π + α) = −cos α и при α = 100°.</p></div>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · вывести формулу</span><p>Докажи по формулам сложения: а) cos(3π/2 − α) = −sin α; б) ctg(π − α) = −ctg α.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) cos(3π/2 − α) = cos(3π/2) cos α + sin(3π/2) sin α = 0 · cos α + (−1) · sin α = <b>−sin α</b>.</p><p>б) sin(π − α) = sin α, cos(π − α) = cos π cos α + sin π sin α = −cos α; ctg(π − α) = (−cos α)/sin α = <b>−ctg α</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · вычислить</span><p>Вычисли: а) sin 210°; б) cos(−7π/6); в) tg 300°; г) sin(11π/3).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) sin(180° + 30°) = −sin 30° = <b>−1/2</b>.</p><p>б) Косинус чётный: cos(7π/6) = cos(π + π/6) = −cos(π/6) = <b>−√3/2</b>.</p><p>в) tg(360° − 60°) = −tg 60° = <b>−√3</b>.</p><p>г) 11π/3 = 4π − π/3, период 2π: sin(−π/3) = <b>−√3/2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · упростить</span><p>Упрости (sin(π − α) · cos(π/2 + α))/(tg(π + α) · ctg(3π/2 − α)).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>sin(π − α) = sin α; cos(π/2 + α) = −sin α; tg(π + α) = tg α; ctg(3π/2 − α) = tg α.</p><p>Получаем −sin²α/tg²α = −sin²α · cos²α/sin²α = <b>−cos²α</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · дополнительные углы</span><p>Вычисли cos²(π/8) + cos²(3π/8).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>3π/8 = π/2 − π/8, поэтому cos(3π/8) = sin(π/8). Сумма равна cos²(π/8) + sin²(π/8) = <b>1</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · углы треугольника</span><p>A, B, C — углы треугольника. Докажи, что sin(A + B) = sin C и cos((A + B)/2) = sin(C/2).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>A + B = π − C, поэтому sin(A + B) = sin(π − C) = <b>sin C</b>.</p><p>(A + B)/2 = π/2 − C/2, поэтому cos((A + B)/2) = cos(π/2 − C/2) = <b>sin(C/2)</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 6 · длинное произведение</span><p>Вычисли tg 1° · tg 2° · tg 3° · … · tg 89°.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>tg(90° − α) = ctg α, поэтому tg 89° = ctg 1°, tg 88° = ctg 2°, …, tg 46° = ctg 44°. Разобьём множители на пары tg <i>k</i>° · tg(90° − <i>k</i>)° = tg <i>k</i>° · ctg <i>k</i>° = 1, <i>k</i> = 1, …, 44, и останется tg 45° = 1. Ответ: <b>1</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) cos 150°; б) sin 300°; в) tg 240°; г) ctg 135°.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли: а) sin(7π/6); б) cos(5π/3); в) tg(−5π/4); г) cos(−17π/6).</div><div class="task"><span class="task-no">№&nbsp;3</span>Приведи к функции угла от 0° до 45°: а) sin 160°; б) cos 290°; в) tg 205°; г) cos 125°.</div><div class="task"><span class="task-no">№&nbsp;4</span>Упрости: а) sin(π/2 + α) + cos(π + α); б) tg(3π/2 − α) · tg(π − α).</div><div class="task"><span class="task-no">№&nbsp;5</span>Упрости (cos(π − α) + sin(3π/2 + α))/sin(π/2 − α).</div><div class="task"><span class="task-no">№&nbsp;6</span>Вычисли sin²(π/7) + sin²(5π/14).</div><div class="task"><span class="task-no">№&nbsp;7</span>A, B, C — углы треугольника. Докажи, что cos(A + B) = −cos C и tg((A + C)/2) = ctg(B/2).</div><div class="task"><span class="task-no">№&nbsp;8</span>Вычисли tg 10° · tg 20° · tg 70° · tg 80°.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 25.1, 25.2</b> — Вычисление значений с помощью формул приведения.</li><li><b>№ 25.3, 25.4</b> — Приведение к функции острого угла.</li><li><b>№ 25.7, 25.8</b> — Упрощение выражений.</li><li><b>№ 25.12</b> — Доказательство тождеств, углы треугольника.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma25a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 25</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 25.2, 25.4, 25.8, 25.12 из учебника письменно. Заполнить в тетради таблицу формул приведения с помощью правила и проверить три строки по формулам сложения.</p></div>
+<div class="pager"><a href="ma24.html">← Урок 24</a><a href="algebra-m.html">Все уроки →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

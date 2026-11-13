@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 15. Логарифмы</title>
+<script>document.documentElement.dataset.page="a15";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 15 · определение логарифма, основное логарифмическое тождество, вычисления, уравнения loga x = b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 15</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 15</div>
+  <h1>Логарифмы</h1>
+  <p class="lede">§ 15 · определение логарифма, основное логарифмическое тождество, вычисления, уравнения log<sub>a</sub> x = b</p>
+  <div class="btns">
+    <a class="btn" href="sa15.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa15.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Уравнение 2<sup><i>x</i></sup> = 8 решается в уме: <i>x</i> = 3. А как решить 2<sup><i>x</i></sup> = 5? Подбором не выйдет: 2² = 4 &lt; 5 &lt; 8 = 2³, значит, корень лежит между 2 и 3. Корень точно есть и он один — из урока 11 мы знаем, что показательная функция принимает каждое положительное значение ровно один раз. Но записать его обычной дробью нельзя. Чтобы у такого числа было имя, придумали новое обозначение — <b>логарифм</b>: <i>x</i> = log<sub>2</sub> 5.</p>
+<div class="figrow"><figure><img src="assets/fig/a15_def.png" alt="Логарифм — абсцисса точки графика y = 2ˣ на нужной высоте"><figcaption>Логарифм — абсцисса точки графика y = 2ˣ на нужной высоте</figcaption></figure></div>
+<div class="def"><span class="lbl">Определение</span><p><b>Логарифмом</b> положительного числа <i>b</i> по основанию <i>a</i>, где <i>a</i> &gt; 0 и <i>a</i> ≠ 1, называется показатель степени, в которую нужно возвести <i>a</i>, чтобы получить <i>b</i>. Обозначение: log<sub><i>a</i></sub> <i>b</i>.</p><p>Коротко: &nbsp;log<sub><i>a</i></sub> <i>b</i> = <i>c</i> &nbsp;⇔&nbsp; <i>a<sup>c</sup></i> = <i>b</i>.</p></div>
+<p>Читаем: «логарифм <i>b</i> по основанию <i>a</i>». Вычислить логарифм — значит ответить на один вопрос: <b>«в какую степень нужно возвести основание, чтобы получилось число?»</b></p>
+<div class="ex"><span class="lbl">Пример 1</span><p>Вычисли: а) log<sub>2</sub> 8; б) log<sub>3</sub> (1/9); в) log<sub>5</sub> 1; г) log<sub>7</sub> 7.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 2³ = 8, значит, log<sub>2</sub> 8 = <b>3</b>.</p><p>б) 1/9 = 1/3² = 3<sup>−2</sup>, значит, log<sub>3</sub> (1/9) = <b>−2</b>.</p><p>в) 5<sup>0</sup> = 1, значит, log<sub>5</sub> 1 = <b>0</b>. &nbsp;г) 7<sup>1</sup> = 7, значит, log<sub>7</sub> 7 = <b>1</b>.</p></div></div>
+<p>Из пунктов в) и г): при любом допустимом основании log<sub><i>a</i></sub> 1 = 0 и log<sub><i>a</i></sub> <i>a</i> = 1. Эти два равенства стоит помнить наизусть.</p>
+<div class="ex"><span class="lbl">Пример 2 · дробный ответ</span><p>Вычисли: а) log<sub>4</sub> 2; б) log<sub>27</sub> 9.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) 4<sup>1/2</sup> = √4 = 2, значит, log<sub>4</sub> 2 = <b>1/2</b>.</p><p>б) Сразу не видно. Обозначим log<sub>27</sub> 9 = <i>c</i>, тогда 27<sup><i>c</i></sup> = 9. Приводим к одному основанию, как в уроке 12: 3<sup>3<i>c</i></sup> = 3², 3<i>c</i> = 2, <i>c</i> = <b>2/3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · основание меньше 1</span><p>Вычисли log<sub>1/2</sub> 4.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>(1/2)<sup><i>c</i></sup> = 4, то есть 2<sup>−<i>c</i></sup> = 2², −<i>c</i> = 2. Ответ: <b>−2</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Логарифм — это <b>показатель степени</b>, а не частное и не произведение: log<sub>2</sub> 8 = 3, а не 8 : 2 = 4. И не путай знак: log<sub>3</sub> (1/9) = −2, потому что 3<sup>−2</sup> = 1/9; ответ «1/2» или «−9» — ошибка.</p></div>
+<h3>Когда логарифм существует</h3>
+<p><b>Число под логарифмом должно быть положительным.</b> Степень <i>a<sup>c</sup></i> при <i>a</i> &gt; 0 всегда положительна, поэтому в степень, равную −4 или 0, основание не возвести. log<sub>2</sub> (−4) и log<sub>2</sub> 0 не существуют.</p>
+<p><b>Основание положительно и не равно 1.</b> 1 в любой степени равно 1: log<sub>1</sub> 5 не существует, а «log<sub>1</sub> 1» было бы равно любому числу. Отрицательные основания не рассматривают — так же, как в показательной функции.</p>
+<div class="tablewrap"><table><thead><tr><th>Запись</th><th>Есть ли значение</th><th>Почему</th></tr></thead><tbody><tr><td>log<sub>2</sub> (−4)</td><td>нет</td><td>2<sup><i>c</i></sup> &gt; 0 при любом <i>c</i></td></tr><tr><td>log<sub>3</sub> 0</td><td>нет</td><td>3<sup><i>c</i></sup> ≠ 0</td></tr><tr><td>log<sub>1</sub> 5</td><td>нет</td><td>1<sup><i>c</i></sup> = 1 ≠ 5</td></tr><tr><td>log<sub>1/3</sub> 9</td><td>да, −2</td><td>(1/3)<sup>−2</sup> = 9</td></tr><tr><td>log<sub>5</sub> (1/5)</td><td>да, −1</td><td>5<sup>−1</sup> = 1/5</td></tr></tbody></table></div>
+<h3>Основное логарифмическое тождество</h3>
+<div class="thm"><span class="lbl">Тождество</span><p>Если <i>a</i> &gt; 0, <i>a</i> ≠ 1, <i>b</i> &gt; 0, то &nbsp;<i>a</i><sup>log<sub><i>a</i></sub> <i>b</i></sup> = <i>b</i>.</p></div>
+<p><b>Почему.</b> log<sub><i>a</i></sub> <i>b</i> — это ровно тот показатель, в который надо возвести <i>a</i>, чтобы получить <i>b</i>. Возводим <i>a</i> в этот показатель — получаем <i>b</i>. Верно и «обратное»: log<sub><i>a</i></sub> <i>a<sup>c</sup></i> = <i>c</i> при любом <i>c</i>.</p>
+<div class="ex"><span class="lbl">Пример 4</span><p>Вычисли: а) 3<sup>log<sub>3</sub> 7</sup>; б) 2<sup>3 + log<sub>2</sub> 5</sup>; в) 5<sup>2log<sub>5</sub> 3</sup>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) По тождеству: <b>7</b>.</p><p>б) Сумма в показателе — это произведение степеней: 2<sup>3 + log<sub>2</sub> 5</sup> = 2³·2<sup>log<sub>2</sub> 5</sup> = 8·5 = <b>40</b>.</p><p>в) Степень степени: 5<sup>2log<sub>5</sub> 3</sup> = (5<sup>log<sub>5</sub> 3</sup>)² = 3² = <b>9</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Ошибка: «2<sup>3 + log<sub>2</sub> 5</sup> = 3 + 5 = 8». Тождество работает, только когда в показателе стоит <b>один</b> логарифм с тем же основанием. Сначала разложи степень: <i>a</i><sup><i>m</i> + <i>n</i></sup> = <i>a<sup>m</sup></i>·<i>a<sup>n</sup></i>, <i>a</i><sup><i>mn</i></sup> = (<i>a<sup>n</sup></i>)<sup><i>m</i></sup>.</p></div>
+<h3>Простейшие логарифмические уравнения</h3>
+<p>Уравнение log<sub><i>a</i></sub> <i>x</i> = <i>b</i> по определению означает <i>x</i> = <i>a<sup>b</sup></i>. Так же, если под логарифмом выражение: log<sub><i>a</i></sub> <i>f</i>(<i>x</i>) = <i>b</i> ⇔ <i>f</i>(<i>x</i>) = <i>a<sup>b</sup></i>. Число <i>a<sup>b</sup></i> положительно, поэтому условие «под логарифмом положительное число» выполнится само.</p>
+<div class="ex"><span class="lbl">Пример 5</span><p>Реши уравнения: а) log<sub>3</sub> <i>x</i> = 4; б) log<sub>1/2</sub> <i>x</i> = 3; в) log<sub>2</sub> (<i>x</i> − 1) = 3.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <i>x</i> = 3⁴ = <b>81</b>. &nbsp;б) <i>x</i> = (1/2)³ = <b>1/8</b>.</p><p>в) <i>x</i> − 1 = 2³ = 8, <i>x</i> = <b>9</b>. Проверка: log<sub>2</sub> (9 − 1) = log<sub>2</sub> 8 = 3 ✓.</p></div></div>
+<div class="ex"><span class="lbl">Пример 6 · неизвестное в основании</span><p>Реши уравнение log<sub><i>x</i></sub> 16 = 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>По определению <i>x</i>² = 16, <i>x</i> = 4 или <i>x</i> = −4. Но основание логарифма должно быть положительным и не равным 1, поэтому <i>x</i> = −4 не подходит.</p><p>Ответ: <b><i>x</i> = 4</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Когда неизвестное стоит в основании, обязательно проверь условия <i>x</i> &gt; 0 и <i>x</i> ≠ 1. Ответ «<i>x</i> = ±4» в примере 6 — типичная потеря балла.</p></div>
+<h3>Логарифм — ответ показательного уравнения</h3>
+<p>Теперь решается любое уравнение <i>a<sup>x</sup></i> = <i>b</i> с <i>b</i> &gt; 0: по определению <i>x</i> = log<sub><i>a</i></sub> <i>b</i>. Такой ответ считается точным — так же, как √2 в квадратном уравнении.</p>
+<div class="ex"><span class="lbl">Пример 7</span><p>Реши уравнения: а) 5<sup><i>x</i></sup> = 7; б) 2<sup><i>x</i> + 1</sup> = 5.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) <i>x</i> = <b>log<sub>5</sub> 7</b>.</p><p>б) <i>x</i> + 1 = log<sub>2</sub> 5, <i>x</i> = <b>log<sub>2</sub> 5 − 1</b>. Число log<sub>2</sub> 5 лежит между 2 и 3, значит, корень — между 1 и 2.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли log<sub>2</sub> 32.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли log<sub>3</sub> (1/27).</div><div class="task"><span class="task-no">№&nbsp;3</span>Вычисли log<sub>1/2</sub> 16.</div><div class="task"><span class="task-no">№&nbsp;4</span>Вычисли log<sub>9</sub> 27.</div><div class="task"><span class="task-no">№&nbsp;5</span>Вычисли 7<sup>log<sub>7</sub> 4</sup> + 3<sup>2 + log<sub>3</sub> 5</sup>.</div><div class="task"><span class="task-no">№&nbsp;6</span>Реши уравнение log<sub>4</sub> <i>x</i> = 3.</div><div class="task"><span class="task-no">№&nbsp;7</span>Реши уравнение log<sub><i>x</i></sub> 81 = 4.</div><div class="task"><span class="task-no">№&nbsp;8</span>Реши уравнение log<sub>2</sub> (3<i>x</i> − 1) = 3.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 265, 266</b> — Проверить равенство по определению логарифма.</li><li><b>№ 267–270</b> — Вычислить логарифм: целый, отрицательный, дробный ответ.</li><li><b>№ 271–274</b> — Основное логарифмическое тождество.</li><li><b>№ 275–278</b> — Простейшие уравнения: найти <i>x</i> по определению.</li><li><b>№ 279, 280</b> — При каких значениях выражение имеет смысл.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a15a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 15</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 268, 272, 276 из учебника письменно; № 267 — устно. У каждого логарифма записать «вопрос»: в какую степень возводим основание, чтобы получить число. Дополнительно: реши уравнения log<sub>5</sub> <i>x</i> = −1 и log<sub><i>x</i></sub> 27 = 3.</p></div>
+<div class="pager"><a href="a14.html">← Урок 14</a><a href="a16.html">Урок 16 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

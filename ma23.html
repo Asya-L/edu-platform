@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 23. Основные соотношения между тригонометрическими функциями одного аргумента</title>
+<script>document.documentElement.dataset.page="ma23";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 23 · sin²α + cos²α = 1, tg α · ctg α = 1, 1 + tg²α = 1/cos²α, 1 + ctg²α = 1/sin²α; нахождение функций по одной, тождества">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 23</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 23</div>
+  <h1>Основные соотношения между тригонометрическими функциями одного аргумента</h1>
+  <p class="lede">§ 23 · sin²α + cos²α = 1, tg α · ctg α = 1, 1 + tg²α = 1/cos²α, 1 + ctg²α = 1/sin²α; нахождение функций по одной, тождества</p>
+  <div class="btns">
+    <a class="btn" href="sma23.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma23.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Начинаем новую главу — «Тригонометрические формулы». Здесь мы учимся связывать значения синуса, косинуса, тангенса и котангенса между собой. Первый шаг — соотношения для <b>одного и того же</b> аргумента α: зная одну из функций и четверть, можно найти все остальные.</p>
+<h3>Основное тригонометрическое тождество</h3>
+<p>Пусть при повороте на угол α точка <i>P</i><sub>0</sub>(1; 0) переходит в точку <i>P</i>. По определению (§ 19) её координаты — (cos α; sin α). Точка <i>P</i> лежит на единичной окружности, а уравнение этой окружности: <i>x</i>² + <i>y</i>² = 1. Подставим координаты <i>P</i>:</p>
+<div class="thm"><span class="lbl">Теорема 23.1</span><p>Для любого числа α выполняется равенство <b>sin²α + cos²α = 1</b>.</p></div>
+<figure><img src="assets/fig/mal23_circle.png" alt="Точка P(cos α; sin α) лежит на окружности x² + y² = 1 — в любой четверти"><figcaption>Точка P(cos α; sin α) лежит на окружности x² + y² = 1 — в любой четверти</figcaption></figure>
+<p>Обрати внимание: это верно при <b>любом</b> α, а не только для острых углов, — потому что вывод опирается только на то, что точка лежит на окружности. Для острого угла это просто теорема Пифагора в прямоугольном треугольнике с гипотенузой 1.</p>
+<p>Из тождества сразу следует: sin²α = 1 − cos²α, cos²α = 1 − sin²α и, извлекая корень, <b>sin α = ±√(1 − cos²α)</b>, <b>cos α = ±√(1 − sin²α)</b>. Знак выбирают по четверти, в которой лежит угол α (§ 20).</p>
+<h3>Тангенс и котангенс</h3>
+<p>По определению tg α = sin α/cos α (cos α ≠ 0), ctg α = cos α/sin α (sin α ≠ 0). Перемножим:</p>
+<div class="thm"><span class="lbl">Следствие 1</span><p><b>tg α · ctg α = 1</b> при α ≠ π<i>n</i>/2, <i>n</i> ∈ <b><i>Z</i></b>.</p></div>
+<p>Условие α ≠ π<i>n</i>/2 нужно, чтобы существовали <b>обе</b> функции: при α = π/2 тангенс не определён, при α = π — котангенс.</p>
+<p>Теперь разделим обе части тождества sin²α + cos²α = 1 на cos²α (можно, если cos α ≠ 0):</p>
+<div class="thm"><span class="lbl">Следствие 2</span><p><b>1 + tg²α = 1/cos²α</b> при α ≠ π/2 + π<i>n</i>, <i>n</i> ∈ <b><i>Z</i></b>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>sin²α/cos²α + cos²α/cos²α = 1/cos²α, то есть tg²α + 1 = 1/cos²α.</p></div>
+<p>Аналогично, разделив тождество на sin²α (sin α ≠ 0):</p>
+<div class="thm"><span class="lbl">Следствие 3</span><p><b>1 + ctg²α = 1/sin²α</b> при α ≠ π<i>n</i>, <i>n</i> ∈ <b><i>Z</i></b>.</p></div>
+<div class="tablewrap"><table><thead><tr><th>Формула</th><th>Когда верна</th><th>Для чего</th></tr></thead><tbody><tr><td>sin²α + cos²α = 1</td><td>при всех α</td><td>sin по cos и наоборот</td></tr><tr><td>tg α = sin α/cos α, ctg α = cos α/sin α</td><td>cos α ≠ 0 / sin α ≠ 0</td><td>tg и ctg по sin и cos</td></tr><tr><td>tg α · ctg α = 1</td><td>α ≠ π<i>n</i>/2</td><td>ctg по tg и наоборот</td></tr><tr><td>1 + tg²α = 1/cos²α</td><td>α ≠ π/2 + π<i>n</i></td><td>cos по tg</td></tr><tr><td>1 + ctg²α = 1/sin²α</td><td>α ≠ π<i>n</i></td><td>sin по ctg</td></tr></tbody></table></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Из cos²α = 9/25 следует cos α = <b>±</b>3/5, а не просто 3/5. Знак определяет четверть: без неё ответ неоднозначен. Самая частая ошибка — потерять минус во II или III четверти.</p></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Запись sin²α означает (sin α)², а не sin(α²). И sin α + cos α ≠ 1 — в квадрат возводятся оба слагаемых: при α = π/4 сумма sin α + cos α = √2.</p></div>
+<h3>Как доказывают тождества</h3>
+<p>Тождество — равенство, верное при всех допустимых значениях переменной. Доказывают его одним из способов:</p>
+<ol class="steps"><li>преобразуют левую часть, пока не получится правая (или наоборот);</li><li>преобразуют обе части к одному и тому же выражению;</li><li>доказывают, что разность левой и правой частей равна нулю.</li></ol>
+<p>Допустимые значения обязательно указывают: тождество с tg α рассматривают только при cos α ≠ 0.</p>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · по косинусу</span><p>Известно, что cos α = −8/17 и π/2 &lt; α &lt; π. Найди sin α, tg α, ctg α.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>sin²α = 1 − 64/289 = 225/289, sin α = ±15/17. Во II четверти синус положителен: <b>sin α = 15/17</b>.</p><p>tg α = (15/17) : (−8/17) = <b>−15/8</b>, ctg α = 1/tg α = <b>−8/15</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · по тангенсу</span><p>Известно, что tg α = 1/3 и π &lt; α &lt; 3π/2. Найди cos α и sin α.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>1/cos²α = 1 + tg²α = 1 + 1/9 = 10/9, cos²α = 9/10. В III четверти косинус отрицателен: cos α = −3/√10 = <b>−3√10/10</b>.</p><p>sin α = tg α · cos α = (1/3) · (−3/√10) = −1/√10 = <b>−√10/10</b>. Проверка: 9/10 + 1/10 = 1.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · упростить и доказать</span><p>а) Упрости cos α/(1 − sin α) − tg α. б) Докажи тождество (sin α + cos α)² + (sin α − cos α)² = 2.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Приведём к общему знаменателю cos α(1 − sin α):</p><p>(cos²α − sin α + sin²α)/(cos α(1 − sin α)) = (1 − sin α)/(cos α(1 − sin α)) = <b>1/cos α</b> (при cos α ≠ 0).</p><p>б) Раскроем скобки: sin²α + 2sin α cos α + cos²α + sin²α − 2sin α cos α + cos²α = 2(sin²α + cos²α) = <b>2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · однородное выражение</span><p>Известно, что tg α = −2. Найди а) (3sin α − cos α)/(2sin α + 5cos α); б) sin α · cos α.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) cos α ≠ 0 (иначе тангенс не определён), разделим числитель и знаменатель на cos α: (3tg α − 1)/(2tg α + 5) = (−6 − 1)/(−4 + 5) = <b>−7</b>.</p><p>б) Запишем sin α cos α = sin α cos α/(sin²α + cos²α) и разделим на cos²α: tg α/(tg²α + 1) = −2/5 = <b>−0,4</b>. Четверть знать не нужно!</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · сумма и произведение</span><p>Известно, что sin α − cos α = 1/2. Найди sin α · cos α.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Возведём в квадрат: sin²α − 2sin α cos α + cos²α = 1/4, то есть 1 − 2sin α cos α = 1/4, откуда <b>sin α cos α = 3/8</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 6 · область значений</span><p>Найди область значений функции <i>y</i> = sin²<i>x</i> − 4cos <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Заменим sin²<i>x</i> = 1 − cos²<i>x</i> и обозначим <i>t</i> = cos <i>x</i>, <i>t</i> ∈ [−1; 1]: <i>y</i> = −<i>t</i>² − 4<i>t</i> + 1 = 5 − (<i>t</i> + 2)².</p><p>Вершина параболы <i>t</i> = −2 вне отрезка, на [−1; 1] функция убывает: от 5 − 1 = 4 до 5 − 9 = −4. Ответ: <b>[−4; 4]</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>sin α = −5/13, π &lt; α &lt; 3π/2. Найди cos α, tg α, ctg α.</div><div class="task"><span class="task-no">№&nbsp;2</span>cos α = 0,8, 3π/2 &lt; α &lt; 2π. Найди sin α, tg α, ctg α.</div><div class="task"><span class="task-no">№&nbsp;3</span>tg α = −2, π/2 &lt; α &lt; π. Найди cos α, sin α, ctg α.</div><div class="task"><span class="task-no">№&nbsp;4</span>Упрости: а) (1 − cos²α)(1 + tg²α); б) sin⁴α − cos⁴α + cos²α.</div><div class="task"><span class="task-no">№&nbsp;5</span>Докажи тождество (1 + tg α)/(1 + ctg α) = tg α.</div><div class="task"><span class="task-no">№&nbsp;6</span>tg α = 3. Найди (2sin α + cos α)/(sin α − 2cos α).</div><div class="task"><span class="task-no">№&nbsp;7</span>sin α + cos α = 1/3. Найди sin α · cos α.</div><div class="task"><span class="task-no">№&nbsp;8</span>Найди наибольшее и наименьшее значения функции <i>y</i> = 3sin²<i>x</i> + 2cos²<i>x</i>.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 23.1, 23.2</b> — Найти значения тригонометрических функций по одной из них.</li><li><b>№ 23.5, 23.6</b> — Упростить выражение.</li><li><b>№ 23.9, 23.10</b> — Доказать тождество.</li><li><b>№ 23.14</b> — Значение выражения по известному тангенсу.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma23a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 23</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 23.2, 23.6, 23.10, 23.14 из учебника письменно. Выписать в тетрадь пять основных соотношений с условиями, при которых они верны, и вывести следствия 2 и 3 из основного тождества.</p></div>
+<div class="pager"><a href="ma22.html">← Урок 22</a><a href="ma24.html">Урок 24 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

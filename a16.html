@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · урок 16. Свойства логарифмов</title>
+<script>document.documentElement.dataset.page="a16";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 16 · логарифм произведения, частного и степени; вычисления и преобразования выражений">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra.html">Алгебра</a> · Урок 16</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · урок 16</div>
+  <h1>Свойства логарифмов</h1>
+  <p class="lede">§ 16 · логарифм произведения, частного и степени; вычисления и преобразования выражений</p>
+  <div class="btns">
+    <a class="btn" href="sa16.html">▶ Презентация</a>
+    <a class="btn lime" href="wsa16.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Свойства логарифмов — это свойства степеней, «переведённые» на язык показателей. Вспомним: при умножении степеней с одним основанием показатели <b>складываются</b>, при делении — <b>вычитаются</b>, при возведении в степень — <b>умножаются</b>. А логарифм и есть показатель. Поэтому и правил тоже три.</p>
+<div class="thm"><span class="lbl">Свойства логарифмов</span><p>Пусть <i>a</i> &gt; 0, <i>a</i> ≠ 1, <i>b</i> &gt; 0, <i>c</i> &gt; 0, <i>p</i> — любое число. Тогда</p><p>1) log<sub><i>a</i></sub> (<i>b</i><i>c</i>) = log<sub><i>a</i></sub> <i>b</i> + log<sub><i>a</i></sub> <i>c</i> &nbsp;— логарифм произведения;</p><p>2) log<sub><i>a</i></sub> (<i>b</i>/<i>c</i>) = log<sub><i>a</i></sub> <i>b</i> − log<sub><i>a</i></sub> <i>c</i> &nbsp;— логарифм частного;</p><p>3) log<sub><i>a</i></sub> <i>b</i><sup><i>p</i></sup> = <i>p</i>·log<sub><i>a</i></sub> <i>b</i> &nbsp;— логарифм степени.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Докажем свойство 1. Обозначим log<sub><i>a</i></sub> <i>b</i> = <i>m</i>, log<sub><i>a</i></sub> <i>c</i> = <i>n</i>. По определению <i>b</i> = <i>a<sup>m</sup></i>, <i>c</i> = <i>a<sup>n</sup></i>. Тогда <i>bc</i> = <i>a<sup>m</sup></i>·<i>a<sup>n</sup></i> = <i>a</i><sup><i>m</i> + <i>n</i></sup>, и снова по определению log<sub><i>a</i></sub> (<i>b</i><i>c</i>) = <i>m</i> + <i>n</i>.</p><p>Свойство 2 — так же: <i>b</i>/<i>c</i> = <i>a</i><sup><i>m</i> − <i>n</i></sup>. Свойство 3: <i>b<sup>p</sup></i> = (<i>a<sup>m</sup></i>)<sup><i>p</i></sup> = <i>a<sup>pm</sup></i>, значит, log<sub><i>a</i></sub> <i>b</i><sup><i>p</i></sup> = <i>pm</i>.</p></div>
+<p>Проверим на числах: log<sub>2</sub> (4·8) = log<sub>2</sub> 32 = 5, а log<sub>2</sub> 4 + log<sub>2</sub> 8 = 2 + 3 = 5 ✓.</p>
+<h3>Вычисления: «склеиваем» логарифмы</h3>
+<p>Часто каждый логарифм по отдельности не вычисляется, а их сумма или разность — легко. Тогда свойства читаем <b>справа налево</b>: сумму логарифмов превращаем в логарифм произведения, разность — в логарифм частного.</p>
+<div class="ex"><span class="lbl">Пример 1</span><p>Вычисли: а) log<sub>6</sub> 4 + log<sub>6</sub> 9; б) log<sub>2</sub> 40 − log<sub>2</sub> 5.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) log<sub>6</sub> (4·9) = log<sub>6</sub> 36 = <b>2</b>.</p><p>б) log<sub>2</sub> (40/5) = log<sub>2</sub> 8 = <b>3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · коэффициент перед логарифмом</span><p>Вычисли 2log<sub>3</sub> 6 − log<sub>3</sub> 4.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Коэффициент «заносим» в показатель по свойству 3: 2log<sub>3</sub> 6 = log<sub>3</sub> 6² = log<sub>3</sub> 36.</p><p>log<sub>3</sub> 36 − log<sub>3</sub> 4 = log<sub>3</sub> (36/4) = log<sub>3</sub> 9 = <b>2</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · корни</span><p>Вычисли: а) log<sub>5</sub> √5; б) log<sub>2</sub> (8√2).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Корень — это степень с дробным показателем: √5 = 5<sup>1/2</sup>.</p><p>а) log<sub>5</sub> 5<sup>1/2</sup> = (1/2)·log<sub>5</sub> 5 = <b>1/2</b>.</p><p>б) log<sub>2</sub> 8 + log<sub>2</sub> 2<sup>1/2</sup> = 3 + 1/2 = <b>3,5</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Самая частая ошибка — придумать «свойство», которого нет:</p><p>log<sub><i>a</i></sub> (<i>b</i> + <i>c</i>) ≠ log<sub><i>a</i></sub> <i>b</i> + log<sub><i>a</i></sub> <i>c</i> &nbsp;(например, log<sub>2</sub> (4 + 4) = 3, а log<sub>2</sub> 4 + log<sub>2</sub> 4 = 4);</p><p>log<sub><i>a</i></sub> <i>b</i> : log<sub><i>a</i></sub> <i>c</i> ≠ log<sub><i>a</i></sub> (<i>b</i>/<i>c</i>); &nbsp;(log<sub><i>a</i></sub> <i>b</i>)² ≠ 2log<sub><i>a</i></sub> <i>b</i> &nbsp;(например, (log<sub>2</sub> 8)² = 9, а 2log<sub>2</sub> 8 = 6).</p><p>Свойства говорят только о логарифме <b>произведения</b>, <b>частного</b> и <b>степени</b>.</p></div>
+<h3>Преобразования: «раскладываем» логарифм</h3>
+<p>Теперь читаем свойства <b>слева направо</b>: логарифм сложного выражения раскладываем на сумму простых. Так удобно, когда известны логарифмы отдельных множителей.</p>
+<div class="ex"><span class="lbl">Пример 4</span><p>Известно, что log<sub><i>a</i></sub> <i>b</i> = 2, log<sub><i>a</i></sub> <i>c</i> = 3. Найди: а) log<sub><i>a</i></sub> (<i>b</i>²<i>c</i>); б) log<sub><i>a</i></sub> (<i>b</i>³/<i>c</i>²).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) log<sub><i>a</i></sub> <i>b</i>² + log<sub><i>a</i></sub> <i>c</i> = 2·2 + 3 = <b>7</b>.</p><p>б) 3log<sub><i>a</i></sub> <i>b</i> − 2log<sub><i>a</i></sub> <i>c</i> = 6 − 6 = <b>0</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · найти число по его логарифму</span><p>Найди <i>x</i>, если log<sub>3</sub> <i>x</i> = 2log<sub>3</sub> 5 − log<sub>3</sub> 10.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Соберём правую часть в один логарифм: 2log<sub>3</sub> 5 − log<sub>3</sub> 10 = log<sub>3</sub> 25 − log<sub>3</sub> 10 = log<sub>3</sub> (25/10) = log<sub>3</sub> 2,5.</p><p>log<sub>3</sub> <i>x</i> = log<sub>3</sub> 2,5, а равные логарифмы с одним основанием бывают только у равных чисел. Ответ: <b><i>x</i> = 2,5</b>.</p></div></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Все свойства верны только для <b>положительных</b> <i>b</i> и <i>c</i>. Например, log<sub>2</sub> ((−2)·(−4)) = log<sub>2</sub> 8 = 3 существует, а записать его как log<sub>2</sub> (−2) + log<sub>2</sub> (−4) нельзя: таких логарифмов нет. Это важно в уравнениях — там можно потерять или приобрести корни.</p></div>
+<h3>Сводка</h3>
+<div class="tablewrap"><table><thead><tr><th>Степени</th><th>Логарифмы</th><th>Пример</th></tr></thead><tbody><tr><td><i>a<sup>m</sup></i>·<i>a<sup>n</sup></i> = <i>a</i><sup><i>m</i> + <i>n</i></sup></td><td>log<sub><i>a</i></sub> (<i>b</i><i>c</i>) = log<sub><i>a</i></sub> <i>b</i> + log<sub><i>a</i></sub> <i>c</i></td><td>lg 4 + lg 25 = lg 100 = 2</td></tr><tr><td><i>a<sup>m</sup></i> : <i>a<sup>n</sup></i> = <i>a</i><sup><i>m</i> − <i>n</i></sup></td><td>log<sub><i>a</i></sub> (<i>b</i>/<i>c</i>) = log<sub><i>a</i></sub> <i>b</i> − log<sub><i>a</i></sub> <i>c</i></td><td>log<sub>3</sub> 54 − log<sub>3</sub> 2 = log<sub>3</sub> 27 = 3</td></tr><tr><td>(<i>a<sup>m</sup></i>)<sup><i>p</i></sup> = <i>a<sup>pm</sup></i></td><td>log<sub><i>a</i></sub> <i>b</i><sup><i>p</i></sup> = <i>p</i>·log<sub><i>a</i></sub> <i>b</i></td><td>log<sub>2</sub> 8⁵ = 5·3 = 15</td></tr></tbody></table></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли log<sub>6</sub> 3 + log<sub>6</sub> 12.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли log<sub>3</sub> 54 − log<sub>3</sub> 2.</div><div class="task"><span class="task-no">№&nbsp;3</span>Вычисли log<sub>3</sub> ∜27.</div><div class="task"><span class="task-no">№&nbsp;4</span>Вычисли lg 40 + lg 25.</div><div class="task"><span class="task-no">№&nbsp;5</span>Вычисли 2log<sub>6</sub> 3 + log<sub>6</sub> 4.</div><div class="task"><span class="task-no">№&nbsp;6</span>Вычисли log<sub>2</sub> 24 − log<sub>2</sub> 3 + log<sub>2</sub> 4.</div><div class="task"><span class="task-no">№&nbsp;7</span>Известно, что log<sub><i>a</i></sub> <i>b</i> = 3, log<sub><i>a</i></sub> <i>c</i> = −2. Найди log<sub><i>a</i></sub> (<i>a</i><i>b</i>²/<i>c</i>³).</div><div class="task"><span class="task-no">№&nbsp;8</span>Найди <i>x</i>, если log<sub>5</sub> <i>x</i> = 2log<sub>5</sub> 3 + log<sub>5</sub> 4.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 281–283</b> — Логарифм произведения и частного: вычислить.</li><li><b>№ 284, 285</b> — Логарифм степени, корни под логарифмом.</li><li><b>№ 286–288</b> — Вычисления с несколькими свойствами сразу.</li><li><b>№ 289, 290</b> — Выразить логарифм выражения через данные логарифмы.</li><li><b>№ 291, 292</b> — Найти <i>x</i> по его логарифму.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-a16a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 16</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 282, 285, 287 из учебника письменно. Около каждого шага подписать номер свойства (1, 2 или 3). Дополнительно: известно, что log<sub><i>a</i></sub> <i>b</i> = 5, log<sub><i>a</i></sub> <i>c</i> = 2; найди log<sub><i>a</i></sub> (<i>b</i>/<i>c</i>²).</p></div>
+<div class="pager"><a href="a15.html">← Урок 15</a><a href="a17.html">Урок 17 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>

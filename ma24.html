@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Алгебра · § 24. Формулы сложения</title>
+<script>document.documentElement.dataset.page="ma24";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="§ 24 · косинус, синус и тангенс суммы и разности: вывод через расстояние между точками окружности, применения">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="on">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="algebra-m.html">Алгебра · Мерзляк</a> · Урок 24</div></div>
+<section class="hero" style="padding-bottom:20px"><div class="wrap narrow">
+  <div class="kicker">Алгебра · § 24</div>
+  <h1>Формулы сложения</h1>
+  <p class="lede">§ 24 · косинус, синус и тангенс суммы и разности: вывод через расстояние между точками окружности, применения</p>
+  <div class="btns">
+    <a class="btn" href="sma24.html">▶ Презентация</a>
+    <a class="btn lime" href="wsma24.html">Рабочий лист</a>
+    <a class="btn ghost" href="#homework">Домашнее задание</a>
+  </div>
+</div></section>
+<main class="wrap narrow">
+<h2>Теория</h2>
+<p>Мы знаем значения тригонометрических функций для углов 30°, 45°, 60°. А чему равен cos 15° или sin 75°? Заметим: 15° = 45° − 30°, 75° = 45° + 30°. Нужны формулы, которые выражают функции <b>суммы и разности</b> углов через функции самих углов. Их называют <b>формулами сложения</b>.</p>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>Сразу о главной ловушке: cos(α − β) ≠ cos α − cos β и sin(α + β) ≠ sin α + sin β. Проверка: sin(π/2 + π/2) = sin π = 0, а sin π/2 + sin π/2 = 2.</p></div>
+<h3>Косинус разности</h3>
+<div class="thm"><span class="lbl">Теорема 24.1</span><p>Для любых α и β: <b>cos(α − β) = cos α cos β + sin α sin β</b>.</p></div>
+<div class="proof"><span class="lbl">Доказательство</span><p>Отметим на единичной окружности точки <i>P</i><sub>α</sub>(cos α; sin α) и <i>P</i><sub>β</sub>(cos β; sin β). По формуле расстояния между точками:</p><p><i>P</i><sub>α</sub><i>P</i><sub>β</sub>² = (cos α − cos β)² + (sin α − sin β)² = (cos²α + sin²α) + (cos²β + sin²β) − 2(cos α cos β + sin α sin β) = 2 − 2(cos α cos β + sin α sin β).</p><p>Повернём обе точки вокруг <i>O</i> на угол −β. Точка <i>P</i><sub>β</sub> перейдёт в <i>P</i><sub>0</sub>(1; 0), а <i>P</i><sub>α</sub> — в точку <i>P</i><sub>α−β</sub>(cos(α − β); sin(α − β)). Поворот сохраняет расстояния, поэтому</p><p><i>P</i><sub>α</sub><i>P</i><sub>β</sub>² = (cos(α − β) − 1)² + sin²(α − β) = cos²(α − β) + sin²(α − β) − 2cos(α − β) + 1 = 2 − 2cos(α − β).</p><p>Приравниваем: 2 − 2cos(α − β) = 2 − 2(cos α cos β + sin α sin β), откуда и следует формула. Мы нигде не требовали, чтобы углы были острыми, — формула верна при <b>любых</b> α и β.</p></div>
+<figure><img src="assets/fig/mal24_dist.png" alt="Хорда PαPβ при повороте на −β переходит в хорду P₀Pα−β той же длины"><figcaption>Хорда PαPβ при повороте на −β переходит в хорду P₀Pα−β той же длины</figcaption></figure>
+<h3>Остальные формулы — следствия</h3>
+<p><b>Косинус суммы.</b> Заменим β на −β и вспомним чётность: cos(−β) = cos β, sin(−β) = −sin β:</p>
+<div class="thm"><span class="lbl">Формула</span><p><b>cos(α + β) = cos α cos β − sin α sin β</b>.</p></div>
+<p><b>Два полезных равенства.</b> Положим в теореме 24.1 α = π/2: cos(π/2 − β) = 0 · cos β + 1 · sin β = sin β. Заменив здесь β на π/2 − β, получим sin(π/2 − β) = cos β. Итак, <b>cos(π/2 − β) = sin β, sin(π/2 − β) = cos β</b> при любом β.</p>
+<p><b>Синус суммы.</b> sin(α + β) = cos(π/2 − (α + β)) = cos((π/2 − α) − β) = cos(π/2 − α) cos β + sin(π/2 − α) sin β:</p>
+<div class="thm"><span class="lbl">Формулы</span><p><b>sin(α + β) = sin α cos β + cos α sin β</b>;<br><b>sin(α − β) = sin α cos β − cos α sin β</b> (замена β на −β).</p></div>
+<p><b>Тангенс суммы.</b> tg(α + β) = sin(α + β)/cos(α + β). Разделим числитель и знаменатель на cos α cos β ≠ 0:</p>
+<div class="thm"><span class="lbl">Формулы</span><p><b>tg(α + β) = (tg α + tg β)/(1 − tg α tg β)</b>, &nbsp; <b>tg(α − β) = (tg α − tg β)/(1 + tg α tg β)</b>.</p><p>Они верны, когда определены tg α, tg β и tg(α ± β).</p></div>
+<div class="tablewrap"><table><thead><tr><th>Функция</th><th>суммы α + β</th><th>разности α − β</th></tr></thead><tbody><tr><td>cos</td><td>cos α cos β <b>−</b> sin α sin β</td><td>cos α cos β <b>+</b> sin α sin β</td></tr><tr><td>sin</td><td>sin α cos β <b>+</b> cos α sin β</td><td>sin α cos β <b>−</b> cos α sin β</td></tr><tr><td>tg</td><td>(tg α + tg β)/(1 − tg α tg β)</td><td>(tg α − tg β)/(1 + tg α tg β)</td></tr></tbody></table></div>
+<div class="warn"><span class="lbl">Будь внимателен</span><p>В формуле косинуса знак <b>противоположный</b>: у косинуса суммы минус, у косинуса разности — плюс. У синуса знак совпадает со знаком между углами.</p></div>
+<h3>Вспомогательный угол</h3>
+<p>Выражение <i>a</i> sin <i>x</i> + <i>b</i> cos <i>x</i> можно «свернуть» в один синус. Вынесем √(<i>a</i>² + <i>b</i>²):</p>
+<p><i>a</i> sin <i>x</i> + <i>b</i> cos <i>x</i> = √(<i>a</i>² + <i>b</i>²) · (<i>a</i>/√(<i>a</i>² + <i>b</i>²) · sin <i>x</i> + <i>b</i>/√(<i>a</i>² + <i>b</i>²) · cos <i>x</i>).</p>
+<p>Сумма квадратов коэффициентов в скобках равна 1, значит, найдётся угол φ, для которого они равны cos φ и sin φ. По формуле синуса суммы получаем <b><i>a</i> sin <i>x</i> + <i>b</i> cos <i>x</i> = √(<i>a</i>² + <i>b</i>²) · sin(<i>x</i> + φ)</b>. Отсюда область значений: [−√(<i>a</i>² + <i>b</i>²); √(<i>a</i>² + <i>b</i>²)].</p>
+<figure><img src="assets/fig/mal24_aux.png" alt="y = 3 sin x + 4 cos x колеблется между −5 и 5"><figcaption>y = 3 sin x + 4 cos x колеблется между −5 и 5</figcaption></figure>
+<h2>Разбор примеров</h2>
+<div class="ex"><span class="lbl">Пример 1 · табличные углы</span><p>Вычисли: а) sin 105°; б) tg 75°.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) sin 105° = sin(60° + 45°) = sin 60° cos 45° + cos 60° sin 45° = (√3/2)(√2/2) + (1/2)(√2/2) = <b>(√6 + √2)/4</b>.</p><p>б) tg 75° = tg(45° + 30°) = (1 + √3/3)/(1 − √3/3) = (3 + √3)/(3 − √3) = (3 + √3)²/(9 − 3) = (12 + 6√3)/6 = <b>2 + √3</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 2 · свернуть по формуле</span><p>Вычисли: а) sin 47° cos 13° + cos 47° sin 13°; б) cos(5π/12) cos(π/12) + sin(5π/12) sin(π/12); в) (tg 25° + tg 20°)/(1 − tg 25° tg 20°).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>а) Это синус суммы: sin(47° + 13°) = sin 60° = <b>√3/2</b>.</p><p>б) Косинус разности: cos(5π/12 − π/12) = cos(π/3) = <b>1/2</b>.</p><p>в) Тангенс суммы: tg(25° + 20°) = tg 45° = <b>1</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 3 · по данным четвертям</span><p>sin α = 4/5, π/2 &lt; α &lt; π; cos β = 5/13, 3π/2 &lt; β &lt; 2π. Найди sin(α + β) и cos(α − β).</p><div class="ex-sol"><span class="ex-h">Решение</span><p>Сначала недостающие функции (§ 23): cos α = −3/5 (II четверть), sin β = −12/13 (IV четверть).</p><p>sin(α + β) = sin α cos β + cos α sin β = (4/5)(5/13) + (−3/5)(−12/13) = 20/65 + 36/65 = <b>56/65</b>.</p><p>cos(α − β) = cos α cos β + sin α sin β = −15/65 − 48/65 = <b>−63/65</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 4 · тождество</span><p>Докажи, что sin(α + β) sin(α − β) = sin²α − sin²β.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>(sin α cos β + cos α sin β)(sin α cos β − cos α sin β) = sin²α cos²β − cos²α sin²β = sin²α(1 − sin²β) − (1 − sin²α) sin²β = sin²α − sin²α sin²β − sin²β + sin²α sin²β = <b>sin²α − sin²β</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 5 · найти угол</span><p>α и β — острые углы, tg α = 1/2, tg β = 1/3. Найди α + β.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>tg(α + β) = (1/2 + 1/3)/(1 − 1/6) = (5/6)/(5/6) = 1. Так как 0 &lt; α + β &lt; π, а на (0; π) тангенс равен 1 только в точке π/4, то <b>α + β = π/4</b>.</p></div></div>
+<div class="ex"><span class="lbl">Пример 6 · вспомогательный угол</span><p>Найди область значений функции <i>y</i> = 3 sin <i>x</i> + 4 cos <i>x</i>.</p><div class="ex-sol"><span class="ex-h">Решение</span><p>√(3² + 4²) = 5: <i>y</i> = 5((3/5) sin <i>x</i> + (4/5) cos <i>x</i>) = 5 sin(<i>x</i> + φ), где cos φ = 3/5, sin φ = 4/5. Синус пробегает [−1; 1], значит, <b><i>E</i>(<i>y</i>) = [−5; 5]</b>.</p></div></div>
+<h2 id="practice">Задачи урока</h2>
+<p>Реши в тетради. Ответы разберём на занятии.</p>
+<div class="task"><span class="task-no">№&nbsp;1</span>Вычисли: а) cos 75°; б) sin 15°; в) tg 105°.</div><div class="task"><span class="task-no">№&nbsp;2</span>Вычисли: а) sin 22° cos 38° + cos 22° sin 38°; б) cos 70° cos 25° + sin 70° sin 25°; в) cos(3π/8) cos(π/8) − sin(3π/8) sin(π/8).</div><div class="task"><span class="task-no">№&nbsp;3</span>Вычисли (tg 70° − tg 10°)/(1 + tg 70° tg 10°).</div><div class="task"><span class="task-no">№&nbsp;4</span>cos α = −3/5, π &lt; α &lt; 3π/2. Найди sin(α + π/6).</div><div class="task"><span class="task-no">№&nbsp;5</span>sin α = 5/13, cos β = −3/5, α и β лежат в (π/2; π). Найди cos(α + β).</div><div class="task"><span class="task-no">№&nbsp;6</span>Упрости: а) sin(α + β) − sin α cos β; б) cos(α − β) − cos(α + β).</div><div class="task"><span class="task-no">№&nbsp;7</span>tg α = 2, tg β = −3. Найди tg(α + β) и tg(α − β).</div><div class="task"><span class="task-no">№&nbsp;8</span>Найди наибольшее значение функции <i>y</i> = sin <i>x</i> + √3 cos <i>x</i>.</div>
+<h2 id="book">Из учебника</h2>
+<ul><li><b>№ 24.1, 24.2</b> — Вычисление по формулам сложения.</li><li><b>№ 24.5, 24.6</b> — Упрощение выражений.</li><li><b>№ 24.9, 24.10</b> — Значения функций суммы по данным четвертям.</li><li><b>№ 24.15</b> — Доказательство тождеств.</li></ul>
+<h2 id="test">Тест к уроку</h2>
+<div class="cards"><a class="card lime" href="quiz-ma24a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 24</h3>
+<p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
+<h2 id="homework">Домашнее задание</h2>
+<div class="goal"><p>№ 24.2, 24.6, 24.10, 24.15 из учебника письменно. Выписать в тетрадь шесть формул сложения и вывести формулы cos(α + β) и sin(α + β) из формулы косинуса разности.</p></div>
+<div class="pager"><a href="ma23.html">← Урок 23</a><a href="ma25.html">Урок 25 →</a></div>
+</main>
+<footer><div class="wrap"><span>Кабинет математики · алгебра по Алимову, геометрия по Атанасяну</span><span>Материалы к нашим занятиям</span></div></footer>
+</body>
+</html>
