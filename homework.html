@@ -143,7 +143,7 @@ function card(l){
     (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' + chip(l) + '</div>' +
     (l.homework ? '<p class="hw-text">' + hwText(l.homework) + '</p>' : '') + hwFiles(l);
   if (l.quiz) {
-    var qt = QUIZ[l.quiz] || 'Тест', qh = l.quiz + '.html?hw=' + l.id;
+    var rv = l.quiz.indexOf('rv-') === 0, qt = rv ? 'Повторение пройденного' : (QUIZ[l.quiz] || 'Тест'), qh = rv ? 'review.html?id=' + l.quiz + '&hw=' + l.id : l.quiz + '.html?hw=' + l.id;
     h += '<div class="hw-sub"><div class="me-lbl">Тест в домашке</div><p style="margin:4px 0 8px;font-weight:700">' + K.esc(qt) + '</p>' +
       (l.quiz_first ? '<p class="hw-msg" style="margin:0 0 8px">Засчитана первая попытка: <b>' + K.esc(l.quiz_first.replace('/', ' из ')) + '</b>' +
         (l.quiz_tries > 1 ? ' · лучшая ' + K.esc(l.quiz_best.replace('/', ' из ')) + ' · попыток ' + l.quiz_tries : '') + '</p>' +
