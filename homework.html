@@ -58,6 +58,7 @@
 <section class="hero" style="padding-bottom:10px"><div class="wrap narrow"><div class="kicker">Задания от учителя</div><h1>Домашнее задание</h1>
 <p class="lede">Все задания по датам, новые сверху. Сделай в тетради, сфотографируй и нажми «Сдать» — учитель проверит и ответит здесь же.</p></div></section>
 <main class="wrap narrow">
+<section id="lessonSummaries" class="summary-list" hidden aria-label="Итоги уроков"></section>
 <div id="hwBox" data-full="1" hidden></div>
 <script>
 (function(){
@@ -249,5 +250,6 @@ K.state.then(function(st){
 })();
 </script></main>
 <footer><div class="wrap"><span>Кабинет математики · алгебра, геометрия, подготовка к ЕГЭ</span><span>Материалы к нашим занятиям</span></div></footer>
+<link rel="stylesheet" href="assets/lesson-summary.css?v=1"><script src="assets/lesson-summary-list.js?v=1"></script>
 </body>
 </html>

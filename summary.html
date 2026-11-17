@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Итог урока</title>
+<script>document.documentElement.dataset.page="summary";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="on">Помощь</a></nav>
+</div></header>
+<link rel="stylesheet" href="assets/lesson-summary.css?v=1">
+<main class="wrap narrow summary-page">
+<a id="back" href="homework.html">← Домашка</a>
+<h1>Итог урока</h1><p id="summaryStatus" role="status" aria-live="polite">Загружаю…</p>
+<section id="summaryEditor" hidden>
+<p class="note">Черновик виден только вам. Перед отправкой проверьте текст и фрагменты доски.</p>
+<form id="summaryForm">
+<label>Название урока<input id="sumTitle" maxlength="200" required></label>
+<label>Что разобрали<textarea id="sumCovered" rows="5" maxlength="12000"></textarea></label>
+<label>Главные формулы и выводы<textarea id="sumFormulas" rows="4" maxlength="12000" placeholder="Запишите то, что ученику нужно запомнить"></textarea></label>
+<label>Что сделать дома<textarea id="sumHomework" rows="5" maxlength="20000"></textarea></label>
+<fieldset><legend>Фрагменты доски</legend><p>До трёх фрагментов. Откройте доску и выделите нужный участок.</p>
+<div id="sumBoards"></div><div id="sumFragments"></div></fieldset>
+<div class="summary-actions"><button type="submit" id="sumSave">Сохранить черновик</button><button type="button" id="sumPreview">Посмотреть итог</button><button type="button" id="sumPublish" class="primary">Отправить ученику</button><button type="button" id="sumUnpublish" hidden>Закрыть доступ ученику</button></div>
+</form></section>
+<section id="summaryPreview" hidden><div class="summary-actions"><button type="button" id="sumBack" hidden>← Вернуться к правке</button><button type="button" id="sumPrint">Распечатать / сохранить PDF</button></div><article id="summaryContent"></article></section>
+</main><script src="assets/lesson-summary.js?v=1"></script></body></html>

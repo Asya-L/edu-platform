@@ -2,6 +2,8 @@
 // QUIZKEYS, BANK — ключи ответов (передаются при запуске из файлов вне репозитория).
 module.exports = function(KEY, QUIZKEYS, BANK){
   return `(() => {
+  if (window.__kabinetMockInstalled) return;
+  window.__kabinetMockInstalled = true;
   const KEY = ${JSON.stringify(KEY)}, QK = ${JSON.stringify(QUIZKEYS || {})}, BK = ${JSON.stringify(BANK || {})};
   const get = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v } catch(e) { return d } };
   const put = (k, v) => localStorage.setItem(k, JSON.stringify(v));
@@ -9,7 +11,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
   const db = () => { const D = get('mockdb', {edu_students:[], edu_lessons:[], edu_progress:[], edu_profiles:[
     {user_id:'u1',email:'teacher@test.local',role:'teacher',created_at:'2026-10-01'},
     {user_id:'u2',email:'kid@test.local',role:'student',created_at:'2026-10-02'},
-    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; D.edu_reviews = D.edu_reviews || []; D.edu_board_batches = D.edu_board_batches || []; return D; };
+    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; D.edu_reviews = D.edu_reviews || []; D.edu_lesson_summaries = D.edu_lesson_summaries || []; D.edu_board_batches = D.edu_board_batches || []; return D; };
   const sess = () => { try { const t = sessionStorage.getItem('mockSessionTab'); if (t) return JSON.parse(t); } catch(e) {} return get('mockSession', null); };
   const me = () => { const s = sess(); if (!s) return null; const p = db().edu_profiles.find(x => x.user_id === s.user.id); return {id: s.user.id, role: p ? p.role : 'student'}; };
   let n = 0; const uid = () => 'id' + Date.now() + '_' + (n++);
@@ -23,6 +25,13 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       if (t === 'edu_profiles') { let rows = D.edu_profiles.filter(r => teacher || r.user_id === u.id);
         if (st.op === 'update') { if (!teacher) return {data:null}; D.edu_profiles = D.edu_profiles.map(r => match(r) ? Object.assign({}, r, st.data) : r); put('mockdb', D); return {data:null}; }
         rows = rows.filter(match); return {data: st.single ? (rows[0] || null) : rows}; }
+      if (t === 'edu_lesson_summaries') {
+        if (!teacher) return {data:st.single?null:[]};
+        if (get('mockSummaryFail',false) && st.op!=='select') return {data:null,error:{message:'offline'}};
+        if (st.op==='insert') { if(D[t].some(x=>x.lesson_id===st.data.lesson_id))return {data:null,error:{message:'conflict'}};D[t].push(st.data);put('mockdb',D);return {data:st.data}; }
+        if (st.op==='update') { let hit=null;D[t]=D[t].map(x=>match(x)?(hit=Object.assign({},x,st.data)):x);put('mockdb',D);return {data:hit}; }
+        const rows=D[t].filter(match);return {data:st.single?(rows[0]||null):rows};
+      }
       if (!teacher && t === 'edu_reviews') {
         const student = D.edu_students.find(s => s.user_id === u.id);
         const rows = st.op === 'select' ? D.edu_reviews.filter(r => student && r.student_id === student.id && match(r)) : [];
@@ -57,6 +66,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
     const s = D.edu_students.find(x => x.user_id === u.id); const R = data => Promise.resolve({data, error:null});
     const qs = (lid, best) => { const a = D.edu_quiz_results.filter(r => r.lesson_id === lid).sort((x, y) => x.created_at < y.created_at ? -1 : 1); if (!a.length) return null;
       const r = best ? a.reduce((m, q) => q.score > m.score ? q : m, a[0]) : a[0]; return r.score + '/' + r.total; };
+    if (name === 'edu_lesson_summaries') return R(D.edu_lesson_summaries.filter(m=>m.published && (!args || !args.p_lesson || m.lesson_id===args.p_lesson)).filter(m=>{const l=D.edu_lessons.find(l=>l.id===m.lesson_id);return l && (u.role==='teacher' || s && l.student_id===s.id);}).map(m=>{const l=D.edu_lessons.find(l=>l.id===m.lesson_id);return {lesson_id:m.lesson_id,lesson_date:l.date,content:m.published,published_at:m.published_at,homework_sent:!!l.hw_sent_at};}));
     if (name === 'edu_my_homework') return R(s ? D.edu_lessons.filter(l => l.student_id === s.id && l.hw_sent_at && (l.homework || l.quiz)).sort(byDate)
       .map(l => ({id:l.id, date:l.date, topic:l.topic, topic_text:l.topic_text, homework:l.homework, student_done:l.student_done,
         student_comment:l.student_comment || null, photos:l.photos || [], submitted_at:l.submitted_at || null, feedback:l.feedback || null, hw_mark:l.hw_mark || null, feedback_at:l.feedback_at || null,

@@ -545,6 +545,7 @@ function renderLog(mine){
     else { var e = el('button', null, 'Изменить'); e.type = 'button'; e.addEventListener('click', function(){ startEdit(l); });
       var d = el('button', 'ghost', 'Удалить'); d.type = 'button'; d.addEventListener('click', function(){ confirmId = l.id; render(); });
       acts.appendChild(e); acts.appendChild(d); }
+    var summaryLink = el('a', null, 'Итог урока →'); summaryLink.href = 'summary.html?lesson=' + encodeURIComponent(l.id) + '&title=' + encodeURIComponent(title || 'Итог урока'); acts.appendChild(summaryLink);
     row.appendChild(acts); log.appendChild(row);
   });
 }
