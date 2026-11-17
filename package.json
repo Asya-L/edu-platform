@@ -1,0 +1,10 @@
+{
+  "name": "kabinet-matematiki-checks",
+  "private": true,
+  "scripts": {
+    "test": "python3 -m unittest discover -s tests -p 'test_*.py' && python3 scripts/build_homework.py --check && node tests/run-browser-checks.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
