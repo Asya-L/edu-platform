@@ -74,8 +74,23 @@ K.state = (async function(){
 function track(pg){
   var last = Date.now(), bump = function(){ last = Date.now(); };
   ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(function(e){ addEventListener(e, bump, {passive: true, capture: true}); });
-  var ping = function(p, a){ try { sb.rpc('edu_ping', {p_page: p, p_active: a}).then(function(){}, function(){}); } catch(e){} };
-  ping(/^[a-z0-9-]{1,40}$/.test(page) ? page : null, true);
+  var busy = false, warned = false;
+  var ping = async function(p, a){
+    if (busy) return;
+    busy = true;
+    try {
+      var r = await sb.rpc('edu_ping', {p_page: p, p_active: a});
+      if (r.error) throw r.error;
+      warned = false;
+    } catch(e) {
+      // Не выводим ответ сервера: в нём могут быть данные аккаунта.
+      if (!warned) console.warn('Не удалось записать посещение. Повторим при следующем обновлении активности.');
+      warned = true;
+    } finally { busy = false; }
+  };
+  ping(/^[a-z0-9-]{1,40}$/.test(pg) ? pg : null, true);
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible') { bump(); ping(null, true); } });
+  addEventListener('online', function(){ if (document.visibilityState === 'visible') ping(null, Date.now() - last < 120000); });
   setInterval(function(){ if (document.visibilityState === 'visible' && Date.now() - last < 120000) ping(null, true); }, 60000);
 }
 })();
