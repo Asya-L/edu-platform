@@ -6,6 +6,7 @@
 <title>Журнал занятий</title>
 <script>document.documentElement.dataset.page="journal";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/review.js?v=1"></script>
 <script src="assets/auth.js?v=d4b70a7c"></script>
+<script src="assets/homework-ege.js?v=20261117"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -237,13 +238,16 @@ function fail(e){ toast('Не получилось сохранить. Пров�
   g[1].forEach(function(t){ var o = el('option', null, t[1]); o.value = t[0]; og.appendChild(o); }); s.appendChild(og); });
   var o = el('option', null, 'Другая тема…'); o.value = 'other'; s.appendChild(o);
   s.addEventListener('change', function(){ $('lOtherBox').hidden = s.value !== 'other'; autoHw(); hwBar(); }); })();
+// Homework conditions are generated from the lesson pages, not copied by hand.
+Object.keys(window.EDU_EGE_HOMEWORK || {}).forEach(function(id){
+  if (HWS[id]) HWS[id].text = HWS[id].full = window.EDU_EGE_HOMEWORK[id];
+});
 var lastAuto = '', lastQuiz = '';
 function hwBar(){
   var h = HWS[$('lTopic').value], bar = $('lHwSug'); bar.innerHTML = ''; if (!h) { bar.hidden = true; return; } bar.hidden = false;
   var head = el('div', 'sug-t'); head.appendChild(el('b', null, h.src + ': ')); head.appendChild(el('span', null, h.text)); bar.appendChild(head);
   var acts = [['Подставить', function(){ setHw(h.text); }]];
   if (h.full) acts.push(['Полностью из конспекта', function(){ setHw(h.full); }]);
-  if (h.pptx) acts.push(['Номера из презентации учебника', function(){ setHw(h.pptx); }]);
   if (h.ws) acts.push(['+ ' + h.ws, function(){ var v = $('lHw').value.trim(); if (v.indexOf(h.ws) < 0) $('lHw').value = (v ? v.replace(/[.;]\s*$/, '') + '; ' : '') + h.ws; }]);
   if (h.quiz && QUIZ[h.quiz]) acts.push(['+ ' + QUIZ[h.quiz], function(){ $('lQuiz').value = h.quiz; lastQuiz = h.quiz; }]);
   acts.forEach(function(a){ var b = el('button', 'chipbtn', a[0]); b.type = 'button'; b.addEventListener('click', a[1]); bar.appendChild(b); });

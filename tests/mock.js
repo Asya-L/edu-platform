@@ -9,7 +9,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
   const db = () => { const D = get('mockdb', {edu_students:[], edu_lessons:[], edu_progress:[], edu_profiles:[
     {user_id:'u1',email:'teacher@test.local',role:'teacher',created_at:'2026-10-01'},
     {user_id:'u2',email:'kid@test.local',role:'student',created_at:'2026-10-02'},
-    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; return D; };
+    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; D.edu_reviews = D.edu_reviews || []; return D; };
   const sess = () => { try { const t = sessionStorage.getItem('mockSessionTab'); if (t) return JSON.parse(t); } catch(e) {} return get('mockSession', null); };
   const me = () => { const s = sess(); if (!s) return null; const p = db().edu_profiles.find(x => x.user_id === s.user.id); return {id: s.user.id, role: p ? p.role : 'student'}; };
   let n = 0; const uid = () => 'id' + Date.now() + '_' + (n++);
@@ -23,6 +23,11 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       if (t === 'edu_profiles') { let rows = D.edu_profiles.filter(r => teacher || r.user_id === u.id);
         if (st.op === 'update') { if (!teacher) return {data:null}; D.edu_profiles = D.edu_profiles.map(r => match(r) ? Object.assign({}, r, st.data) : r); put('mockdb', D); return {data:null}; }
         rows = rows.filter(match); return {data: st.single ? (rows[0] || null) : rows}; }
+      if (!teacher && t === 'edu_reviews') {
+        const student = D.edu_students.find(s => s.user_id === u.id);
+        const rows = st.op === 'select' ? D.edu_reviews.filter(r => student && r.student_id === student.id && match(r)) : [];
+        return {data: st.single ? (rows[0] || null) : rows};
+      }
       if (!teacher) return {data: st.single ? null : []};
       if (t === 'edu_bank') return {data: Object.keys(BK).map(id => Object.assign({id}, BK[id]))};
       if (st.op === 'insert') { const row = Object.assign({id: uid(), created_at: new Date().toISOString()}, t === 'edu_lessons' ? {student_done:false, hw_status:'none', photos:[]} : t === 'edu_boards' ? {data:{els:[]}, title:'Доска', updated_at: new Date().toISOString()} : {}, st.data); D[t].push(row); put('mockdb', D); return {data: st.single ? row : [row]}; }
