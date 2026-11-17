@@ -9,7 +9,7 @@ module.exports = function(KEY, QUIZKEYS, BANK){
   const db = () => { const D = get('mockdb', {edu_students:[], edu_lessons:[], edu_progress:[], edu_profiles:[
     {user_id:'u1',email:'teacher@test.local',role:'teacher',created_at:'2026-10-01'},
     {user_id:'u2',email:'kid@test.local',role:'student',created_at:'2026-10-02'},
-    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; D.edu_reviews = D.edu_reviews || []; return D; };
+    {user_id:'u3',email:'new@test.local',role:'student',created_at:'2026-10-03'}]}); D.edu_quiz_results = D.edu_quiz_results || []; D.edu_boards = D.edu_boards || []; D.edu_bank_attempts = D.edu_bank_attempts || []; D.edu_ws_answers = D.edu_ws_answers || []; D.edu_visits = D.edu_visits || []; D.edu_reviews = D.edu_reviews || []; D.edu_board_batches = D.edu_board_batches || []; return D; };
   const sess = () => { try { const t = sessionStorage.getItem('mockSessionTab'); if (t) return JSON.parse(t); } catch(e) {} return get('mockSession', null); };
   const me = () => { const s = sess(); if (!s) return null; const p = db().edu_profiles.find(x => x.user_id === s.user.id); return {id: s.user.id, role: p ? p.role : 'student'}; };
   let n = 0; const uid = () => 'id' + Date.now() + '_' + (n++);
@@ -45,7 +45,15 @@ module.exports = function(KEY, QUIZKEYS, BANK){
     return b;
   }
   const norm = s => String(s == null ? '' : s).trim().toLowerCase().replace(/ /g, '').replace(/,/g, '.').replace(/ё/g, 'е').replace(/°/g, '');
-  function rpc(name, args) { const D = db(), u = me(); if (!u) return Promise.resolve({data:null, error:{message:'not allowed'}});
+  function rpc(name, args) {
+    if (name === 'edu_board_apply') {
+      if (sessionStorage.getItem('mockBoardOffline') === '1') return Promise.reject(new Error('offline'));
+      const delay = +(sessionStorage.getItem('mockBoardDelay') || 0);
+      if (delay && !args.__delayed) return new Promise(resolve => setTimeout(() => resolve(rpc(name, Object.assign({}, args, {__delayed:true}))), delay));
+      // Model the database row lock across independent browser tabs.
+      if (!args.__locked) return navigator.locks.request('mock-board-storage', () => rpc(name, Object.assign({}, args, {__locked:true})));
+    }
+    const D = db(), u = me(); if (!u) return Promise.resolve({data:null, error:{message:'not allowed'}});
     const s = D.edu_students.find(x => x.user_id === u.id); const R = data => Promise.resolve({data, error:null});
     const qs = (lid, best) => { const a = D.edu_quiz_results.filter(r => r.lesson_id === lid).sort((x, y) => x.created_at < y.created_at ? -1 : 1); if (!a.length) return null;
       const r = best ? a.reduce((m, q) => q.score > m.score ? q : m, a[0]) : a[0]; return r.score + '/' + r.total; };
@@ -103,7 +111,20 @@ module.exports = function(KEY, QUIZKEYS, BANK){
     const can = id => { const b = D.edu_boards.find(x => x.id === id); return !!b && (u.role === 'teacher' || (s && b.student_id === s.id)); };
     if (name === 'edu_my_boards') return R(s ? D.edu_boards.filter(b => b.student_id === s.id).sort((a, b) => a.created_at < b.created_at ? 1 : -1)
       .map(b => { const l = D.edu_lessons.find(x => x.id === b.lesson_id); return {id:b.id, title:b.title, lesson_id:b.lesson_id || null, lesson_date: l ? l.date : null, created_at:b.created_at, updated_at:b.updated_at}; }) : []);
-    if (name === 'edu_board_get') { const b = D.edu_boards.find(x => x.id === args.p_board); return R(b && can(b.id) ? [{id:b.id, student_id:b.student_id, title:b.title, data:b.data, updated_at:b.updated_at}] : []); }
+    if (name === 'edu_board_get') { const b = D.edu_boards.find(x => x.id === args.p_board); return R(b && can(b.id) ? [{id:b.id, student_id:b.student_id, title:b.title, data:Object.assign({}, b.data, {_revision:b.revision || 0}), updated_at:b.updated_at}] : []); }
+    if (name === 'edu_board_apply') {
+      const b = D.edu_boards.find(x => x.id === args.p_board);
+      if (!b || !can(b.id)) return Promise.resolve({data:null,error:{message:'not allowed'}});
+      const replay = D.edu_board_batches.some(x => x.board === b.id && x.id === args.p_batch);
+      if (!replay) {
+        b.data = window.EDU_BOARD_SYNC.applyOps(b.data,args.p_ops); b.revision = (b.revision || 0) + 1;
+        b.updated_at = new Date().toISOString(); D.edu_board_batches.push({board:b.id,id:args.p_batch}); put('mockdb',D);
+      }
+      if (sessionStorage.getItem('mockBoardLoseResponse') === '1') {
+        sessionStorage.removeItem('mockBoardLoseResponse'); return Promise.reject(new Error('response lost after commit'));
+      }
+      return R({data:JSON.parse(JSON.stringify(b.data)),revision:b.revision,updated_at:b.updated_at});
+    }
     if (name === 'edu_board_save') { const b = D.edu_boards.find(x => x.id === args.p_board); if (!b || !can(b.id)) return R(false);
       b.data = JSON.parse(JSON.stringify(args.p_data)); b.updated_at = new Date().toISOString(); put('mockdb', D); return R(true); }
     if (name === 'edu_board_new') { if (!s) return Promise.resolve({data:null, error:{message:'not linked'}});

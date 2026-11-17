@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script><script src="assets/board-sync.js?v=20261117"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -179,7 +179,11 @@ var K = window.KABINET, sb = null, isT = false, me = {uid: '', role: '', name: '
 var board = null, students = [], lessons = [], boards = [], els = [], bg = 'grid';
 var view = {x: -40, y: -40, z: 1}, tool = 'pen', color = '#2B2440', width = 2, dashed = false;
 var sel = null, cur = null, act = null, undoS = [], redoS = [], drafts = {}, cursors = {}, lasers = [], snapMark = null;
-var ch = null, live = false, joinedAt = 0, saveT = null, saving = false, dirty = false, pollT = null, lastUpd = '', newT = null;
+var ch = null, live = false, dirty = false, pollT = null, newT = null;
+var sync = null, openTicket = 0, pendingView = null, saveStatus = 'saved';
+var syncClientId;
+try { syncClientId = sessionStorage.getItem('edu.board.client'); if (!syncClientId) { syncClientId = crypto.randomUUID(); sessionStorage.setItem('edu.board.client',syncClientId); } } catch(e) { syncClientId = crypto.randomUUID(); }
+function draftStorage(){ try { return localStorage; } catch(e) { return {getItem:function(){ throw e; },setItem:function(){ throw e; },removeItem:function(){ throw e; }}; } }
 var tries = 0, retryT = null, imgs = {}, toSign = {}, signT = null, spaceDown = false, editing = null, lastCur = 0, lastDraft = 0;
 function $(id){ return document.getElementById(id); }
 var cv = $('bdCanvas'), cx = cv.getContext('2d'), stage = $('bdStage'), dpr = 1;
@@ -621,21 +625,37 @@ function apply(op, remote){
   else if (op.k === 'clear') { els = []; sel = null; }
   else if (op.k === 'set') { els = op.els; }
   else if (op.k === 'bg') bg = op.bg;
-  draw(); scheduleSave(remote ? 2500 : 800);
+  draw();
+  if (sync) {
+    if (remote) { if (op._id) sync.receive(op, op._id); }
+    else { var queued = clone(op); delete queued._id; op._id = sync.enqueue(queued); }
+  }
 }
-function commit(op, inv){ apply(op, false); send('op', op); undoS.push({op: op, inv: inv}); if (undoS.length > 200) undoS.shift(); redoS = []; btns(); }
+function commit(op, inv){
+  if (op.k === 'clear') { op = {k:'del',ids:els.map(function(e){ return e.id; })}; inv = {k:'add',els:clone(els)}; }
+  apply(op, false); send('op', op); undoS.push({op: op, inv: inv}); if (undoS.length > 200) undoS.shift(); redoS = []; btns(); }
 function undo(){ var u = undoS.pop(); if (!u) return; apply(u.inv, false); send('op', u.inv); redoS.push(u); btns(); }
 function redo(){ var u = redoS.pop(); if (!u) return; apply(u.op, false); send('op', u.op); undoS.push(u); btns(); }
 function btns(){ $('bdUndo').disabled = !undoS.length; $('bdRedo').disabled = !redoS.length; }
-function scheduleSave(ms){ dirty = true; status(); clearTimeout(saveT); saveT = setTimeout(save, ms); }
-async function save(){
-  if (!board) return; if (saving) { scheduleSave(600); return; } saving = true; var snap = {els: els, bg: bg};
-  var r = await sb.rpc('edu_board_save', {p_board: board.id, p_data: snap}); saving = false;
-  if (r.error || r.data === false) { status('err'); console.error(r.error); clearTimeout(saveT); saveT = setTimeout(save, 5000); return; }
-  dirty = false; status();
+function save(){ return sync ? sync.flush() : Promise.resolve(true); }
+function status(){
+  dirty = !!(sync && sync.dirty());
+  var e = $('bdSave');
+  var labels = {saved:'Сохранено','remote-pending':'Ожидаю сохранения изменений участника',pending:'Есть изменения',saving:'Сохраняю…',offline:'Нет связи — изменения сохранены на устройстве',rejected:'Не удалось сохранить изменения — черновик на устройстве',
+    'storage-error':'Не удалось сохранить черновик на устройстве — не закрывайте страницу'};
+  e.textContent = labels[saveStatus] || labels.pending;
+  e.style.color = saveStatus === 'offline' || saveStatus === 'storage-error' || saveStatus === 'rejected' ? 'var(--peach-d)' : '';
 }
-function status(s){ var e = $('bdSave'); e.textContent = s === 'err' ? 'Не сохранилось — пробую ещё раз' : dirty ? 'Сохраняю…' : 'Сохранено'; e.style.color = s === 'err' ? 'var(--peach-d)' : ''; }
-window.addEventListener('beforeunload', function(ev){ if (dirty) { save(); ev.preventDefault(); ev.returnValue = ''; } });
+function syncView(data){
+  if (act || editing || mathEd || linkEd) { pendingView = data; return; }
+  pendingView = null; els = data.els || []; bg = data.bg || 'grid';
+  if (sel && !find(sel)) sel = null; draw();
+}
+function finishSyncView(){ if (pendingView) { var v = pendingView; pendingView = null; syncView(v); } }
+window.addEventListener('beforeunload', function(ev){ if (sync && sync.dirty()) { save(); ev.preventDefault(); ev.returnValue = ''; } });
+window.addEventListener('pagehide', function(){ if (sync) sync.flush(); });
+window.addEventListener('online', function(){ if (sync) { sync.flush(); sync.refresh(); } });
+document.addEventListener('visibilitychange', function(){ if (sync) { if (document.hidden) sync.flush(); else sync.refresh(); } });
 
 /* ── живая связь ── */
 function send(ev, payload){ if (ch && live) ch.send({type: 'broadcast', event: ev, payload: payload}); }
@@ -648,12 +668,12 @@ async function connect(){
     .on('broadcast', {event: 'cur'}, function(m){ var p = m.payload; cursors[p.by] = {x: p.x, y: p.y, n: p.n, r: p.r, t: Date.now()}; placeCursors(); })
     .on('broadcast', {event: 'laser'}, function(m){ m.payload.pts.forEach(function(p){ lasers.push({x: p[0], y: p[1], t: Date.now(), by: m.payload.by}); }); draw(); })
     .on('broadcast', {event: 'view'}, function(m){ if (!isT) { view = m.payload; draw(); toast('Учитель показал свою часть доски'); } })
-    .on('broadcast', {event: 'hello'}, function(){ var s = JSON.stringify({els: els, bg: bg}); if (els.length && s.length < 200000) send('state', {els: els, bg: bg}); })
-    .on('broadcast', {event: 'state'}, function(m){ if (Date.now() - joinedAt < 6000 && !undoS.length) { els = m.payload.els; bg = m.payload.bg; draw(); } })
+    .on('broadcast', {event: 'hello'}, function(){ if (my === ch && sync) sync.refresh(); })
+    .on('broadcast', {event: 'saved'}, function(m){ if (my === ch && sync) sync.ack(m.payload.ids); })
     .on('presence', {event: 'sync'}, peers)
     .subscribe(function(st){
       if (my !== ch) return;
-      if (st === 'SUBSCRIBED') { live = true; tries = 0; joinedAt = Date.now(); my.track({r: me.role, n: me.name}); send('hello', {}); stopPoll(); peers(); }
+      if (st === 'SUBSCRIBED') { live = true; tries = 0; my.track({r: me.role, n: me.name}); send('hello', {}); startPoll(); peers(); }
       else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT' || st === 'CLOSED') { live = false; peers(); startPoll();
         var id = board && board.id; clearTimeout(retryT); retryT = setTimeout(function(){ if (board && board.id === id && !live) connect(); }, Math.min(30000, 2000 * Math.pow(2, tries++))); }
     });
@@ -663,10 +683,7 @@ function peers(){
   if (ch && live && ch.presenceState) { var ps = ch.presenceState(); Object.keys(ps).forEach(function(k){ if (k !== me.uid && (ps[k] || []).some(function(x){ return x.r !== me.role; })) on = true; }); }
   e.className = 'bd-peer' + (on ? ' on' : ''); e.querySelector('span').textContent = !live ? 'без живой связи' : on ? who + ' на доске' : who + ' не подключён';
 }
-function startPoll(){ if (pollT) return; pollT = setInterval(async function(){ if (dirty || !board) return;
-  var r = await sb.rpc('edu_board_get', {p_board: board.id}); var b = r.data && r.data[0]; if (!b || b.updated_at === lastUpd) return;
-  lastUpd = b.updated_at; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; draw(); }, 3000); }
-function stopPoll(){ clearInterval(pollT); pollT = null; }
+function startPoll(){ if (pollT) return; pollT = setInterval(function(){ if (sync && !document.hidden) sync.refresh(); }, 5000); }
 
 /* ── геометрия: попадание, привязка ── */
 function W2(ev){ var r = cv.getBoundingClientRect(); return {x: view.x + (ev.clientX - r.left) / view.z, y: view.y + (ev.clientY - r.top) / view.z}; }
@@ -755,7 +772,7 @@ window.addEventListener('pointerup', function(ev){
   else if (a.k === 'erase' && a.gone.length) { undoS.push({op: {k: 'del', ids: a.gone.map(function(e){ return e.id; })}, inv: {k: 'add', els: a.gone}}); redoS = []; btns(); }
   else if (a.k === 'laser' && a.buf.length) { send('laser', {by: me.uid, pts: a.buf}); }
   else if ((a.k === 'move' && a.moved) || a.k === 'resize') { var now = find(a.orig.id); if (now) { var op = {k: 'upd', els: [clone(now)]}; apply(op, false); send('op', op); undoS.push({op: op, inv: {k: 'upd', els: [a.orig]}}); redoS = []; btns(); } }
-  draw();
+  finishSyncView(); draw();
 });
 function eraseAt(p){ var h = topHit(p, true); if (!h) return; act.gone.push(clone(h)); var op = {k: 'del', ids: [h.id]}; apply(op, false); send('op', op); }
 function laserAt(p){ lasers.push({x: p.x, y: p.y, t: Date.now(), by: me.uid}); act.buf.push([r1(p.x), r1(p.y)]);
@@ -795,7 +812,7 @@ $('bdText').addEventListener('blur', function(){ setTimeout(function(){ if (edit
 $('bdSyms').addEventListener('mousedown', function(ev){ ev.preventDefault(); });
 $('bdSyms').addEventListener('click', function(ev){ var b = ev.target.closest('button'); if (!b) return; var ta = $('bdText'), s = ta.selectionStart, e = ta.selectionEnd;
   ta.value = ta.value.slice(0, s) + b.textContent + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = s + b.textContent.length; ta.focus(); autosize(); });
-function closeText(){ editing = null; $('bdText').hidden = true; $('bdSyms').hidden = true; }
+function closeText(){ editing = null; setTimeout(finishSyncView,0); $('bdText').hidden = true; $('bdSyms').hidden = true; }
 function commitText(){
   if (!editing) return; var v = $('bdText').value.replace(/\s+$/, ''), ed = editing; closeText();
   if (ed.label) { var n = clone(ed.e); n.l = v.trim().slice(0, 6); commit({k: 'upd', els: [n]}, {k: 'upd', els: [ed.e]}); return; }
@@ -823,7 +840,7 @@ function mathPreview(){
   if (!s.trim()) { g.fillStyle = '#9A92AD'; g.font = '600 13px ' + FONT; g.fillText('Здесь появится формула', 12, h / 2 + 4); return; }
   g.save(); g.translate(12, (h - m.h * fit) / 2); g.scale(fit, fit); MF.draw(g, s, sz, 0, 0, mathEd && mathEd.e ? mathEd.e.c : color); g.restore();
 }
-function closeMath(){ mathEd = null; $('bdMath').hidden = true; }
+function closeMath(){ mathEd = null; setTimeout(finishSyncView,0); $('bdMath').hidden = true; }
 function commitMath(){
   if (!mathEd) return; var v = $('bdMathIn').value.trim(), fs = +$('bdMathSz').value || 30, ed = mathEd; closeMath();
   if (ed.e) { if (!v) { commit({k: 'del', ids: [ed.e.id]}, {k: 'add', els: [ed.e]}); return; } if (v === ed.e.s && fs === ed.e.fs) return;
@@ -845,7 +862,7 @@ function openLinkEd(e){
   box.style.top = Math.max(8, Math.min(stage.clientHeight - box.offsetHeight - 8, sy)) + 'px';
   $('bdLinkUrl').focus();
 }
-function closeLinkEd(){ linkEd = null; $('bdLink').hidden = true; }
+function closeLinkEd(){ linkEd = null; setTimeout(finishSyncView,0); $('bdLink').hidden = true; }
 function commitLinkEd(){
   if (!linkEd) return; var raw = $('bdLinkUrl').value.trim(), u = safeUrl(raw), t = $('bdLinkTxt').value.trim().slice(0, 120), ed = linkEd;
   if (ed.e && !raw) { closeLinkEd(); commit({k: 'del', ids: [ed.e.id]}, {k: 'add', els: [ed.e]}); return; }
@@ -1218,7 +1235,7 @@ function renderMenu(){
       $('bmDel').addEventListener('click', async function(){ if (!confirmBox('Удалить доску «' + board.title + '»? Это нельзя отменить.')) return;
         var imgsList = els.filter(function(e){ return e.t === 'img' && e.src.indexOf('st:') === 0; }).map(function(e){ return e.src.slice(3); });
         var r = await sb.from('edu_boards').delete().eq('id', board.id); if (r.error) { toast('Не удалилось'); return; }
-        if (imgsList.length) await sb.storage.from('edu-board').remove(imgsList); var sid = board.student_id; board = null; dirty = false; closePops(); toast('Доска удалена'); forStudent(sid, false); }); }
+        if (imgsList.length) await sb.storage.from('edu-board').remove(imgsList); var sid = board.student_id; if (sync) sync.close(); sync = null; ++openTicket; board = null; dirty = false; closePops(); toast('Доска удалена'); forStudent(sid, false); }); }
   } else $('bmDraft').addEventListener('click', async function(){ var r = await sb.rpc('edu_board_new', {p_title: 'Черновик ' + fmtD(new Date())}); if (r.error) { toast('Не получилось создать'); return; } closePops(); await loadMine(); openBoard(r.data); });
 }
 async function createBoard(sid, title, lesson){
@@ -1245,13 +1262,24 @@ function todayLesson(){ var t = dayKey(new Date()); return lessons.find(function
 function TOPIC_NAME(k){ if (!k) return ''; var m = /^m([ga])(\d+)$/.exec(k); if (m) return (m[1] === 'g' ? 'Геометрия' : 'Алгебра') + ' (Мерзляк) · ' + (m[1] === 'g' && +m[2] > 30 ? 'итоги главы ' + (m[2] - 30) : '§ ' + m[2]); m = /^([ga])(\d+)$/.exec(k); if (m) return (m[1] === 'g' ? 'Геометрия' : 'Алгебра') + ' · урок ' + m[2]; m = /^el(\d+)$/.exec(k); if (m) return 'ЕГЭ · лекция ' + m[1]; m = /^e(\d+)$/.exec(k); return m ? 'ЕГЭ № ' + m[1] : k; }
 async function loadMine(){ var r = await sb.rpc('edu_my_boards'); boards = r.data || []; return boards; }
 async function openBoard(id){
-  if (board && dirty) await save();
+  var ticket = ++openTicket;
+  if (sync && sync.dirty()) await sync.flush();
   var r = await sb.rpc('edu_board_get', {p_board: id}); var b = r.data && r.data[0];
+  if (ticket !== openTicket) return;
   if (!b) { showEmpty('<h2>Нет доступа к этой доске</h2><p class="muted">Доска открывается только учителю и ученику, для которого она создана.</p>'); return; }
-  var bl = boards.find(function(x){ return x.id === b.id; }); board = {id: b.id, student_id: b.student_id, title: b.title, lesson_id: bl ? bl.lesson_id : null}; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid'; lastUpd = b.updated_at;
+  if (sync) sync.close(); pendingView = null;
+  var bl = boards.find(function(x){ return x.id === b.id; }); board = {id: b.id, student_id: b.student_id, title: b.title, lesson_id: bl ? bl.lesson_id : null}; els = (b.data && b.data.els) || []; bg = (b.data && b.data.bg) || 'grid';
   lastSlide = null; nextBtn(); undoS = []; redoS = []; sel = null; drafts = {}; cursors = {}; $('bdCursors').innerHTML = ''; btns(); dirty = false; status();
   document.body.classList.add('board-open'); $('bdTitle').textContent = b.title; $('bdEmpty').hidden = true; $('bdBar').hidden = false; stage.hidden = false; $('bdShow').hidden = !isT;
   var u = new URL(location.href); u.searchParams.set('b', b.id); u.searchParams.delete('s'); history.replaceState(null, '', u);
+  var boardSync;
+  boardSync = window.EDU_BOARD_SYNC.create({boardId:b.id,userId:me.uid,initialData:b.data,initialRevision:b.data && b.data._revision,
+    rpc:function(name,args){ return sb.rpc(name,args); }, storage:draftStorage(),clientId:syncClientId,
+    onState:function(data){ if (sync === boardSync) syncView(data); },
+    onStatus:function(s){ if (sync === boardSync) { saveStatus = s; status(); } },
+    onSaved:function(ids){ if (sync === boardSync) send('saved',{ids:ids}); }
+  });
+  sync = boardSync; saveStatus = sync.dirty() ? 'pending' : 'saved'; sync.render(); status();
   layout(); if (els.length) fit(); else { view = {x: -40, y: -40, z: 1}; draw(); }
   connect();
 }
@@ -1278,7 +1306,9 @@ async function checkNew(){
     bn.querySelectorAll('button')[0].onclick = function(){ bn.hidden = true; openBoard(nb.id); }; bn.querySelectorAll('button')[1].onclick = function(){ bn.hidden = true; checkNew.seen[nb.id] = 1; }; }
 }
 checkNew.seen = {};
-window.__board = {els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }, mf: MF, tplAnchors: tplAnchors, imgOk: function(src){ return !!(imgs[src] && imgs[src].ok); }};   // для автотестов
+window.addEventListener('pointerup', function(){ if (!act) finishSyncView(); });
+window.addEventListener('keyup', function(){ if (!editing && !mathEd && !linkEd) finishSyncView(); });
+window.__board = {flush:save,pending:function(){ return !!(sync && sync.dirty()); },els: function(){ return els; }, board: function(){ return board; }, view: function(){ return view; }, exp: function(){ return exportPng(); }, mf: MF, tplAnchors: tplAnchors, imgOk: function(src){ return !!(imgs[src] && imgs[src].ok); }};   // для автотестов
 
 K.state.then(async function(st){
   if (!st || !st.session || !K.sb) return; sb = K.sb; document.body.classList.add('board-page');

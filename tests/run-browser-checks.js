@@ -15,10 +15,12 @@ const server = http.createServer(async (req, res) => {
 (async () => {
   await new Promise((resolve,reject) => { server.once('error',reject); server.listen(0,'127.0.0.1',resolve); });
   try {
-    const child = spawn(process.execPath, [path.join(__dirname,'homework-browser.js')], {
-      env:{...process.env,SITE:`http://127.0.0.1:${server.address().port}/`},stdio:'inherit'
-    });
-    const code = await new Promise((resolve,reject) => { child.once('error',reject); child.once('exit',resolve); });
-    if (code !== 0) process.exitCode = 1;
+    for (const file of ['homework-browser.js','board-browser.js']) {
+      const child = spawn(process.execPath, [path.join(__dirname,file)], {
+        env:{...process.env,SITE:`http://127.0.0.1:${server.address().port}/`},stdio:'inherit'
+      });
+      const code = await new Promise((resolve,reject) => { child.once('error',reject); child.once('exit',resolve); });
+      if (code !== 0) { process.exitCode = 1; break; }
+    }
   } finally { server.closeAllConnections(); server.close(); }
 })().catch(error => { console.error(error); server.close(); process.exitCode=1; });
