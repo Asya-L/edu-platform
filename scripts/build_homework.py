@@ -20,7 +20,9 @@ class Node:
         if self.has_class('fr'):
             if len(children) != 2:
                 raise ValueError('Fraction must have numerator and denominator')
-            return '(' + children[0].text().strip() + ')/(' + children[1].text().strip() + ')'
+            # Keep the whole fraction grouped: a trailing power must not move
+            # to the denominator or change precedence in adjacent products.
+            return '((' + children[0].text().strip() + ')/(' + children[1].text().strip() + '))'
         content = ''.join(c.text() if isinstance(c, Node) else c for c in self.children)
         if self.has_class('rad'):
             return '(' + content + ')'

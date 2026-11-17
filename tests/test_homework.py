@@ -51,6 +51,10 @@ class HomeworkTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.builder.extract('<main><h2>Теория</h2></main>')
 
+    def test_power_applies_to_the_whole_fraction(self):
+        html = '<h2 id="homework">ДЗ</h2><div class="task"><span class="task-no">Д1</span>(x+2)<span class="fr"><span>x-3</span><span>x-1</span></span>²</div>'
+        self.assertIn('(x+2)((x-3)/(x-1))²', self.builder.extract(html))
+
 
 if __name__ == '__main__':
     unittest.main()
