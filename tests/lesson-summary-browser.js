@@ -37,8 +37,8 @@ const mock=require('./mock.js')('unused-summary-key',{},{}),SITE=process.env.SIT
   await pupil.reload();await pupil.waitForFunction(()=>document.querySelector('#summaryStatus').textContent.includes('пока не отправлен'));assert.equal(await pupil.locator('#summaryContent img').count(),0);
   console.log('PASS SUMMARY-UI-04 failed save preserves input; withdrawal removes pupil access');
   await t.evaluate(()=>window.scrollTo(0,0));
-  await t.screenshot({path:process.env.SUMMARY_SCREENSHOT||'/private/tmp/lesson-summary-desktop.png',fullPage:true});
-  await t.setViewportSize({width:390,height:844});await t.screenshot({path:'/private/tmp/lesson-summary-mobile.png',fullPage:true});
+  await t.screenshot({path:process.env.SUMMARY_SCREENSHOT||require('node:path').join(require('node:os').tmpdir(),'lesson-summary-desktop.png'),fullPage:true});
+  await t.setViewportSize({width:390,height:844});await t.screenshot({path:require('node:path').join(require('node:os').tmpdir(),'lesson-summary-mobile.png'),fullPage:true});
   assert.equal(await t.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'mobile layout must not overflow');assert.deepEqual(errors,[]);
   console.log('PASS SUMMARY-UI-05 desktop/mobile editor has no overflow or browser errors');
   await ctx.close();
