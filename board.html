@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Доска</title>
-<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script><script src="assets/board-sync.js?v=20261117"></script>
+<script>document.documentElement.dataset.page="board";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script><script src="assets/board-sync.js?v=20261118"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -1364,8 +1364,8 @@ async function connect(){
     .on('presence', {event: 'sync'}, peers)
     .subscribe(function(st){
       if (my !== ch) return;
-      if (st === 'SUBSCRIBED') { live = true; tries = 0; my.track({r: me.role, n: me.name}); send('hello', {}); startPoll(); peers(); }
-      else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT' || st === 'CLOSED') { live = false; peers(); startPoll();
+      if (st === 'SUBSCRIBED') { live = true; tries = 0; my.track({r: me.role, n: me.name}); send('hello', {}); peers(); }
+      else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT' || st === 'CLOSED') { live = false; peers();
         var id = board && board.id; clearTimeout(retryT); retryT = setTimeout(function(){ if (board && board.id === id && !live) connect(); }, Math.min(30000, 2000 * Math.pow(2, tries++))); }
     });
 }
@@ -1374,7 +1374,10 @@ function peers(){
   if (ch && live && ch.presenceState) { var ps = ch.presenceState(); Object.keys(ps).forEach(function(k){ if (k !== me.uid && (ps[k] || []).some(function(x){ return x.r !== me.role; })) on = true; }); }
   e.className = 'bd-peer' + (on ? ' on' : ''); e.querySelector('span').textContent = !live ? 'без живой связи' : on ? who + ' на доске' : who + ' не подключён';
 }
-function startPoll(){ if (pollT) return; pollT = setInterval(function(){ if (sync && !document.hidden) sync.refresh(); }, 5000); }
+function startPoll(){
+  clearInterval(pollT);
+  pollT = setInterval(function(){ if (sync && !document.hidden) sync.refresh(); }, 1250);
+}
 
 /* ── геометрия: попадание, привязка ── */
 function W2(ev){ var r = cv.getBoundingClientRect(); return {x: view.x + (ev.clientX - r.left) / view.z, y: view.y + (ev.clientY - r.top) / view.z}; }
@@ -1964,15 +1967,18 @@ async function openBoard(id){
   document.body.classList.add('board-open'); $('bdTitle').textContent = b.title; $('bdEmpty').hidden = true; $('bdBar').hidden = false; stage.hidden = false; $('bdShow').hidden = !isT;
   var u = new URL(location.href); u.searchParams.set('b', b.id); u.searchParams.delete('s'); history.replaceState(null, '', u);
   var boardSync;
-  boardSync = window.EDU_BOARD_SYNC.create({boardId:b.id,userId:me.uid,initialData:b.data,initialRevision:b.data && b.data._revision,
-    rpc:function(name,args){ return sb.rpc(name,args); }, storage:draftStorage(),clientId:syncClientId,
+  boardSync = window.EDU_BOARD_SYNC.create({boardId:b.id,userId:me.uid,initialData:b.data,initialRevision:b.data && b.data._revision,initialUpdatedAt:b.updated_at,
+    rpc:function(name,args,since){
+      var req = sb.rpc(name,args);
+      return name === 'edu_board_get' && since ? req.gt('updated_at',since) : req;
+    }, storage:draftStorage(),clientId:syncClientId,
     onState:function(data){ if (sync === boardSync) syncView(data); },
     onStatus:function(s){ if (sync === boardSync) { saveStatus = s; status(); } },
     onSaved:function(ids){ if (sync === boardSync) send('saved',{ids:ids}); }
   });
   sync = boardSync; saveStatus = sync.dirty() ? 'pending' : 'saved'; sync.render(); status();
   layout(); if (els.length) fit(); else { view = {x: -40, y: -40, z: 1}; draw(); }
-  connect();
+  startPoll(); connect();
 }
 function whenTxt(t){ if (!t) return ''; var d = new Date(t), n = new Date(), hm = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
   var day = function(x){ return new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime(); }, diff = Math.round((day(n) - day(d)) / 864e5);

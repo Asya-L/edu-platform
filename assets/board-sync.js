@@ -23,6 +23,7 @@
   function create(options){
     var o = options, key = 'edu.board.pending:' + o.userId + ':' + o.boardId + ':' + (o.clientId || 'main');
     var base = clone(o.initialData || {els:[],bg:'grid'}), revision = Number(o.initialRevision || 0);
+    var updatedAt = o.initialUpdatedAt, refreshing = null, delay = o.delay == null ? 300 : o.delay;
     var pending = [], batch = null, running = null, timer = null, closed = false, hints = new Map(), storageError = false;
     try {
       var saved = o.storage && JSON.parse(o.storage.getItem(key) || 'null');
@@ -31,7 +32,7 @@
       }
     } catch(e){ storageError = true; }
     function dirty(){ return pending.length > 0; }
-    function view(){ return applyOps(applyOps(base, Array.from(hints.values())), pending.map(function(p){ return p.op; })); }
+    function view(){ return applyOps(base, Array.from(hints.values()).concat(pending.map(function(p){ return p.op; }))); }
     function state(s){ if (!closed && o.onStatus) o.onStatus(s || (dirty() ? 'pending' : hints.size ? 'remote-pending' : 'saved')); }
     function render(){ if (!closed && o.onState) o.onState(view()); }
     function persist(){
@@ -43,18 +44,29 @@
         storageError = false;
       } catch(e){ storageError = true; state('storage-error'); }
     }
-    function schedule(ms){ clearTimeout(timer); if (!closed && dirty()) timer = setTimeout(flush, ms); }
-    function hydrate(data, rev){
-      rev = Number(rev || 0);
-      if (rev >= revision) { revision = rev; base = clone(data); delete base._revision; }
+    function schedule(ms){
+      // Start the window at the first stroke so continuous writing cannot postpone saves.
+      if (!closed && !running && timer === null && dirty()) timer = setTimeout(flush, ms);
     }
-    async function refresh(){
-      if (closed) return false;
-      try {
-        var r = await o.rpc('edu_board_get', {p_board:o.boardId}), b = r.data && r.data[0];
-        if (r.error || !b) return false;
-        hydrate(b.data, b.data && b.data._revision); render(); return true;
-      } catch(e){ return false; }
+    function hydrate(data, rev, stamp){
+      rev = Number(rev || 0);
+      if (rev < revision || (rev === revision && (!stamp || stamp === updatedAt))) return false;
+      revision = rev; updatedAt = stamp; base = clone(data); delete base._revision;
+      return true;
+    }
+    function refresh(){
+      if (closed) return Promise.resolve(false);
+      if (refreshing) return refreshing;
+      var since = updatedAt;
+      refreshing = Promise.resolve().then(function(){ return o.rpc('edu_board_get', {p_board:o.boardId}, since); })
+        .then(function(r){
+          if (closed || r.error || !Array.isArray(r.data)) return false;
+          var b = r.data[0];
+          if (!b) return !!since;
+          if (hydrate(b.data, b.data && b.data._revision, b.updated_at)) render();
+          return true;
+        }).catch(function(){ return false; }).finally(function(){ refreshing = null; });
+      return refreshing;
     }
     function request(args){
       var timeout;
@@ -64,7 +76,7 @@
       ]).finally(function(){ clearTimeout(timeout); });
     }
     function flush(){
-      clearTimeout(timer);
+      clearTimeout(timer); timer = null;
       if (running) return running;
       if (!dirty()) return Promise.resolve(true);
       if (!batch) batch = {id:uuid(),items:clone(pending.slice(0,200))};
@@ -81,7 +93,7 @@
           if (!r.data || !r.data.data) throw new Error('Board save rejected');
           var ids = sent.items.map(function(p){ return p.id; });
           pending = pending.filter(function(p){ return ids.indexOf(p.id) < 0; }); batch = null;
-          hydrate(r.data.data, r.data.revision); persist(); render(); state();
+          hydrate(r.data.data, r.data.revision, r.data.updated_at); persist(); render(); state();
           if (!closed && o.onSaved) o.onSaved(ids, revision);
           return true;
         } catch(e){
@@ -98,14 +110,20 @@
       // Validate before writing a potentially unreplayable draft.
       applyOps({els:[]}, [op]);
       var item = {id:uuid(),op:clone(op)}; pending.push(item); persist(); render();
-      state(storageError ? 'storage-error' : 'pending'); schedule(o.delay == null ? 800 : o.delay);
+      state(storageError ? 'storage-error' : 'pending'); schedule(delay);
       return item.id;
     }
     function receive(op, id){ if (closed || !id) return; hints.set(id,clone(op)); render(); state(); }
-    async function ack(ids){ (ids || []).forEach(function(id){ hints.delete(id); }); var ok = await refresh(); state(); return ok; }
+    async function ack(ids){
+      // An in-flight poll may have started before the peer's save.
+      if (refreshing) await refreshing;
+      var ok = await refresh();
+      if (ok && (ids || []).filter(function(id){ return hints.delete(id); }).length) render();
+      state(); return ok;
+    }
     function close(){ closed = true; clearTimeout(timer); }
     render(); state(storageError ? 'storage-error' : null);
-    if (dirty()) schedule(o.delay == null ? 800 : o.delay);
+    if (dirty()) schedule(delay);
     return {enqueue:enqueue,flush:flush,refresh:refresh,receive:receive,ack:ack,close:close,dirty:dirty,view:view,render:render};
   }
   return {create:create,applyOps:applyOps};

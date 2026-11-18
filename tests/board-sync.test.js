@@ -28,6 +28,14 @@ test('changes made during an in-flight save remain dirty and get a second batch'
   assert.equal(a.dirty(),true);await a.flush();assert.equal(a.dirty(),false);
   assert.deepEqual(db.read().els.map(e=>e.id),['first','second']);
 });
+test('continuous writing is saved before the writer pauses',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  const db=server(), a=session(db.rpc,{delay:300});t.after(()=>a.close());
+  for(let i=0;i<3;i++) {a.enqueue(add(String(i)));t.mock.timers.tick(100);}
+  await Promise.resolve();
+  assert.deepEqual(db.read().els.map(e=>e.id),['0','1','2']);
+  await a.flush();
+});
 test('lost response retries the exact batch id and never replays an old update',async t=>{
   const db=server();let lost=true;const ids=[];
   const a=session(async(n,p)=>{ids.push(p.p_batch);const r=await db.rpc(n,p);if(lost){lost=false;throw Error('response lost');}return r;});t.after(()=>a.close());
@@ -52,6 +60,14 @@ test('concurrent refresh cannot roll a newer server revision backwards',async t=
   const refresh=a.refresh();a.enqueue(add('new'));await a.flush();
   wait.resolve({data:[{data:{els:[],_revision:0}}]});await refresh;
   assert.equal(a.view().els[0].id,'new');
+});
+test('an unchanged board is read once without redrawing',async t=>{
+  const wait=deferred(), stamp='2026-11-18T12:00:00Z';let reads=0,renders=0;
+  const a=session((name,args,since)=>{reads++;assert.equal(since,stamp);return wait.promise;},
+    {initialUpdatedAt:stamp,onState:()=>renders++});t.after(()=>a.close());
+  const both=Promise.all([a.refresh(),a.refresh()]);
+  wait.resolve({data:[]});
+  assert.deepEqual(await both,[true,true]);assert.equal(reads,1);assert.equal(renders,1);
 });
 test('remote hints survive saves until their sender confirms persistence',async t=>{
   const db=server(),states=[],a=session(db.rpc,{onStatus:s=>states.push(s)});t.after(()=>a.close());

@@ -106,13 +106,28 @@ async function open(page,id='board-a') {
       assert.equal((await data(teacher)).edu_board_batches.length,2);
       await open(teacher);assert.equal((await objects(teacher)).length,2);
     },true);
-    await scenario('BOARD-UI-11 silent realtime loss still refreshes the pupil board',async({teacher,student})=>{
+    await scenario('BOARD-UI-11 pupil sees continuous writing despite silent realtime loss',async({teacher,student})=>{
       await teacher.waitForFunction(()=>document.querySelector('#bdPeer').textContent.includes('Ученик на доске'));
       for (const p of [teacher,student]) await p.evaluate(()=>{ BroadcastChannel.prototype.postMessage=function(){}; });
-      await point(teacher);await flush(teacher);
-      await student.waitForFunction(()=>window.__board.els().length===1,{},{timeout:9000});
+      await teacher.click('[data-tool=pen]');
+      const box=await teacher.locator('#bdCanvas').boundingBox();
+      let latency;
+      const start=Date.now();
+      await Promise.all([
+        student.waitForFunction(()=>window.__board.els().length>0,undefined,{timeout:2500,polling:50})
+          .then(()=>{latency=Date.now()-start;}),
+        (async()=>{
+          for(let i=0;i<24;i++) {
+            await teacher.mouse.move(box.x+200+i*18,box.y+220);await teacher.mouse.down();
+            await teacher.mouse.move(box.x+210+i*18,box.y+235);await teacher.mouse.up();
+            await teacher.waitForTimeout(110);
+          }
+        })()
+      ]);
+      await student.waitForFunction(()=>window.__board.els().length===24,undefined,{timeout:2500,polling:50});
+      console.log('  First stroke via fallback: '+latency+' ms');
       assert.match(await student.textContent('#bdPeer'),/Учитель на доске/);
-      assert.equal((await data(teacher)).edu_boards[0].data.els.length,1);
+      assert.equal((await data(teacher)).edu_boards[0].data.els.length,24);
     },true);
     await scenario('BOARD-UI-08 undo redo text and background changes persist',async({teacher})=>{
       await teacher.click('[data-tool=text]');const box=await teacher.locator('#bdCanvas').boundingBox();

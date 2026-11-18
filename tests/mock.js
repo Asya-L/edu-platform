@@ -121,7 +121,11 @@ module.exports = function(KEY, QUIZKEYS, BANK){
     const can = id => { const b = D.edu_boards.find(x => x.id === id); return !!b && (u.role === 'teacher' || (s && b.student_id === s.id)); };
     if (name === 'edu_my_boards') return R(s ? D.edu_boards.filter(b => b.student_id === s.id).sort((a, b) => a.created_at < b.created_at ? 1 : -1)
       .map(b => { const l = D.edu_lessons.find(x => x.id === b.lesson_id); return {id:b.id, title:b.title, lesson_id:b.lesson_id || null, lesson_date: l ? l.date : null, created_at:b.created_at, updated_at:b.updated_at}; }) : []);
-    if (name === 'edu_board_get') { const b = D.edu_boards.find(x => x.id === args.p_board); return R(b && can(b.id) ? [{id:b.id, student_id:b.student_id, title:b.title, data:Object.assign({}, b.data, {_revision:b.revision || 0}), updated_at:b.updated_at}] : []); }
+    if (name === 'edu_board_get') {
+      const b = D.edu_boards.find(x => x.id === args.p_board);
+      const rows = b && can(b.id) ? [{id:b.id, student_id:b.student_id, title:b.title, data:Object.assign({}, b.data, {_revision:b.revision || 0}), updated_at:b.updated_at}] : [];
+      return Object.assign(R(rows), {gt: (key, value) => R(rows.filter(row => row[key] > value))});
+    }
     if (name === 'edu_board_apply') {
       const b = D.edu_boards.find(x => x.id === args.p_board);
       if (!b || !can(b.id)) return Promise.resolve({data:null,error:{message:'not allowed'}});
