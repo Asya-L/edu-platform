@@ -15,7 +15,7 @@ const server = http.createServer(async (req, res) => {
 (async () => {
   await new Promise((resolve,reject) => { server.once('error',reject); server.listen(0,'127.0.0.1',resolve); });
   try {
-    for (const file of (process.env.BROWSER_TESTS ? process.env.BROWSER_TESTS.split(',') : ['homework-browser.js','visits-browser.js','board-browser.js','lesson-summary-browser.js','catalogs-browser.js'])) {
+    for (const file of (process.env.BROWSER_TESTS ? process.env.BROWSER_TESTS.split(',') : ['homework-browser.js','visits-browser.js','board-browser.js','lesson-summary-browser.js','catalogs-browser.js','lesson-pack-browser.js'])) {
       const child = spawn(process.execPath, [path.join(__dirname,file)], {
         env:{...process.env,SITE:`http://127.0.0.1:${server.address().port}/`},stdio:'inherit'
       });
