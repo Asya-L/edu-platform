@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="422" viewBox="0 0 270 211" role="img" aria-labelledby="title">
+  <title id="title">Тетраэдр: перенеси направление</title>
+  <g fill="none" stroke-width="1.6" stroke-linejoin="round">
+    <path stroke="#746886" stroke-dasharray="5 4" d="M41 144L222 110"/>
+    <path stroke="#302650" d="M41 144L162 166 M162 166L222 110 M222 110L117 25 M117 25L41 144 M162 166L117 25"/>
+  </g>
+  <g fill="#302650" font-family="system-ui,sans-serif" font-size="13" font-weight="600">
+    <text x="25" y="150">A</text><text x="163" y="183">B</text><text x="229" y="115">C</text><text x="111" y="17">D</text>
+    <g fill="#6826ad">
+      <g stroke="white" stroke-width="1.2"><circle cx="81.333" cy="151.333" r="4.5"/><circle cx="101.333" cy="132.667" r="4.5"/><circle cx="169.5" cy="67.5" r="4.5"/></g>
+      <text x="65.333" y="163.333">M</text><text x="108.333" y="126.667">N</text><text x="176.5" y="61.5">P</text>
+    </g>
+  </g>
+</svg>

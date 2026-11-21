@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="422" viewBox="0 0 270 211" role="img" aria-labelledby="title">
+  <title id="title">Куб: найди две точки на основании</title>
+  <g fill="none" stroke-width="1.6" stroke-linejoin="round">
+    <path stroke="#746886" stroke-dasharray="5 4" d="M226 119L100 119 M100 119L38 160 M100 119L100 21"/>
+    <path stroke="#302650" d="M38 160L164 160 M164 160L226 119 M38 62L164 62 M164 62L226 21 M226 21L100 21 M100 21L38 62 M38 160L38 62 M164 160L164 62 M226 119L226 21"/>
+  </g>
+  <g fill="#302650" font-family="system-ui,sans-serif" font-size="13" font-weight="600">
+    <text x="22" y="176">A</text><text x="164" y="177">B</text><text x="233" y="126">C</text><text x="104" y="114">D</text><text x="19" y="58">A₁</text><text x="146" y="57">B₁</text><text x="230" y="19">C₁</text><text x="82" y="17">D₁</text>
+    <g fill="#6826ad">
+      <g stroke="white" stroke-width="1.2"><circle cx="38" cy="135.5" r="4.5"/><circle cx="164" cy="86.5" r="4.5"/><circle cx="226" cy="94.5" r="4.5"/></g>
+      <text x="45" y="129.5">M</text><text x="171" y="80.5">N</text><text x="233" y="88.5">P</text>
+    </g>
+  </g>
+</svg>

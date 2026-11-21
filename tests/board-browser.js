@@ -109,14 +109,15 @@ async function open(page,id='board-a') {
     await scenario('BOARD-UI-12 a section drawing from lesson 5 is shared and can be annotated',async({teacher,student})=>{
       await teacher.click('#bdFigBtn');
       const choices=teacher.locator('[data-fig^="g5-section-"]');
-      assert.equal(await choices.count(),4);
+      assert.deepEqual(await choices.evaluateAll(buttons=>buttons.map(b=>b.dataset.fig)),
+        Array.from({length:14},(_,i)=>'g5-section-'+(i+1)+'.svg'));
       for (const image of await choices.locator('img').all()) await image.evaluate(img=>img.decode());
       await choices.last().click();
       await flush(teacher);
-      const src='fig:g5-section-4.svg';
+      const src='fig:g5-section-14.svg';
       await student.waitForFunction(src=>window.__board.els().some(e=>e.src===src),src);
       const drawing=(await objects(student)).find(e=>e.src===src);
-      assert.equal(drawing.hh,543);
+      assert.equal(drawing.hh,406);
       await point(student,430,330);
       await flush(student);
       await teacher.waitForFunction(()=>window.__board.els().some(e=>e.t==='pt'));

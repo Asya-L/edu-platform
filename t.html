@@ -183,8 +183,8 @@ function key(){
     return crypto.subtle.importKey('raw', b64(r.data.value), 'AES-GCM', false, ['decrypt']); });
   return keyP;
 }
-async function open(path){
-  var k = await key(); var res = await fetch(path + '?v=' + VER); if (!res.ok) throw new Error('nofile');
+async function open(path, version){
+  var k = await key(); var res = await fetch(path + '?v=' + (version || VER)); if (!res.ok) throw new Error('nofile');
   var buf = new Uint8Array(await res.arrayBuffer());
   return crypto.subtle.decrypt({name: 'AES-GCM', iv: buf.slice(0, 12)}, k, buf.slice(12));
 }
@@ -210,7 +210,7 @@ async function addSectionPractice(html){
   try {
     var results = await Promise.all([
       fetch('g5.html', {cache: 'no-cache'}),
-      open('t/g5-section-solutions.bin').then(function(data){ return new TextDecoder().decode(data); }).catch(function(){ return ''; })
+      open('t/g5-section-solutions.bin', 'g5-practice-14').then(function(data){ return new TextDecoder().decode(data); }).catch(function(){ return ''; })
     ]);
     var res = results[0];
     if (!res.ok) return html;

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="422" viewBox="0 0 270 211" role="img" aria-labelledby="title">
+  <title id="title">Куб: продли линии и замкни контур</title>
+  <g fill="none" stroke-width="1.6" stroke-linejoin="round">
+    <path stroke="#746886" stroke-dasharray="5 4" d="M232 110L112 110 M112 110L33 165 M112 110L112 13"/>
+    <path stroke="#302650" d="M33 165L153 165 M153 165L232 110 M33 68L153 68 M153 68L232 13 M232 13L112 13 M112 13L33 68 M33 165L33 68 M153 165L153 68 M232 110L232 13"/>
+  </g>
+  <g fill="#302650" font-family="system-ui,sans-serif" font-size="13" font-weight="600">
+    <text x="20" y="181">A</text><text x="153" y="182">B</text><text x="238" y="117">C</text><text x="116" y="104">D</text><text x="15" y="64">A₁</text><text x="136" y="62">B₁</text><text x="238" y="17">C₁</text><text x="93" y="13">D₁</text>
+    <g fill="#6826ad">
+      <g stroke="white" stroke-width="1.2"><circle cx="93" cy="68" r="4.5"/><circle cx="153" cy="116.5" r="4.5"/><circle cx="172" cy="110" r="4.5"/></g>
+      <text x="87" y="59">M</text><text x="135" y="114">N</text><text x="175" y="104">P</text>
+    </g>
+  </g>
+</svg>

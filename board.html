@@ -1854,7 +1854,17 @@ function renderFigs(){
     {f:'g5-section-1.svg',c:'1. Тетраэдр: найди P',w:540,h:422},
     {f:'g5-section-2.svg',c:'2. Тетраэдр: найди Q',w:540,h:422},
     {f:'g5-section-3.svg',c:'3. Куб: проведи параллель',w:540,h:422},
-    {f:'g5-section-4.svg',c:'4. Куб: продли след',w:540,h:564}
+    {f:'g5-section-4.svg',c:'4. Куб: продли след',w:540,h:564},
+    {f:'g5-section-5.svg',c:'5. Тетраэдр: сечение, параллельное грани',w:540,h:422},
+    {f:'g5-section-6.svg',c:'6. Тетраэдр: перенеси направление',w:540,h:422},
+    {f:'g5-section-7.svg',c:'7. Тетраэдр: продли след',w:540,h:422},
+    {f:'g5-section-8.svg',c:'8. Тетраэдр: сечение параллельно ребру',w:540,h:422},
+    {f:'g5-section-9.svg',c:'9. Куб: срежь угол куба',w:540,h:422},
+    {f:'g5-section-10.svg',c:'10. Куб: точка на стороне сечения',w:540,h:422},
+    {f:'g5-section-11.svg',c:'11. Куб: найди две точки на основании',w:540,h:422},
+    {f:'g5-section-12.svg',c:'12. Куб: от верхней грани к нижней',w:540,h:422},
+    {f:'g5-section-13.svg',c:'13. Куб: плоскость через вершину',w:540,h:422},
+    {f:'g5-section-14.svg',c:'14. Куб: продли линии и замкни контур',w:540,h:422}
   ]};
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
     [sections].concat(FIGS).map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){

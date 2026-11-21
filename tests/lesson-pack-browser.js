@@ -45,6 +45,19 @@ const mock=require('./mock.js')(contentKey,keys,{}),SITE=process.env.SITE;
    }
   }
   console.log('PASS LESSON-UI-01: 4 lessons, 40 slides, 4 printable worksheets and 8 self-checks work for a pupil');
+  const pupilAnswerRequests=[];
+  p.on('request',req=>{if(new URL(req.url()).pathname.endsWith('/t/g5-section-solutions.bin'))pupilAnswerRequests.push(req.url());});
+  await p.setViewportSize({width:390,height:844});
+  await p.goto(SITE+'g5.html#section-practice');
+  const g5=p.locator('#section-practice .section-drills img');
+  await g5.last().scrollIntoViewIfNeeded();
+  assert.deepEqual(await g5.evaluateAll(imgs=>imgs.map(img=>img.getAttribute('src'))),
+    Array.from({length:14},(_,i)=>'assets/fig/g5-section-'+(i+1)+'.svg'));
+  assert.equal(await p.locator('#section-solutions').count(),0);
+  assert.equal(pupilAnswerRequests.length,0);
+  assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'g5 mobile overflow');
+  await p.setViewportSize({width:1280,height:900});
+  console.log('PASS LESSON-UI: 14 drawings in lesson 5; pupil does not load the teacher explanations');
   await p.goto(SITE+'t.html#a18');await p.waitForURL('**/index.html');
   console.log('PASS LESSON-UI-02: pupil cannot enter teacher materials');
   await p.evaluate(()=>{localStorage.setItem('mockSession',JSON.stringify({user:{id:'u1',email:'teacher@test.local'}}));localStorage.setItem('ws.student','s1');});
