@@ -210,7 +210,8 @@ async function addSectionPractice(html){
   try {
     var results = await Promise.all([
       fetch('g5.html', {cache: 'no-cache'}),
-      open('t/g5-section-solutions.bin', 'g5-practice-14').then(function(data){ return new TextDecoder().decode(data); }).catch(function(){ return ''; })
+      open('t/g5-section-solutions.bin', 'g5-practice-14').then(function(data){ return new TextDecoder().decode(data); }).catch(function(){ return ''; }),
+      open('t/g5-homework-solutions.bin', 'g5-homework-1').then(function(data){ return new TextDecoder().decode(data); }).catch(function(){ return ''; })
     ]);
     var res = results[0];
     if (!res.ok) return html;
@@ -228,6 +229,21 @@ async function addSectionPractice(html){
     if (before) before.before(section); else main.append(section);
     var style = source.getElementById('section-practice-style');
     if (style) section.before(style);
+    var assignment = source.getElementById('homework'), oldHomework = main.querySelector('#homework');
+    if (assignment) {
+      if (results[2]) {
+        assignment.insertAdjacentHTML('beforeend', results[2]);
+        assignment.querySelector('h2').insertAdjacentHTML('afterend', '<p><a href="#g5-homework-solutions">Чертежи и решения для учителя ↓</a></p>');
+      }
+      if (oldHomework) {
+        oldHomework.before(assignment);
+        oldHomework.id = 'g5-homework-previous';
+        oldHomework.textContent = 'Дополнительные задачи с вычислениями';
+      } else {
+        var pager = main.querySelector('.pager');
+        if (pager) pager.before(assignment); else main.append(assignment);
+      }
+    }
     var buttons = body.querySelector('.hero .btns');
     var link = source.querySelector('a[href="#section-practice"]');
     if (buttons && link) {

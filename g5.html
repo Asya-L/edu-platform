@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
 <style id="section-practice-style">
-  #section-practice{scroll-margin-top:96px}
+  #section-practice,#homework,#g5-homework-solutions,[id^="g5-homework-task-"]{scroll-margin-top:96px}
   .section-drills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:16px}
   .section-drill{margin:0;padding:16px}
   .section-drill h3{margin:0 0 8px}
@@ -184,7 +184,43 @@
 <h2 id="test">Тест к уроку</h2>
 <div class="cards"><a class="card lime" href="quiz-g5a.html"><div class="tag">8 вопросов · проверка сразу</div><h3>Тест по уроку 5</h3>
 <p>Проходим на занятии. Домашний вариант с другими вопросами учитель пришлёт в «Домашке».</p><div class="meta">Пройти →</div></a></div>
-<h2 id="homework">Домашнее задание</h2>
+<section id="homework" aria-labelledby="g5-homework-title">
+<h2 id="g5-homework-title">Домашнее задание: построение сечений</h2>
+<div class="goal"><p>Выполни те задачи Д1–Д6, которые указаны в «Домашке». Перенеси заготовку в тетрадь или вставь на доску: <b>«Чертёж из урока» → «Атанасян · урок 5 · Домашняя работа»</b>. Дострой контур, отметь новые точки и кратко объясни ход построения. Стороны на скрытых гранях проведи штрихом.</p></div>
+<div class="section-drills">
+  <article class="task section-drill" id="g5-homework-task-1">
+    <h3>Д1. Сечение у вершины куба</h3>
+    <p>Точки M, N и P — середины рёбер AB, AD и AA₁ куба. Построй сечение плоскостью MNP. Укажи грань, на которой лежит каждая сторона сечения.</p>
+    <img src="assets/fig/g5-hw-1.svg" width="540" height="384" alt="Куб с отмеченными исходными точками для задачи Д1" loading="lazy">
+  </article>
+  <article class="task section-drill" id="g5-homework-task-2">
+    <h3>Д2. Сечение, параллельное основанию</h3>
+    <p>На ребре DA тетраэдра DABC отмечена точка M, причём DM : MA = 1 : 2. Через M проведена плоскость, параллельная грани ABC. Отметь её пересечения с DB и DC и построй сечение.</p>
+    <img src="assets/fig/g5-hw-2.svg" width="600" height="410" alt="Тетраэдр с отмеченными исходными точками для задачи Д2" loading="lazy">
+  </article>
+  <article class="task section-drill" id="g5-homework-task-3">
+    <h3>Д3. Плоскость через два ребра</h3>
+    <p>Плоскость проходит через рёбра AB и C₁D₁ куба. Построй сечение. Объясни, какие две грани дают остальные стороны сечения.</p>
+    <img src="assets/fig/g5-hw-3.svg" width="540" height="384" alt="Куб с отмеченными исходными точками для задачи Д3" loading="lazy">
+  </article>
+  <article class="task section-drill" id="g5-homework-task-4">
+    <h3>Д4. Плоскость через вершину и две середины</h3>
+    <p>Точки K и L — середины рёбер BB₁ и DD₁ куба. Построй сечение плоскостью AKL. Проверь, проходит ли она ещё через вершину куба.</p>
+    <img src="assets/fig/g5-hw-4.svg" width="540" height="384" alt="Куб с отмеченными исходными точками для задачи Д4" loading="lazy">
+  </article>
+  <article class="task section-drill" id="g5-homework-task-5">
+    <h3>Д5. Сечение с продолжением ребра</h3>
+    <p>В тетраэдре DABC точки M и P — середины рёбер AB и CD. Точка N лежит на BD, причём BN : ND = 2 : 1. Построй сечение плоскостью MNP и отметь недостающую вершину.</p>
+    <img src="assets/fig/g5-hw-5.svg" width="600" height="410" alt="Тетраэдр с отмеченными исходными точками для задачи Д5" loading="lazy">
+  </article>
+  <article class="task section-drill" id="g5-homework-task-6">
+    <h3>Д6. Сечение через три середины</h3>
+    <p>Точки M, N и P — середины рёбер AB, BC и CC₁ куба. Построй сечение плоскостью MNP. Отметь все недостающие вершины и запиши их в порядке обхода контура.</p>
+    <img src="assets/fig/g5-hw-6.svg" width="540" height="384" alt="Куб с отмеченными исходными точками для задачи Д6" loading="lazy">
+  </article>
+</div>
+</section>
+<h3 id="g5-homework-previous">Дополнительные задачи с вычислениями</h3>
 <div class="goal"><p>Задачи Д1–Д6 ниже: к каждому сечению — чертёж и список шагов «что соединяю и почему». Выучить три правила построения сечений и свойства параллелепипеда; повторить признаки и свойства параллельности (уроки 2–4).</p></div>
 <div class="task"><span class="task-no">Д1</span>Ребро куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ равно 6. Построй сечение куба плоскостью, проходящей через середины рёбер <i>AB</i>, <i>AD</i> и <i>AA</i>₁. Какой многоугольник получился? Найди его периметр.</div><div class="task"><span class="task-no">Д2</span>На ребре <i>DA</i> тетраэдра <i>DABC</i> взята точка <i>M</i>, <i>DM</i> : <i>MA</i> = 1 : 2. Через <i>M</i> проведена плоскость, параллельная грани <i>ABC</i>. Какой многоугольник получится в сечении? Найди его периметр, если периметр треугольника <i>ABC</i> равен 36.</div><div class="task"><span class="task-no">Д3</span>Ребро куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ равно 4. Построй сечение куба плоскостью, проходящей через рёбра <i>AB</i> и <i>C</i>₁<i>D</i>₁. Какой это многоугольник? Найди его площадь.</div><div class="task"><span class="task-no">Д4</span>Ребро куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ равно 2, <i>K</i> и <i>L</i> — середины рёбер <i>BB</i>₁ и <i>DD</i>₁. Построй сечение куба плоскостью <i>AKL</i>. Какой многоугольник получился? Найди его периметр.</div><div class="task"><span class="task-no">Д5</span>В тетраэдре <i>ABCD</i> точка <i>M</i> — середина ребра <i>AB</i>, точка <i>N</i> лежит на ребре <i>BD</i>, <i>BN</i> : <i>ND</i> = 2 : 1, <i>P</i> — середина ребра <i>CD</i>. Построй сечение плоскостью <i>MNP</i>. Какой многоугольник получился? В каком отношении секущая плоскость делит ребро <i>AC</i>, считая от <i>A</i>?</div><div class="task"><span class="task-no">Д6</span>Ребро куба <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ равно 4. Построй сечение плоскостью, проходящей через середины рёбер <i>AB</i>, <i>BC</i> и <i>CC</i>₁. Сколько сторон у сечения? Найди его периметр.</div><div class="pager">
   <a href="g4.html">← Урок 4</a>

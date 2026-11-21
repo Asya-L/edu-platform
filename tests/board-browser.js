@@ -111,13 +111,17 @@ async function open(page,id='board-a') {
       const choices=teacher.locator('[data-fig^="g5-section-"]');
       assert.deepEqual(await choices.evaluateAll(buttons=>buttons.map(b=>b.dataset.fig)),
         Array.from({length:14},(_,i)=>'g5-section-'+(i+1)+'.svg'));
+      const hw=teacher.locator('[data-fig^="g5-hw-"]');
+      assert.deepEqual(await hw.evaluateAll(buttons=>buttons.map(b=>b.dataset.fig)),
+        Array.from({length:6},(_,i)=>'g5-hw-'+(i+1)+'.svg'));
+      for (const image of await hw.locator('img').all()) await image.evaluate(img=>img.decode());
       for (const image of await choices.locator('img').all()) await image.evaluate(img=>img.decode());
-      await choices.last().click();
+      await hw.last().click();
       await flush(teacher);
-      const src='fig:g5-section-14.svg';
+      const src='fig:g5-hw-6.svg';
       await student.waitForFunction(src=>window.__board.els().some(e=>e.src===src),src);
       const drawing=(await objects(student)).find(e=>e.src===src);
-      assert.equal(drawing.hh,406);
+      assert.equal(drawing.hh,370);
       await point(student,430,330);
       await flush(student);
       await teacher.waitForFunction(()=>window.__board.els().some(e=>e.t==='pt'));

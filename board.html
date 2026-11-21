@@ -1850,6 +1850,14 @@ $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var 
 document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn') && !ev.target.closest('#bdTaskBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
+  var sectionHomework = {g:'Атанасян · урок 5 · Домашняя работа',items:[
+    {f:'g5-hw-1.svg',c:'Д1. Сечение у вершины куба',w:540,h:384},
+    {f:'g5-hw-2.svg',c:'Д2. Сечение, параллельное основанию',w:600,h:410},
+    {f:'g5-hw-3.svg',c:'Д3. Плоскость через два ребра',w:540,h:384},
+    {f:'g5-hw-4.svg',c:'Д4. Плоскость через вершину и две середины',w:540,h:384},
+    {f:'g5-hw-5.svg',c:'Д5. Сечение с продолжением ребра',w:600,h:410},
+    {f:'g5-hw-6.svg',c:'Д6. Сечение через три середины',w:540,h:384}
+  ]};
   var sections = {g:'Атанасян · урок 5 · Дострой сечение',items:[
     {f:'g5-section-1.svg',c:'1. Тетраэдр: найди P',w:540,h:422},
     {f:'g5-section-2.svg',c:'2. Тетраэдр: найди Q',w:540,h:422},
@@ -1867,7 +1875,7 @@ function renderFigs(){
     {f:'g5-section-14.svg',c:'14. Куб: продли линии и замкни контур',w:540,h:422}
   ]};
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
-    [sections].concat(FIGS).map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){
+    [sectionHomework, sections].concat(FIGS).map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){
       var size = it.w && it.h ? ' width="' + it.w + '" height="' + it.h + '"' : '';
       return '<button type="button" data-fig="' + esc(it.f) + '"><img loading="lazy" src="assets/fig/' + esc(it.f) + '" alt=""' + size + '>' + esc(it.c || '') + '</button>'; }).join('') + '</div>'; }).join('');
   f.addEventListener('click', function(ev){ if (ev.target.closest('[data-x]')) { closePops(); return; } var b = ev.target.closest('[data-fig]'); if (!b) return;

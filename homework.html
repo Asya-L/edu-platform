@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
-<script src="assets/catalogs.js?v=3fdc8dbadece"></script>
+<script src="assets/catalogs.js?v=1c44f334627d"></script>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -105,14 +105,15 @@ function thumbs(paths, removable){
       : '<a class="hw-ph" href="' + K.esc(u || '#') + '" target="_blank" rel="noopener">' + img + '</a>';
   }).join('') + '</div>';
 }
-function hwText(t){  // «рабочий лист к уроку N» → ссылка на лист, который заполняется на сайте
-  return K.esc(t).replace(/[Рр]абочий лист к уроку алгебры (\d+)/g, '<a href="wsa$1.html">$&</a>').replace(/[Рр]абочий лист к параграфу алгебры (\d+)/g, '<a href="wsma$1.html">$&</a>').replace(/[Рр]абочий лист к параграфу геометрии (\d+)/g, '<a href="wsmg$1.html">$&</a>').replace(/[Рр]абочий лист к уроку (\d+)/g, '<a href="ws$1.html">$&</a>');
+function hwText(t, topic){  // «рабочий лист к уроку N» → ссылка на лист, который заполняется на сайте
+  var s = K.esc(t).replace(/[Рр]абочий лист к уроку алгебры (\d+)/g, '<a href="wsa$1.html">$&</a>').replace(/[Рр]абочий лист к параграфу алгебры (\d+)/g, '<a href="wsma$1.html">$&</a>').replace(/[Рр]абочий лист к параграфу геометрии (\d+)/g, '<a href="wsmg$1.html">$&</a>').replace(/[Рр]абочий лист к уроку (\d+)/g, '<a href="ws$1.html">$&</a>');
+  return topic === 'g5' ? s.replace(/\((чертёж Д([1-6]))\)/g, '(<a href="g5.html#g5-homework-task-$2">$1</a>)') : s;
 }
 function card(l){
   var title = l.topic ? TOPIC[l.topic] : (l.topic_text || ''); var href = l.topic ? topicHref(l.topic, false) : '';
   var h = '<div class="hw-card" id="hw-' + l.id + '" data-id="' + l.id + '"><div class="hw-top"><b>' + fmtDate(l.date) +
     (title ? ' · ' + (href ? '<a href="' + href + '">' + K.esc(title) + '</a>' : K.esc(title)) : '') + '</b>' + chip(l) + '</div>' +
-    (l.homework ? '<p class="hw-text">' + hwText(l.homework) + '</p>' : '') + hwFiles(l);
+    (l.homework ? '<p class="hw-text">' + hwText(l.homework, l.topic) + '</p>' : '') + hwFiles(l);
   if (l.quiz) {
     var rv = l.quiz.indexOf('rv-') === 0, qt = rv ? 'Повторение пройденного' : (QUIZ[l.quiz] || 'Тест'), qh = rv ? 'review.html?id=' + l.quiz + '&hw=' + l.id : l.quiz + '.html?hw=' + l.id;
     h += '<div class="hw-sub"><div class="me-lbl">Тест в домашке</div><p style="margin:4px 0 8px;font-weight:700">' + K.esc(qt) + '</p>' +

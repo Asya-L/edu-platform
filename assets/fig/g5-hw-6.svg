@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="384" viewBox="0 0 270 192" role="img" aria-labelledby="title">
+  <title id="title">Куб с отмеченными исходными точками для задачи Д6</title>
+  <g fill="none" stroke-width="1.6" stroke-linejoin="round">
+    <path stroke="#746886" stroke-dasharray="5 4" d="M232 110L112 110 M112 110L52 153 M112 110L112 14"/>
+    <path stroke="#302650" d="M52 153L172 153 M172 153L232 110 M52 57L172 57 M172 57L232 14 M232 14L112 14 M112 14L52 57 M52 153L52 57 M172 153L172 57 M232 110L232 14"/>
+  </g>
+  <g fill="#302650" font-family="system-ui,sans-serif" font-size="13" font-weight="600">
+    <text x="40" y="169">A</text><text x="170" y="170">B</text><text x="239" y="115">C</text><text x="119" y="106">D</text><text x="34" y="53">A₁</text><text x="154" y="53">B₁</text><text x="237" y="18">C₁</text><text x="93" y="15">D₁</text>
+    <g fill="#6826ad">
+      <g stroke="white" stroke-width="1.2"><circle cx="112" cy="153" r="4.5"/><circle cx="202" cy="131.5" r="4.5"/><circle cx="232" cy="62" r="4.5"/></g>
+      <text x="120" y="146">M</text><text x="211" y="143.5">N</text><text x="240" y="55">P</text>
+    </g>
+  </g>
+</svg>
