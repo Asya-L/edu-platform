@@ -205,14 +205,40 @@ function wire(name){
 }
 function alertBox(t){ var d = document.createElement('div'); d.className = 'warn'; d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;margin:0';
   d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 4000); }
+async function addSectionPractice(html){
+  // Share the pupil exercises without changing the encrypted teacher material.
+  try {
+    var res = await fetch('g5.html', {cache: 'no-cache'});
+    if (!res.ok) return html;
+    var source = new DOMParser().parseFromString(await res.text(), 'text/html');
+    var section = source.getElementById('section-practice');
+    if (!section) return html;
+    var page = document.createElement('template'); page.innerHTML = html;
+    var body = page.content, main = body.querySelector('main') || body;
+    if (body.querySelector('#section-practice')) return html;
+    var before = main.querySelector('#practice, #test, #homework, .pager');
+    if (before) before.before(section); else main.append(section);
+    var style = source.getElementById('section-practice-style');
+    if (style) section.before(style);
+    var buttons = body.querySelector('.hero .btns');
+    var link = source.querySelector('a[href="#section-practice"]');
+    if (buttons && link) {
+      var homework = buttons.querySelector('a[href="#homework"]');
+      if (homework) homework.before(link); else buttons.append(link);
+    }
+    return page.innerHTML;
+  } catch(e) { return html; }
+}
 async function route(){
-  var parts = (location.hash.slice(1) || 'index').split('/'); var name = parts[0], frag = parts.slice(1).join('/');
+  var hash = location.hash, parts = (hash.slice(1) || 'index').split('/'); var name = parts[0], frag = parts.slice(1).join('/');
   if (TP.indexOf(name) < 0) name = 'index';
   if (name !== cur) {
     try {
       if (!cache[name]) cache[name] = JSON.parse(new TextDecoder().decode(await open('t/' + name + '.bin')));
-    } catch(e) { keyP = null; fail(e.message === 'nokey' ? 'Эта часть сайта открыта только учителю.' : 'Страница не загрузилась. Проверьте интернет и обновите страницу.'); return; }
-    var p = cache[name]; document.title = p.title; view.innerHTML = p.html; cur = name; wire(name);
+    } catch(e) { if (location.hash !== hash) return; keyP = null; fail(e.message === 'nokey' ? 'Эта часть сайта открыта только учителю.' : 'Страница не загрузилась. Проверьте интернет и обновите страницу.'); return; }
+    var p = cache[name], html = name === 'g5' ? await addSectionPractice(p.html) : p.html;
+    if (location.hash !== hash) return;
+    document.title = p.title; view.innerHTML = html; cur = name; wire(name);
     K.renderNav(window.__kstate, name); window.scrollTo(0, 0);
   }
   document.documentElement.classList.remove('auth-wait');
