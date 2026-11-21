@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="422" viewBox="0 0 270 211" role="img" aria-labelledby="title">
+  <style>
+    .edges{fill:none;stroke:#302650;stroke-width:1.6;stroke-linejoin:round}
+    .hidden-edge{stroke-dasharray:5 4;stroke:#746886}
+    .vertices{fill:#302650;font:600 13px system-ui,sans-serif}
+    .given{fill:#6826ad}
+    .given circle{stroke:#fff;stroke-width:1.2}
+  </style>
+  <title id="title">Куб: M на ребре AA₁, N на ребре BB₁, P на ребре CC₁</title>
+  <path class="edges hidden-edge" d="M38 160 100 119H226 M100 119V21"/>
+  <path class="edges" d="M38 62H164V160H38Z M38 62 100 21H226V119L164 160 M164 62 226 21"/>
+  <g class="vertices">
+    <text x="22" y="176">A</text><text x="163" y="178">B</text><text x="233" y="126">C</text><text x="103" y="115">D</text>
+    <text x="19" y="58">A₁</text><text x="146" y="57">B₁</text><text x="230" y="19">C₁</text><text x="82" y="17">D₁</text>
+    <g class="given"><circle cx="38" cy="135.5" r="4.5"/><text x="20" y="140">M</text><circle cx="164" cy="111" r="4.5"/><text x="171" y="115">N</text><circle cx="226" cy="45.5" r="4.5"/><text x="234" y="50">P</text></g>
+  </g>
+</svg>

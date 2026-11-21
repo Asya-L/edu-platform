@@ -1850,11 +1850,21 @@ $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var 
 document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn') && !ev.target.closest('#bdTaskBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
+  var sections = {g:'Атанасян · урок 5 · Дострой сечение',items:[
+    {f:'g5-section-1.svg',c:'1. Тетраэдр: найди P',w:540,h:422},
+    {f:'g5-section-2.svg',c:'2. Тетраэдр: найди Q',w:540,h:422},
+    {f:'g5-section-3.svg',c:'3. Куб: проведи параллель',w:540,h:422},
+    {f:'g5-section-4.svg',c:'4. Куб: продли след',w:540,h:564}
+  ]};
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
-    FIGS.map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){
-      return '<button type="button" data-fig="' + esc(it.f) + '"><img loading="lazy" src="assets/fig/' + esc(it.f) + '" alt="">' + esc(it.c || '') + '</button>'; }).join('') + '</div>'; }).join('');
+    [sections].concat(FIGS).map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){
+      var size = it.w && it.h ? ' width="' + it.w + '" height="' + it.h + '"' : '';
+      return '<button type="button" data-fig="' + esc(it.f) + '"><img loading="lazy" src="assets/fig/' + esc(it.f) + '" alt=""' + size + '>' + esc(it.c || '') + '</button>'; }).join('') + '</div>'; }).join('');
   f.addEventListener('click', function(ev){ if (ev.target.closest('[data-x]')) { closePops(); return; } var b = ev.target.closest('[data-fig]'); if (!b) return;
-    var im = b.querySelector('img'); closePops(); placeImg('fig:' + b.dataset.fig, im.naturalWidth || 600, im.naturalHeight || 400); });
+    var im = b.querySelector('img');
+    var w = +im.getAttribute('width') || im.naturalWidth || 600;
+    var h = +im.getAttribute('height') || im.naturalHeight || 400;
+    closePops(); placeImg('fig:' + b.dataset.fig, w, h); });
 }
 function pad2(n){ return ('0' + n).slice(-2); }
 function slSrc(d, k){ return 'sl:' + d + '/' + pad2(k); }

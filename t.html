@@ -208,11 +208,19 @@ function alertBox(t){ var d = document.createElement('div'); d.className = 'warn
 async function addSectionPractice(html){
   // Share the pupil exercises without changing the encrypted teacher material.
   try {
-    var res = await fetch('g5.html', {cache: 'no-cache'});
+    var results = await Promise.all([
+      fetch('g5.html', {cache: 'no-cache'}),
+      open('t/g5-section-solutions.bin').then(function(data){ return new TextDecoder().decode(data); }).catch(function(){ return ''; })
+    ]);
+    var res = results[0];
     if (!res.ok) return html;
     var source = new DOMParser().parseFromString(await res.text(), 'text/html');
     var section = source.getElementById('section-practice');
     if (!section) return html;
+    if (results[1]) {
+      section.insertAdjacentHTML('beforeend', results[1]);
+      section.querySelector('h2').insertAdjacentHTML('afterend', '<p><a href="#section-solutions">Разборы для учителя ↓</a></p>');
+    }
     var page = document.createElement('template'); page.innerHTML = html;
     var body = page.content, main = body.querySelector('main') || body;
     if (body.querySelector('#section-practice')) return html;

@@ -106,6 +106,23 @@ async function open(page,id='board-a') {
       assert.equal((await data(teacher)).edu_board_batches.length,2);
       await open(teacher);assert.equal((await objects(teacher)).length,2);
     },true);
+    await scenario('BOARD-UI-12 a section drawing from lesson 5 is shared and can be annotated',async({teacher,student})=>{
+      await teacher.click('#bdFigBtn');
+      const choices=teacher.locator('[data-fig^="g5-section-"]');
+      assert.equal(await choices.count(),4);
+      for (const image of await choices.locator('img').all()) await image.evaluate(img=>img.decode());
+      await choices.last().click();
+      await flush(teacher);
+      const src='fig:g5-section-4.svg';
+      await student.waitForFunction(src=>window.__board.els().some(e=>e.src===src),src);
+      const drawing=(await objects(student)).find(e=>e.src===src);
+      assert.equal(drawing.hh,543);
+      await point(student,430,330);
+      await flush(student);
+      await teacher.waitForFunction(()=>window.__board.els().some(e=>e.t==='pt'));
+      await open(teacher);
+      assert.deepEqual((await objects(teacher)).map(e=>e.t),['img','pt']);
+    },true);
     await scenario('BOARD-UI-11 pupil sees continuous writing despite silent realtime loss',async({teacher,student})=>{
       await teacher.waitForFunction(()=>document.querySelector('#bdPeer').textContent.includes('Ученик на доске'));
       for (const p of [teacher,student]) await p.evaluate(()=>{ BroadcastChannel.prototype.postMessage=function(){}; });

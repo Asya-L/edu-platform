@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="422" viewBox="0 0 270 211" role="img" aria-labelledby="title">
+  <style>
+    .edges{fill:none;stroke:#302650;stroke-width:1.6;stroke-linejoin:round}
+    .hidden-edge{stroke-dasharray:5 4;stroke:#746886}
+    .vertices{fill:#302650;font:600 13px system-ui,sans-serif}
+    .given{fill:#6826ad}
+    .given circle{stroke:#fff;stroke-width:1.2}
+  </style>
+  <title id="title">Тетраэдр: M на ребре DA, N на ребре DB</title>
+  <path class="edges hidden-edge" d="M41 144 222 110"/>
+  <path class="edges" d="M41 144 117 25 222 110 162 166Z M117 25 162 166"/>
+  <g class="vertices">
+    <text x="25" y="150">A</text><text x="163" y="183">B</text><text x="228" y="115">C</text><text x="111" y="17">D</text>
+    <g class="given"><circle cx="79" cy="84.5" r="4.5"/><text x="61" y="83">M</text><circle cx="139.5" cy="95.5" r="4.5"/><text x="147" y="99">N</text></g>
+  </g>
+</svg>
