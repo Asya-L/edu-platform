@@ -227,6 +227,8 @@ async function addSectionPractice(html){
     if (body.querySelector('#section-practice')) return html;
     var before = main.querySelector('#practice, #test, #homework, .pager');
     if (before) before.before(section); else main.append(section);
+    var pairs = source.getElementById('section-pairs');
+    if (pairs && !body.querySelector('#section-pairs')) section.before(pairs);
     var style = source.getElementById('section-practice-style');
     if (style) section.before(style);
     var assignment = source.getElementById('homework'), oldHomework = main.querySelector('#homework');
@@ -245,10 +247,13 @@ async function addSectionPractice(html){
       }
     }
     var buttons = body.querySelector('.hero .btns');
-    var link = source.querySelector('a[href="#section-practice"]');
-    if (buttons && link) {
+    if (buttons) {
       var homework = buttons.querySelector('a[href="#homework"]');
-      if (homework) homework.before(link); else buttons.append(link);
+      ['section-pairs', 'section-practice'].forEach(function(id){
+        var link = source.querySelector('a[href="#' + id + '"]');
+        if (!link || !body.querySelector('#' + id) || buttons.querySelector('a[href="#' + id + '"]')) return;
+        if (homework) homework.before(link); else buttons.append(link);
+      });
     }
     return page.innerHTML;
   } catch(e) { return html; }

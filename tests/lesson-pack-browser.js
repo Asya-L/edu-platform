@@ -54,6 +54,10 @@ const mock=require('./mock.js')(contentKey,keys,{}),SITE=process.env.SITE;
   assert.deepEqual(await g5.evaluateAll(imgs=>imgs.map(img=>img.getAttribute('src'))),
     Array.from({length:14},(_,i)=>'assets/fig/g5-section-'+(i+1)+'.svg'));
   assert.equal(await p.locator('#section-solutions').count(),0);
+  const pairs=p.locator('#section-pairs .s5-pair-grid');
+  assert.deepEqual(await pairs.evaluateAll(gs=>gs.map(g=>[...g.querySelectorAll('img')].map(im=>im.getAttribute('src')))),
+    Array.from({length:5},(_,i)=>['a','b'].map(v=>'assets/fig/g5-pair-'+(i+1)+v+'.svg')));
+  assert.equal(await p.locator('#section-pairs svg, #section-pairs .ex-sol').count(),0);
   assert.equal(pupilAnswerRequests.length,0);
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'g5 mobile overflow');
   await p.setViewportSize({width:1280,height:900});

@@ -128,6 +128,24 @@ async function open(page,id='board-a') {
       await open(teacher);
       assert.deepEqual((await objects(teacher)).map(e=>e.t),['img','pt']);
     },true);
+    await scenario('BOARD-UI-13 paired exercises appear next to each other on the shared board',async({teacher,student})=>{
+      await teacher.click('#bdFigBtn');
+      const groups=teacher.locator('#bdFigs .grid.pair');
+      const names=Array.from({length:5},(_,i)=>['a','b'].map(v=>'g5-pair-'+(i+1)+v+'.svg'));
+      assert.deepEqual(await groups.evaluateAll(gs=>gs.map(g=>[...g.querySelectorAll('button')].map(b=>b.dataset.fig))),names);
+      const pair=groups.last();
+      for(const image of await pair.locator('img').all())await image.evaluate(im=>im.decode());
+      await pair.locator('button').first().click();
+      await teacher.click('#bdFigBtn');
+      await pair.locator('button').last().click();
+      await flush(teacher);
+      await student.waitForFunction(()=>window.__board.els().length===2);
+      const [a,b]=await objects(student);
+      assert.equal(a.src,'fig:g5-pair-5a.svg');
+      assert.equal(b.src,'fig:g5-pair-5b.svg');
+      assert(b.x>a.x+a.ww);
+      assert.equal(b.y,a.y);
+    },true);
     await scenario('BOARD-UI-11 pupil sees continuous writing despite silent realtime loss',async({teacher,student})=>{
       await teacher.waitForFunction(()=>document.querySelector('#bdPeer').textContent.includes('Ученик на доске'));
       for (const p of [teacher,student]) await p.evaluate(()=>{ BroadcastChannel.prototype.postMessage=function(){}; });

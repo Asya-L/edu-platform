@@ -64,6 +64,7 @@ body.board-open{overflow:hidden} body.board-open .top{display:none}
 .bd-figs{left:50%;top:56px;transform:translateX(-50%);width:min(860px,calc(100vw - 28px));max-height:76vh;overflow:auto}
 .bd-figs .g{font:900 14px var(--f-head);margin:14px 0 8px} .bd-figs .g:first-of-type{margin-top:4px}
 .bd-figs .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.bd-figs .grid.pair{grid-template-columns:repeat(2,minmax(0,1fr));max-width:460px}
 .bd-figs .grid button{border:1.5px solid var(--edge);border-radius:12px;background:#fff;padding:6px;cursor:pointer;text-align:left;font:600 11.5px/1.3 var(--f-body);color:var(--ink-soft)}
 .bd-figs .grid button:hover{border-color:var(--lav-d)} .bd-figs img{width:100%;height:84px;object-fit:contain;display:block;margin-bottom:4px}
 .bd-sl-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 12px}
@@ -1850,6 +1851,28 @@ $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var 
 document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn') && !ev.target.closest('#bdTaskBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
+  var pairGroups = [
+    {g:'Пара 1 · Соединяем точки одной грани',items:[
+      {f:'g5-pair-1a.svg',c:'1А · Пример для показа',w:540,h:394},
+      {f:'g5-pair-1b.svg',c:'1Б · Самостоятельно',w:540,h:394}
+    ]},
+    {g:'Пара 2 · Строим сечение параллельно основанию',items:[
+      {f:'g5-pair-2a.svg',c:'2А · Пример для показа',w:540,h:394},
+      {f:'g5-pair-2b.svg',c:'2Б · Самостоятельно',w:540,h:394}
+    ]},
+    {g:'Пара 3 · Переносим направление на другую грань',items:[
+      {f:'g5-pair-3a.svg',c:'3А · Пример для показа',w:540,h:394},
+      {f:'g5-pair-3b.svg',c:'3Б · Самостоятельно',w:540,h:394}
+    ]},
+    {g:'Пара 4 · Используем противоположные грани куба',items:[
+      {f:'g5-pair-4a.svg',c:'4А · Пример для показа',w:540,h:394},
+      {f:'g5-pair-4b.svg',c:'4Б · Самостоятельно',w:540,h:394}
+    ]},
+    {g:'Пара 5 · Продлеваем прямую за грань',items:[
+      {f:'g5-pair-5a.svg',c:'5А · Пример для показа',w:540,h:448},
+      {f:'g5-pair-5b.svg',c:'5Б · Самостоятельно',w:540,h:448}
+    ]}
+  ];
   var sectionHomework = {g:'Атанасян · урок 5 · Домашняя работа',items:[
     {f:'g5-hw-1.svg',c:'Д1. Сечение у вершины куба',w:540,h:384},
     {f:'g5-hw-2.svg',c:'Д2. Сечение, параллельное основанию',w:600,h:410},
@@ -1875,14 +1898,27 @@ function renderFigs(){
     {f:'g5-section-14.svg',c:'14. Куб: продли линии и замкни контур',w:540,h:422}
   ]};
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
-    [sectionHomework, sections].concat(FIGS).map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid">' + g.items.map(function(it){
+    '<div class="g">Атанасян · урок 5 · Парные задания</div>' + renderGroups(pairGroups, ' pair') +
+    renderGroups([sectionHomework, sections].concat(FIGS), '');
+  function renderGroups(groups, gridClass){
+    return groups.map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid' + gridClass + '">' + g.items.map(function(it){
       var size = it.w && it.h ? ' width="' + it.w + '" height="' + it.h + '"' : '';
       return '<button type="button" data-fig="' + esc(it.f) + '"><img loading="lazy" src="assets/fig/' + esc(it.f) + '" alt=""' + size + '>' + esc(it.c || '') + '</button>'; }).join('') + '</div>'; }).join('');
+  }
   f.addEventListener('click', function(ev){ if (ev.target.closest('[data-x]')) { closePops(); return; } var b = ev.target.closest('[data-fig]'); if (!b) return;
     var im = b.querySelector('img');
     var w = +im.getAttribute('width') || im.naturalWidth || 600;
     var h = +im.getAttribute('height') || im.naturalHeight || 400;
-    closePops(); placeImg('fig:' + b.dataset.fig, w, h); });
+    var fig = b.dataset.fig, pair = /^(g5-pair-[1-5])b\.svg$/.exec(fig);
+    var example = pair && els.slice().reverse().find(function(e){ return e.t === 'img' && e.src === 'fig:' + pair[1] + 'a.svg'; });
+    closePops();
+    if (example) {
+      var ww = Math.min(520,w), hh = Math.round(h * ww / w);
+      var at = {x:example.x + example.ww + 48 + ww / 2, y:example.y + hh / 2};
+      placeImg('fig:' + fig, w, h, at);
+      showArea(example.x, example.y, example.ww + 48 + ww, Math.max(example.hh,hh));
+    } else placeImg('fig:' + fig, w, h);
+  });
 }
 function pad2(n){ return ('0' + n).slice(-2); }
 function slSrc(d, k){ return 'sl:' + d + '/' + pad2(k); }

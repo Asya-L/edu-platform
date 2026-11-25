@@ -10,7 +10,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
 <style id="section-practice-style">
-  #section-practice,#homework,#g5-homework-solutions,[id^="g5-homework-task-"]{scroll-margin-top:96px}
+  #section-pairs,#section-practice,#homework,#g5-homework-solutions,[id^="g5-homework-task-"]{scroll-margin-top:96px}
+  .s5-pair{margin:22px 0 28px}
+  .s5-pair h3{margin-bottom:12px}
+  .s5-pair h4{font-size:18px}
+  .s5-pair-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
   .section-drills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:16px}
   .section-drill{margin:0;padding:16px}
   .section-drill h3{margin:0 0 8px}
@@ -36,6 +40,7 @@
   <div class="btns">
     <a class="btn" href="s5.html">▶ Презентация</a>
     <a class="btn lime" href="ws5.html">Рабочий лист</a>
+    <a class="btn ghost" href="#section-pairs">Сечения по парам</a>
     <a class="btn ghost" href="#section-practice">Практика: сечения</a>
     <a class="btn ghost" href="#homework">Домашнее задание</a>
   </div>
@@ -78,6 +83,96 @@
 <div class="ex"><span class="lbl">Пример 1. Тетраэдр: след на прямой <i>AB</i></span><p><i>K</i> — середина ребра <i>DA</i> тетраэдра <i>DABC</i>, точка <i>L</i> лежит на ребре <i>DB</i>, <i>DL</i> : <i>LB</i> = 1 : 2, <i>M</i> — середина ребра <i>AC</i>. Построй сечение тетраэдра плоскостью <i>KLM</i>. В каком отношении сечение делит ребро <i>BC</i>, считая от <i>B</i>?</p><figure><img src="assets/fig/ex_g5_1.png" alt="Сечение KLNM; E — точка следа на прямой AB"><figcaption>Сечение <i>KLNM</i>; <i>E</i> — точка следа на прямой <i>AB</i></figcaption></figure><div class="ex-sol"><span class="ex-h">Решение</span><ol class="steps"><li><i>K</i> и <i>L</i> лежат в грани <i>ABD</i> — проводим <i>KL</i>; <i>K</i> и <i>M</i> лежат в грани <i>ACD</i> — проводим <i>KM</i> (правило 1). <i>L</i> и <i>M</i> общей грани не имеют, соединять их нельзя.</li><li>Нужна сторона в грани <i>ABC</i>, а там есть только точка <i>M</i>. Прямые <i>KL</i> и <i>AB</i> лежат в одной плоскости <i>ABD</i> и не параллельны (<i>DK</i> : <i>KA</i> = 1 : 1, а <i>DL</i> : <i>LB</i> = 1 : 2), продлеваем их до пересечения в точке <i>E</i>. <i>E</i> ∈ <i>KL</i> — значит, лежит в секущей плоскости; <i>E</i> ∈ <i>AB</i> — значит, в плоскости <i>ABC</i> (правило 3).</li><li><i>M</i> и <i>E</i> — две общие точки секущей плоскости и плоскости <i>ABC</i>; по А3 плоскости пересекаются по прямой <i>EM</i>. Она пересекает ребро <i>BC</i> в точке <i>N</i>. Проводим <i>MN</i> (грань <i>ABC</i>) и <i>LN</i> (грань <i>BCD</i>). Сечение — четырёхугольник <i>KLNM</i>.</li><li>Где лежит <i>E</i>. Через <i>A</i> проведём прямую, параллельную <i>DB</i>, до пересечения с прямой <i>KL</i> в точке <i>T</i>. Треугольники <i>KAT</i> и <i>KDL</i> равны (<i>KA</i> = <i>KD</i>, вертикальные и накрест лежащие углы), поэтому <i>AT</i> = <i>DL</i>. Из подобия треугольников <i>EAT</i> и <i>EBL</i>: <i>EA</i> : <i>EB</i> = <i>AT</i> : <i>BL</i> = <i>DL</i> : <i>LB</i> = 1 : 2, т. е. <i>A</i> — середина <i>EB</i>.</li><li>Где лежит <i>N</i>. В треугольнике <i>EBN</i> через <i>A</i> проведём прямую, параллельную <i>BC</i>, до пересечения с <i>EN</i> в точке <i>S</i>: <i>AS</i> — средняя линия (<i>A</i> — середина <i>EB</i>), <i>AS</i> = <span class="fr"><span><i>BN</i></span><span>2</span></span>. Треугольники <i>AMS</i> и <i>CMN</i> равны (<i>AM</i> = <i>MC</i>, вертикальные и накрест лежащие углы), поэтому <i>CN</i> = <i>AS</i> = <span class="fr"><span><i>BN</i></span><span>2</span></span>. Итак, <i>BN</i> : <i>NC</i> = 2 : 1.</li></ol><p><b>Итог:</b> четырёхугольник <i>KLNM</i>; <i>BN</i> : <i>NC</i> = 2 : 1.</p></div></div>
 <div class="ex"><span class="lbl">Пример 2. Тетраэдр: третья точка внутри грани</span><p><i>M</i> — середина ребра <i>AB</i> тетраэдра <i>DABC</i>, точка <i>N</i> лежит на ребре <i>AC</i>, <i>AN</i> : <i>NC</i> = 2 : 1, <i>G</i> — точка пересечения медиан грани <i>DBC</i>. Построй сечение тетраэдра плоскостью <i>MNG</i>.</p><figure><img src="assets/fig/ex_g5_2.png" alt="Сечение MNQR; E — точка следа на прямой BC, прямая EG лежит в плоскости DBC"><figcaption>Сечение <i>MNQR</i>; <i>E</i> — точка следа на прямой <i>BC</i>, прямая <i>EG</i> лежит в плоскости <i>DBC</i></figcaption></figure><div class="ex-sol"><span class="ex-h">Решение</span><ol class="steps"><li><i>M</i> и <i>N</i> лежат в грани <i>ABC</i> — проводим <i>MN</i> (правило 1). Точка <i>G</i> лежит в грани <i>DBC</i>, но второй точки сечения в этой грани пока нет.</li><li>Ищем вторую общую точку секущей плоскости и плоскости <i>DBC</i>. Прямые <i>MN</i> и <i>BC</i> лежат в одной плоскости <i>ABC</i> и не параллельны (<i>AM</i> : <i>MB</i> = 1 : 1, а <i>AN</i> : <i>NC</i> = 2 : 1), продлеваем их до пересечения в точке <i>E</i> (правило 3). <i>E</i> лежит на <i>MN</i> — в секущей плоскости, и на <i>BC</i> — в плоскости <i>DBC</i>. (Расчёт, как в примере 1, показывает, что <i>C</i> — середина <i>BE</i>.)</li><li><i>E</i> и <i>G</i> — две общие точки секущей плоскости и плоскости <i>DBC</i>; по А3 плоскости пересекаются по прямой <i>EG</i>. В грани <i>DBC</i> она пересекает рёбра <i>DC</i> и <i>DB</i> в точках <i>Q</i> и <i>R</i>. Проводим <i>QR</i>.</li><li>Замыкаем: <i>R</i> и <i>M</i> лежат в грани <i>ABD</i> — проводим <i>RM</i>; <i>N</i> и <i>Q</i> лежат в грани <i>ACD</i> — проводим <i>NQ</i>. Сечение — четырёхугольник <i>MNQR</i>.</li><li>Проверка «одна грань — одна сторона»: <i>MN</i> ⊂ (<i>ABC</i>), <i>NQ</i> ⊂ (<i>ACD</i>), <i>QR</i> ⊂ (<i>DBC</i>), <i>RM</i> ⊂ (<i>ABD</i>). Для любопытных: <i>DQ</i> : <i>QC</i> = 3 : 1, <i>DR</i> : <i>RB</i> = 3 : 2.</li></ol><p><b>Итог:</b> четырёхугольник <i>MNQR</i> (<i>Q</i> ∈ <i>DC</i>, <i>R</i> ∈ <i>DB</i>).</p></div></div>
 <div class="ex"><span class="lbl">Пример 3. Параллелепипед: след и параллельные грани</span><p>На рёбрах <i>AA</i>₁, <i>AB</i>, <i>CC</i>₁ параллелепипеда <i>ABCDA</i>₁<i>B</i>₁<i>C</i>₁<i>D</i>₁ взяты точки <i>M</i>, <i>N</i>, <i>K</i>: <i>AM</i> : <i>MA</i>₁ = 1 : 3, <i>N</i> — середина <i>AB</i>, <i>CK</i> : <i>KC</i>₁ = 1 : 3. Построй сечение плоскостью <i>MNK</i>. Какой многоугольник получился? В каком отношении сечение делит рёбра <i>BC</i> и <i>DD</i>₁?</p><figure><img src="assets/fig/ex_g5_3.png" alt="Сечение MNPKL; T — точка следа на прямой BB₁"><figcaption>Сечение <i>MNPKL</i>; <i>T</i> — точка следа на прямой <i>BB</i>₁</figcaption></figure><div class="ex-sol"><span class="ex-h">Решение</span><ol class="steps"><li><i>M</i> и <i>N</i> лежат в грани <i>ABB</i>₁<i>A</i>₁ — проводим <i>MN</i> (правило 1). Пары <i>M</i>, <i>K</i> и <i>N</i>, <i>K</i> общих граней не имеют.</li><li>Выход на грань <i>BCC</i>₁<i>B</i>₁. Прямые <i>MN</i> и <i>BB</i>₁ лежат в плоскости <i>ABB</i>₁ — продлеваем их до пересечения в точке <i>T</i> (ниже <i>B</i>). Треугольники <i>NAM</i> и <i>NBT</i> равны (<i>AN</i> = <i>NB</i>, вертикальные углы, накрест лежащие при <i>AM</i> ∥ <i>BT</i>), поэтому <i>BT</i> = <i>AM</i> = ¼ ребра. <i>T</i> лежит на <i>MN</i> — в секущей плоскости, и на <i>BB</i>₁ — в плоскости <i>BCC</i>₁ (правило 3).</li><li><i>T</i> и <i>K</i> — общие точки секущей плоскости и плоскости <i>BCC</i>₁, по А3 след — прямая <i>TK</i>. Она пересекает ребро <i>BC</i> в точке <i>P</i>. Треугольники <i>PBT</i> и <i>PCK</i> равны (<i>BT</i> = <i>CK</i> = ¼ ребра, вертикальные и накрест лежащие углы), поэтому <i>BP</i> = <i>PC</i>. Проводим <i>NP</i> (грань <i>ABCD</i>) и <i>PK</i> (грань <i>BCC</i>₁<i>B</i>₁).</li><li>Правило 2. Грань <i>ADD</i>₁<i>A</i>₁ параллельна грани <i>BCC</i>₁<i>B</i>₁, поэтому в ней через <i>M</i> проводим прямую, параллельную <i>PK</i>; она пересекает <i>DD</i>₁ в точке <i>L</i>. Проводим <i>KL</i> (грань <i>DCC</i>₁<i>D</i>₁). Проверка: грань <i>DCC</i>₁<i>D</i>₁ параллельна грани <i>ABB</i>₁<i>A</i>₁, поэтому <i>KL</i> должна получиться параллельной <i>MN</i>. Сечение — пятиугольник <i>MNPKL</i>.</li><li>Где <i>L</i>. Проведём <i>MR</i> ∥ <i>AD</i> (<i>R</i> на <i>DD</i>₁): <i>AMRD</i> — параллелограмм, <i>DR</i> = <i>AM</i> = ¼ ребра. У треугольников <i>MRL</i> и <i>PCK</i> стороны соответственно параллельны (<i>MR</i> ∥ <i>PC</i>, <i>RL</i> ∥ <i>CK</i>, <i>ML</i> ∥ <i>PK</i>), их углы равны как углы с сонаправленными сторонами (урок 3), и они подобны с коэффициентом <i>MR</i> : <i>PC</i> = <i>AD</i> : ½<i>BC</i> = 2. Значит, <i>RL</i> = 2·<i>CK</i> = ½ ребра, <i>DL</i> = ¼ + ½ = ¾ ребра, <i>DL</i> : <i>LD</i>₁ = 3 : 1.</li></ol><p><b>Итог:</b> пятиугольник <i>MNPKL</i>; <i>BP</i> : <i>PC</i> = 1 : 1; <i>DL</i> : <i>LD</i>₁ = 3 : 1.</p></div></div>
+<section id="section-pairs" aria-labelledby="section-pairs-title">
+<h2 id="section-pairs-title">Сечения по парам: сначала вместе, потом сам</h2>
+<p>В каждой паре разберите задачу <b>А</b> вместе. Затем откройте задачу <b>Б</b>: точки расположены иначе, но первый шаг и способ построения те же.</p>
+<p>Перед каждой линией назови грань, на которой она лежит. Если застрял, открой подсказку к первому шагу. На доске ищи <b>«Чертёж из урока» → «Атанасян · урок 5 · Парные задания»</b>.</p>
+<div class="s5-pair" aria-labelledby="g5-pair-title-1">
+  <h3 id="g5-pair-title-1">1. Соединяем точки одной грани</h3>
+  <div class="s5-pair-grid">
+    <article class="task section-drill" id="g5-pair-1a">
+      <h4>1А · Пример для показа</h4>
+      <p>Точки M, N и P — середины рёбер BA, BC и BB₁ куба. Построй сечение плоскостью MNP.</p>
+      <img src="assets/fig/g5-pair-1a.svg" width="540" height="394" alt="Куб с исходными точками к задаче 1А" loading="lazy">
+      <details><summary>Подсказка</summary><p>Найди общую грань для M и N.</p></details>
+    </article>
+    <article class="task section-drill" id="g5-pair-1b">
+      <h4>1Б · Самостоятельно</h4>
+      <p>На рёбрах BA, BC и BB₁ куба отмечены M, N и P: BM = ⅔ BA, BN = ⅓ BC, BP = ⅔ BB₁. Построй сечение плоскостью MNP.</p>
+      <img src="assets/fig/g5-pair-1b.svg" width="540" height="394" alt="Куб с исходными точками к задаче 1Б" loading="lazy">
+      <details><summary>Подсказка</summary><p>На какой грани можно сразу соединить M и N? Затем найди грань для N и P.</p></details>
+    </article>
+  </div>
+</div>
+<div class="s5-pair" aria-labelledby="g5-pair-title-2">
+  <h3 id="g5-pair-title-2">2. Строим сечение параллельно основанию</h3>
+  <div class="s5-pair-grid">
+    <article class="task section-drill" id="g5-pair-2a">
+      <h4>2А · Пример для показа</h4>
+      <p>M — середина ребра DA тетраэдра DABC. Через M проведена плоскость, параллельная грани ABC. Отметь её пересечения с DB и DC и дострой сечение.</p>
+      <img src="assets/fig/g5-pair-2a.svg" width="540" height="394" alt="Тетраэдр с исходными точками к задаче 2А" loading="lazy">
+      <details><summary>Подсказка</summary><p>Начни с грани DAB. Как направить линию через M?</p></details>
+    </article>
+    <article class="task section-drill" id="g5-pair-2b">
+      <h4>2Б · Самостоятельно</h4>
+      <p>M лежит на ребре DB тетраэдра DABC, причём DM = ⅓ DB. Через M проведена плоскость, параллельная грани ABC. Найди пересечения с DA и DC и дострой сечение.</p>
+      <img src="assets/fig/g5-pair-2b.svg" width="540" height="394" alt="Тетраэдр с исходными точками к задаче 2Б" loading="lazy">
+      <details><summary>Подсказка</summary><p>Точка M теперь на DB, но грань DAB по-прежнему подходит для первого шага.</p></details>
+    </article>
+  </div>
+</div>
+<div class="s5-pair" aria-labelledby="g5-pair-title-3">
+  <h3 id="g5-pair-title-3">3. Переносим направление на другую грань</h3>
+  <div class="s5-pair-grid">
+    <article class="task section-drill" id="g5-pair-3a">
+      <h4>3А · Пример для показа</h4>
+      <p>В тетраэдре DABC точка M лежит на AB, а N и P — на DB и DC. AM = ⅓ AB, DN = ⅓ DB, DP = ⅓ DC. Построй сечение MNP и найди ещё одну вершину.</p>
+      <img src="assets/fig/g5-pair-3a.svg" width="540" height="394" alt="Тетраэдр с исходными точками к задаче 3А" loading="lazy">
+      <details><summary>Подсказка</summary><p>Сравни направления NP и BC.</p></details>
+    </article>
+    <article class="task section-drill" id="g5-pair-3b">
+      <h4>3Б · Самостоятельно</h4>
+      <p>В тетраэдре DABC точка M лежит на AB, а N и P — на DB и DC. AM = ⅔ AB, DN = ⅔ DB, DP = ⅔ DC. Построй сечение MNP и найди ещё одну вершину.</p>
+      <img src="assets/fig/g5-pair-3b.svg" width="540" height="394" alt="Тетраэдр с исходными точками к задаче 3Б" loading="lazy">
+      <details><summary>Подсказка</summary><p>Снова начни с отрезков MN и NP. Как перенести направление NP в основание?</p></details>
+    </article>
+  </div>
+</div>
+<div class="s5-pair" aria-labelledby="g5-pair-title-4">
+  <h3 id="g5-pair-title-4">4. Используем противоположные грани куба</h3>
+  <div class="s5-pair-grid">
+    <article class="task section-drill" id="g5-pair-4a">
+      <h4>4А · Пример для показа</h4>
+      <p>Точки M, N и P лежат на AA₁, BB₁ и CC₁ куба. Отрезки AM, BN и CP составляют ¼, ½ и ⅝ ребра. Найди четвёртую вершину сечения MNP.</p>
+      <img src="assets/fig/g5-pair-4a.svg" width="540" height="394" alt="Куб с исходными точками к задаче 4А" loading="lazy">
+      <details><summary>Подсказка</summary><p>NP лежит на правой грани. Какая грань ей параллельна?</p></details>
+    </article>
+    <article class="task section-drill" id="g5-pair-4b">
+      <h4>4Б · Самостоятельно</h4>
+      <p>Точки M, N и P лежат на AA₁, BB₁ и CC₁ куба. Отрезки AM, BN и CP составляют ⅜, ⅝ и ½ ребра. Найди четвёртую вершину сечения MNP.</p>
+      <img src="assets/fig/g5-pair-4b.svg" width="540" height="394" alt="Куб с исходными точками к задаче 4Б" loading="lazy">
+      <details><summary>Подсказка</summary><p>Через M проведи на левой грани линию в том же направлении, что NP на правой.</p></details>
+    </article>
+  </div>
+</div>
+<div class="s5-pair" aria-labelledby="g5-pair-title-5">
+  <h3 id="g5-pair-title-5">5. Продлеваем прямую за грань</h3>
+  <div class="s5-pair-grid">
+    <article class="task section-drill" id="g5-pair-5a">
+      <h4>5А · Пример для показа</h4>
+      <p>M лежит на AA₁, N — на AB, P — на CC₁ куба. AM = ¼ AA₁, AN = ⅗ AB, CP = ¼ CC₁. Построй сечение MNP.</p>
+      <img src="assets/fig/g5-pair-5a.svg" width="540" height="448" alt="Куб с исходными точками к задаче 5А" loading="lazy">
+      <details><summary>Подсказка</summary><p>Продли MN за N и BB₁ за B до пересечения.</p></details>
+    </article>
+    <article class="task section-drill" id="g5-pair-5b">
+      <h4>5Б · Самостоятельно</h4>
+      <p>M лежит на AA₁, N — на AB, P — на CC₁ куба. AM = ⅓ AA₁, AN = ½ AB, CP = ¼ CC₁. Построй сечение MNP.</p>
+      <img src="assets/fig/g5-pair-5b.svg" width="540" height="448" alt="Куб с исходными точками к задаче 5Б" loading="lazy">
+      <details><summary>Подсказка</summary><p>Сначала найди общую точку прямых MN и BB₁. На какой грани её можно использовать вместе с P?</p></details>
+    </article>
+  </div>
+</div>
+</section>
 <section id="section-practice" aria-labelledby="section-practice-title">
 <h2 id="section-practice-title">Практика: дострой сечение</h2>
 <p>Перенеси рисунок на бумагу или на доску. Отмеченные точки уже лежат в секущей плоскости. Найди недостающие вершины и замкни контур: соединяй только точки одной грани. Стороны сечения на скрытых гранях проведи штрихом.</p>
