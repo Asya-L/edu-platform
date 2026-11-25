@@ -35,6 +35,16 @@ async function checkTeacherPdfs(browser){
    window.open=()=>null; // Verify the download works even when pop-ups are blocked.
   },Object.fromEntries(pdfs.map(([id])=>[id,bytes(id).toString('base64')])));
   const page=await ctx.newPage();
+  await page.goto(SITE+'t.html#g5/g5-tests');
+  const teacherTests=page.locator('#g5-tests a');
+  await teacherTests.last().waitFor();
+  assert.deepEqual(await teacherTests.evaluateAll(links=>links.map(a=>a.getAttribute('href'))),['quiz-g5a.html','quiz-g5b.html']);
+  for (const quiz of ['quiz-g5a','quiz-g5b']){
+   await page.goto(SITE+'t.html#g5/g5-tests');
+   await page.locator('#g5-tests a[href="'+quiz+'.html"]').click();
+   await page.waitForURL('**/'+quiz+'.html');
+   assert.equal(await page.locator('#qzForm [data-q]').count(),8);
+  }
   for(const [id,anchor,filename] of pdfs){
    await page.goto(SITE+'t.html#g5/'+anchor);
    const button=page.locator('#'+anchor);
@@ -82,6 +92,10 @@ async function checkTeacherPdfs(browser){
   p.on('request',req=>{if(new URL(req.url()).pathname.endsWith('/t/g5-section-solutions.bin'))pupilAnswerRequests.push(req.url());});
   await p.setViewportSize({width:390,height:844});
   await p.goto(SITE+'g5.html#section-practice');
+  await p.getByRole('link',{name:'Тест к уроку',exact:true}).click();
+  await p.waitForURL('**/g5.html#test');
+  assert.equal(await p.locator('a[href="quiz-g5a.html"]').count(),1);
+  assert.equal(await p.locator('a[href="quiz-g5b.html"]').count(),0);
   const g5=p.locator('#section-practice .section-drills img');
   await g5.last().scrollIntoViewIfNeeded();
   assert.deepEqual(await g5.evaluateAll(imgs=>imgs.map(img=>img.getAttribute('src'))),

@@ -205,6 +205,15 @@ function wire(name){
 }
 function alertBox(t){ var d = document.createElement('div'); d.className = 'warn'; d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;margin:0';
   d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 4000); }
+function addG5TestLinks(){
+  var content = view.querySelector('main') || view;
+  content.insertAdjacentHTML('afterbegin',
+    '<section class="def" id="g5-tests" aria-labelledby="g5-tests-title" style="scroll-margin-top:96px">' +
+    '<h2 id="g5-tests-title">Тесты к уроку №5</h2>' +
+    '<div class="btns"><a class="btn" href="quiz-g5a.html">Тест на занятии</a>' +
+    '<a class="btn ghost" href="quiz-g5b.html">Посмотреть домашний тест</a></div>' +
+    '<p>Чтобы результат домашнего теста попал в журнал, назначьте его через журнал. Ученик откроет тест из «Домашки».</p></section>');
+}
 var g5Pdfs = [
   {section:'section-pairs', button:'g5-pairs-solutions', label:'Открыть разбор пяти пар (PDF)', material:'g5-paired-sections', file:'Парные сечения — разбор учителя.pdf'},
   {section:'section-advanced', button:'g5-advanced-solutions', label:'Открыть разбор четырёх задач (PDF)', material:'g5-advanced-sections', file:'Сложные сечения — разбор учителя.pdf'}
@@ -299,7 +308,9 @@ async function route(){
     } catch(e) { if (location.hash !== hash) return; keyP = null; fail(e.message === 'nokey' ? 'Эта часть сайта открыта только учителю.' : 'Страница не загрузилась. Проверьте интернет и обновите страницу.'); return; }
     var p = cache[name], html = name === 'g5' ? await addSectionPractice(p.html) : p.html;
     if (location.hash !== hash) return;
-    document.title = p.title; view.innerHTML = html; cur = name; wire(name);
+    document.title = p.title; view.innerHTML = html; cur = name;
+    if (name === 'g5') addG5TestLinks();
+    wire(name);
     K.renderNav(window.__kstate, name); window.scrollTo(0, 0);
   }
   document.documentElement.classList.remove('auth-wait');
