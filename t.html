@@ -205,6 +205,27 @@ function wire(name){
 }
 function alertBox(t){ var d = document.createElement('div'); d.className = 'warn'; d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;margin:0';
   d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 4000); }
+view.addEventListener('click', async function(ev){
+  var button = ev.target.closest('#g5-pairs-solutions');
+  if (!button || cur !== 'g5' || button.disabled) return;
+  var tab = window.open('', '_blank');
+  if (tab) tab.opener = null;
+  button.disabled = true;
+  try {
+    var res = await K.sb.from('edu_teacher_materials').select('pdf_base64').eq('id', 'g5-paired-sections').maybeSingle();
+    if (res.error || !res.data || !res.data.pdf_base64) throw new Error('No teacher material');
+    var url = URL.createObjectURL(new Blob([b64(res.data.pdf_base64)], {type:'application/pdf'}));
+    if (tab && !tab.closed) tab.location.replace(url);
+    else {
+      var link = document.createElement('a'); link.href = url; link.download = 'Парные сечения — разбор учителя.pdf';
+      document.body.appendChild(link); link.click(); link.remove();
+    }
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
+  } catch(e) {
+    if (tab && !tab.closed) tab.close();
+    alertBox('Разбор не открылся. Проверьте, что вы вошли как учитель, и попробуйте ещё раз.');
+  } finally { button.disabled = false; }
+});
 async function addSectionPractice(html){
   // Share the pupil exercises without changing the encrypted teacher material.
   try {
@@ -228,7 +249,10 @@ async function addSectionPractice(html){
     var before = main.querySelector('#practice, #test, #homework, .pager');
     if (before) before.before(section); else main.append(section);
     var pairs = source.getElementById('section-pairs');
-    if (pairs && !body.querySelector('#section-pairs')) section.before(pairs);
+    if (pairs && !body.querySelector('#section-pairs')) {
+      pairs.querySelector('h2').insertAdjacentHTML('afterend', '<p><button type="button" class="btn" id="g5-pairs-solutions">Открыть разбор пяти пар (PDF)</button></p>');
+      section.before(pairs);
+    }
     var style = source.getElementById('section-practice-style');
     if (style) section.before(style);
     var assignment = source.getElementById('homework'), oldHomework = main.querySelector('#homework');

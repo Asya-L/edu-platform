@@ -1,4 +1,5 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {createCipheriv,randomBytes}=require('node:crypto');
 const {chromium}=require('playwright');
 const ids=['a18','ma26','g21','mg24'],privateDir=process.env.LESSON_PRIVATE_INPUT;
 const catalog=require('../assets/catalogs.js'),keys={};
@@ -14,9 +15,35 @@ if(privateDir){
  for(const fixture of JSON.parse(fs.readFileSync(path.join(privateDir,'quiz-fixtures.json'),'utf8')))keys[fixture.quiz]=Object.keys(fixture.answers).sort((a,b)=>a-b).map(k=>fixture.answers[k]);
 }
 const mock=require('./mock.js')(contentKey,keys,{}),SITE=process.env.SITE;
+async function checkPairedTeacherPdf(browser){
+ const key=randomBytes(32), iv=randomBytes(12), cipher=createCipheriv('aes-256-gcm',key,iv);
+ const lesson=JSON.stringify({title:'Урок 5',html:'<main><h2 id="practice">Задачи урока</h2></main>'});
+ const pack=Buffer.concat([iv,cipher.update(lesson),cipher.final(),cipher.getAuthTag()]);
+ const pdf=Buffer.from('%PDF-1.4\n% download fixture\n');
+ const ctx=await browser.newContext({acceptDownloads:true});
+ try {
+  await ctx.route(/googleapis|gstatic/,r=>r.abort());
+  await ctx.route('**/t/g5.bin?*',r=>r.fulfill({body:pack}));
+  await ctx.addInitScript(require('./mock.js')(key.toString('base64'),{},{}));
+  await ctx.addInitScript(b64=>{
+   sessionStorage.setItem('mockSessionTab',JSON.stringify({user:{id:'u1',email:'teacher@test.local'}}));
+   localStorage.setItem('mockPairedTeacherPdf',b64);
+   window.open=()=>null; // Verify the download works even when pop-ups are blocked.
+  },pdf.toString('base64'));
+  const page=await ctx.newPage();
+  await page.goto(SITE+'t.html#g5/g5-pairs-solutions');
+  const button=page.getByRole('button',{name:'Открыть разбор пяти пар (PDF)'});
+  await button.waitFor();
+  const [download]=await Promise.all([page.waitForEvent('download'),button.click()]);
+  assert.equal(download.suggestedFilename(),'Парные сечения — разбор учителя.pdf');
+  assert.deepEqual(fs.readFileSync(await download.path()),pdf);
+  console.log('PASS LESSON-UI: teacher can download the paired solutions from lesson 5');
+ } finally {await ctx.close();}
+}
 (async()=>{
  const browser=await chromium.launch();
  try{
+  await checkPairedTeacherPdf(browser);
   const ctx=await browser.newContext({viewport:{width:1280,height:900}}),errors=[];await ctx.route(/googleapis|gstatic/,r=>r.abort());await ctx.addInitScript(mock);
   const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto(SITE+'help.html');
   await p.evaluate(()=>{localStorage.setItem('mockSession',JSON.stringify({user:{id:'u2',email:'kid@test.local'}}));localStorage.setItem('mockdb',JSON.stringify({edu_profiles:[{user_id:'u1',email:'teacher@test.local',role:'teacher'},{user_id:'u2',email:'kid@test.local',role:'student'}],edu_students:[{id:'s1',user_id:'u2',name:'Тестовый ученик'}],edu_lessons:[],edu_progress:[]}));});
@@ -58,6 +85,7 @@ const mock=require('./mock.js')(contentKey,keys,{}),SITE=process.env.SITE;
   assert.deepEqual(await pairs.evaluateAll(gs=>gs.map(g=>[...g.querySelectorAll('img')].map(im=>im.getAttribute('src')))),
     Array.from({length:5},(_,i)=>['a','b'].map(v=>'assets/fig/g5-pair-'+(i+1)+v+'.svg')));
   assert.equal(await p.locator('#section-pairs svg, #section-pairs .ex-sol').count(),0);
+  assert.equal(await p.locator('#g5-pairs-solutions').count(),0);
   assert.equal(pupilAnswerRequests.length,0);
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'g5 mobile overflow');
   await p.setViewportSize({width:1280,height:900});
