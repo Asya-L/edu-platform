@@ -1879,7 +1879,15 @@ function renderFigs(){
       {f:'g5-pair-5b.svg',c:'5Б · Самостоятельно',w:540,h:448}
     ]}
   ];
-  var sectionHomework = {g:'Атанасян · урок 5 · Домашняя работа',items:[
+  var sectionHomeworkV2 = {g:'Атанасян · урок 5 · Домашняя работа · вариант 2',items:[
+    {f:'g5-hw-v2-1.svg',c:'Д1. Три ребра тетраэдра',w:650,h:440},
+    {f:'g5-hw-v2-2.svg',c:'Д2. Параллельно вертикальному ребру',w:540,h:420},
+    {f:'g5-hw-v2-3.svg',c:'Д3. Параллель на другой грани',w:650,h:440},
+    {f:'g5-hw-v2-4.svg',c:'Д4. Выход на верхнюю грань',w:540,h:420},
+    {f:'g5-hw-v2-5.svg',c:'Д5. След секущей плоскости',w:650,h:440},
+    {f:'g5-hw-v2-6.svg',c:'Д6. След на верхней и нижней гранях',w:540,h:420}
+  ]};
+  var sectionHomework = {g:'Атанасян · урок 5 · Домашняя работа · вариант 1',items:[
     {f:'g5-hw-1.svg',c:'Д1. Сечение у вершины куба',w:540,h:384},
     {f:'g5-hw-2.svg',c:'Д2. Сечение, параллельное основанию',w:600,h:410},
     {f:'g5-hw-3.svg',c:'Д3. Плоскость через два ребра',w:540,h:384},
@@ -1905,7 +1913,7 @@ function renderFigs(){
   ]};
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
     renderGroups([advanced], '') + '<div class="g">Атанасян · урок 5 · Парные задания</div>' + renderGroups(pairGroups, ' pair') +
-    renderGroups([sectionHomework, sections].concat(FIGS), '');
+    renderGroups([sectionHomeworkV2, sectionHomework, sections].concat(FIGS), '');
   function renderGroups(groups, gridClass){
     return groups.map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid' + gridClass + '">' + g.items.map(function(it){
       var size = it.w && it.h ? ' width="' + it.w + '" height="' + it.h + '"' : '';

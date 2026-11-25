@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
-<script src="assets/catalogs.js?v=1c44f334627d"></script>
+<script src="assets/catalogs.js?v=3cde98c6174e"></script>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -20,6 +20,7 @@
 </div></header>
 
 <style>
+.sug-g5{display:flex;flex-wrap:wrap;gap:6px 12px;margin:8px 0}.sug-g5 label{display:inline-flex;align-items:center;gap:4px;cursor:pointer}.sug-g5 input{width:auto}
 .hwfiles{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.hwfiles .hf{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--paper-2,#f1efe8);font-size:13px}.hwfiles .hf button{border:0;background:none;cursor:pointer;font-size:15px;line-height:1;padding:0 2px}.hwfiles a{font-weight:700}
 #jr .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px}
 #jr .grid>*{min-width:0}
@@ -215,8 +216,25 @@ Object.keys(window.EDU_EGE_HOMEWORK || {}).forEach(function(id){
 var lastAuto = '', lastQuiz = '';
 function hwBar(){
   var h = HWS[$('lTopic').value], bar = $('lHwSug'); bar.innerHTML = ''; if (!h) { bar.hidden = true; return; } bar.hidden = false;
-  var head = el('div', 'sug-t'); head.appendChild(el('b', null, h.src + ': ')); head.appendChild(el('span', null, h.text)); bar.appendChild(head);
-  var acts = [['Подставить', function(){ setHw(h.text); }]];
+  var illustrated = $('lTopic').value === 'g5';
+  var head = el('div', 'sug-t'); head.appendChild(el('b', null, h.src + ': ')); head.appendChild(el('span', null, illustrated ? 'Отметьте нужные задачи. Рисунок будет под каждым условием в «Домашке».' : h.text)); bar.appendChild(head);
+  var acts = [[illustrated ? 'Подставить все с рисунками' : 'Подставить', function(){ setHw(h.text); }]];
+  if (illustrated) {
+    var group = el('div', 'sug-g5'); group.setAttribute('role', 'group'); group.setAttribute('aria-label', 'Задачи с рисунками');
+    var lines = h.text.split('\n'), choices = [];
+    lines.forEach(function(line, i){
+      var match = /^Д([1-6])\./.exec(line); if (!match) return;
+      var label = el('label'), box = document.createElement('input'); box.type = 'checkbox'; box.checked = true;
+      label.appendChild(box); label.appendChild(document.createTextNode(' Д' + match[1]));
+      group.appendChild(label); choices.push({box:box, index:i});
+    });
+    bar.appendChild(group);
+    acts.unshift(['Подставить выбранные с рисунками', function(){
+      var chosen = choices.filter(function(choice){ return choice.box.checked; }).map(function(choice){ return choice.index; });
+      if (!chosen.length) { toast('Выберите хотя бы одну задачу'); return; }
+      setHw(lines.filter(function(line, i){ return !/^Д[1-6]\./.test(line) || chosen.indexOf(i) >= 0; }).join('\n'));
+    }]);
+  }
   if (h.full) acts.push(['Полностью из конспекта', function(){ setHw(h.full); }]);
   if (h.ws) acts.push(['+ ' + h.ws, function(){ var v = $('lHw').value.trim(); if (v.indexOf(h.ws) < 0) $('lHw').value = (v ? v.replace(/[.;]\s*$/, '') + '; ' : '') + h.ws; }]);
   if (h.quiz && QUIZ[h.quiz]) acts.push(['+ ' + QUIZ[h.quiz], function(){ $('lQuiz').value = h.quiz; lastQuiz = h.quiz; }]);

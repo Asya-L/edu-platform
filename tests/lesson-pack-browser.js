@@ -21,7 +21,8 @@ async function checkTeacherPdfs(browser){
  const pack=Buffer.concat([iv,cipher.update(lesson),cipher.final(),cipher.getAuthTag()]);
  const pdfs=[
   ['g5-paired-sections','g5-pairs-solutions','Парные сечения — разбор учителя.pdf'],
-  ['g5-advanced-sections','g5-advanced-solutions','Сложные сечения — разбор учителя.pdf']
+  ['g5-advanced-sections','g5-advanced-solutions','Сложные сечения — разбор учителя.pdf'],
+  ['g5-homework-v2','g5-homework-v2-solutions','Сечения — домашняя работа, вариант 2 — решения.pdf']
  ];
  const bytes=id=>Buffer.from('%PDF-1.4\n% '+id+' download fixture\n');
  const ctx=await browser.newContext({acceptDownloads:true});
@@ -53,7 +54,7 @@ async function checkTeacherPdfs(browser){
    assert.equal(download.suggestedFilename(),filename);
    assert.deepEqual(fs.readFileSync(await download.path()),bytes(id));
   }
-  console.log('PASS LESSON-UI: teacher can download both private solutions from lesson 5');
+  console.log('PASS LESSON-UI: teacher can download private solutions from lesson 5');
  } finally {await ctx.close();}
 }
 (async()=>{
@@ -107,6 +108,7 @@ async function checkTeacherPdfs(browser){
   assert.equal(await p.locator('#section-pairs svg, #section-pairs .ex-sol').count(),0);
   assert.equal(await p.locator('#g5-pairs-solutions').count(),0);
   assert.equal(await p.locator('#g5-advanced-solutions').count(),0);
+  assert.equal(await p.locator('#g5-homework-v2-solutions').count(),0);
   const advanced=p.locator('#section-advanced img');
   assert.deepEqual(await advanced.evaluateAll(imgs=>imgs.map(img=>img.getAttribute('src'))),
     Array.from({length:4},(_,i)=>'assets/fig/g5-advanced-'+(i+1)+'.svg'));
