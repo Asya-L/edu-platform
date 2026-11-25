@@ -130,6 +130,9 @@ async function open(page,id='board-a') {
     },true);
     await scenario('BOARD-UI-13 paired exercises appear next to each other on the shared board',async({teacher,student})=>{
       await teacher.click('#bdFigBtn');
+      const advanced=teacher.locator('[data-fig^="g5-advanced-"]');
+      assert.equal(await advanced.count(),4);
+      for(const image of await advanced.locator('img').all())await image.evaluate(im=>im.decode());
       const groups=teacher.locator('#bdFigs .grid.pair');
       const names=Array.from({length:5},(_,i)=>['a','b'].map(v=>'g5-pair-'+(i+1)+v+'.svg'));
       assert.deepEqual(await groups.evaluateAll(gs=>gs.map(g=>[...g.querySelectorAll('button')].map(b=>b.dataset.fig))),names);

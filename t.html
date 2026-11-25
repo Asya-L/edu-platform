@@ -205,19 +205,24 @@ function wire(name){
 }
 function alertBox(t){ var d = document.createElement('div'); d.className = 'warn'; d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;margin:0';
   d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 4000); }
+var g5Pdfs = [
+  {section:'section-pairs', button:'g5-pairs-solutions', label:'Открыть разбор пяти пар (PDF)', material:'g5-paired-sections', file:'Парные сечения — разбор учителя.pdf'},
+  {section:'section-advanced', button:'g5-advanced-solutions', label:'Открыть разбор четырёх задач (PDF)', material:'g5-advanced-sections', file:'Сложные сечения — разбор учителя.pdf'}
+];
 view.addEventListener('click', async function(ev){
-  var button = ev.target.closest('#g5-pairs-solutions');
+  var button = ev.target.closest('#g5-pairs-solutions, #g5-advanced-solutions');
   if (!button || cur !== 'g5' || button.disabled) return;
+  var pdf = g5Pdfs.find(function(item){ return item.button === button.id; });
   var tab = window.open('', '_blank');
   if (tab) tab.opener = null;
   button.disabled = true;
   try {
-    var res = await K.sb.from('edu_teacher_materials').select('pdf_base64').eq('id', 'g5-paired-sections').maybeSingle();
+    var res = await K.sb.from('edu_teacher_materials').select('pdf_base64').eq('id', pdf.material).maybeSingle();
     if (res.error || !res.data || !res.data.pdf_base64) throw new Error('No teacher material');
     var url = URL.createObjectURL(new Blob([b64(res.data.pdf_base64)], {type:'application/pdf'}));
     if (tab && !tab.closed) tab.location.replace(url);
     else {
-      var link = document.createElement('a'); link.href = url; link.download = 'Парные сечения — разбор учителя.pdf';
+      var link = document.createElement('a'); link.href = url; link.download = pdf.file;
       document.body.appendChild(link); link.click(); link.remove();
     }
     setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
@@ -248,11 +253,14 @@ async function addSectionPractice(html){
     if (body.querySelector('#section-practice')) return html;
     var before = main.querySelector('#practice, #test, #homework, .pager');
     if (before) before.before(section); else main.append(section);
-    var pairs = source.getElementById('section-pairs');
-    if (pairs && !body.querySelector('#section-pairs')) {
-      pairs.querySelector('h2').insertAdjacentHTML('afterend', '<p><button type="button" class="btn" id="g5-pairs-solutions">Открыть разбор пяти пар (PDF)</button></p>');
-      section.before(pairs);
-    }
+    g5Pdfs.forEach(function(pdf){
+      var block = source.getElementById(pdf.section);
+      if (!block || body.querySelector('#' + pdf.section)) return;
+      var control = document.createElement('p'), button = document.createElement('button');
+      button.type = 'button'; button.className = 'btn'; button.id = pdf.button; button.textContent = pdf.label;
+      control.appendChild(button); block.querySelector('h2').after(control);
+      if (pdf.section === 'section-pairs') section.before(block); else section.after(block);
+    });
     var style = source.getElementById('section-practice-style');
     if (style) section.before(style);
     var assignment = source.getElementById('homework'), oldHomework = main.querySelector('#homework');
@@ -273,7 +281,7 @@ async function addSectionPractice(html){
     var buttons = body.querySelector('.hero .btns');
     if (buttons) {
       var homework = buttons.querySelector('a[href="#homework"]');
-      ['section-pairs', 'section-practice'].forEach(function(id){
+      ['section-pairs', 'section-practice', 'section-advanced'].forEach(function(id){
         var link = source.querySelector('a[href="#' + id + '"]');
         if (!link || !body.querySelector('#' + id) || buttons.querySelector('a[href="#' + id + '"]')) return;
         if (homework) homework.before(link); else buttons.append(link);

@@ -1851,6 +1851,12 @@ $('bdFigBtn').addEventListener('click', function(ev){ ev.stopPropagation(); var 
 document.addEventListener('click', function(ev){ if (!ev.target.closest('.bd-pop') && !ev.target.closest('#bdPick') && !ev.target.closest('#bdFigBtn') && !ev.target.closest('#bdSlBtn') && !ev.target.closest('#bdTplBtn') && !ev.target.closest('#bdTaskBtn')) closePops(); });
 function renderFigs(){
   var f = $('bdFigs'); if (f.dataset.done) return; f.dataset.done = 1;
+  var advanced = {g:'Атанасян · урок 5 · Сложные сечения',items:[
+    {f:'g5-advanced-1.svg',c:'С1. Тетраэдр: след за ребром',w:540,h:484},
+    {f:'g5-advanced-2.svg',c:'С2. Куб: точка внутри грани',w:540,h:420},
+    {f:'g5-advanced-3.svg',c:'С3. Куб: ни у двух точек нет общей грани',w:540,h:420},
+    {f:'g5-advanced-4.svg',c:'С4. Пирамида: два разных приёма',w:540,h:422}
+  ]};
   var pairGroups = [
     {g:'Пара 1 · Соединяем точки одной грани',items:[
       {f:'g5-pair-1a.svg',c:'1А · Пример для показа',w:540,h:394},
@@ -1898,7 +1904,7 @@ function renderFigs(){
     {f:'g5-section-14.svg',c:'14. Куб: продли линии и замкни контур',w:540,h:422}
   ]};
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font:900 18px var(--f-head)">Чертежи из уроков</b><button type="button" class="bd-t ghost" data-x>Закрыть</button></div>' +
-    '<div class="g">Атанасян · урок 5 · Парные задания</div>' + renderGroups(pairGroups, ' pair') +
+    renderGroups([advanced], '') + '<div class="g">Атанасян · урок 5 · Парные задания</div>' + renderGroups(pairGroups, ' pair') +
     renderGroups([sectionHomework, sections].concat(FIGS), '');
   function renderGroups(groups, gridClass){
     return groups.map(function(g){ return '<div class="g">' + esc(g.g) + '</div><div class="grid' + gridClass + '">' + g.items.map(function(it){

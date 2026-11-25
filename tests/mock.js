@@ -23,9 +23,9 @@ module.exports = function(KEY, QUIZKEYS, BANK){
       if (t === 'edu_secrets') return {data: teacher && !get('mockNoKey', false) ? {value: KEY} : null};
       const match = r => st.f.every(([k, v]) => r[k] === v);
       if (t === 'edu_teacher_materials') {
-        const pdf = localStorage.getItem('mockPairedTeacherPdf');
-        const row = {id:'g5-paired-sections',pdf_base64:pdf};
-        return {data:teacher && pdf && match(row) ? row : null};
+        const pdfs = get('mockTeacherPdfs', {});
+        const rows = Object.keys(pdfs).map(id=>({id,pdf_base64:pdfs[id]}));
+        return {data:teacher ? rows.find(match) || null : null};
       }
       if (t === 'edu_profiles') { let rows = D.edu_profiles.filter(r => teacher || r.user_id === u.id);
         if (st.op === 'update') { if (!teacher) return {data:null}; D.edu_profiles = D.edu_profiles.map(r => match(r) ? Object.assign({}, r, st.data) : r); put('mockdb', D); return {data:null}; }

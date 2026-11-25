@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="484" viewBox="0 0 270 242" role="img" aria-labelledby="title">
+<title id="title">Тетраэдр с исходными точками к задаче С1</title>
+<g fill="none" stroke-width="1.6" stroke-linejoin="round">
+  <path stroke="#746886" stroke-dasharray="5 4" d="M36 155L225 115"/>
+  <path stroke="#302650" d="M36 155L145 166 M145 166L225 115 M225 115L108 26 M108 26L36 155 M145 166L108 26"/>
+</g>
+<g fill="#302650" font-family="system-ui,sans-serif" font-size="13" font-weight="600">
+  <text x="20" y="168">A</text><text x="145" y="183">B</text><text x="232" y="120">C</text><text x="94" y="19">D</text>
+  <g fill="#6826ad"><g stroke="white" stroke-width="1.2"><circle cx="90.5" cy="160.5" r="4.5"/><circle cx="99" cy="141.667" r="4.5"/><circle cx="130.2" cy="110" r="4.5"/></g><text x="98.5" y="174.5">M</text><text x="107" y="135.667">N</text><text x="138.2" y="104">P</text></g>
+</g>
+</svg>

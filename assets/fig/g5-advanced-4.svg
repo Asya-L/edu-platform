@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="422" viewBox="0 0 270 211" role="img" aria-labelledby="title">
+<title id="title">Пирамида с исходными точками к задаче С4</title>
+<g fill="none" stroke-width="1.6" stroke-linejoin="round">
+  <path stroke="#746886" stroke-dasharray="5 4" d="M97 126L37 170 M215 126L97 126 M97 126L115 22"/>
+  <path stroke="#302650" d="M37 170L155 170 M155 170L215 126 M37 170L115 22 M155 170L115 22 M215 126L115 22"/>
+</g>
+<g fill="#302650" font-family="system-ui,sans-serif" font-size="13" font-weight="600">
+  <text x="21" y="183">A</text><text x="155" y="187">B</text><text x="222" y="131">C</text><text x="83" y="119">D</text><text x="110" y="14">S</text>
+  <g fill="#6826ad"><g stroke="white" stroke-width="1.2"><circle cx="185" cy="148" r="4.5"/><circle cx="156" cy="126" r="4.5"/><circle cx="141.667" cy="120.667" r="4.5"/></g><text x="193" y="162">M</text><text x="164" y="120">N</text><text x="149.667" y="114.667">P</text></g>
+</g>
+</svg>

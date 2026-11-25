@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
 <style id="section-practice-style">
-  #section-pairs,#section-practice,#homework,#g5-homework-solutions,[id^="g5-homework-task-"]{scroll-margin-top:96px}
+  #section-pairs,#section-practice,#section-advanced,#g5-advanced-solutions,#homework,#g5-homework-solutions,[id^="g5-homework-task-"]{scroll-margin-top:96px}
   .s5-pair{margin:22px 0 28px}
   .s5-pair h3{margin-bottom:12px}
   .s5-pair h4{font-size:18px}
@@ -42,6 +42,7 @@
     <a class="btn lime" href="ws5.html">Рабочий лист</a>
     <a class="btn ghost" href="#section-pairs">Сечения по парам</a>
     <a class="btn ghost" href="#section-practice">Практика: сечения</a>
+    <a class="btn ghost" href="#section-advanced">Сложные сечения</a>
     <a class="btn ghost" href="#homework">Домашнее задание</a>
   </div>
 </div></section>
@@ -261,6 +262,36 @@
     <p>Точки <i>M</i>, <i>N</i>, <i>P</i> — середины рёбер <i>A</i>₁<i>B</i>₁, <i>BB</i>₁ и <i>DC</i>. Построй сечение плоскостью <i>MNP</i>. Сколько новых вершин появится?</p>
     <img src="assets/fig/g5-section-14.svg" width="540" height="422" alt="Куб: продли линии и замкни контур; исходные точки описаны в условии" loading="lazy">
     <details><summary>Подсказка</summary><p>Продли <i>MN</i> до пересечения с прямой <i>AB</i>. На какой грани появятся сразу две точки секущей плоскости?</p></details>
+  </article>
+</div>
+</section>
+<section id="section-advanced" aria-labelledby="section-advanced-title">
+<h2 id="section-advanced-title">Сечения: задачи повышенной сложности</h2>
+<p>Для каждого сечения отметь новые вершины, замкни контур и объясни, на какой грани лежит каждая сторона. Заготовки на доске: <b>«Чертёж из урока» → «Атанасян · урок 5 · Сложные сечения»</b>.</p>
+<div class="section-drills">
+  <article class="task section-drill" id="g5-advanced-1">
+    <h3>С1. Тетраэдр: след за ребром</h3>
+    <p>В тетраэдре DABC точка M — середина AB, AN = ⅓ AC, BP = ⅖ BD. Построй сечение плоскостью MNP. Найди отношение CQ : QD, где Q — новая вершина сечения.</p>
+    <img src="assets/fig/g5-advanced-1.svg" width="540" height="484" alt="Тетраэдр с исходными точками к задаче С1" loading="lazy">
+    <details><summary>Подсказка</summary><p>Продли MN и BC до пересечения. На какой грани можно использовать эту точку вместе с P?</p></details>
+  </article>
+  <article class="task section-drill" id="g5-advanced-2">
+    <h3>С2. Куб: точка внутри грани</h3>
+    <p>В кубе M — середина AA₁, CP = ¼ CC₁. Точка N находится внутри грани ABB₁A₁: от A до неё нужно пройти ⅓ ребра в направлении AB и подняться на ¼ ребра. Построй сечение плоскостью MNP. Является ли N вершиной сечения?</p>
+    <img src="assets/fig/g5-advanced-2.svg" width="540" height="420" alt="Куб с исходными точками к задаче С2" loading="lazy">
+    <details><summary>Подсказка</summary><p>Проведи прямую MN. Где она пересекает AB и продолжение BB₁?</p></details>
+  </article>
+  <article class="task section-drill" id="g5-advanced-3">
+    <h3>С3. Куб: ни у двух точек нет общей грани</h3>
+    <p>В кубе M, N и P — середины рёбер BC, DD₁ и A₁B₁ соответственно. Построй сечение плоскостью MNP. Определи, является ли полученный многоугольник правильным.</p>
+    <img src="assets/fig/g5-advanced-3.svg" width="540" height="420" alt="Куб с исходными точками к задаче С3" loading="lazy">
+    <details><summary>Подсказка</summary><p>Возьми A за начало координат и ребро куба за единицу. Что одинаково у суммы координат M, N и P?</p></details>
+  </article>
+  <article class="task section-drill" id="g5-advanced-4">
+    <h3>С4. Пирамида: два разных приёма</h3>
+    <p>В пирамиде SABCD основание ABCD — квадрат. Точки M и N — середины BC и CD. Точка P лежит на BS, причём BP : PS = 1 : 2. Построй сечение плоскостью MNP и найди отношение AR : RS, где R — её пересечение с AS.</p>
+    <img src="assets/fig/g5-advanced-4.svg" width="540" height="422" alt="Пирамида с исходными точками к задаче С4" loading="lazy">
+    <details><summary>Подсказка</summary><p>Один новый отрезок можно провести параллельно MN. Для другой вершины пригодится продолжение MN до прямой AB.</p></details>
   </article>
 </div>
 </section>
