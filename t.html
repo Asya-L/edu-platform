@@ -219,16 +219,20 @@ var g5Pdfs = [
   {section:'section-advanced', button:'g5-advanced-solutions', label:'Открыть разбор четырёх задач (PDF)', material:'g5-advanced-sections', file:'Сложные сечения — разбор учителя.pdf'},
   {section:'homework', button:'g5-homework-v2-solutions', label:'Открыть решения варианта 2 (PDF)', material:'g5-homework-v2', file:'Сечения — домашняя работа, вариант 2 — решения.pdf'}
 ];
-var inf4Pdf = {material:'inf4-teacher',file:'Условие Фано — разбор для учителя.pdf'};
+var infPdfs = [
+  {lesson:'inf4',title:'Условие Фано',number:4,material:'inf4-teacher',file:'Условие Фано — разбор для учителя.pdf'},
+  {lesson:'inf5',title:'Двоичные алгоритмы',number:5,material:'inf5-teacher',file:'Двоичные алгоритмы — разбор для учителя.pdf'}
+];
 function addG5PdfButton(block,pdf){
   var control = document.createElement('p'), button = document.createElement('button');
   button.type = 'button'; button.className = 'btn'; button.id = pdf.button; button.textContent = pdf.label;
   control.appendChild(button); block.querySelector('h2').after(control);
 }
 view.addEventListener('click', async function(ev){
-  var button = ev.target.closest('#g5-pairs-solutions, #g5-advanced-solutions, #g5-homework-v2-solutions, #inf4-solutions');
+  var button = ev.target.closest('#g5-pairs-solutions, #g5-advanced-solutions, #g5-homework-v2-solutions, #inf4-solutions, #inf5-solutions');
   if (!button || button.disabled) return;
-  var pdf = cur === 'ege-inf' && button.id === 'inf4-solutions' ? inf4Pdf : cur === 'g5' && g5Pdfs.find(function(item){ return item.button === button.id; });
+  var pdf = cur === 'ege-inf' ? infPdfs.find(function(item){ return item.lesson + '-solutions' === button.id; }) :
+    cur === 'g5' && g5Pdfs.find(function(item){ return item.button === button.id; });
   if (!pdf) return;
   var tab = window.open('', '_blank');
   if (tab) tab.opener = null;
@@ -324,12 +328,14 @@ async function route(){
     if (name === 'g5') addG5TestLinks();
     if (name === 'ege-inf') {
       var content = view.querySelector('main') || view;
-      content.insertAdjacentHTML('afterbegin',
-        '<section class="def" id="inf4-teacher" style="scroll-margin-top:96px"><h2>Условие Фано · задание №4</h2>' +
-        '<div class="btns"><a class="btn" href="inf4.html">Конспект и практика</a><a class="btn ghost" href="sinf4.html">Слайды</a>' +
-        '<a class="btn ghost" href="wsinf4.html">Рабочий лист</a>' +
-        '<button type="button" class="btn" id="inf4-solutions">План урока и решения (PDF)</button></div>' +
-        '<p>В журнале выберите «Информатика · Условие Фано», чтобы подставить задачи и домашнюю самопроверку.</p></section>');
+      content.insertAdjacentHTML('afterbegin', infPdfs.map(function(item){
+        var id = item.lesson;
+        return '<section class="def" id="' + id + '-teacher" style="scroll-margin-top:96px"><h2>' + item.title + ' · задание №' + item.number + '</h2>' +
+          '<div class="btns"><a class="btn" href="' + id + '.html">Конспект и практика</a><a class="btn ghost" href="s' + id + '.html">Слайды</a>' +
+          '<a class="btn ghost" href="ws' + id + '.html">Рабочий лист</a><a class="btn ghost" href="quiz-' + id + 'a.html">Самопроверка на занятии</a>' +
+          '<button type="button" class="btn" id="' + id + '-solutions">План урока и решения (PDF)</button></div>' +
+          '<p>В журнале выберите «Информатика · ' + item.title + '», чтобы подставить задачи и домашнюю самопроверку.</p></section>';
+      }).join(''));
     }
     wire(name);
     K.renderNav(window.__kstate, name); window.scrollTo(0, 0);

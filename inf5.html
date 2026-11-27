@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Информатика · №5. Двоичные алгоритмы</title>
+<script>document.documentElement.dataset.page="inf5";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="on">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-inf.html">Информатика</a> · Двоичные алгоритмы</div></div>
+<section class="hero"><div class="wrap narrow"><div class="kicker">ЕГЭ по информатике · задание №5</div><h1>Двоичные алгоритмы</h1><p class="lede">Переводим число в двоичную строку, выполняем команды и ищем именно ту величину, которую спрашивают.</p><div class="btns"><a class="btn" href="sinf5.html">Слайды</a><a class="btn ghost" href="wsinf5.html">Рабочий лист</a><a class="btn ghost" href="#inf5-practice">Задачи парами</a><a class="btn ghost" href="#inf5-homework">Домашка</a><a class="btn ghost" href="quiz-inf5a.html">Самопроверка</a></div></div></section>
+<main class="wrap narrow" id="inf5">
+<div class="def"><span class="lbl">Три шага</span><p>Исходное число <b>N</b> → двоичная запись → изменения по условию → десятичное число <b>R</b>. Первые два шага удобно записывать отдельно: <code>6</code> и <code>110</code> — одно число, но разные записи.</p></div>
+<figure><img src="assets/fig/inf5-example.svg" width="800" height="270" alt="6 переводится в 110; дописываем 01, получаем 11001, то есть 25"><figcaption>Пример: для чётного N справа дописывают 01.</figcaption></figure>
+<h2>Дописываем биты справа</h2>
+<p>Один новый бит умножает исходное число на 2 и добавляет значение этого бита. Если дописали <i>k</i> битов, получаем <b>R = N · 2<sup>k</sup> + значение хвоста</b>. Хвост <code>01</code> занимает <b>два</b> разряда, хотя его значение равно 1.</p>
+<div class="ex"><span class="lbl">Пример вручную</span><p>Чётному N добавляем <code>01</code>, нечётному — <code>10</code>. При N = 7 получаем <code>11110</code>, то есть 7 · 4 + 2 = 30. При N = 8 получаем 8 · 4 + 1 = 33. Поэтому первое N с R &gt; 30 — 8: для N ≤ 7 результат не превышает 4 · 7 + 2.</p></div>
+<h2>Не путай наименьшее N и наименьшее R</h2>
+<p>При ветвлении длина дописанной строки может меняться. Тогда большее N не гарантирует большего R. Например, если дописывать <code>00</code> при остатке 0 от деления на 3, <code>10</code> при остатке 1 и <code>100</code> при остатке 2, то N = 5 даёт R = 44, а N = 6 даёт R = 24.</p>
+<div class="warn"><span class="lbl">Перед запуском</span><p>Подчеркни искомое: <b>N или R</b>. При поиске первого подходящего N можно остановиться на первом совпадении. Для наименьшего R нужно сравнить результаты. «Строго больше» означает <code>&gt;</code>, а не <code>&gt;=</code>.</p></div>
+<h2>Перебор на Python</h2><p><code>bin(n)[2:]</code> возвращает биты без начала <code>0b</code>; <code>int(s, 2)</code> читает двоичную строку как число.</p>
+<pre style="overflow:auto"><code>def result(n):
+    s = bin(n)[2:]
+    r = n % 3
+    suffix = "00" if r == 0 else bin(2 * r)[2:]
+    return int(s + suffix, 2)
+
+hits = [(n, result(n)) for n in range(1, 51)
+        if result(n) &gt; 50]
+
+print(hits[0][0])                 # первое подходящее N
+print(min(r for n, r in hits))    # наименьшее R</code></pre>
+<p>В примере с условием R &gt; 50 можно проверить N от 1 до 50. Среди них есть результат 54. Для N &gt; 50 дописывается хотя бы два бита, поэтому R ≥ 4N &gt; 200: такой результат уже не может быть наименьшим. Для задачи с другим алгоритмом границу обосновывай заново.</p>
+<h3>Чётность после каждого шага</h3><p>Если в записи нечётное число единиц, добавление <code>1</code> делает его чётным. Если число единиц уже чётное, добавляется <code>0</code>. Поэтому второй бит в таком алгоритме всегда <code>0</code>. Считай единицы в текущей строке, а не чётность N.</p>
+<section id="inf5-practice"><h2>Задачи парами</h2><p>Сначала разберите А вместе. Затем ученик решает Б тем же алгоритмом и объясняет, что именно искал.</p>
+<section class="task"><h3>1. Два бита и ветвление</h3><p>Если N чётное, дописываем справа 01; если нечётное — 10. Получаем число R из новой записи.</p><p><b>А · Вместе.</b> Найди наименьшее N, при котором R &gt; 35.</p><p><b>Б · Самостоятельно.</b> Найди наименьшее N, при котором R &gt; 53.</p></section>
+<section class="task"><h3>2. Пересчёт единиц после дописки</h3><p>Дважды подряд дописываем справа остаток от деления числа единиц в текущей записи на 2. Второй раз пересчитываем единицы после первой дописки. Получаем число R из новой записи.</p><p><b>А · Вместе.</b> Найди наименьшее значение R, строго большее 40.</p><p><b>Б · Самостоятельно.</b> Найди наименьшее значение R, строго большее 24.</p></section>
+<section class="task"><h3>3. Когда большие N не дают большие R</h3><p>Если N делится на 3, дописываем справа 00. Иначе дописываем справа двоичную запись удвоенного остатка N от деления на 3, без ведущих нулей. Получаем число R из новой записи.</p><p><b>А · Вместе.</b> Найди наименьшее N, при котором R &gt; 45.</p><p><b>Б · Самостоятельно.</b> Найди наименьшее значение R, строго большее 45.</p></section></section>
+<section id="inf5-homework"><h2>Домашняя работа</h2><div class="task"><span class="task-no">Д1</span>N — положительное целое число. Если N чётное, дописываем справа 01; если нечётное — 10. Полученную двоичную запись переводим в десятичное число R. Найди наименьшее N, при котором R &gt; 60. Ответ запиши в десятичной системе.</div>
+<div class="task"><span class="task-no">Д2</span>N — положительное целое число. Дважды подряд дописываем справа остаток от деления числа единиц в текущей записи на 2. Второй раз пересчитываем единицы после первой дописки. Полученную двоичную запись переводим в десятичное число R. Чему равно R при N = 11? Ответ запиши в десятичной системе.</div>
+<div class="task"><span class="task-no">Д3</span>N — положительное целое число. Дважды подряд дописываем справа остаток от деления числа единиц в текущей записи на 2. Второй раз пересчитываем единицы после первой дописки. Полученную двоичную запись переводим в десятичное число R. Найди наибольшее N из диапазона от 1 до 35 включительно, для которого R &lt; 94. Ответ запиши в десятичной системе.</div>
+<div class="task"><span class="task-no">Д4</span>N — положительное целое число. Если N делится на 3, дописываем справа 00. Иначе дописываем справа двоичную запись удвоенного остатка N от деления на 3, без ведущих нулей. Полученную двоичную запись переводим в десятичное число R. Найди наименьшее N, при котором R &gt; 72. Ответ запиши в десятичной системе.</div>
+<div class="task"><span class="task-no">Д5</span>N — положительное целое число. Если N делится на 3, дописываем справа 00. Иначе дописываем справа двоичную запись удвоенного остатка N от деления на 3, без ведущих нулей. Полученную двоичную запись переводим в десятичное число R. Найди наименьшее значение R, строго большее 85. Ответ запиши в десятичной системе.</div>
+<div class="task"><span class="task-no">Д6</span>N — положительное целое число. К двоичной записи исходного числа дописываем справа сначала её первый бит, затем её последний бит. Оба бита берём из исходной записи. Полученную двоичную запись переводим в десятичное число R. Чему равно R при N = 14? Ответ запиши в десятичной системе.</div><p>Для Д3–Д5 запиши пару (N, R), полученную при проверке ответа. Если назначена домашняя самопроверка, открывай её из <a href="homework.html">«Домашки»</a>, чтобы первая попытка засчиталась.</p></section>
+<div class="pager"><a href="inf4.html">← №4 · Условие Фано</a><a href="ege-inf.html">Все темы по информатике →</a></div>
+<p class="muted">Упражнения авторские. <a href="https://fipi.ru/ege/demoversii-specifikacii-kodifikatory">Демоверсии и спецификации ФИПИ</a>.</p></main><footer><div class="wrap"><span>Кабинет математики · подготовка к ЕГЭ</span></div></footer></body></html>

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="360" viewBox="0 0 780 360" role="img" aria-labelledby="title"><title id="title">Заготовка для таблицы: исходное число, двоичная запись, дописанные биты, результат</title>
+<rect width="780" height="360" rx="20" fill="#fff"/><rect x="24" y="44" width="732" height="56" fill="#eee6f8"/>
+<path fill="none" stroke="#817491" stroke-width="2" d="M24 44H756V324H24ZM24 100H756M24 156H756M24 212H756M24 268H756M115 44V324M327 44V324M577 44V324"/>
+<g fill="#302650" font-family="system-ui,sans-serif" font-weight="700" font-size="21" text-anchor="middle"><text x="70" y="79">N</text><text x="221" y="79">Запись N</text><text x="452" y="79">Что дописали</text><text x="667" y="79">R</text></g></svg>

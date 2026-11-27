@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="270" viewBox="0 0 800 270" role="img" aria-labelledby="title">
+<title id="title">Число 6 переводим в 110, дописываем 01, получаем 11001, то есть 25</title>
+<rect width="800" height="270" rx="20" fill="#fff"/>
+<g font-family="system-ui,sans-serif" text-anchor="middle" fill="#302650">
+<g fill="#eee6f8"><rect x="42" y="82" width="150" height="88" rx="16"/><rect x="319" y="82" width="162" height="88" rx="16"/><rect x="606" y="82" width="152" height="88" rx="16"/></g>
+<g font-size="17" font-weight="650"><text x="117" y="61">Исходное N</text><text x="400" y="61">Двоичная строка</text><text x="682" y="61">Результат R</text></g>
+<g font-family="monospace" font-weight="750" font-size="36"><text x="117" y="139">6</text><text x="400" y="139">110<tspan fill="#73299a">01</tspan></text><text x="682" y="139">25</text></g>
+<g font-size="15"><text x="257" y="201">110 и справа 01</text><text x="544" y="201">16 + 8 + 1</text><text x="400" y="239">Два новых бита: 6 × 4 + 1 = 25</text></g></g>
+<path d="M210 126h85m-9-9 9 9-9 9M499 126h85m-9-9 9 9-9 9" fill="none" stroke="#817491" stroke-width="2.5"/>
+</svg>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Слайды · Двоичные алгоритмы</title>
+<script>document.documentElement.dataset.page="sinf5";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/slides.css?v=bea01f5c">
+<style>#ui span{background:#332b21;border-radius:8px;padding:5px 8px}</style>
+</head>
+<body>
+<div id="stage"><div class="deck">
+<section class="slide title"><div class="band"></div><div class="lead">ЕГЭ · информатика</div><div class="num">05</div><div class="tx"><div class="h">Двоичные алгоритмы</div><p class="t">От исходного числа к результату</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Сначала собери новую запись</h2><p class="t">Прочитай условие в три шага: переведи N, измени строку, переведи результат обратно.</p><img style="display:block;max-height:325px;max-width:100%;margin:auto" src="assets/fig/inf5-example.svg" alt="Пример преобразования двоичной записи"></div></section>
+<section class="slide"><div class="in"><h2 class="h">Каждый бит сдвигает число</h2><p class="t">Приписать справа 01 означает умножить на 4 и прибавить 1.</p><p class="panel">Ноль в 01 обязателен: он занимает разряд. Приписать 1 — совсем другая команда.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Пара 1 · ветвление по чётности</h2><p class="t">Чётным N допиши 01, нечётным — 10.</p><p class="panel">А: наименьшее N с R &gt; 35.  Б: наименьшее N с R &gt; 53.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Пара 2 · два бита чётности</h2><p class="t">Дважды добавь остаток от деления количества единиц на 2. Считай единицы в текущей строке.</p><p class="panel">А: наименьшее R &gt; 40.  Б: наименьшее R &gt; 24.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Когда N растёт, R может уменьшиться</h2><p class="t">Остаток при делении N на 3 задаёт хвост: 0 → 00, 1 → 10, 2 → 100.</p><p class="panel">N = 5 даёт R = 44. N = 6 даёт R = 24. Результаты перебора не идут по порядку.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Пара 3 · одно условие, два вопроса</h2><p class="t">Используй хвосты 00, 10 и 100 для остатков 0, 1 и 2 при делении на 3.</p><p class="panel">А: найди наименьшее N с R &gt; 45.  Б: найди наименьшее R &gt; 45.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Python: работай со строкой</h2><p class="t">bin(n)[2:] — двоичная строка без 0b.  int(s, 2) — чтение готовой строки в основании 2.</p><p class="panel">Отдельно напиши функцию result(n), отдельно проверь условие и выбери нужное число.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Границу перебора надо объяснить</h2><p class="t">Если алгоритм дописывает хотя бы два бита, R ≥ 4N.</p><p class="panel">Как только 4N больше уже найденного подходящего R, дальше меньшего результата не будет. Для других алгоритмов проверь свою оценку.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Проверь ответ</h2><p class="t">Что спросили: N или R? Какой знак сравнения? Из какой версии строки взяты биты?</p><p class="panel">Дома: Д1–Д6 и самопроверка из «Домашки».</p></div></section>
+</div></div><div id="ui"><a href="inf5.html">← К уроку</a><button id="prev" aria-label="Предыдущий слайд">‹</button><span id="cnt"></span><button id="next" aria-label="Следующий слайд">›</button><button id="fs">Во весь экран</button></div>
+<script src="assets/slides.js?v=bea01f5c"></script></body></html>
