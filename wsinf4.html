@@ -4,21 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Рабочий лист · Условие Фано</title>
-<script>document.documentElement.dataset.page="wsinf4";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<script>document.documentElement.dataset.page="wsinf4";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=6fce240ff4ea"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
-</head>
+<style>
+.sheet-head h1{font-size:26px;line-height:1.15}
+.sheet .worksheet-intro{font-size:14px;color:var(--ink-soft)}
+.sheet .worksheet-exercises{margin:8px 0;padding-left:24px}
+.sheet .worksheet-exercises>li{margin:16px 0;break-inside:avoid}
+.sheet .worksheet-exercises p{margin:0}
+.sheet .lines>div{height:27px}
+.sheet .worksheet-tree{box-shadow:none;margin:12px 0;padding:10px}
+.sheet .worksheet-tree img{max-height:180px}
+@media print{
+  @page{size:A4;margin:13mm}
+  html,body{height:auto;overflow:visible}
+  body{font-size:10pt;line-height:1.35;background:#fff}
+  .wrap.narrow{max-width:none;width:100%;padding:0}
+  .sheet{padding:0;margin:0;border:0;box-shadow:none;background:#fff}
+  .sheet-head{padding-bottom:8pt;margin-bottom:8pt}
+  .sheet-head h1{font-size:18pt}
+  .sheet-head .kicker{font-size:9pt;margin-bottom:7pt;padding:0;background:none}
+  .sheet-head .fields{font-size:10pt}
+  .sheet-head .fields span{min-width:120px}
+  .sheet .worksheet-intro{font-size:9pt;margin:6pt 0}
+  .sheet .sec{margin-top:8pt}
+  .sheet .sec h3{font-size:12pt;margin:0 0 6pt}
+  .sheet .sec h3 .n{width:22px;height:22px;font-size:10pt}
+  .sheet .worksheet-exercises{margin:4pt 0;padding-left:18pt}
+  .sheet .worksheet-exercises>li{margin:6pt 0;break-inside:avoid}
+  .sheet .lines{margin:3pt 0 0}
+  .sheet .lines>div{height:14pt}
+  .sheet .worksheet-tree{margin:8pt 0;padding:6pt;border:0;break-inside:avoid}
+  .sheet .worksheet-tree img{max-height:125px}
+  .sheet .worksheet-tree figcaption{font-size:8pt;margin-top:4pt}
+  .sheet .print-page{break-before:page}
+  .sheet code{font-size:10pt;padding:0 2pt;background:none}
+}
+</style></head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
   <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="on">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
 </div></header>
-<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · ЕГЭ · информатика</div></div>
-<section class="hero"><div class="wrap narrow"><div class="kicker">Информатика · рабочий лист</div><h1>Условие Фано</h1><p class="lede">Отметь коды на дереве и подпиши, почему выбрал свободную ветку.</p><div class="btns"><a class="btn ghost" href="inf4.html">← К уроку</a><button class="btn" type="button" onclick="window.print()">Распечатать</button></div></div></section>
-<main class="wrap narrow"><p>Имя: ____________________ Дата: ____________________</p>
-<figure><img src="assets/fig/inf4-blank.svg" width="820" height="360" alt="Дерево двоичных кодов глубины три"><figcaption>Если не хватает уровня, дорисуй две дочерние вершины.</figcaption></figure>
-<section class="task"><h3>1Б. Найди свободную ветку</h3><p>Даны кодовые слова <code>00</code>, <code>10</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p><p>Ответ и объяснение: __________________________________________</p></section>
-<section class="task"><h3>2Б. Если короткий код занят</h3><p>Даны кодовые слова 1, <code>010</code>, <code>011</code>, <code>000</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p><p>Ответ и объяснение: __________________________________________</p></section>
-<section class="task"><h3>3Б. Оставь место ещё одной букве</h3><p>Даны кодовые слова 1, <code>000</code>, <code>001</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. После этого должно остаться место ещё для одной буквы. Ни одно слово не должно быть началом другого.</p><p>Ответ и объяснение: __________________________________________</p></section></main><footer><div class="wrap"><span>Кабинет математики · подготовка к ЕГЭ</span></div></footer></body></html>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-inf.html">Информатика</a> · <a href="inf4.html">Условие Фано</a> · Рабочий лист</div></div>
+<main class="wrap narrow"><div class="toolbar no-print"><a class="pill" href="inf4.html">← К уроку</a><button type="button" onclick="window.print()">Распечатать</button></div><div class="sheet"><div class="sheet-head"><div><div class="kicker">Информатика · рабочий лист</div><h1>Условие Фано</h1></div><div class="fields"><span>Имя</span><span>Дата</span></div></div><p class="worksheet-intro">Решай в тетради или на распечатке. В заданиях на код запиши слово целиком, сохрани ведущие нули и объясни свой выбор.</p><section class="sec"><h3><span class="n">1</span>Вспомни и проверь</h3><ol class="worksheet-exercises" start="1"><li><p>Запиши прямое условие Фано своими словами. Проверь две пары кодовых слов: <code>10</code> и <code>101</code>; <code>10</code> и <code>110</code>. Для каждой пары поясни, есть ли конфликт.</p><div class="lines" aria-hidden="true"><div></div><div></div></div></li></ol></section><section class="sec"><h3><span class="n">2</span>Найди свободный код</h3><ol class="worksheet-exercises" start="2"><li><p>Даны кодовые слова <code>00</code>, <code>10</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p><div class="lines" aria-hidden="true"><div></div><div></div></div></li><li><p>Даны кодовые слова 1, <code>010</code>, <code>011</code>, <code>000</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p><div class="lines" aria-hidden="true"><div></div><div></div></div></li></ol></section><section class="sec"><h3><span class="n">3</span>Оставь место другой букве</h3><figure class="worksheet-tree"><img src="assets/fig/inf4-blank.svg" width="820" height="360" alt="Незаполненное дерево двоичных кодов глубины три"><figcaption>Отметь занятые ветви. Если не хватает уровня, дорисуй дочерние вершины.</figcaption></figure><ol class="worksheet-exercises" start="4"><li><p>Даны кодовые слова 1, <code>000</code>, <code>001</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. После этого должно остаться место ещё для одной буквы. Ни одно слово не должно быть началом другого.</p><div class="lines" aria-hidden="true"><div></div><div></div></div></li></ol></section><section class="sec"><h3><span class="n">4</span>Прочитай и посчитай</h3><ol class="worksheet-exercises" start="5"><li><p>Коды: А — 0, Б — <code>10</code>, В — <code>110</code>, Г — <code>111</code>. Расшифруй <code>111010110</code> и запиши буквы без пробелов.</p><div class="lines" aria-hidden="true"><div></div><div></div></div></li><li><p>Коды: А — <code>00</code>, Б — <code>01</code>, В — <code>10</code>, Г — <code>110</code>, Д — <code>111</code>. Сколько бит занимает слово ДАГБВ?</p><div class="lines" aria-hidden="true"><div></div><div></div></div></li></ol></section></div><div class="pager"><a href="inf4.html">← К уроку</a><a href="sinf4.html">Слайды →</a></div></main>
+<footer><div class="wrap"><span>Кабинет математики · подготовка к ЕГЭ</span></div></footer></body></html>

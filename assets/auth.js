@@ -253,7 +253,9 @@ var TEACHER_PAGES = [
   "g21",
   "ws21",
   "mg24",
-  "wsmg24"
+  "wsmg24",
+  "inf4",
+  "inf5"
 ];
 var root = document.documentElement;
 var page = root.dataset.page || '';
@@ -278,7 +280,7 @@ K.renderNav = function(state, current){
   var nav = document.querySelector('.top .nav'); if (!nav) return;
   var cur = current || page;
   var group = {g21:'geometry',ws21:'geometry',g1:'geometry',g2:'geometry',g3:'geometry',g4:'geometry',g5:'geometry',ws1:'geometry',ws2:'geometry',ws3:'geometry',ws4:'geometry',ws5:'geometry',
-    'test-geo1':'geometry','test-geo2':'geometry','quiz-geo1':'geometry','test-alg1':'algebra','test-alg2':'algebra','algebra-m':'algebra','test-malg1':'algebra','geometry-m':'geometry','test-mgeo1':'geometry','ege-14':'ege-math',math:'index'}[cur] || (/^(mg|smg|wsmg)\d+$|^quiz-mg\d/.test(cur) ? 'geometry' : /^(ma|sma|wsma)\d+$|^quiz-ma\d/.test(cur) ? 'algebra' : /^quiz-g\d/.test(cur) ? 'geometry' : /^(a|sa|wsa)\d+$|^quiz-a\d/.test(cur) ? 'algebra' : /^(el|sel|wse)\d+$|^quiz-el\d/.test(cur) ? 'ege-math' : cur);
+    'test-geo1':'geometry','test-geo2':'geometry','quiz-geo1':'geometry','test-alg1':'algebra','test-alg2':'algebra','algebra-m':'algebra','test-malg1':'algebra','geometry-m':'geometry','test-mgeo1':'geometry','ege-14':'ege-math',math:'index'}[cur] || (/^(mg|smg|wsmg)\d+$|^quiz-mg\d/.test(cur) ? 'geometry' : /^(ma|sma|wsma)\d+$|^quiz-ma\d/.test(cur) ? 'algebra' : /^quiz-g\d/.test(cur) ? 'geometry' : /^(a|sa|wsa)\d+$|^quiz-a\d/.test(cur) ? 'algebra' : /^(el|sel|wse)\d+$|^quiz-el\d/.test(cur) ? 'ege-math' : /^(inf|sinf|wsinf)\d+$|^quiz-inf\d/.test(cur) ? 'ege-inf' : cur);
   var teacherView = state.role === 'teacher' && !state.asStudent;
   var items = teacherView ? NAV_T : NAV_S;
   var h = items.map(function(i){ return '<a href="'+i[0]+'" class="'+(i[2]===group?'on':'')+'">'+i[1]+'</a>'; }).join('');

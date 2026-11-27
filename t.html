@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Кабинет учителя</title>
-<script>document.documentElement.dataset.page="t";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=51a3769c2073"></script>
+<script>document.documentElement.dataset.page="t";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=6fce240ff4ea"></script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
 <div id="tview"><section class="hero"><div class="wrap narrow"><h1>Открываю…</h1></div></section></div>
 <script>
 (function(){
-var K = window.KABINET, cache = {}, keyP = null, cur = null;
+var K = window.KABINET, cache = {}, keys = {}, cur = null;
 var STUDENT_URL = 'https://asya-l.github.io/edu-platform/';
 var TP = K.teacherPages, TF = [
   "files/ws1-teacher.pdf",
@@ -177,14 +177,14 @@ var TP = K.teacherPages, TF = [
 ], VER = 'lp-98236f0250b3';
 var view = document.getElementById('tview');
 function b64(s){ var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
-function key(){
-  if (!keyP) keyP = K.sb.from('edu_secrets').select('value').eq('name','content_key').maybeSingle().then(function(r){
+function key(name){
+  if (!keys[name]) keys[name] = K.sb.from('edu_secrets').select('value').eq('name',name).maybeSingle().then(function(r){
     if (!r.data) throw new Error('nokey');
     return crypto.subtle.importKey('raw', b64(r.data.value), 'AES-GCM', false, ['decrypt']); });
-  return keyP;
+  return keys[name];
 }
-async function open(path, version){
-  var k = await key(); var res = await fetch(path + '?v=' + (version || VER)); if (!res.ok) throw new Error('nofile');
+async function open(path, version, secret){
+  var k = await key(secret || 'content_key'); var res = await fetch(path + '?v=' + (version || VER)); if (!res.ok) throw new Error('nofile');
   var buf = new Uint8Array(await res.arrayBuffer());
   return crypto.subtle.decrypt({name: 'AES-GCM', iv: buf.slice(0, 12)}, k, buf.slice(12));
 }
@@ -219,20 +219,52 @@ var g5Pdfs = [
   {section:'section-advanced', button:'g5-advanced-solutions', label:'Открыть разбор четырёх задач (PDF)', material:'g5-advanced-sections', file:'Сложные сечения — разбор учителя.pdf'},
   {section:'homework', button:'g5-homework-v2-solutions', label:'Открыть решения варианта 2 (PDF)', material:'g5-homework-v2', file:'Сечения — домашняя работа, вариант 2 — решения.pdf'}
 ];
-var infPdfs = [
-  {lesson:'inf4',title:'Условие Фано',number:4,material:'inf4-teacher',file:'Условие Фано — разбор для учителя.pdf'},
-  {lesson:'inf5',title:'Двоичные алгоритмы',number:5,material:'inf5-teacher-90',label:'План на 90 минут и решения (PDF)',file:'Двоичные алгоритмы — разбор для учителя.pdf'}
-];
+var infLessons = {
+  inf4:{title:'Условие Фано',number:4},
+  inf5:{title:'Двоичные алгоритмы',number:5}
+};
+function teacherNote(id, label, html){
+  var block = document.createElement('details');
+  var title = document.createElement('summary');
+  block.className = 'note';
+  block.id = id;
+  title.textContent = label;
+  block.append(title);
+  block.insertAdjacentHTML('beforeend', html);
+  return block;
+}
+async function loadInformatics(name){
+  var notes = open('t/' + name + '-notes.bin', 'b48a552da8f0', 'informatics_content_key')
+    .then(function(data){ return JSON.parse(new TextDecoder().decode(data)); })
+    .catch(function(){ delete keys.informatics_content_key; return null; });
+  var response = await fetch(name + '.html', {cache:'no-cache'});
+  if (!response.ok) throw new Error('nofile');
+  var page = new DOMParser().parseFromString(await response.text(), 'text/html');
+  var main = page.querySelector('main');
+  var hero = page.querySelector('.hero');
+  var crumbs = page.querySelector('.crumbs').parentElement;
+  var material = await notes;
+  if (material) {
+    main.prepend(teacherNote('teacher-plan', 'План занятия · 90 минут', material.plan));
+    main.querySelector('#' + name + '-practice').after(teacherNote('teacher-practice', 'Решения задач урока', material.practice));
+    main.querySelector('#test').after(teacherNote('teacher-test', 'Разбор тестов', material.test));
+    var homework = main.querySelector('#' + name + '-homework');
+    homework.after(teacherNote('teacher-homework', 'Решения домашнего задания', material.homework));
+    hero.querySelector('.btns').insertAdjacentHTML('beforeend', '<a class="btn ghost" href="#teacher-plan">План и решения</a>');
+  } else {
+    main.insertAdjacentHTML('afterbegin','<p class="warn" role="status">Не удалось открыть план и решения. Обновите страницу, чтобы загрузить их ещё раз.</p>');
+  }
+  return {title:page.title, html:crumbs.outerHTML + hero.outerHTML + main.outerHTML, retry:!material};
+}
 function addG5PdfButton(block,pdf){
   var control = document.createElement('p'), button = document.createElement('button');
   button.type = 'button'; button.className = 'btn'; button.id = pdf.button; button.textContent = pdf.label;
   control.appendChild(button); block.querySelector('h2').after(control);
 }
 view.addEventListener('click', async function(ev){
-  var button = ev.target.closest('#g5-pairs-solutions, #g5-advanced-solutions, #g5-homework-v2-solutions, #inf4-solutions, #inf5-solutions');
+  var button = ev.target.closest('#g5-pairs-solutions, #g5-advanced-solutions, #g5-homework-v2-solutions');
   if (!button || button.disabled) return;
-  var pdf = cur === 'ege-inf' ? infPdfs.find(function(item){ return item.lesson + '-solutions' === button.id; }) :
-    cur === 'g5' && g5Pdfs.find(function(item){ return item.button === button.id; });
+  var pdf = cur === 'g5' && g5Pdfs.find(function(item){ return item.button === button.id; });
   if (!pdf) return;
   var tab = window.open('', '_blank');
   if (tab) tab.opener = null;
@@ -317,31 +349,41 @@ async function addSectionPractice(html){
 }
 async function route(){
   var hash = location.hash, parts = (hash.slice(1) || 'index').split('/'); var name = parts[0], frag = parts.slice(1).join('/');
+  if (name === 'ege-inf' && /^inf[45]-teacher$/.test(frag)) {
+    name = frag.split('-')[0]; frag = 'teacher-plan';
+  }
   if (TP.indexOf(name) < 0) name = 'index';
   if (name !== cur) {
     try {
-      if (!cache[name]) cache[name] = JSON.parse(new TextDecoder().decode(await open('t/' + name + '.bin')));
-    } catch(e) { if (location.hash !== hash) return; keyP = null; fail(e.message === 'nokey' ? 'Эта часть сайта открыта только учителю.' : 'Страница не загрузилась. Проверьте интернет и обновите страницу.'); return; }
-    var p = cache[name], html = name === 'g5' ? await addSectionPractice(p.html) : p.html;
+      var p = cache[name];
+      if (!p) {
+        p = Object.hasOwn(infLessons, name) ? await loadInformatics(name) : JSON.parse(new TextDecoder().decode(await open('t/' + name + '.bin')));
+        if (!p.retry) cache[name] = p;
+      }
+    } catch(e) { if (location.hash !== hash) return; keys = {}; fail(e.message === 'nokey' ? 'Эта часть сайта открыта только учителю.' : 'Страница не загрузилась. Проверьте интернет и обновите страницу.'); return; }
+    var html = name === 'g5' ? await addSectionPractice(p.html) : p.html;
     if (location.hash !== hash) return;
     document.title = p.title; view.innerHTML = html; cur = name;
     if (name === 'g5') addG5TestLinks();
     if (name === 'ege-inf') {
       var content = view.querySelector('main') || view;
-      content.insertAdjacentHTML('afterbegin', infPdfs.map(function(item){
-        var id = item.lesson;
-        return '<section class="def" id="' + id + '-teacher" style="scroll-margin-top:96px"><h2>' + item.title + ' · задание №' + item.number + '</h2>' +
-          '<div class="btns"><a class="btn" href="' + id + '.html">Конспект и практика</a><a class="btn ghost" href="s' + id + '.html">Слайды</a>' +
-          '<a class="btn ghost" href="ws' + id + '.html">Рабочий лист</a><a class="btn ghost" href="quiz-' + id + 'a.html">Самопроверка на занятии</a>' +
-          '<button type="button" class="btn" id="' + id + '-solutions">' + (item.label || 'План урока и решения (PDF)') + '</button></div>' +
-          '<p>В журнале выберите «Информатика · ' + item.title + '», чтобы подставить задачи и домашнюю самопроверку.</p></section>';
-      }).join(''));
+      content.insertAdjacentHTML('afterbegin', '<div class="cards">' + Object.keys(infLessons).map(function(id){
+        var item = infLessons[id];
+        return '<a class="card lime" href="' + id + '.html"><div class="tag">Задание №' + item.number + '</div><h3>' +
+          item.title + '</h3><p>Конспект, план занятия и решения</p><div class="meta">Открыть урок →</div></a>';
+      }).join('') + '</div>');
     }
     wire(name);
     K.renderNav(window.__kstate, name); window.scrollTo(0, 0);
   }
   document.documentElement.classList.remove('auth-wait');
-  if (frag) { var t = document.getElementById(frag); if (t) t.scrollIntoView(); }
+  if (frag) {
+    var target = document.getElementById(frag);
+    if (target) {
+      if (target.tagName === 'DETAILS') target.open = true;
+      target.scrollIntoView();
+    }
+  }
 }
 K.state.then(function(st){ if (!st) return; window.__kstate = st;
   if (st.role !== 'teacher') return; addEventListener('hashchange', route); route(); });

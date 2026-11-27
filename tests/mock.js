@@ -20,7 +20,11 @@ module.exports = function(KEY, QUIZKEYS, BANK){
     const st = {op:'select', f:[], data:null, single:false};
     const run = () => { const D = db(), u = me(); if (!u) return {data: st.single ? null : []};
       const teacher = u.role === 'teacher';
-      if (t === 'edu_secrets') return {data: teacher && !get('mockNoKey', false) ? {value: KEY} : null};
+      if (t === 'edu_secrets') {
+        const name = st.f.find(([field])=>field==='name')?.[1];
+        const value = name==='content_key' ? KEY : get('mockContentKeys', {})[name];
+        return {data: teacher && !get('mockNoKey', false) && value ? {value} : null};
+      }
       const match = r => st.f.every(([k, v]) => r[k] === v);
       if (t === 'edu_teacher_materials') {
         const pdfs = get('mockTeacherPdfs', {});
