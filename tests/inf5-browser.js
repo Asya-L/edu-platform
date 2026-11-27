@@ -37,17 +37,17 @@ const mockKeys={'quiz-inf5b':['1','2','3','4','5','6']}; // Synthetic scoring fi
  await p.evaluate(()=>sessionStorage.removeItem('asStudent'));
  await p.goto(SITE+'board.html?b=inf5-board');
  await p.waitForFunction(()=>window.__board?.board()?.id==='inf5-board');
- await p.evaluate(()=>localStorage.setItem('bdSlLast',JSON.stringify({_: 'inf5', 'Информатика':'inf5'})));
+ await p.evaluate(()=>localStorage.setItem('bdSlLast',JSON.stringify({_: 'inf5-lesson', 'Информатика':'inf5-lesson'})));
  await p.reload();
  await p.waitForFunction(()=>window.__board?.board()?.id==='inf5-board');
  await p.locator('#bdSlBtn').click();
- assert.equal(await p.inputValue('#bdSlD'),'inf5-lesson');
+ assert.equal(await p.inputValue('#bdSlD'),'inf5-basics');
  assert.equal(await p.locator('#bdSl [data-k]').count(),12);
  await p.locator('#bdSl [data-k="11"]').click();
  await p.locator('#bdSlNext').click();
  const slides=await p.evaluate(()=>window.__board.els().map(x=>x.src));
- assert.deepEqual(slides,['sl:inf5-lesson/11','sl:inf5-lesson/12']);
- for (const id of ['inf5/10','inf5-90/21','inf5-lesson/11','inf5-lesson/12']) {
+ assert.deepEqual(slides,['sl:inf5-basics/11','sl:inf5-basics/12']);
+ for (const id of ['inf5/10','inf5-90/21','inf5-lesson/12','inf5-basics/11','inf5-basics/12']) {
   assert((await p.request.get(SITE+'assets/slides/'+id+'.jpg')).ok());
  }
  await p.goto(SITE+'journal.html');
