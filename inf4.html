@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Информатика · №4. Условие Фано</title>
+<script>document.documentElement.dataset.page="inf4";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=cde2999d">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
+  <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="on">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="index.html">Главная</a> · <a href="ege-inf.html">Информатика</a> · Условие Фано</div></div>
+<section class="hero"><div class="wrap narrow">
+<div class="kicker">ЕГЭ по информатике · задание №4</div>
+<h1>Условие Фано</h1>
+<p class="lede">От дерева кодов к короткому ответу: проверяем начало слова, находим свободную ветку и оставляем место другим буквам.</p>
+<div class="btns"><a class="btn" href="sinf4.html">Слайды</a><a class="btn ghost" href="wsinf4.html">Рабочий лист</a><a class="btn ghost" href="#inf4-practice">Задачи парами</a><a class="btn ghost" href="#inf4-homework">Домашка</a><a class="btn ghost" href="quiz-inf4a.html">Самопроверка</a></div>
+</div></section>
+<main class="wrap narrow">
+<div class="def"><span class="lbl">Прямое условие Фано</span><p>Ни одно кодовое слово не должно быть <b>началом</b> другого. Например, <code>10</code> и <code>101</code> конфликтуют, а <code>10</code> и <code>110</code> — нет.</p></div>
+<p>Кодовое слово — строка битов. <code>01</code> и <code>1</code> — разные слова. Пустое слово обозначается ε: это корень схемы, его буквам не назначают.</p>
+<figure><img src="assets/fig/inf4-tree.svg" width="600" height="310" alt="При кодах 00, 01 и 110 самый короткий свободный код — 10"><figcaption>От корня идём по битам слева направо.</figcaption></figure>
+<h2>Как выбрать код</h2>
+<ol class="steps"><li>Отметь занятые слова. Зачеркни всё ниже них: такие слова начинаются с уже занятого кода.</li><li>Не бери вершину, под которой есть занятый код: она сама будет его началом.</li><li>Иди от коротких слов к длинным. Если на одном уровне осталось несколько вариантов, выбери минимальное или максимальное число по условию. Для равной длины порядок кодов совпадает с их числовым порядком.</li><li>Если остались другие буквы, проверь, есть ли для них свободная ветка. Её можно разделить на дочерние ветви добавлением <code>0</code> и <code>1</code>.</li></ol>
+<div class="ex"><span class="lbl">Разбор</span><p>Даны <code>0</code>, <code>100</code>, <code>101</code>, <code>110</code>. Для двух новых букв нельзя взять <code>111</code> первой: она займёт последнюю свободную ветку целиком. Разделим её на <code>1110</code> и <code>1111</code>. Если нужно наименьшее короткое слово, берём <code>1110</code>.</p></div>
+<h3>Как читать сообщение</h3><p>Читай слева направо. Как только набралось кодовое слово из таблицы, запиши его букву и начни читать новое. Например, при А — <code>0</code>, Б — <code>10</code>, В — <code>11</code> строка <code>10110</code> делится как <code>10 | 11 | 0</code>, то есть БВА.</p>
+<h3>Проверка перебором на Python</h3>
+<p>Проверяем оба направления: готовое слово может быть началом нового и наоборот.</p>
+<pre style="overflow:auto"><code>def fits(candidate, codes):
+    return all(not candidate.startswith(w)
+               and not w.startswith(candidate)
+               for w in codes)</code></pre>
+<p>Для задачи на одну новую букву перебирай все слова длины 1, затем 2 и так далее. В задачах с несколькими новыми буквами одной этой проверки недостаточно: нужно проверить оставшиеся ветви.</p>
+<details><summary>Полный перебор для одной новой буквы</summary>
+<pre style="overflow:auto"><code>from itertools import product
+
+def shortest(codes, largest=False):
+    if not codes:
+        return '1' if largest else '0'
+    order = '10' if largest else '01'
+    for length in range(1, max(map(len, codes)) + 2):
+        for bits in product(order, repeat=length):
+            word = ''.join(bits)
+            if fits(word, codes):
+                return word
+    return None</code></pre>
+<p>Достаточно проверить глубину на один уровень ниже самого длинного занятого слова: если где-то есть свободный код, то есть и свободная ветка не глубже этого уровня. Если дерево полностью занято, функция вернёт <code>None</code>.</p></details>
+<section id="inf4-practice"><h2>Задачи парами</h2>
+<p>Сначала разберите А вместе. Сразу после неё реши Б тем же способом.</p>
+<section class="task"><h3>1. Найди свободную ветку</h3><p><b>А · Вместе.</b> Даны кодовые слова <code>00</code>, <code>01</code>, <code>110</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p><p><b>Б · Самостоятельно.</b> Даны кодовые слова <code>00</code>, <code>10</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p></section>
+<section class="task"><h3>2. Если короткий код занят</h3><p><b>А · Вместе.</b> Даны кодовые слова 0, <code>100</code>, <code>101</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p><p><b>Б · Самостоятельно.</b> Даны кодовые слова 1, <code>010</code>, <code>011</code>, <code>000</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</p></section>
+<section class="task"><h3>3. Оставь место ещё одной букве</h3><p><b>А · Вместе.</b> Даны кодовые слова 0, <code>100</code>, <code>101</code>, <code>110</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. После этого должно остаться место ещё для одной буквы. Ни одно слово не должно быть началом другого.</p><p><b>Б · Самостоятельно.</b> Даны кодовые слова 1, <code>000</code>, <code>001</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. После этого должно остаться место ещё для одной буквы. Ни одно слово не должно быть началом другого.</p></section></section>
+<section id="inf4-homework"><h2>Домашняя работа</h2>
+<div class="task"><span class="task-no">Д1</span>Даны кодовые слова 0, <code>100</code>, <code>110</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наименьшее по числовому значению. Ни одно слово не должно быть началом другого.</div>
+<div class="task"><span class="task-no">Д2</span>Даны кодовые слова 1, <code>000</code>, <code>010</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наибольшее по числовому значению. Ни одно слово не должно быть началом другого.</div>
+<div class="task"><span class="task-no">Д3</span>Даны кодовые слова <code>00</code>, <code>10</code>, <code>110</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наибольшее по числовому значению. Ни одно слово не должно быть началом другого.</div>
+<div class="task"><span class="task-no">Д4</span>Даны кодовые слова 0, <code>100</code>, <code>101</code>, <code>110</code>. Найди самое короткое слово для новой буквы. Если вариантов несколько, выбери наибольшее по числовому значению. После этого должно остаться место ещё для одной буквы. Ни одно слово не должно быть началом другого.</div>
+<div class="task"><span class="task-no">Д5</span>Коды: А — 0, Б — <code>10</code>, В — <code>110</code>, Г — <code>111</code>. Расшифруй <code>111010110</code> и запиши буквы без пробелов.</div>
+<div class="task"><span class="task-no">Д6</span>Коды: А — <code>00</code>, Б — <code>01</code>, В — <code>10</code>, Г — <code>110</code>, Д — <code>111</code>. Сколько бит занимает слово ДАГБВ?</div>
+<p>Если учитель назначил домашнюю самопроверку, открой её с карточки на странице <a href="homework.html">«Домашка»</a>: так первая попытка попадёт в журнал.</p></section>
+<p class="muted">Формат задания: <a href="https://fipi.ru/ege/demoversii-specifikacii-kodifikatory">демоверсии и спецификации ФИПИ</a>. Все упражнения в уроке авторские.</p>
+</main><footer><div class="wrap"><span>Кабинет математики · подготовка к ЕГЭ</span></div></footer></body></html>

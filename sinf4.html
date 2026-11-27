@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Слайды · Условие Фано</title>
+<script>document.documentElement.dataset.page="sinf4";document.documentElement.classList.add("auth-wait");setTimeout(function(){document.documentElement.classList.remove("auth-wait")},6000)</script><style>html.auth-wait body{visibility:hidden}</style><script src="assets/vendor/supabase.js"></script><script src="config.js?v=d4b70a7c"></script><script src="assets/auth.js?v=d4b70a7c"></script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/slides.css?v=bea01f5c">
+<style>#ui span{background:#332b21;border-radius:8px;padding:5px 8px}</style>
+</head>
+<body>
+<div id="stage"><div class="deck">
+<section class="slide title"><div class="band"></div><div class="lead">ЕГЭ · информатика</div><div class="num">04</div><div class="tx"><div class="h">Условие Фано</div><p class="t">Как найти свободный код</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Условие Фано</h2><p class="t">Ни одно слово не является началом другого.</p><p class="panel">10 и 101 конфликтуют. 10 и 110 не конфликтуют. Ведущий ноль — часть кода.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Дерево кодов</h2><p class="t">Каждый шаг добавляет один бит. Если вершина занята словом, продолжать вниз нельзя.</p><img style="display:block;max-height:325px;max-width:100%;margin:auto" src="assets/fig/inf4-tree.svg" alt="Дерево занятых и свободных кодов"></div></section>
+<section class="slide"><div class="in"><h2 class="h">Пара 1 · свободная ветка</h2><p class="t">А: даны 00, 01, 110. Найдите кратчайший код, при равной длине — наименьший.</p><p class="panel">Б: даны 00, 10, 010. Найдите код по тому же правилу.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Пара 2 · не бери начало чужого кода</h2><p class="t">А: даны 0, 100, 101. Найдите кратчайший код, при равной длине — наименьший.</p><p class="panel">Б: даны 1, 010, 011, 000. Найдите код по тому же правилу.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Зачем оставлять место?</h2><p class="t">Даны 0, 100, 101, 110. Ветка 111 — последняя свободная.</p><p class="panel">Если неизвестны два кода, нельзя занять 111 целиком. Разделите ветку на 1110 и 1111.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Пара 3 · две новые буквы</h2><p class="t">А: даны 0, 100, 101, 110. Выберите кратчайший, затем наименьший код, оставив место другой букве.</p><p class="panel">Б: даны 1, 000, 001, 010. Сделайте то же самое.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Как читать сообщение</h2><p class="t">При кодах А — 0, Б — 10, В — 11 разбиваем 10110 слева направо: 10 | 11 | 0.</p><p class="panel">Записываем БВА. Если дошли до конца кодового слова, дальше читаем новую букву.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">Проверка перед ответом</h2><p class="t">Кандидат не начинается с готового кода. И готовый код не начинается с кандидата.</p><p class="panel">Сначала сравни длины, потом сравни числовые значения. Если букв несколько, проверь оставшиеся ветви.</p></div></section>
+<section class="slide"><div class="in"><h2 class="h">После занятия</h2><p class="t">Выполни Д1–Д6 из «Домашки» и поясни выбор кода в Д1–Д4.</p><p class="panel">Домашнюю самопроверку открывай из назначенного задания.</p></div></section>
+</div></div>
+<div id="ui"><a href="inf4.html">← К уроку</a><button id="prev" aria-label="Предыдущий слайд">‹</button><span id="cnt"></span><button id="next" aria-label="Следующий слайд">›</button><button id="fs">Во весь экран</button></div>
+<script src="assets/slides.js?v=bea01f5c"></script></body></html>

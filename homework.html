@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
-<script src="assets/catalogs.js?v=3cde98c6174e"></script>
+<script src="assets/catalogs.js?v=f29af7bf38b6"></script>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -69,6 +69,7 @@
 var CATALOG = window.EDU_CATALOG.groups;
 var TOPIC = window.EDU_CATALOG.topics;
 function topicHref(key, teacher){
+  if (key === 'inf4') return teacher ? 't.html#ege-inf/inf4-teacher' : 'inf4.html';
   if (/^g\d+$/.test(key) || /^test-/.test(key)) return teacher ? 't.html#' + key : (/^test-/.test(key) ? '' : key + '.html');
   if (/^a\d+$/.test(key)) return teacher ? 't.html#' + key : key + '.html';
   if (/^m[ag]\d+$/.test(key)) return teacher ? 't.html#' + key : key + '.html';

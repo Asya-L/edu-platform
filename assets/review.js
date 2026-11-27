@@ -26,7 +26,8 @@
     var html = await pageCache[quiz]; if (!html) return null;
     var doc = new DOMParser().parseFromString(html, 'text/html'), b = doc.querySelector('.qz-q[data-q="' + q + '"]'); if (!b) return null;
     var opts = [].map.call(b.querySelectorAll('.qz-opts label span'), function(s){ return s.innerHTML; });
-    return {text: b.querySelector('.qz-t').innerHTML, options: opts.length ? opts : null};
+    var text = b.querySelector('.qz-t'); if (!text) return null;
+    return {text: text.innerHTML + (b.querySelector('[data-bits]') ? ' Запиши ответ в формате «код001», сохраняя ведущие нули.' : ''), options: opts.length ? opts : null};
   }
   // порядок: сначала ошибки двух–шестинедельной давности, потом более старые, потом свежие (от 3 дней); не больше двух вопросов из одного теста
   async function pick(sb, sid, n){

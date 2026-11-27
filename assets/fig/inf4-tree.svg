@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="310" viewBox="0 0 600 310" role="img" aria-labelledby="title">
+<title id="title">Дерево первых двух битов: 00 и 01 заняты, 10 свободно, под 11 уже есть код</title>
+<rect width="600" height="310" rx="20" fill="#fff"/>
+<g fill="none" stroke="#817491" stroke-width="2"><path d="M300 44 153 116M300 44 447 116M153 116 74 211M153 116 222 211M447 116 376 211M447 116 524 211"/></g>
+<g font-family="system-ui,sans-serif" font-weight="700" text-anchor="middle" fill="#302650"><circle cx="300" cy="44" r="25" fill="#ece2f8"/><text x="300" y="49" font-size="15">старт</text>
+<circle cx="153" cy="116" r="22" fill="#ece2f8"/><circle cx="447" cy="116" r="22" fill="#ece2f8"/><text x="153" y="122" font-size="21">0</text><text x="447" y="122" font-size="21">1</text>
+<rect x="42" y="191" width="64" height="40" rx="12" fill="#fae1e8"/><rect x="190" y="191" width="64" height="40" rx="12" fill="#fae1e8"/>
+<rect x="344" y="191" width="64" height="40" rx="12" fill="#d2f3e4"/><rect x="492" y="191" width="64" height="40" rx="12" fill="#fae1e8"/>
+<g font-family="monospace" font-size="26"><text x="74" y="219">00</text><text x="222" y="219">01</text><text x="376" y="219">10</text><text x="524" y="219">11</text></g>
+<g font-size="15"><text x="74" y="258">занято</text><text x="222" y="258">занято</text><text x="376" y="258">свободно</text><text x="524" y="258">начало 110</text></g></g></svg>
