@@ -221,7 +221,7 @@ var g5Pdfs = [
 ];
 var infPdfs = [
   {lesson:'inf4',title:'Условие Фано',number:4,material:'inf4-teacher',file:'Условие Фано — разбор для учителя.pdf'},
-  {lesson:'inf5',title:'Двоичные алгоритмы',number:5,material:'inf5-teacher',file:'Двоичные алгоритмы — разбор для учителя.pdf'}
+  {lesson:'inf5',title:'Двоичные алгоритмы',number:5,material:'inf5-teacher-90',label:'План на 90 минут и решения (PDF)',file:'Двоичные алгоритмы — разбор для учителя.pdf'}
 ];
 function addG5PdfButton(block,pdf){
   var control = document.createElement('p'), button = document.createElement('button');
@@ -333,7 +333,7 @@ async function route(){
         return '<section class="def" id="' + id + '-teacher" style="scroll-margin-top:96px"><h2>' + item.title + ' · задание №' + item.number + '</h2>' +
           '<div class="btns"><a class="btn" href="' + id + '.html">Конспект и практика</a><a class="btn ghost" href="s' + id + '.html">Слайды</a>' +
           '<a class="btn ghost" href="ws' + id + '.html">Рабочий лист</a><a class="btn ghost" href="quiz-' + id + 'a.html">Самопроверка на занятии</a>' +
-          '<button type="button" class="btn" id="' + id + '-solutions">План урока и решения (PDF)</button></div>' +
+          '<button type="button" class="btn" id="' + id + '-solutions">' + (item.label || 'План урока и решения (PDF)') + '</button></div>' +
           '<p>В журнале выберите «Информатика · ' + item.title + '», чтобы подставить задачи и домашнюю самопроверку.</p></section>';
       }).join(''));
     }

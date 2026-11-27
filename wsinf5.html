@@ -9,15 +9,51 @@
 <meta name="description" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=cde2999d">
-</head>
+<style>
+@media print {
+  @page {size:A4;margin:13mm}
+  .top,.hero,.printable + footer{display:none!important}
+  .printable{max-width:none;width:100%;padding:0}
+  .sheet-part {break-before:page}
+  .sheet-part:first-child {break-before:auto}
+  .sheet-part h2{font-size:18pt;margin:0 0 8pt}
+  .sheet-entry{break-inside:avoid;margin:0 0 7pt}
+  .sheet-entry .task{font-size:10.5pt;padding:5pt 7pt;margin:0}
+  .sheet-entry p{margin:2pt 0 0;font-size:9pt}
+  .sheet-work{height:26pt;border-bottom:1px solid #a49b92;background:linear-gradient(#a49b92,#a49b92) 0 50%/100% 1px no-repeat}
+  .printable figure{margin:0 auto 6pt}
+  .printable figure img{width:100%;max-width:360px;height:auto}
+}
+</style></head>
 <body>
 <header class="top"><div class="wrap">
   <a class="brand" href="index.html"><span class="logo">∑</span>Кабинет <span class="sub">математики</span></a>
   <nav class="nav"><a href="index.html" class="">Главная</a><a href="homework.html" class="">Домашка</a><a href="board.html" class="">Доска</a><a href="geometry.html" class="">Геометрия</a><a href="algebra.html" class="">Алгебра</a><a href="ege-math.html" class="">ЕГЭ</a><a href="ege-inf.html" class="on">Информатика</a><a href="reference.html" class="">Справочник</a><a href="library.html" class="">Материалы</a><a href="help.html" class="">Помощь</a></nav>
 </div></header>
-<section class="hero"><div class="wrap narrow"><div class="kicker">Информатика · рабочий лист</div><h1>Двоичные алгоритмы</h1><p class="lede">Для каждой задачи запиши исходное N, двоичную запись, дописанные биты и итоговое R.</p><div class="btns"><a class="btn ghost" href="inf5.html">← К уроку</a><button type="button" class="btn" onclick="window.print()">Распечатать</button></div></div></section>
-<main class="wrap narrow"><p>Имя: ____________________ Дата: ____________________</p>
-<figure><img src="assets/fig/inf5-table.svg" width="780" height="360" alt="Таблица для четырёх пробных значений N"></figure>
-<div class="task"><span class="task-no">1</span>N — положительное целое число. Если N чётное, дописываем справа 01; если нечётное — 10. Полученную двоичную запись переводим в десятичное число R. Найди наименьшее N, при котором R &gt; 53. Ответ запиши в десятичной системе.</div><p>Ответ и проверка: __________________________________________</p>
-<div class="task"><span class="task-no">2</span>N — положительное целое число. Дважды подряд дописываем справа остаток от деления числа единиц в текущей записи на 2. Второй раз пересчитываем единицы после первой дописки. Полученную двоичную запись переводим в десятичное число R. Найди наименьшее значение R, строго большее 24. Ответ запиши в десятичной системе.</div><p>Ответ и проверка: __________________________________________</p>
-<div class="task"><span class="task-no">3</span>N — положительное целое число. Если N делится на 3, дописываем справа 00. Иначе дописываем справа двоичную запись удвоенного остатка N от деления на 3, без ведущих нулей. Полученную двоичную запись переводим в десятичное число R. Найди наименьшее значение R, строго большее 45. Ответ запиши в десятичной системе.</div><p>Ответ и проверка: __________________________________________</p></main><footer><div class="wrap"><span>Кабинет математики · подготовка к ЕГЭ</span></div></footer></body></html>
+<section class="hero"><div class="wrap narrow"><div class="kicker">Информатика · рабочий лист</div><h1>Двоичные алгоритмы</h1><p class="lede">Записывай исходную и изменённую двоичные строки. В задачах на перебор укажи ответ и объясни, где заканчивается поиск.</p><div class="btns"><a class="btn ghost" href="inf5.html">← К уроку</a><button type="button" class="btn" onclick="window.print()">Распечатать</button></div></div></section>
+<main class="wrap narrow printable">
+<section class="sheet-part"><h2>Разминка и таблица для проверки</h2><p>Имя: ____________________ Дата: ____________________</p>
+<div class="sheet-entry"><div class="task"><span class="task-no">Р1</span>Переведи 13 в двоичную систему последовательным делением на 2.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">Р2</span>Переведи 10110₂ в десятичную систему через сумму степеней двойки.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">Р3</span>Даны записи 1010₂ и 1011₂. У какой число чётное? В какой записи чётное количество единиц?</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">Р4</span>К записи 101₂ допиши справа сначала 1, затем 0. Запиши итоговую строку и её значение.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<figure><img src="assets/fig/inf5-table.svg" width="780" height="360" alt="Таблица для четырёх пробных значений N"></figure></section>
+<section class="sheet-part"><h2>Парная практика · вариант Б</h2>
+<div class="sheet-entry"><div class="task"><span class="task-no">1Б</span>К двоичной записи положительного N справа дописываем 01, если N чётное, и 10, если N нечётное. Из новой записи получаем число R. Найди наименьшее N с R &gt; 53.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">2Б</span>Дважды подряд дописываем справа остаток от деления числа единиц в текущей записи на 2. После первого шага пересчитываем единицы. Из новой записи получаем число R. Найди наименьшее R, строго большее 24.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">3Б</span>Если N делится на 3, дописываем справа 00. Иначе дописываем двоичную запись удвоенного остатка от деления N на 3, без ведущих нулей. Из новой записи получаем число R. Найди наименьшее R, строго большее 45.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">4Б</span>Для N ≥ 4 заменяем два последних бита двоичной записи на 10. Из новой записи получаем число R. Найди наименьшее N с R &gt; 66.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">5Б</span>Для N ≥ 4 удаляем два последних бита. К оставшейся записи справа дописываем 1, если исходное N чётное, и 0, если оно нечётное. Из новой записи получаем число R. Найди наибольшее N с R &lt; 23.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">6Б</span>Для положительного N к его записи слева дописываем 10, если N чётное, и 1, если N нечётное. Из новой записи получаем число R. Найди наименьшее R, строго большее 24.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div></section>
+<section class="sheet-part"><h2>Самостоятельная практика</h2>
+<div class="sheet-entry"><div class="task"><span class="task-no">П1</span>К двоичной записи N = 19 допиши справа 001. Запиши новую строку и десятичное R.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">П2</span>Для N = 27 замени два последних двоичных бита на 00. Запиши новую строку и десятичное R.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">П3</span>Справа к двоичной записи положительного N дописывают его последний бит дважды. Найди наименьшее N, для которого R &gt; 75.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">П4</span>По алгоритму пары 2 вычисли R для N = 10 и N = 11. Для каждого N запиши строки после первой и второй дописки.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div><div class="sheet-entry"><div class="task"><span class="task-no">И1</span>Что вернёт перебор с break на первом совпадении, если N проверяются по возрастанию? Когда этого недостаточно?</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">И2</span>R = ⌊N/4⌋ после удаления двух битов. Какое первое N уже точно даёт R &gt; 20?</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div></section>
+<section class="sheet-part"><h2>Повышенная сложность</h2>
+<div class="sheet-entry"><div class="task"><span class="task-no">С1</span>Для N ≥ 4 замени два последних бита на 01 и затем допиши справа последний бит исходной записи. Найди наименьшее N с R &gt; 43.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">С2</span>Если положительное N делится на 3, допиши справа 000, иначе допиши 1. Найди наименьшее R, строго большее 45, и соответствующее N.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">С3</span>Для N ≥ 4 удали два последних бита и допиши справа младший бит исходной записи. Найди наибольшее N, для которого R ≤ 14. Объясни, почему большие N не подходят.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div>
+<div class="sheet-entry"><div class="task"><span class="task-no">С4</span>Если в исходной двоичной записи положительного N чётное число единиц, допиши 1 слева. Если нечётное — допиши 01 справа. Найди наименьшее R, строго большее 30, и соответствующее N.</div><p>Ход решения и ответ</p><div class="sheet-work" aria-hidden="true"></div></div></section>
+</main><footer><div class="wrap"><span>Кабинет математики · подготовка к ЕГЭ</span></div></footer></body></html>

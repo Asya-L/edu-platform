@@ -1658,7 +1658,7 @@ TBCAT.push(['quiz-inf4a','Условие Фано · самопроверка н
   ['quiz-inf5a','Двоичные алгоритмы · самопроверка на занятии','Информатика'],
   ['quiz-inf5b','Двоичные алгоритмы · домашняя самопроверка','Информатика']);
 SLIDES.push({id:'inf4',g:'Информатика',t:'№4 · Условие Фано',n:10});
-SLIDES.push({id:'inf5',g:'Информатика',t:'№5 · Двоичные алгоритмы',n:10});
+SLIDES.push({id:'inf5-90',g:'Информатика',t:'№5 · Двоичные алгоритмы',n:21});
 var tk = {sel: '', res: [], wsRes: [], showSt: true, showKey: false, cache: {}, cur: null}, tbKeyP = null;
 function b64u(x){ var b = atob(x), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
 function tbKey(){
@@ -1970,7 +1970,9 @@ var slLast = {};
 try { slLast = JSON.parse(localStorage.getItem('bdSlLast') || '{}') || {}; } catch (e) {}
 function slGroups(){ var g = []; SLIDES.forEach(function(x){ if (g.indexOf(x.g) < 0) g.push(x.g); }); return g; }
 function renderSlides(){
-  var f = $('bdSl'); if (!slDeck) slDeck = (lastSlide && lastSlide.d) || slLast._ || SLIDES[0].id; var d = SLIDES.find(function(x){ return x.id === slDeck; }) || SLIDES[0]; slDeck = d.id;
+  var f = $('bdSl'); if (!slDeck) slDeck = (lastSlide && lastSlide.d) || slLast._ || SLIDES[0].id;
+  if (slDeck === 'inf5') slDeck = 'inf5-90';
+  var d = SLIDES.find(function(x){ return x.id === slDeck; }) || SLIDES[0]; slDeck = d.id;
   slLast[d.g] = d.id; slLast._ = d.id; try { localStorage.setItem('bdSlLast', JSON.stringify(slLast)); } catch (e) {}
   var thumbs = ''; for (var k = 1; k <= d.n; k++) thumbs += '<button type="button" data-k="' + k + '"><img loading="lazy" src="assets/slides/' + d.id + '/' + pad2(k) + '.jpg" alt="">Слайд ' + k + '</button>';
   f.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><b style="font:900 18px var(--f-head)">Слайды урока</b>' +

@@ -14,13 +14,28 @@ const mockKeys={'quiz-inf5b':['1','2','3','4','5','6']}; // Synthetic scoring fi
  await p.goto(SITE+'help.html');
  await p.evaluate(()=>{
   localStorage.setItem('mockSession',JSON.stringify({user:{id:'u1',email:'teacher@test.local'}}));
-  localStorage.setItem('mockTeacherPdfs',JSON.stringify({'inf5-teacher':btoa('%PDF-1.4 mock5')}));
-  localStorage.setItem('mockdb',JSON.stringify({edu_profiles:[{user_id:'u1',role:'teacher'},{user_id:'u2',role:'student'}],edu_students:[{id:'inf-student',user_id:'u2',name:'Тестовый ученик'}],edu_lessons:[],edu_progress:[]}));
+  localStorage.setItem('mockTeacherPdfs',JSON.stringify({'inf5-teacher-90':btoa('%PDF-1.4 mock5')}));
+  localStorage.setItem('mockdb',JSON.stringify({edu_profiles:[{user_id:'u1',role:'teacher'},{user_id:'u2',role:'student'}],edu_students:[{id:'inf-student',user_id:'u2',name:'Тестовый ученик'}],edu_lessons:[],edu_progress:[],edu_boards:[{id:'inf5-board',student_id:'inf-student',title:'Доска к уроку',data:{els:[],bg:'grid'},revision:0}]}));
  });
  await p.goto(SITE+'t.html#ege-inf/inf5-teacher');
  await p.evaluate(()=>{window.open=()=>null;});
  const [download]=await Promise.all([p.waitForEvent('download'),p.locator('#inf5-solutions').click()]);
  assert.equal(download.suggestedFilename(),'Двоичные алгоритмы — разбор для учителя.pdf');
+ await p.goto(SITE+'board.html?b=inf5-board');
+ await p.waitForFunction(()=>window.__board?.board()?.id==='inf5-board');
+ await p.evaluate(()=>localStorage.setItem('bdSlLast',JSON.stringify({_: 'inf5', 'Информатика':'inf5'})));
+ await p.reload();
+ await p.waitForFunction(()=>window.__board?.board()?.id==='inf5-board');
+ await p.locator('#bdSlBtn').click();
+ assert.equal(await p.inputValue('#bdSlD'),'inf5-90');
+ assert.equal(await p.locator('#bdSl [data-k]').count(),21);
+ await p.locator('#bdSl [data-k="20"]').click();
+ await p.locator('#bdSlNext').click();
+ const slides=await p.evaluate(()=>window.__board.els().map(x=>x.src));
+ assert.deepEqual(slides,['sl:inf5-90/20','sl:inf5-90/21']);
+ for (const id of ['inf5/10','inf5-90/20','inf5-90/21']) {
+  assert((await p.request.get(SITE+'assets/slides/'+id+'.jpg')).ok());
+ }
  await p.goto(SITE+'journal.html');
  await p.selectOption('#lTopic','inf5');
  assert.equal(await p.inputValue('#lQuiz'),'quiz-inf5b');
@@ -30,15 +45,17 @@ const mockKeys={'quiz-inf5b':['1','2','3','4','5','6']}; // Synthetic scoring fi
  await p.evaluate(()=>localStorage.setItem('mockSession',JSON.stringify({user:{id:'u2',email:'kid@test.local'}})));
  await p.goto(SITE+'ege-inf.html');
  await p.getByRole('link',{name:'Урок №5 · Двоичные алгоритмы'}).click();
- assert.equal(await p.locator('#inf5-practice .task').count(),3);
- assert.equal(await p.locator('#inf5-homework .task').count(),6);
+ assert.equal(await p.locator('#inf5-practice .task').count(),6);
+ assert.equal(await p.locator('#inf5-solo .task').count(),8);
+ assert.equal(await p.locator('#inf5-theory .ex').count(),5);
+ assert.equal(await p.locator('#inf5-homework .task').count(),10);
  assert.equal(await p.locator('#inf5-solutions').count(),0);
  await p.setViewportSize({width:390,height:844});
  assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  await p.goto(SITE+'sinf5.html');
- assert.equal(await p.textContent('#cnt'),'1 / 10');
- await p.keyboard.press('End');assert.equal(await p.textContent('#cnt'),'10 / 10');
- await p.goto(SITE+'wsinf5.html');assert.equal(await p.locator('main .task').count(),3);
+ assert.equal(await p.textContent('#cnt'),'1 / 21');
+ await p.keyboard.press('End');assert.equal(await p.textContent('#cnt'),'21 / 21');
+ await p.goto(SITE+'wsinf5.html');assert.equal(await p.locator('main .task').count(),20);
  await p.goto(SITE+'homework.html');
  await p.locator('a[href^="quiz-inf5b.html?hw="]').click();
  await p.waitForSelector('#fano-assigned:not([hidden])');
